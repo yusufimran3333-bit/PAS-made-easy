@@ -349,6 +349,47 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .jl-dginfo{margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .jl-dginfo p{margin:3px 0 0}
 .jl-dglist{display:grid;gap:6px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));margin-top:6px}
+#cl .seg{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#cl .seg::-webkit-scrollbar{display:none}
+#cl .seg button{white-space:nowrap;flex:0 0 auto}
+.cl-histo{background:var(--sil);border-radius:10px;padding:6px}
+.cl-histo svg{width:100%;height:auto;max-height:420px;display:block}
+#cl svg .cl-mat{stroke:var(--line);stroke-width:1.5}
+#cl svg .cl-m-hy{fill:rgba(110,170,225,.30)}#cl svg .cl-m-el{fill:rgba(220,190,90,.30)}#cl svg .cl-m-fi{fill:rgba(190,100,130,.22)}
+#cl svg .cl-lac{fill:var(--surface);stroke:var(--muted);stroke-width:1.3}
+#cl svg .cl-nuc{fill:var(--accent)}
+#cl svg .cl-ef{fill:none;stroke:var(--ink);stroke-width:1.5;opacity:.55}
+#cl svg .cl-fb{stroke:var(--ink);stroke-width:10;stroke-linecap:round;opacity:.2;fill:none}
+#cl svg .cl-b{stroke:var(--line);stroke-width:1}
+#cl svg .cl-bsup{fill:rgba(110,170,225,.34)}#cl svg .cl-bmid{fill:rgba(110,170,225,.24)}#cl svg .cl-bdeep{fill:rgba(110,170,225,.42)}
+#cl svg .cl-bcalc{fill:rgba(150,150,160,.42)}#cl svg .cl-bbone{fill:var(--bone)}
+#cl svg .cl-cav{fill:var(--surface)}
+#cl svg .cl-fib{stroke:var(--ink);stroke-width:1.2;opacity:.45;fill:none}
+#cl svg .cl-cel{fill:var(--surface);stroke:var(--accent);stroke-width:1.6}
+#cl svg .cl-tide{stroke:var(--hl);stroke-width:2;stroke-dasharray:5 3}
+#cl svg .cl-hit{fill:transparent}
+#cl svg .cl-dot{fill:var(--ink);opacity:.35}
+#cl svg .cl-trab{fill:none;stroke:var(--bone-line);stroke-width:2.2;opacity:.8}
+#cl svg .cl-sept{stroke:var(--ink);opacity:.35;stroke-width:3}
+#cl svg .cl-dead{fill:var(--line);stroke:var(--muted);stroke-width:1.2}
+#cl svg .cl-spic{fill:rgba(120,120,130,.45);stroke:var(--bone-line);stroke-width:1}
+#cl svg .cl-ves{fill:none;stroke:#C0392B;stroke-width:2.4;opacity:.8}
+#cl svg .cl-lab{font:600 11px var(--f-body);fill:var(--ink);text-anchor:end;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round;pointer-events:none}
+#cl svg .cl-z{cursor:pointer}
+#cl svg .cl-z.sel .cl-b{stroke:var(--hl);stroke-width:3}
+#cl svg .cl-z.sel .cl-tide{stroke-width:4}
+.cl-det{margin-top:12px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
+.cl-det p{margin:4px 0 0}
+.cl-lgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.cl-l{display:grid;gap:6px;text-align:left;align-content:start;color:var(--ink);font:inherit;min-height:84px}
+.cl-l b{font-size:15.5px}.cl-l .jl-tag{justify-self:start}
+.cl-ln{font-size:13.5px;color:var(--muted)}.cl-q{font-size:13.5px;color:var(--muted);font-style:italic}
+.cl-l.hid{border-style:dashed}
+.cl-cxt{margin-left:8px;font-size:10.5px;padding:2px 8px}
+.cl-tbl{display:grid;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.cl-tr{display:grid;grid-template-columns:minmax(100px,.6fr) repeat(3,minmax(0,1fr));gap:10px;padding:9px 12px;border-top:1px solid var(--line);font-size:14px;align-items:start}
+.cl-tr:first-child{border-top:0}.cl-th{background:var(--bg);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+@media(max-width:640px){.cl-tr{grid-template-columns:1fr;gap:3px}.cl-th{display:none}.cl-tr span[data-l]::before{content:attr(data-l) ": ";font-weight:700;color:var(--muted)}}
 </style>
 
 <div class="app">
@@ -357,7 +398,7 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
       <h1>Anatomy Drill</h1>
       <p class="sub" id="prog"></p>
     </div>
-    <div class="hdr-r"><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button>
+    <div class="hdr-r"><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="clopen">Cartilage lab</button>
     <div class="seg" id="sysSeg" role="tablist" aria-label="System">
       <button data-act="sys" data-s="sk" class="on">Skeleton</button>
       <button data-act="sys" data-s="mu">Muscles</button>
@@ -431,6 +472,14 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
     <div class="seg" id="jltabs"><button data-jl="tab" data-t="classes" class="on">Classes</button><button data-jl="tab" data-t="types">Synovial types</button><button data-jl="tab" data-t="joints">Joints</button><button data-jl="tab" data-t="moves">Movements</button><button data-jl="tab" data-t="quiz">Quiz</button></div>
   </div>
   <div id="jlbody"></div>
+</div>
+<div id="cl" class="bl" hidden role="dialog" aria-label="Cartilage lab">
+  <div class="bl-top">
+    <button class="btn ghost small" data-cl="close">&larr; Back</button>
+    <h2>Cartilage lab</h2>
+    <div class="seg" id="cltabs"><button data-cl="tab" data-t="types" class="on">Types</button><button data-cl="tab" data-t="where">Where is it?</button><button data-cl="tab" data-t="zones">Zones</button><button data-cl="tab" data-t="clin">Clinical</button><button data-cl="tab" data-t="quiz">Quiz</button></div>
+  </div>
+  <div id="clbody"></div>
 </div>
 
 <script>/**
@@ -1224,6 +1273,7 @@ function act(a,d,ev){
     case 'v3open':v3Open();break;
     case 'blopen':blOpen();break;
     case 'jlopen':jlOpen();break;
+    case 'clopen':clOpen();break;
     case 'pickmc':answerMc(parseInt(d.i,10));break;
     case 'next':nextQ();break;
   }
@@ -5676,6 +5726,382 @@ function blJointsRow(b){
   if(!hits.length)return '';
   return '<div class="bl-sec"><b>Joints (tap to open in the Joint lab)</b><div class="bl-ex">'+hits.map(function(j){return '<button class="chip" data-bljoint="'+j.id+'">'+blE(j.n)+'</button>'}).join('')+'</div></div>';
 }
+
+/* ===== Cartilage lab data ===== */
+var CL_TYPES=[
+ {id:'hy',n:'Hyaline cartilage',s:'Hyaline',col:'#4A90C9',coll:'Type II (fine fibres)',peri:'Present, except on articular surfaces',
+  look:'Smooth, bluish-white and glassy. The collagen fibres are too fine to see under the microscope, so the matrix looks homogeneous.',
+  fn:'Smooth, low-friction surfaces and firm but slightly flexible support. It also acts as the template for most bones (endochondral ossification).',
+  feat:['Most abundant type of cartilage','Collagen is type II. Cartilage is "carti-TWO-lage"','Chondrocytes sit in lacunae, often in small clusters (isogenous groups) derived from one parent cell','Surrounded by perichondrium, except at articular surfaces','Tends to calcify and ossify with age (costal and thyroid cartilages)','Poor repair: no blood supply'],
+  tip:'Think smooth and supportive: joint surfaces, ribs, nose, airway.',
+  ex:['Articular cartilage','Costal cartilage','Nasal septum','Thyroid and cricoid cartilages','Tracheal rings','Growth plate']},
+ {id:'el',n:'Elastic cartilage',s:'Elastic',col:'#C9A227',coll:'Type II plus elastic fibres',peri:'Present',
+  look:'Yellowish and springy. A dense network of elastic fibres runs through the matrix and shows up with orcein or Verhoeff stain.',
+  fn:'Flexible support that springs back to shape.',
+  feat:['Type II collagen plus a dense network of elastic fibres','Stains with orcein or Verhoeff (elastic stains)','Perichondrium present','Resists calcification and ossification','Found where a structure must bend and recoil'],
+  tip:'Think floppy and bendy: ear and epiglottis.',
+  ex:['Auricle of the ear','Epiglottis','Corniculate cartilage','Cuneiform cartilage']},
+ {id:'fi',n:'Fibrocartilage',s:'Fibrocartilage',col:'#B5546F',coll:'Type I (thick bundles), some type II',peri:'Absent',
+  look:'Dense, white and tough. Thick bundles of type I collagen run in parallel, with rows of chondrocytes squeezed between them.',
+  fn:'Resists compression, tension and shear. It is the shock absorber and the strong, flexible link between bones.',
+  feat:['Thick type I collagen bundles with rows of chondrocytes between them','No perichondrium','Tough: resists both compression and tension or shear','Often blends into dense connective tissue (tendon, ligament) at its edges','Poor repair, though the outer (red) part of the meniscus has a blood supply'],
+  tip:'Think tough pads and links: discs, menisci, symphyses, labra.',
+  ex:['Intervertebral disc (annulus fibrosus)','Menisci of the knee','Pubic symphysis','Glenoid and acetabular labra','Tendon and ligament attachments to bone']}
+];
+var CL_STRUCT=[
+ ['Chondrocytes','The mature cartilage cells. They sit in small spaces (lacunae) in the matrix and make and maintain it. Chondroblasts are the immature, matrix-making cells.'],
+ ['Matrix','Collagen fibres (mainly type II) plus proteoglycans such as aggrecan, and a lot of water. The proteoglycans bind water and make cartilage firm yet springy under compression.'],
+ ['Perichondrium','A dense layer around most cartilage. Its outer layer is fibrous and its inner layer is chondrogenic (it makes new cartilage cells). Absent on articular cartilage and fibrocartilage.'],
+ ['No vessels, nerves or lymphatics','Cartilage is avascular, aneural and alymphatic. Nutrients reach cells by diffusion through the matrix, from the perichondrium or, for articular cartilage, from the synovial fluid.'],
+ ['Appositional growth','New cartilage added at the surface by cells from the perichondrium. It increases width.'],
+ ['Interstitial growth','Chondrocytes divide inside the matrix and secrete more around themselves. It increases length, as in the growth plate.']
+];
+/* regions: air, face, chest, jt, spine, dev */
+var CL_REG=[['air','Larynx and airway'],['face','Nose and ear'],['chest','Thorax'],['jt','Joints'],['spine','Spine and pelvis'],['dev','Growth and development']];
+var CL_LOC=[
+ ['Nasal septal cartilage','hy','face','Forms the front part of the nasal septum. The lateral nasal and greater alar cartilages are also hyaline.'],
+ ['Lateral nasal cartilage','hy','face','Forms the side of the bridge below the nasal bones.'],
+ ['Greater alar cartilage','hy','face','Shapes the nostril and the tip of the nose.'],
+ ['Auricle (external ear)','el','face','Elastic cartilage gives the ear its shape and spring. The lobule has no cartilage.'],
+ ['Thyroid cartilage','hy','air','The largest laryngeal cartilage, with the laryngeal prominence (Adam\'s apple). It calcifies with age.'],
+ ['Cricoid cartilage','hy','air','The only complete ring of cartilage in the airway. It lies below the thyroid cartilage.'],
+ ['Arytenoid cartilage','mix','air','Mostly hyaline, but the apex and the vocal process are elastic. It moves the vocal folds.'],
+ ['Epiglottis','el','air','A leaf-shaped flap that folds back over the laryngeal inlet when swallowing.'],
+ ['Corniculate cartilage','el','air','A small nodule on the apex of each arytenoid.'],
+ ['Cuneiform cartilage','el','air','A small rod in the aryepiglottic fold, in front of the corniculate cartilage.'],
+ ['Tracheal rings','hy','air','C-shaped, open posteriorly where the trachealis muscle and fibroelastic tissue close the gap.'],
+ ['Bronchial cartilage plates','hy','air','Irregular plates in the walls of the large bronchi that keep them open.'],
+ ['Costal cartilages','hy','chest','Connect the ribs to the sternum, directly (ribs 1 to 7) or via the cartilage above (ribs 8 to 10). They calcify with age.'],
+ ['First sternocostal joint','hy','chest','A primary cartilaginous joint (synchondrosis) between rib 1 and the manubrium.'],
+ ['Manubriosternal joint','fi','chest','A secondary cartilaginous joint (symphysis) that may ossify in older age.'],
+ ['Articular cartilage of synovial joints','hy','jt','Smooth, low-friction cover on bone ends. It has no perichondrium and is fed by synovial fluid.'],
+ ['Menisci of the knee','fi','jt','C-shaped medial and more circular lateral wedges that deepen the tibial plateau and absorb load.'],
+ ['Glenoid labrum','fi','jt','A fibrocartilage rim that deepens the glenoid fossa of the shoulder.'],
+ ['Acetabular labrum','fi','jt','A fibrocartilage rim that deepens the hip socket.'],
+ ['Articular disc of the sternoclavicular joint','fi','jt','Divides the joint cavity in two and helps stop the clavicle sliding medially.'],
+ ['Articular surfaces of the TMJ, SC and AC joints','fi','jt','Unusual synovial joints: their surfaces are covered by fibrocartilage, not hyaline cartilage.'],
+ ['Triangular fibrocartilage complex (wrist)','fi','jt','On the ulnar side of the wrist. Cushions and stabilises the distal radioulnar joint and carpus.'],
+ ['Tendon and ligament attachments (entheses)','fi','jt','The attachment of many tendons and ligaments to bone passes through fibrocartilage, which spreads the load.'],
+ ['Intervertebral disc: annulus fibrosus','fi','spine','The tough outer rings. The gelatinous nucleus pulposus inside is a notochord remnant.'],
+ ['Pubic symphysis','fi','spine','A secondary cartilaginous joint with an interpubic fibrocartilage disc. It loosens a little in pregnancy.'],
+ ['Epiphyseal growth plate (physis)','hy','dev','A sheet of hyaline cartilage that makes long bones grow in length until it fuses.'],
+ ['Fetal skeleton template','hy','dev','Most bones form by endochondral ossification: a hyaline cartilage model is replaced by bone.'],
+ ['Spheno-occipital synchondrosis','hy','dev','A primary cartilaginous joint in the skull base. It fuses in the late teens to early twenties.'],
+ ['Triradiate cartilage of the acetabulum','hy','dev','The Y-shaped cartilage where ilium, ischium and pubis meet. It fuses around puberty.']
+];
+CL_LOC.forEach(function(l){l.n=l[0];l.t=l[1];l.r=l[2];l.note=l[3]});
+/* Articular cartilage zones, from the joint surface down */
+var CL_AZ=[
+ {id:'sup',n:'Superficial (tangential) zone',t:'Thin. Collagen fibres run parallel to the surface and the chondrocytes are flattened. It has the most water and the least proteoglycan, and it resists shear.'},
+ {id:'mid',n:'Middle (transitional) zone',t:'Collagen fibres are thicker, oblique and loosely arranged. Chondrocytes are rounder and scattered. It is a transition between the surface and the deep zone.'},
+ {id:'deep',n:'Deep (radial) zone',t:'Collagen fibres run perpendicular to the surface and anchor into the layer below. Chondrocytes sit in vertical columns. Most proteoglycan and least water. It best resists compression.'},
+ {id:'tide',n:'Tidemark',t:'The thin line that separates uncalcified cartilage from the calcified layer beneath.'},
+ {id:'calc',n:'Calcified cartilage',t:'A thin calcified layer that anchors the cartilage to the subchondral bone.'},
+ {id:'bone',n:'Subchondral bone',t:'The bone plate beneath the cartilage. In osteoarthritis it thickens (sclerosis).'}
+];
+/* Growth plate zones, from the epiphysis towards the metaphysis */
+var CL_GZ=[
+ {id:'res',n:'Reserve (resting) zone',t:'Small, scattered chondrocytes next to the epiphysis. They are a store of cells and make matrix.'},
+ {id:'pro',n:'Proliferative zone',t:'Chondrocytes divide and line up in flat stacks (columns) along the long axis of the bone. This is where length is added.'},
+ {id:'hyp',n:'Hypertrophic zone',t:'The cells stop dividing and swell up. This is the weakest zone, and the usual path of Salter-Harris fractures and of slipped capital femoral epiphysis.'},
+ {id:'cal',n:'Zone of calcification',t:'The matrix between the columns calcifies and the chondrocytes die (apoptosis).'},
+ {id:'oss',n:'Zone of ossification',t:'Blood vessels from the metaphysis invade. Osteoblasts lay down bone on the calcified cartilage, which is later remodelled.'}
+];
+/* clinical: [title, region tag, text] */
+var CL_CX=[
+ ['Osteoarthritis','Joint','Articular cartilage thins, frays and wears away. On X-ray remember LOSS: Loss of joint space, Osteophytes, Subchondral sclerosis, Subchondral cysts. Cartilage has no nerves, so pain comes from the other joint structures (bone, synovium, capsule). Because it has no blood supply, repair is poor.'],
+ ['Meniscal tear','Joint','The medial meniscus is injured more often than the lateral: it is less mobile and attached to the medial collateral ligament. The outer (red) zone has a blood supply and can heal or be repaired. The inner (white) zone is avascular and rarely heals. Think of locking, giving way, joint-line tenderness and a positive McMurray test. The classic "unhappy triad" is ACL, MCL and medial meniscus, but studies show the lateral meniscus is torn more often in acute ACL injury.'],
+ ['Labral tears','Joint','A Bankart lesion is a tear of the anteroinferior glenoid labrum after an anterior shoulder dislocation. A SLAP lesion is a tear of the superior labrum from anterior to posterior. A tear of the acetabular labrum can go with femoroacetabular impingement (FAI) of the hip.'],
+ ['Intervertebral disc prolapse','Spine','The nucleus pulposus pushes through a tear in the annulus fibrosus. Most prolapses are posterolateral because the posterior longitudinal ligament is strongest in the midline. They are commonest in the lower lumbar spine (L4/5 and L5/S1) and can compress a nerve root, causing sciatica.'],
+ ['Costochondritis and Tietze syndrome','Chest','Both cause chest wall pain at the costal cartilages. Costochondritis is common, affects several cartilages and has no swelling. Tietze syndrome is rarer, usually affects the 2nd or 3rd cartilage and has localised swelling.'],
+ ['Cauliflower ear','Ear','A haematoma forms under the perichondrium after a blow, lifts it off the cartilage and cuts off its nutrition. The cartilage dies and re-forms as a lumpy deformity unless the blood is drained promptly.'],
+ ['Relapsing polychondritis','Autoimmune','Autoimmune inflammation of cartilage. It typically hits the ears (sparing the lobule, which has no cartilage), the nose (saddle deformity) and the airway.'],
+ ['Achondroplasia','Growth','Gain-of-function mutation in FGFR3 (autosomal dominant, usually a new mutation). It disrupts endochondral ossification at the growth plate, so limbs are short while the trunk is a normal length.'],
+ ['Salter-Harris fractures','Growth','Fractures through the growth plate in children. Type I is through the physis, II is above it (most common), III is lower (through the epiphysis), IV goes through both, and V is a crush. Remember SALTR. Growth plate injuries can affect later growth.'],
+ ['Slipped capital femoral epiphysis (SCFE)','Growth','The femoral head slips off the neck through the weak hypertrophic zone of the growth plate. Classically an overweight adolescent with hip, groin or referred knee pain.'],
+ ['Cartilage tumours','Tumour','Enchondroma is a benign cartilage tumour inside bone. Osteochondroma is a bony outgrowth with a cartilage cap and is the commonest benign bone tumour. Chondrosarcoma is the malignant cartilage tumour and responds poorly to chemotherapy.'],
+ ['Emergency airway','Larynx','In a cannot-intubate, cannot-oxygenate emergency, a surgical airway is made through the cricothyroid membrane, between the thyroid and cricoid cartilages. The cricoid is the only complete ring, which also makes it the narrowest part of the child\'s airway.'],
+ ['Why cartilage heals badly','Repair','No blood vessels means no clot and no easy supply of repair cells, and chondrocytes divide very little. Microfracture (making small holes in the bone beneath) lets marrow cells in, but the repair tissue is mostly fibrocartilage, not true hyaline cartilage.'],
+ ['Ageing','Ageing','Costal and thyroid cartilages commonly calcify, and may ossify. Articular cartilage loses water and thins, which makes it more vulnerable to wear.']
+];
+
+/* ===== Cartilage lab questions: c = ty, st, lo, cx ===== */
+var CL_QA=[
+ {c:'ty',q:'Which collagen is the main fibre in hyaline cartilage?',a:'Type II',w:['Type I','Type III','Type IV'],why:'Cartilage is "carti-TWO-lage". Fibrocartilage adds thick type I bundles.'},
+ {c:'ty',q:'Which is the most abundant type of cartilage in the body?',a:'Hyaline',w:['Elastic','Fibrocartilage'],why:'Hyaline cartilage covers joint surfaces and forms the costal, nasal and most laryngeal cartilages and the airway rings.'},
+ {c:'ty',q:'Which type of cartilage has a dense network of elastic fibres in its matrix?',a:'Elastic cartilage',w:['Hyaline cartilage','Fibrocartilage'],why:'The elastic fibres make it flexible and springy, as in the ear and epiglottis.'},
+ {c:'ty',q:'Which cartilage is built from thick bundles of type I collagen?',a:'Fibrocartilage',w:['Hyaline cartilage','Elastic cartilage'],why:'Thick, parallel type I bundles give fibrocartilage its toughness.'},
+ {c:'ty',q:'Which type of cartilage has no perichondrium throughout?',a:'Fibrocartilage',w:['Elastic cartilage','Hyaline cartilage'],why:'Fibrocartilage has none. Hyaline cartilage normally has one, except at articular surfaces.'},
+ {c:'ty',q:'Which cartilage type is best at resisting both compression and tension or shear?',a:'Fibrocartilage',w:['Hyaline cartilage','Elastic cartilage'],why:'That is why it forms discs, menisci and labra.'},
+ {c:'ty',q:'Which type of cartilage resists calcification with age?',a:'Elastic cartilage',w:['Hyaline cartilage','Fibrocartilage'],why:'Hyaline cartilage, such as costal and thyroid cartilage, commonly calcifies with age. Elastic cartilage does not.'},
+ {c:'ty',q:'Why does hyaline cartilage look glassy under the microscope?',a:'Its type II collagen fibres are too fine to see in the matrix',w:['It contains thick, visible collagen bundles','It is packed with elastic fibres','It has many blood vessels'],why:'"Hyaline" means glassy. The fine fibres blend into the matrix.'},
+ {c:'ty',q:'Which stain shows the elastic fibres in elastic cartilage?',a:'Orcein or Verhoeff',w:['Masson trichrome','Oil Red O','Congo red'],why:'Orcein and Verhoeff stain elastic fibres.'},
+ {c:'ty',q:'In which type of cartilage are chondrocytes lined up in rows between collagen bundles?',a:'Fibrocartilage',w:['Hyaline cartilage','Elastic cartilage'],why:'The rows of cells between parallel type I bundles are the hallmark of fibrocartilage.'},
+ {c:'ty',q:'Which is the main proteoglycan of cartilage?',a:'Aggrecan',w:['Fibronectin','Elastin','Laminin'],why:'Aggrecan carries glycosaminoglycans that bind water and let cartilage resist compression.'},
+ {c:'st',q:'How are cartilage cells nourished?',a:'By diffusion through the matrix',w:['By blood vessels running in the matrix','By Haversian canals','By nerve fibres'],why:'Cartilage is avascular. Nutrients diffuse from the perichondrium or, for articular cartilage, from synovial fluid.'},
+ {c:'st',q:'Which cells make cartilage matrix?',a:'Chondroblasts and chondrocytes',w:['Osteoblasts','Osteoclasts','Fibroblasts only'],why:'Chondroblasts make the matrix and become chondrocytes once they are surrounded by it.'},
+ {c:'st',q:'What is the small space that holds a chondrocyte called?',a:'Lacuna',w:['Canaliculus','Haversian canal','Osteon'],why:'Chondrocytes sit in lacunae in the matrix.'},
+ {c:'st',q:'Which layer of the perichondrium can form new cartilage cells?',a:'The inner chondrogenic layer',w:['The outer fibrous layer','Both layers equally','Neither: cartilage cannot be added from the perichondrium'],why:'The outer layer is fibrous. The inner layer holds chondroblast precursors.'},
+ {c:'st',q:'What is appositional growth of cartilage?',a:'New cartilage laid down on the surface by perichondrial cells',w:['Chondrocytes dividing inside the matrix','Cartilage being replaced by bone','Calcification of the matrix'],why:'Appositional growth adds width. Interstitial growth (cells dividing inside the matrix) adds length.'},
+ {c:'st',q:'What is a group of chondrocytes derived from one parent cell called?',a:'Isogenous group',w:['Osteon','Syncytium','Lacunar canal'],why:'Isogenous groups are a typical sight in hyaline cartilage.'},
+ {c:'st',q:'Which of these is NOT normally found in cartilage?',a:'Blood vessels',w:['Chondrocytes','Type II collagen','Proteoglycans'],why:'Cartilage is avascular, aneural and alymphatic.'},
+ {c:'st',q:'In which zone of articular cartilage do collagen fibres run parallel to the surface?',a:'Superficial zone',w:['Middle zone','Deep zone','Calcified zone'],why:'The superficial (tangential) zone resists shear.'},
+ {c:'st',q:'In which zone of articular cartilage are chondrocytes in vertical columns with perpendicular fibres?',a:'Deep zone',w:['Superficial zone','Middle zone','Tidemark'],why:'The deep (radial) zone anchors the cartilage and best resists compression.'},
+ {c:'st',q:'What does the tidemark separate?',a:'Uncalcified from calcified cartilage',w:['Cartilage from synovial fluid','Hyaline from fibrocartilage','Cartilage from the perichondrium'],why:'Below the tidemark, calcified cartilage anchors to subchondral bone.'},
+ {c:'st',q:'Which zone of articular cartilage has the highest water content?',a:'Superficial zone',w:['Middle zone','Deep zone','Calcified zone'],why:'Water content falls with depth, while proteoglycan content rises.'},
+ {c:'st',q:'What nourishes articular cartilage?',a:'Synovial fluid',w:['A perichondrial blood supply','Branches of the genicular arteries directly','Lymphatic drainage'],why:'Articular cartilage has no perichondrium or vessels. Nutrients diffuse in from synovial fluid.'},
+ {c:'st',q:'In which growth plate zone do chondrocytes divide and form columns?',a:'Proliferative zone',w:['Reserve zone','Hypertrophic zone','Zone of calcification'],why:'Cell division here adds length.'},
+ {c:'st',q:'Which growth plate zone is the weakest, where Salter-Harris fractures usually pass?',a:'Hypertrophic zone',w:['Reserve zone','Proliferative zone','Zone of ossification'],why:'The swollen cells and less matrix make it the weak point.'},
+ {c:'st',q:'What happens in the zone of calcification?',a:'The matrix calcifies and the chondrocytes die',w:['Chondrocytes divide in columns','Bone is laid down on the spicules','Cells are stored as a reserve'],why:'Osteoblasts then lay bone on this calcified cartilage in the next zone.'},
+ {c:'st',q:'Which growth plate zone sits closest to the epiphysis?',a:'Reserve (resting) zone',w:['Proliferative zone','Hypertrophic zone','Zone of ossification'],why:'Order from the epiphysis: reserve, proliferative, hypertrophic, calcification, ossification.'},
+ {c:'lo',q:'Which laryngeal cartilage is the only complete ring in the airway?',a:'Cricoid',w:['Thyroid','Arytenoid','Epiglottis'],why:'The cricoid lies below the thyroid cartilage. The tracheal rings are C-shaped.'},
+ {c:'lo',q:'How many laryngeal cartilages are there?',a:'Nine',w:['Six','Seven','Twelve'],why:'Three single (thyroid, cricoid, epiglottis) and three pairs (arytenoid, corniculate, cuneiform).'},
+ {c:'lo',q:'Which three laryngeal cartilages are paired?',a:'Arytenoid, corniculate, cuneiform',w:['Thyroid, cricoid, epiglottis','Thyroid, arytenoid, epiglottis','Cricoid, cuneiform, thyroid'],why:'Thyroid, cricoid and epiglottis are single.'},
+ {c:'lo',q:'What closes the gap in the C-shaped tracheal rings at the back?',a:'Trachealis muscle',w:['Cricothyroid membrane','An elastic cartilage plate','The annular ligament'],why:'The trachealis lets the trachea change diameter, for example during a cough, and lets food pass in the oesophagus behind.'},
+ {c:'lo',q:'Which ribs are the true (vertebrosternal) ribs?',a:'Ribs 1 to 7',w:['Ribs 1 to 10','Ribs 8 to 10','Ribs 11 and 12'],why:'Ribs 1 to 7 reach the sternum with their own costal cartilage. Ribs 8 to 10 join the cartilage above. Ribs 11 and 12 are floating.'},
+ {c:'lo',q:'Which sternocostal joint is a synchondrosis (primary cartilaginous joint)?',a:'First',w:['Second','Fourth','Seventh'],why:'Ribs 2 to 7 form synovial joints with the sternum.'},
+ {c:'lo',q:'Which part of the external ear has no cartilage?',a:'Lobule',w:['Helix','Antihelix','Tragus'],why:'The lobule is fat and skin. That is why relapsing polychondritis spares it.'},
+ {c:'lo',q:'A growth plate is an example of which type of joint?',a:'Primary cartilaginous joint (synchondrosis)',w:['Secondary cartilaginous joint (symphysis)','Fibrous joint (suture)','Synovial plane joint'],why:'Primary cartilaginous joints have hyaline cartilage and are temporary. Symphyses have fibrocartilage.'},
+ {c:'lo',q:'What is the nucleus pulposus a remnant of?',a:'The notochord',w:['The neural tube','A somite','The neural crest'],why:'The jelly-like nucleus sits inside the fibrocartilage annulus fibrosus.'},
+ {c:'lo',q:'Which meniscus is more C-shaped and attached to the medial collateral ligament?',a:'Medial meniscus',w:['Lateral meniscus','Both equally','Neither is attached to a ligament'],why:'The medial meniscus is less mobile, which makes it more prone to injury.'},
+ {c:'cx',q:'Which is NOT a typical X-ray feature of osteoarthritis?',a:'Periarticular osteopenia',w:['Osteophytes','Subchondral sclerosis','Loss of joint space'],why:'The OA X-ray features are LOSS: Loss of joint space, Osteophytes, Subchondral sclerosis, Subchondral cysts. Periarticular osteopenia is more a feature of rheumatoid arthritis.'},
+ {c:'cx',q:'Why is damage to articular cartilage itself painless?',a:'Cartilage has no nerve supply',w:['It has a rich blood supply','Its collagen is type I','It is covered by perichondrium'],why:'Pain in osteoarthritis comes from the bone, synovium and capsule.'},
+ {c:'cx',q:'What causes a cauliflower ear?',a:'A haematoma that lifts the perichondrium off the cartilage and cuts off its nutrition',w:['Infection of the earlobe','A fracture of the temporal bone','Chronic sun damage'],why:'The cartilage is nourished from the perichondrium, so it dies and re-forms lumpy unless the haematoma is drained.'},
+ {c:'cx',q:'Which part of the ear is spared in relapsing polychondritis?',a:'The lobule',w:['The helix','The antihelix','The tragus'],why:'The lobule has no cartilage.'},
+ {c:'cx',q:'Which condition causes localised swelling of a single costal cartilage, usually the 2nd or 3rd?',a:'Tietze syndrome',w:['Costochondritis','Pleurisy','Pericarditis'],why:'Costochondritis is more common and has no swelling.'},
+ {c:'cx',q:'Achondroplasia is caused by a gain-of-function mutation in which gene?',a:'FGFR3',w:['COL1A1','FBN1','CFTR'],why:'It impairs endochondral ossification at the growth plate: short limbs, normal trunk.'},
+ {c:'cx',q:'Which Salter-Harris type is the most common?',a:'Type II',w:['Type I','Type III','Type V'],why:'Type II goes through the physis and exits through the metaphysis. Remember SALTR.'},
+ {c:'cx',q:'Who is classically at risk of slipped capital femoral epiphysis?',a:'An overweight adolescent',w:['A frail older woman','A newborn','A middle-aged marathon runner'],why:'The femoral head slips through the hypertrophic zone, and can present as knee pain.'},
+ {c:'cx',q:'Which meniscus is injured more often?',a:'Medial',w:['Lateral','Equally','Neither'],why:'It is less mobile and attached to the medial collateral ligament.'},
+ {c:'cx',q:'Which part of the meniscus has a blood supply and can heal?',a:'The outer (red) zone',w:['The inner (white) zone','The free edge','All of it equally'],why:'The inner part is avascular and rarely heals.'},
+ {c:'cx',q:'A Bankart lesion is a tear of which structure?',a:'Anteroinferior glenoid labrum',w:['Superior glenoid labrum','Acetabular labrum','Supraspinatus'],why:'It follows anterior shoulder dislocation.'},
+ {c:'cx',q:'Why do lumbar disc prolapses usually go posterolaterally?',a:'The posterior longitudinal ligament is strongest in the midline',w:['The anterior ligament is thin','The annulus is thickest at the back','The facet joints push the disc backwards'],why:'The sides of the back of the disc are the weak spot.'},
+ {c:'cx',q:'Which is the malignant tumour of cartilage?',a:'Chondrosarcoma',w:['Osteosarcoma','Ewing sarcoma','Osteochondroma'],why:'Osteochondroma is benign. Chondrosarcoma responds poorly to chemotherapy.'},
+ {c:'cx',q:'Which is the most common benign bone tumour, a bony outgrowth with a cartilage cap?',a:'Osteochondroma',w:['Enchondroma','Osteoid osteoma','Giant cell tumour'],why:'It most often arises near the growth plate of a long bone.'},
+ {c:'cx',q:'What is the repair tissue after microfracture mostly made of?',a:'Fibrocartilage',w:['Hyaline cartilage','Elastic cartilage','Cortical bone'],why:'It is weaker and less durable than true hyaline cartilage.'},
+ {c:'cx',q:'Where is an emergency surgical airway made?',a:'Through the cricothyroid membrane',w:['Between the cricoid and first tracheal ring','Through the thyroid cartilage','Above the hyoid bone'],why:'The membrane lies between the thyroid and cricoid cartilages.'},
+ {c:'cx',q:'Which cartilages commonly calcify with age?',a:'Costal and thyroid',w:['Auricular and epiglottic','Menisci and labra','None: cartilage never calcifies'],why:'Hyaline cartilage tends to calcify. Elastic cartilage resists it.'}
+];
+
+/* ===== Cartilage lab UI ===== */
+var CL={tab:'types',ty:'hy',reg:'all',rev:{},cxo:{},hideT:false,az:'sup',gz:'pro',
+ qc:{ty:true,st:true,lo:true,cx:true},qn:10,q:null};
+var CLQC={ty:'Cartilage types',st:'Structure and growth',lo:'Where is it?',cx:'Clinical'};
+function clE(s){return blE(s)}
+function clType(id){return CL_TYPES.filter(function(t){return t.id===id})[0]}
+function clBody(){return document.getElementById('clbody')}
+function clOpen(){var o=document.getElementById('cl');o.hidden=false;document.body.style.overflow='hidden';clRender()}
+function clClose(){var o=document.getElementById('cl');o.hidden=true;document.body.style.overflow=''}
+function clTop(){var o=document.getElementById('cl');if(o)o.scrollTop=0}
+function clShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function clRender(){
+  var b=clBody();if(!b)return;
+  document.querySelectorAll('#cltabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===CL.tab)});
+  var h='';
+  if(CL.tab==='types')h=clTypesHTML();
+  else if(CL.tab==='where')h=clWhereHTML();
+  else if(CL.tab==='zones')h=clZonesHTML();
+  else if(CL.tab==='clin')h=clClinHTML();
+  else h=clQuizHTML();
+  b.innerHTML=h;
+}
+
+/* ---------- schematic histology ---------- */
+function clCell(x,y,rx,ry){return '<ellipse class="cl-lac" cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'"/><ellipse class="cl-nuc" cx="'+x+'" cy="'+y+'" rx="'+(rx*.5).toFixed(1)+'" ry="'+(ry*.55).toFixed(1)+'"/>'}
+function clHisto(id){
+  var h='<svg viewBox="0 0 240 150" role="img" aria-label="Schematic of '+clE(clType(id).n)+' under the microscope"><rect class="cl-mat cl-m-'+id+'" x="0" y="0" width="240" height="150" rx="8"/>';
+  var i,k;
+  if(id==='hy'){
+    [[[50,40],[67,47]],[[150,34],[166,41],[157,57]],[[88,98],[105,104]],[[190,100],[205,92]],[[38,118]],[[130,128]],[[200,38]]].forEach(function(g){g.forEach(function(c){h+=clCell(c[0],c[1],10,7)})});
+  }else if(id==='el'){
+    ['M-5 22 Q25 2 55 24 T115 20 T175 30 T245 14','M-5 62 Q30 44 62 66 T125 58 T190 70 T245 52','M-5 104 Q28 86 60 108 T120 100 T185 112 T245 96','M-5 140 Q35 124 70 142 T135 136 T200 144 T245 130','M30 -5 Q44 40 28 80 T40 155','M110 -5 Q96 40 114 80 T104 155','M185 -5 Q200 40 182 80 T194 155'].forEach(function(p){h+='<path class="cl-ef" d="'+p+'"/>'});
+    [[48,46],[122,40],[182,50],[84,84],[154,86],[212,92],[36,122],[120,122],[196,128]].forEach(function(c){h+=clCell(c[0],c[1],9,6.5)});
+  }else{
+    for(i=0;i<5;i++){var y0=18+i*29;h+='<path class="cl-fb" d="M-5 '+(y0+8)+' L245 '+(y0-8)+'"/>';
+      for(k=0;k<3;k++){var x=34+k*76+(i%2)*28,y=y0+15-(x/240)*16;h+=clCell(x,y.toFixed(1),9,4.6)}}
+  }
+  return h+'</svg>';
+}
+var CL_CAP={hy:'Cells in lacunae, often in small groups, in a smooth glassy matrix.',el:'Cells in lacunae within a dense network of dark elastic fibres.',fi:'Rows of cells between thick, parallel collagen bundles.'};
+
+/* ---------- types ---------- */
+function clTypesHTML(){
+  var t=clType(CL.ty);
+  var h='<div class="bl-wrap"><div class="bl-row"><div class="seg">'+CL_TYPES.map(function(x){return '<button data-cl="type" data-id="'+x.id+'" class="'+(x.id===CL.ty?'on':'')+'">'+clE(x.s)+'</button>'}).join('')+'</div></div>';
+  h+='<div class="bl-grid"><section class="card bl-stage"><div class="cl-histo">'+clHisto(t.id)+'</div><p class="bl-hint">'+clE(CL_CAP[t.id])+' A schematic, not a real slide.</p></section>';
+  h+='<section class="card"><p class="eyebrow">Type of cartilage</p><h2>'+clE(t.n)+'</h2><div class="jl-tags"><span class="jl-tag" style="background:'+t.col+';color:#fff">'+clE(t.coll)+'</span></div>';
+  h+='<div class="bl-sec"><b>What it looks like</b><p>'+clE(t.look)+'</p></div>';
+  h+='<div class="bl-sec"><b>What it does</b><p>'+clE(t.fn)+'</p></div>';
+  h+='<div class="bl-sec"><b>Key features</b><ul class="bl-ul">'+t.feat.map(function(f){return '<li>'+clE(f)+'</li>'}).join('')+'</ul></div>';
+  h+='<div class="bl-sec"><b>Examples</b><div class="bl-ex">'+t.ex.map(function(e){return '<span>'+clE(e)+'</span>'}).join('')+'</div></div>';
+  h+='<div class="bl-sec"><b>How to remember it</b><p>'+clE(t.tip)+'</p></div></section></div>';
+  h+='<div class="card" style="margin-top:14px"><h3 style="font:400 24px/1.1 var(--f-display);margin:0 0 6px">What all cartilage has in common</h3><div class="jl-sgrid">';
+  CL_STRUCT.forEach(function(s){h+='<div class="jl-s"><b>'+clE(s[0])+'</b><p>'+clE(s[1])+'</p></div>'});
+  h+='</div></div>';
+  var rows=[['Collagen','Type II (fine)','Type II plus elastic fibres','Type I (thick bundles)'],['Appearance','Glassy, bluish-white','Yellowish, springy','White, dense, tough'],['Perichondrium','Yes, except on articular surfaces','Yes','No'],['Calcifies with age','Often','Resists','Not typically'],['Best at','Smooth surfaces and support','Flexible recoil','Compression, tension and shear'],['Typical sites','Joint surfaces, ribs, nose, airway, growth plate','Ear, epiglottis','Discs, menisci, symphyses, labra']];
+  h+='<div class="card" style="margin-top:14px"><h3 style="font:400 24px/1.1 var(--f-display);margin:0 0 6px">Side by side</h3><div class="cl-tbl"><div class="cl-tr cl-th"><span></span><span>Hyaline</span><span>Elastic</span><span>Fibrocartilage</span></div>';
+  rows.forEach(function(r){h+='<div class="cl-tr"><span><b>'+clE(r[0])+'</b></span><span data-l="Hyaline">'+clE(r[1])+'</span><span data-l="Elastic">'+clE(r[2])+'</span><span data-l="Fibrocartilage">'+clE(r[3])+'</span></div>'});
+  h+='</div></div></div>';
+  return h;
+}
+
+/* ---------- where ---------- */
+function clWhereHTML(){
+  var list=CL_LOC.filter(function(l){return CL.reg==='all'||l.r===CL.reg});
+  var h='<div class="bl-wrap"><div class="bl-row"><div class="seg"><button data-cl="reg" data-r="all" class="'+(CL.reg==='all'?'on':'')+'">All</button>'+CL_REG.map(function(r){return '<button data-cl="reg" data-r="'+r[0]+'" class="'+(CL.reg===r[0]?'on':'')+'">'+clE(r[1])+'</button>'}).join('')+'</div></div>';
+  h+='<div class="bl-row"><button class="chip'+(CL.hideT?' on':'')+'" data-cl="hidet" aria-pressed="'+CL.hideT+'">Test yourself: hide the type</button></div>';
+  h+='<p class="muted" style="margin:4px 2px 10px">Tap a card to reveal its type when the type is hidden.</p><div class="cl-lgrid">';
+  list.forEach(function(l){
+    var t=l.t==='mix'?null:clType(l.t),show=!CL.hideT||CL.rev[l.n];
+    var tag=t?'<span class="jl-tag" style="background:'+t.col+';color:#fff">'+clE(t.s)+'</span>':'<span class="jl-tag" style="background:#7A8596;color:#fff">Hyaline and elastic</span>';
+    h+='<button class="card cl-l'+(show?'':' hid')+'" data-cl="reveal" data-n="'+clE(l.n)+'"><b>'+clE(l.n)+'</b>'+(show?tag+'<span class="cl-ln">'+clE(l.note)+'</span>':'<span class="cl-q">Which type? Tap to reveal.</span>')+'</button>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
+/* ---------- zones ---------- */
+function clArtSVG(){
+  var s=CL.az,c=function(id){return 'cl-z'+(s===id?' sel':'')};
+  var h='<svg viewBox="0 0 320 250" role="img" aria-label="Schematic of the zones of articular cartilage"><rect class="cl-cav" x="0" y="0" width="320" height="14"/><text class="cl-lab" x="8" y="10" style="text-anchor:start">joint space</text>';
+  /* superficial */
+  h+='<g class="'+c('sup')+'" data-cl="az" data-id="sup"><rect class="cl-b cl-bsup" x="0" y="14" width="320" height="26"/>';
+  for(var i=0;i<3;i++)h+='<line class="cl-fib" x1="0" y1="'+(21+i*7)+'" x2="320" y2="'+(21+i*7)+'"/>';
+  [30,95,160,225].forEach(function(x){h+='<ellipse class="cl-cel" cx="'+x+'" cy="27" rx="10" ry="3.2"/>'});
+  h+='<text class="cl-lab" x="312" y="31">Superficial</text></g>';
+  /* middle */
+  h+='<g class="'+c('mid')+'" data-cl="az" data-id="mid"><rect class="cl-b cl-bmid" x="0" y="40" width="320" height="60"/>';
+  ['M0 60 Q40 48 80 62 T160 58 T240 62 T320 56','M0 78 Q40 66 80 80 T160 76 T240 80 T320 74','M0 94 Q40 84 80 96 T160 92 T240 96 T320 90'].forEach(function(p){h+='<path class="cl-fib" d="'+p+'"/>'});
+  [[34,56],[88,72],[142,52],[196,76],[250,58],[300,80],[60,88],[170,90],[270,96]].forEach(function(p){h+='<circle class="cl-cel" cx="'+p[0]+'" cy="'+p[1]+'" r="5"/>'});
+  h+='<text class="cl-lab" x="312" y="70">Middle</text></g>';
+  /* deep */
+  h+='<g class="'+c('deep')+'" data-cl="az" data-id="deep"><rect class="cl-b cl-bdeep" x="0" y="100" width="320" height="60"/>';
+  [50,110,170,230].forEach(function(x){h+='<line class="cl-fib" x1="'+(x-18)+'" y1="100" x2="'+(x-18)+'" y2="160"/>';[112,128,144].forEach(function(y){h+='<circle class="cl-cel" cx="'+x+'" cy="'+y+'" r="5.5"/>'})});
+  h+='<text class="cl-lab" x="312" y="130">Deep</text></g>';
+  /* calcified */
+  h+='<g class="'+c('calc')+'" data-cl="az" data-id="calc"><rect class="cl-b cl-bcalc" x="0" y="161" width="320" height="18"/>';
+  for(var k=0;k<32;k++)h+='<circle class="cl-dot" cx="'+(6+k*10)+'" cy="'+(166+(k%3)*5)+'" r="1.3"/>';
+  h+='<text class="cl-lab" x="312" y="174">Calcified cartilage</text></g>';
+  /* bone */
+  h+='<g class="'+c('bone')+'" data-cl="az" data-id="bone"><rect class="cl-b cl-bbone" x="0" y="179" width="320" height="71"/>';
+  ['M0 205 Q60 190 120 210 T240 205 T320 212','M0 232 Q70 218 130 236 T250 230 T320 238','M60 180 Q50 215 70 250','M180 180 Q196 215 176 250','M270 180 Q256 215 280 250'].forEach(function(p){h+='<path class="cl-trab" d="'+p+'"/>'});
+  h+='<text class="cl-lab" x="312" y="244">Subchondral bone</text></g>';
+  /* tidemark */
+  h+='<g class="'+c('tide')+'" data-cl="az" data-id="tide"><rect class="cl-hit" x="0" y="152" width="320" height="16"/><line class="cl-tide" x1="0" y1="160" x2="320" y2="160"/><text class="cl-lab" x="312" y="154">Tidemark</text></g>';
+  h+='</svg>';
+  return h;
+}
+function clGrowSVG(){
+  var s=CL.gz,c=function(id){return 'cl-z'+(s===id?' sel':'')};
+  var h='<svg viewBox="0 0 320 270" role="img" aria-label="Schematic of the zones of the growth plate"><rect class="cl-b cl-bbone" x="0" y="0" width="320" height="24"/><text class="cl-lab" x="8" y="15" style="text-anchor:start">epiphysis (bone)</text>';
+  h+='<g class="'+c('res')+'" data-cl="gz" data-id="res"><rect class="cl-b cl-bmid" x="0" y="24" width="320" height="42"/>';
+  [[30,40],[76,52],[118,34],[166,50],[212,38],[250,56]].forEach(function(p){h+='<circle class="cl-cel" cx="'+p[0]+'" cy="'+p[1]+'" r="4.5"/>'});
+  h+='<text class="cl-lab" x="312" y="62">Reserve</text></g>';
+  h+='<g class="'+c('pro')+'" data-cl="gz" data-id="pro"><rect class="cl-b cl-bsup" x="0" y="66" width="320" height="60"/>';
+  for(var k=0;k<5;k++)for(var j=0;j<5;j++)h+='<ellipse class="cl-cel" cx="'+(34+k*46)+'" cy="'+(76+j*10)+'" rx="10" ry="3.4"/>';
+  h+='<text class="cl-lab" x="312" y="120">Proliferative</text></g>';
+  h+='<g class="'+c('hyp')+'" data-cl="gz" data-id="hyp"><rect class="cl-b cl-bdeep" x="0" y="126" width="320" height="52"/>';
+  for(var k2=0;k2<5;k2++)for(var j2=0;j2<3;j2++)h+='<circle class="cl-cel" cx="'+(34+k2*46)+'" cy="'+(138+j2*16)+'" r="7.5"/>';
+  h+='<text class="cl-lab" x="312" y="172">Hypertrophic</text></g>';
+  h+='<g class="'+c('cal')+'" data-cl="gz" data-id="cal"><rect class="cl-b cl-bcalc" x="0" y="178" width="320" height="26"/>';
+  for(var k3=0;k3<5;k3++)h+='<line class="cl-sept" x1="'+(57+k3*46)+'" y1="178" x2="'+(57+k3*46)+'" y2="204"/><circle class="cl-dead" cx="'+(34+k3*46)+'" cy="191" r="5"/>';
+  h+='<text class="cl-lab" x="312" y="200">Calcification</text></g>';
+  h+='<g class="'+c('oss')+'" data-cl="gz" data-id="oss"><rect class="cl-b cl-bbone" x="0" y="204" width="320" height="66"/>';
+  for(var k4=0;k4<5;k4++)h+='<rect class="cl-spic" x="'+(52+k4*46)+'" y="204" width="10" height="66" rx="3"/>';
+  h+='<path class="cl-ves" d="M34 270 L34 214 M80 270 L80 222 M126 270 L126 214 M172 270 L172 224 M218 270 L218 216"/><text class="cl-lab" x="312" y="262">Ossification</text></g></svg>';
+  return h;
+}
+function clZonesHTML(){
+  var a=CL_AZ.filter(function(z){return z.id===CL.az})[0],g=CL_GZ.filter(function(z){return z.id===CL.gz})[0];
+  var h='<div class="bl-wrap"><div class="card"><p class="eyebrow">Layers</p><h2>Articular cartilage</h2><p class="muted">Tap a layer, in the picture or the list, to read about it.</p></div><div class="bl-grid" style="margin-top:12px"><section class="card bl-stage"><div class="cl-histo">'+clArtSVG()+'</div><p class="bl-hint">A schematic. Layer thicknesses are not to scale.</p></section><section class="card">';
+  h+='<div class="bl-ex">'+CL_AZ.map(function(z){return '<button class="chip'+(z.id===CL.az?' on':'')+'" data-cl="az" data-id="'+z.id+'">'+clE(z.n.replace(/ \(.*\)/,''))+'</button>'}).join('')+'</div>';
+  h+='<div class="cl-det"><b>'+clE(a.n)+'</b><p>'+clE(a.t)+'</p></div>';
+  h+='<p class="muted" style="margin:10px 0 0;font-size:13.5px">Articular cartilage is hyaline. It has no perichondrium and is nourished by synovial fluid. The layers differ mainly in how their collagen is arranged: parallel at the surface, perpendicular in the depths.</p></section></div>';
+  h+='<div class="card" style="margin-top:14px"><p class="eyebrow">Growth</p><h2>The growth plate (physis)</h2><p class="muted">Cartilage grows the bone in length. Zones run from the epiphysis towards the shaft.</p></div><div class="bl-grid" style="margin-top:12px"><section class="card bl-stage"><div class="cl-histo">'+clGrowSVG()+'</div><p class="bl-hint">A schematic, not to scale.</p></section><section class="card">';
+  h+='<div class="bl-ex">'+CL_GZ.map(function(z){return '<button class="chip'+(z.id===CL.gz?' on':'')+'" data-cl="gz" data-id="'+z.id+'">'+clE(z.n.replace(/ \(.*\)/,'').replace(' zone','').replace('Zone of ','').replace(/^./,function(m){return m.toUpperCase()}))+'</button>'}).join('')+'</div>';
+  h+='<div class="cl-det"><b>'+clE(g.n)+'</b><p>'+clE(g.t)+'</p></div>';
+  h+='<p class="muted" style="margin:10px 0 0;font-size:13.5px">Order from the epiphysis: reserve, proliferative, hypertrophic, calcification, ossification. The growth plate is a primary cartilaginous joint made of hyaline cartilage.</p></section></div></div>';
+  return h;
+}
+
+/* ---------- clinical ---------- */
+function clClinHTML(){
+  var h='<div class="bl-wrap"><div class="card"><p class="eyebrow">Why it matters</p><h2>Clinical links</h2><p class="muted">Cartilage has no blood supply, no nerves and few dividing cells. Most of what goes wrong follows from that.</p></div><div class="card" style="margin-top:12px">';
+  CL_CX.forEach(function(c,i){h+='<details class="jl-d"'+(CL.cxo[i]?' open':'')+' data-i="'+i+'"><summary>'+clE(c[0])+' <span class="jl-tag cl-cxt">'+clE(c[1])+'</span></summary><p>'+clE(c[2])+'</p></details>'});
+  h+='</div></div>';
+  return h;
+}
+
+/* ---------- quiz ---------- */
+function clPool(){
+  var pool=[];
+  CL_QA.forEach(function(x){if(CL.qc[x.c])pool.push({q:x.q,a:x.a,w:x.w,why:x.why})});
+  if(CL.qc.lo){
+    var names=CL_TYPES.map(function(t){return t.n});
+    CL_LOC.forEach(function(l){if(l.t==='mix')return;var t=clType(l.t);
+      pool.push({q:'Which type of cartilage forms the '+l.n.charAt(0).toLowerCase()+l.n.slice(1)+'?',a:t.n,w:names.filter(function(n){return n!==t.n}),why:l.note})});
+  }
+  return pool;
+}
+function clQuizHTML(){
+  var Q=CL.q;
+  if(!Q||Q.phase==='setup'){
+    var pool=clPool(),h='<div class="bl-wrap"><div class="card"><p class="eyebrow">Quiz</p><h2>Test yourself on cartilage</h2><p class="muted">Pick the topics, then start. You get an explanation after every answer.</p>';
+    h+='<div class="bl-row">'+Object.keys(CLQC).map(function(k){return '<button class="chip'+(CL.qc[k]?' on':'')+'" data-cl="qcat" data-k="'+k+'" aria-pressed="'+!!CL.qc[k]+'">'+clE(CLQC[k])+'</button>'}).join('')+'</div>';
+    h+='<div class="bl-row"><span class="eyebrow" style="margin:0">Questions</span>'+[10,20,0].map(function(n){return '<button class="chip'+(CL.qn===n?' on':'')+'" data-cl="qn" data-n="'+n+'">'+(n||'All')+'</button>'}).join('')+'</div>';
+    h+='<p class="muted">'+pool.length+' questions available with these topics.</p><button class="btn" data-cl="qstart"'+(pool.length?'':' disabled')+'>Start quiz</button></div></div>';
+    return h;
+  }
+  if(Q.phase==='done'){
+    var h2='<div class="bl-wrap"><div class="card"><p class="eyebrow">Round finished</p><h2>'+Q.score+' out of '+Q.n+'</h2>';
+    if(Q.missed.length){h2+='<p class="muted">Worth another look:</p><ul class="bl-ul">'+Q.missed.map(function(m){return '<li>'+clE(m.q)+' <b>'+clE(m.a)+'</b></li>'}).join('')+'</ul>'}
+    else h2+='<p class="muted">No misses. Nice.</p>';
+    h2+='<div class="bl-row" style="margin-top:12px">'+(Q.missed.length?'<button class="btn" data-cl="qretry">Practise the misses</button>':'')+'<button class="btn ghost" data-cl="qend">New round</button></div></div></div>';
+    return h2;
+  }
+  var c=Q.cur;
+  var h3='<div class="bl-wrap"><div class="card"><div class="bl-score"><span>Question '+(Q.i+1)+' of '+Q.n+'</span><span>Score '+Q.score+'</span></div><p class="bl-q">'+clE(c.q)+'</p><div class="bl-opts">';
+  c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
+    h3+='<button class="'+cls+'" data-cl="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+clE(o)+'</button>'});
+  h3+='</div>';
+  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'It is '+clE(c.a)+'. ')+clE(c.why)+'</div><button class="btn" data-cl="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  h3+='<div class="bl-row" style="margin-top:10px"><button class="btn small ghost" data-cl="qend">End round</button></div></div></div>';
+  return h3;
+}
+function clQStart(list){
+  var qs=list||clShuf(clPool());if(!list&&CL.qn)qs=qs.slice(0,CL.qn);
+  if(!qs.length)return;
+  CL.q={phase:'run',qs:qs,i:0,n:qs.length,score:0,missed:[],ans:null,cur:null};clQSet();
+}
+function clQSet(){var Q=CL.q,x=Q.qs[Q.i];Q.cur={q:x.q,a:x.a,why:x.why,opts:clShuf([x.a].concat(x.w))};Q.ans=null}
+
+/* ---------- events ---------- */
+function clAct(e){
+  var sm=e.target.closest&&e.target.closest('#cl details.jl-d summary');
+  if(sm){var dt=sm.parentNode;setTimeout(function(){CL.cxo[dt.dataset.i]=dt.open},0);return}
+  var el=e.target.closest&&e.target.closest('[data-cl]');if(!el)return;
+  var a=el.dataset.cl,d=el.dataset;
+  switch(a){
+    case 'close':clClose();break;
+    case 'tab':CL.tab=d.t;clRender();clTop();break;
+    case 'type':CL.ty=d.id;clRender();break;
+    case 'reg':CL.reg=d.r;clRender();break;
+    case 'hidet':CL.hideT=!CL.hideT;CL.rev={};clRender();break;
+    case 'reveal':if(CL.hideT){CL.rev[d.n]=!CL.rev[d.n];clRender()}break;
+    case 'az':CL.az=d.id;clRender();break;
+    case 'gz':CL.gz=d.id;clRender();break;
+    case 'qcat':CL.qc[d.k]=!CL.qc[d.k];clRender();break;
+    case 'qn':CL.qn=parseInt(d.n,10);clRender();break;
+    case 'qstart':clQStart();clRender();clTop();break;
+    case 'qpick':{var Q=CL.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);if(Q.cur.opts[Q.ans]===Q.cur.a)Q.score++;else Q.missed.push(Q.qs[Q.i]);clRender();break}
+    case 'qnext':{var Q2=CL.q;if(Q2.i+1>=Q2.n)Q2.phase='done';else{Q2.i++;clQSet()}clRender();clTop();break}
+    case 'qend':CL.q=null;clRender();break;
+    case 'qretry':{clQStart(clShuf(CL.q.missed));clRender();break}
+  }
+}
+document.addEventListener('click',clAct);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('cl');if(o&&!o.hidden)clClose()}});
+window.__CL={CL_LOC:CL_LOC,CL_QA:CL_QA,CL_TYPES:CL_TYPES,clPool:clPool};
 
 loadModes();
 initStore();
