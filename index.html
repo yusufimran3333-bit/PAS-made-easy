@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B7A82">
-<meta name="description" content="Anatomy revision: skeleton, muscles, bones, joints and quizzes.">
+<meta name="description" content="Anatomy revision: skeleton, muscles, bones, joints, cartilage and quizzes.">
+<meta name="author" content="Yusuf Butt">
+<meta name="copyright" content="(c) 2026 Yusuf Butt">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -19,27 +21,20 @@
 <style>
 /* Layout: figure pinned on the left, Explore / Quiz / Covered panel on the right; stacks on phones. */
 :root{
+  --bg:#060A13; --surface:#0E1625; --ink:#E9F0F8; --muted:#8A9AB1; --line:rgba(130,165,205,.17);
+  --accent:#3DE0D0; --accent-ink:#031A18; --accent-soft:rgba(61,224,208,.12);
+  --hl:#FF7A4D; --hl-line:#FFB093; --ok:#3FD08E; --ok-line:#B8F0D4; --bad:#FF6B7A; --bad-line:#FFC2C8;
+  --bone:#D8CDB4; --bone-line:#4A4336; --musc:#C0706A; --musc-line:#5E2D28;
+  --joint:#E0BC4C; --jline:#6F560F; --sil:#111B2C; --cov:#2FA9A8; --cov-line:#7FF0E8; --deco:#4A4336;
+  --f-display:'Instrument Serif',Georgia,serif; --f-body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:dark}
+:root[data-theme="light"]{
   --bg:#EDF0F3; --surface:#F8F9FB; --ink:#131B2B; --muted:#5B6677; --line:#D3D9E1;
   --accent:#0B7A82; --accent-ink:#FFFFFF; --accent-soft:#D6EDEE;
   --hl:#E8542B; --hl-line:#8F2A0E; --ok:#1E8A4F; --ok-line:#0D4A28; --bad:#C23030; --bad-line:#6B1414;
   --bone:#EADFC8; --bone-line:#8A7B5C; --musc:#D69A90; --musc-line:#8A463E;
   --joint:#F1CC62; --jline:#8A6B0E; --sil:#DEE4EB; --cov:#8FD0D2; --cov-line:#0B7A82; --deco:#8C8064;
-  --f-display:'Instrument Serif',Georgia,serif; --f-body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E141D; --surface:#161E2A; --ink:#E6EBF2; --muted:#93A0B3; --line:#263142;
-  --accent:#4FC3CB; --accent-ink:#06282B; --accent-soft:#16363A;
-  --hl:#FF7A4D; --hl-line:#FFB093; --ok:#4CC38A; --ok-line:#B8F0D4; --bad:#FF6B6B; --bad-line:#FFC2C2;
-  --bone:#CFC4AB; --bone-line:#4A4336; --musc:#B5675D; --musc-line:#5E2D28;
-  --joint:#D9B64A; --jline:#6F560F; --sil:#1D2735; --cov:#2F8F96; --cov-line:#7FE0E6; --deco:#4A4336;
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0E141D; --surface:#161E2A; --ink:#E6EBF2; --muted:#93A0B3; --line:#263142;
-  --accent:#4FC3CB; --accent-ink:#06282B; --accent-soft:#16363A;
-  --hl:#FF7A4D; --hl-line:#FFB093; --ok:#4CC38A; --ok-line:#B8F0D4; --bad:#FF6B6B; --bad-line:#FFC2C2;
-  --bone:#CFC4AB; --bone-line:#4A4336; --musc:#B5675D; --musc-line:#5E2D28;
-  --joint:#D9B64A; --jline:#6F560F; --sil:#1D2735; --cov:#2F8F96; --cov-line:#7FE0E6; --deco:#4A4336;
-  color-scheme:dark}
+  color-scheme:light}
 
 *{box-sizing:border-box}
 body{margin:0;padding-block:14px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);-webkit-text-size-adjust:100%}
@@ -157,6 +152,11 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .miss{display:flex;flex-wrap:wrap;gap:6px}
 .miss span{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px}
 .foot{font-size:12.5px;color:var(--muted);text-align:center;margin-top:2px}
+.credit{margin:28px 0 6px;padding-top:14px;border-top:1px solid var(--line);text-align:center;font-size:12.5px;line-height:1.7;color:var(--muted)}
+.credit b{color:var(--ink);font-weight:600;letter-spacing:.01em}
+.credit a{color:var(--accent);text-decoration:none;font-weight:600;white-space:nowrap}
+.credit a:hover{text-decoration:underline}
+.credit .cr-s{opacity:.8}
 .v3{position:fixed;inset:0;z-index:60;background:radial-gradient(120% 90% at 50% 35%,#27323f 0%,#121821 60%,#0a0e14 100%);color:#E6EBF2;font:14px/1.4 var(--f-body);touch-action:none;overscroll-behavior:contain}
 .v3[hidden]{display:none}
 .v3 canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none;cursor:grab}
@@ -390,15 +390,102 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .cl-tr{display:grid;grid-template-columns:minmax(100px,.6fr) repeat(3,minmax(0,1fr));gap:10px;padding:9px 12px;border-top:1px solid var(--line);font-size:14px;align-items:start}
 .cl-tr:first-child{border-top:0}.cl-th{background:var(--bg);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
 @media(max-width:640px){.cl-tr{grid-template-columns:1fr;gap:3px}.cl-th{display:none}.cl-tr span[data-l]::before{content:attr(data-l) ": ";font-weight:700;color:var(--muted)}}
+/* ===== premium dark skin + home hub ===== */
+body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
+:root[data-theme="light"] body{background:var(--bg)}
+h1,h2{letter-spacing:-.015em}
+.card,.grp{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0) 60%),var(--surface);border-color:var(--line);box-shadow:0 14px 34px -18px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.05)}
+:root[data-theme="light"] .card,:root[data-theme="light"] .grp{background:var(--surface);box-shadow:0 1px 2px rgba(20,30,50,.06)}
+.btn{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 92%,#fff),var(--accent));box-shadow:0 6px 18px -8px color-mix(in srgb,var(--accent) 70%,transparent);transition:transform .15s,box-shadow .2s,filter .2s}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;box-shadow:none;border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.seg{background:rgba(120,150,190,.12);border:1px solid var(--line)}
+.seg button.on{background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent),0 4px 14px -6px color-mix(in srgb,var(--accent) 60%,transparent);color:var(--ink)}
+:root[data-theme="light"] .seg button.on{background:var(--surface)}
+.chip{transition:border-color .2s,background .2s,box-shadow .2s}
+.chip.on{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 50%,transparent),0 0 16px -4px color-mix(in srgb,var(--accent) 60%,transparent)}
+.opt,.bl-opt{transition:transform .12s,border-color .2s,background .2s}
+.opt:active,.bl-opt:active{transform:scale(.985)}
+.bl,.hub{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.10),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.10),transparent 58%),var(--bg)}
+:root[data-theme="light"] .bl,:root[data-theme="light"] .hub{background:var(--bg)}
+.bl-top{background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.credit a{text-shadow:0 0 14px color-mix(in srgb,var(--accent) 50%,transparent)}
+@keyframes hubUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes hubDrift{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(3%,2%,0) scale(1.08)}}
+@keyframes hubPulse{50%{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 60%,transparent),0 0 38px -6px color-mix(in srgb,var(--accent) 55%,transparent)}}
+.app>header,.app>.grid{animation:hubUp .5s both}
+.app>.grid{animation-delay:.08s}
+
+/* header */
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:42px;height:42px;flex:none;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 30%,transparent),rgba(98,120,255,.18));border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));box-shadow:0 0 24px -8px var(--accent)}
+.brand-mark svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.hdr-r{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.hdr-r .btn.small{background:rgba(120,150,190,.10);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.hdr-r .btn.small:hover{border-color:var(--accent)}
+.hdr-r .btn.home{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 92%,#fff),var(--accent));color:var(--accent-ink);border:0}
+
+/* hub */
+.hub{position:fixed;inset:0;z-index:50;color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.hub[hidden]{display:none}
+.hub-bg{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:radial-gradient(380px 380px at 20% 25%,rgba(61,224,208,.10),transparent 70%),radial-gradient(420px 420px at 85% 70%,rgba(98,120,255,.10),transparent 70%);animation:hubDrift 18s ease-in-out infinite}
+.hub-in{position:relative;z-index:1;max-width:900px;margin:0 auto;padding-top:max(14px,env(safe-area-inset-top,0px))}
+.hub-in>*{animation:hubUp .55s both}
+.hub-in>*:nth-child(2){animation-delay:.05s}.hub-in>*:nth-child(3){animation-delay:.1s}.hub-in>*:nth-child(4){animation-delay:.14s}.hub-in>*:nth-child(5){animation-delay:.18s}.hub-in>*:nth-child(6){animation-delay:.22s}
+.hub-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.hub-pill{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hub-hero{text-align:center;padding:10px 0 20px}
+.hub-logo{width:76px;height:76px;margin:0 auto 14px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 28%,transparent),rgba(98,120,255,.2));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 0 50px -10px var(--accent),inset 0 1px 0 rgba(255,255,255,.12)}
+.hub-logo svg{width:44px;height:44px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hub-hero h1{font-size:clamp(40px,8vw,62px);line-height:1;background:linear-gradient(180deg,var(--ink),color-mix(in srgb,var(--ink) 62%,var(--accent)));-webkit-background-clip:text;background-clip:text;color:transparent}
+:root[data-theme="light"] .hub-hero h1{background:none;color:var(--ink)}
+.hub-sub{color:var(--muted);margin:10px 0 0;font-size:15.5px}
+.hub-search{position:relative;margin:4px 0 14px}
+.hub-search svg{position:absolute;left:15px;top:50%;width:20px;height:20px;margin-top:-10px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round}
+.hub-search input{width:100%;min-height:54px;padding:12px 16px 12px 46px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015)),var(--surface);color:var(--ink);font:500 16px var(--f-body);box-shadow:0 10px 30px -16px rgba(0,0,0,.7);-webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s}
+.hub-search input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent),0 10px 30px -16px rgba(0,0,0,.7)}
+.hub-res{display:grid;gap:6px;margin-bottom:12px}
+.hub-r{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;align-items:baseline;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 13px;min-height:50px;transition:border-color .2s,transform .12s}
+.hub-r:hover{border-color:var(--accent)}.hub-r:active{transform:scale(.99)}
+.hub-rt{grid-row:1/3;align-self:center;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.hub-rn{font-weight:600;overflow-wrap:anywhere}
+.hub-rs{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hub-empty{color:var(--muted);text-align:center;padding:18px}
+.hub-two{display:grid;gap:12px;grid-template-columns:minmax(0,1fr);margin-bottom:12px}
+@media(min-width:700px){.hub-two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.hub-card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 60%),var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 16px 40px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);text-align:left;color:var(--ink)}
+:root[data-theme="light"] .hub-card{background:var(--surface)}
+.hub-card.glow{border-color:color-mix(in srgb,var(--accent) 50%,var(--line));animation:hubPulse 3.2s ease-in-out infinite}
+.hub-big{font:400 64px/1 var(--f-display);color:var(--accent);margin:2px 0 4px;text-shadow:0 0 30px color-mix(in srgb,var(--accent) 45%,transparent)}
+.hub-card .btn{margin-top:10px}
+.hub-cont{cursor:pointer;display:block;width:100%;transition:border-color .2s,transform .12s}
+.hub-cont:hover{border-color:var(--accent)}.hub-cont:active{transform:scale(.99)}
+.hub-cn{font:400 28px/1.15 var(--f-display);margin:4px 0 6px;text-wrap:balance}
+.hub-tiles{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){.hub-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.hub-tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:16px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,0) 55%),var(--surface);color:var(--ink);min-height:178px;box-shadow:0 16px 40px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .15s,border-color .2s,box-shadow .25s}
+:root[data-theme="light"] .hub-tile{background:var(--surface)}
+.hub-tile:hover{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent),0 18px 44px -20px color-mix(in srgb,var(--accent) 55%,transparent)}
+.hub-tile:active{transform:scale(.97)}
+.hub-tile b{font:400 22px/1.1 var(--f-display)}
+.hub-tile .muted{font-size:13px;line-height:1.35}
+.hub-ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:8px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line))}
+.hub-ic svg{width:26px;height:26px;fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.hub-cnt{margin-top:auto;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.hub-rv{max-width:680px;margin:14px auto 0}
+.hub-rv .bl-opts{margin-bottom:12px}
+.hub-rv .fb{margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){.hub-bg,.hub-card.glow,.hub-in>*,.app>header,.app>.grid{animation:none}}
 </style>
 
 <div class="app">
   <header>
-    <div>
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></span><div>
       <h1>Anatomy Drill</h1>
       <p class="sub" id="prog"></p>
-    </div>
-    <div class="hdr-r"><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="clopen">Cartilage lab</button>
+    </div></div>
+    <div class="hdr-r"><button class="btn small home" data-act="hubopen">Home</button><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="clopen">Cartilage lab</button>
     <div class="seg" id="sysSeg" role="tablist" aria-label="System">
       <button data-act="sys" data-s="sk" class="on">Skeleton</button>
       <button data-act="sys" data-s="mu">Muscles</button>
@@ -426,6 +513,13 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
       <p class="foot" id="sync"></p>
     </section>
   </div>
+  <footer class="credit" aria-label="About this app">
+    <div>Created by <b>Yusuf Butt</b></div>
+    <div>Cohort of 2031 &middot; King&rsquo;s College London</div>
+    <div class="cr-s">Feedback, suggestions or bugs, email:</div>
+    <div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div>
+    <div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div>
+  </footer>
 </div>
 
 <div id="v3" class="v3" hidden role="dialog" aria-label="3D skeleton">
@@ -481,6 +575,7 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
   </div>
   <div id="clbody"></div>
 </div>
+<div id="hub" class="hub" hidden role="dialog" aria-label="Home"><div class="hub-bg" aria-hidden="true"></div><div class="hub-in" id="hubbody"></div></div>
 
 <script>/**
  * @license
@@ -742,7 +837,7 @@ var FACTS={
 'maxilla':{kind:'Irregular',mus:['Buccinator','Levator labii superioris','Nasalis','Orbicularis oris','Masseter'],nv:['Infraorbital nerve (CN V2)','Superior alveolar nerves (CN V2)','Greater palatine nerve (CN V2)'],art:['Zygomatic bone','Nasal bone','Frontal bone','Palatine bone','Vomer'],fn:'Forms the upper jaw and holds the upper teeth; makes the hard palate, the floor of the orbit and the sides of the nasal cavity.'},
 'nasal':{kind:'Flat',mus:['Nasalis','Procerus'],nv:['External nasal nerve (CN V1)','Infratrochlear nerve (CN V1)'],art:['Frontal bone','Maxilla','Opposite nasal bone','Ethmoid bone'],fn:'Forms the bridge of the nose and supports the nasal cartilages.'},
 'mandible':{kind:'Irregular',mus:['Masseter','Temporalis','Medial pterygoid','Lateral pterygoid','Mylohyoid','Genioglossus','Geniohyoid','Digastric (anterior belly)'],nv:['Inferior alveolar nerve (CN V3)','Mental nerve (CN V3)'],art:['Temporal bone'],fn:'Holds the lower teeth and moves for chewing and speech; the only mobile bone of the skull.'},
-'hyoid':{kind:'Irregular',mus:['Digastric','Stylohyoid','Mylohyoid','Geniohyoid','Sternohyoid','Omohyoid','Thyrohyoid','Hyoglossus'],nv:['Hypoglossal nerve (CN XII)','Internal laryngeal nerve'],art:[],fn:'Anchors the tongue and larynx and gives attachment to muscles of the floor of the mouth and neck; important in swallowing.'},
+'hyoid':{kind:'Irregular',mus:['Digastric','Stylohyoid','Mylohyoid','Geniohyoid','Sternohyoid','Omohyoid','Thyrohyoid','Hyoglossus'],nv:['Hypoglossal nerve (CN XII)','Ansa cervicalis (C1 to C3)'],art:[],fn:'Anchors the tongue and larynx and gives attachment to muscles of the floor of the mouth and neck; important in swallowing.'},
 'cervical':{kind:'Irregular',mus:['Longus colli','Scalenus anterior','Scalenus medius','Splenius cervicis','Semispinalis cervicis','Levator scapulae'],nv:['Cervical spinal nerves (C1 to C8)','Phrenic nerve (C3 to C5)'],art:['Skull (occipital bone)','First thoracic vertebra','Adjacent vertebrae'],fn:'Support the head, allow wide movement of the neck and protect the spinal cord; the transverse foramina carry the vertebral arteries.'},
 'thoracic':{kind:'Irregular',mus:['Erector spinae','Multifidus','Rotatores','Semispinalis thoracis','Trapezius','Rhomboid major'],nv:['Thoracic spinal nerves (T1 to T12)','Intercostal nerves'],art:['Ribs','Adjacent vertebrae'],fn:'Articulate with the ribs to form the back of the thoracic cage and protect the spinal cord; allow rotation but limit flexion.'},
 'lumbar':{kind:'Irregular',mus:['Psoas major','Quadratus lumborum','Erector spinae','Multifidus','Diaphragm'],nv:['Lumbar spinal nerves (L1 to L5)','Cauda equina'],art:['Sacrum','Adjacent vertebrae'],fn:'Carry most of the body weight and allow flexion and extension of the trunk; protect the cauda equina.'},
@@ -1274,6 +1369,7 @@ function act(a,d,ev){
     case 'blopen':blOpen();break;
     case 'jlopen':jlOpen();break;
     case 'clopen':clOpen();break;
+    case 'hubopen':hubOpen();break;
     case 'pickmc':answerMc(parseInt(d.i,10));break;
     case 'next':nextQ();break;
   }
@@ -2388,7 +2484,7 @@ blAdd({id:'ulna',type:'long',typeLabel:'Long bone · upper limb',name:'Ulna',la:
   why:'The olecranon is a lever for triceps: because it projects behind the joint axis, triceps pulling on it extends the elbow. In full extension its tip locks into the olecranon fossa of the humerus.',
   c:'Olecranon fractures are usually pulled apart by triceps, so they often need surgical fixation. The subcutaneous olecranon bursa can become inflamed.'},
  {id:'cor',num:'1.2',n:'Coronoid process',la:'processus coronoideus ulnae',a:[134,134,24,18],p:null,l:[160,142,17,16],
-  t:['Triangular projection from the anterior side of the proximal ulna.','Forms the ventral border of the trochlear notch.','Attachment of the humerocoronoid and oblique ligaments.','Brachialis inserts on its anterior-inferior surface.'],
+  t:['Triangular projection from the anterior side of the proximal ulna.','Forms the ventral border of the trochlear notch.','The sublime tubercle on its medial side takes the anterior band of the ulnar collateral ligament.','Brachialis inserts on its anterior-inferior surface.'],
   why:'It is the front lip of the notch that grips the trochlea, so the coronoid process stops the ulna sliding backwards off the humerus. In full flexion it sinks into the coronoid fossa.',
   c:'Coronoid fractures make the elbow unstable and can be part of the "terrible triad" injury of the elbow.'},
  {id:'utub',num:'1.3',n:'Tuberosity of ulna',la:'tuberositas ulnae',a:[138,178,17,12],l:[148,192,11,10],
@@ -2678,7 +2774,7 @@ blAdd({id:'femur',type:'long',typeLabel:'Long bone · lower limb',name:'Femur',l
  lm:[
  {id:'f1',num:'1',n:'Proximal end',la:'extremitas proximalis',grp:true},
  {id:'fhead',num:'1.1',n:'Head',la:'caput femoris',a:[232,66,28,26],p:[232,66,28,26],
-  t:['Smooth, rounded head, about two thirds of a sphere, facing upwards, medially and slightly forwards.','Articulates with the acetabulum of the hip bone (hip joint).'],
+  t:['Smooth, rounded head, rather more than half a sphere, facing upwards, medially and slightly forwards.','Articulates with the acetabulum of the hip bone (hip joint).'],
   why:'The deep ball-and-socket fit between head and acetabulum gives the hip great stability while still allowing movement in all directions.',
   c:'The head is supplied mainly through the neck, so a displaced fracture of the neck (intracapsular) can damage the medial femoral circumflex artery and cause avascular necrosis of the head.'},
  {id:'ffov',num:'1.1.1',n:'Fovea of the head',la:'fovea capitis femoris',p:[238,76,6,6],
@@ -2701,7 +2797,7 @@ blAdd({id:'femur',type:'long',typeLabel:'Long bone · lower limb',name:'Femur',l
   t:['Ridge on the anterior surface running from the greater trochanter down towards the lesser trochanter.','Attachment of the iliofemoral ligament and the anterior part of the hip joint capsule.','Vastus medialis arises from its lower part.'],
   why:'The strong iliofemoral ligament pulls tight when you stand upright, and this line is where it anchors on the femur.'},
  {id:'fitc',num:'1.7',n:'Intertrochanteric crest',la:'crista intertrochanterica',lazy:true,p:{d:'M126 110C136 144 160 176 186 198',w:6,m:[150,160]},
-  t:['Thick ridge on the posterior surface joining the two trochanters.','Quadratus femoris inserts near its middle, at the quadrate tubercle.']},
+  t:['Thick ridge on the posterior surface joining the two trochanters.','Quadratus femoris inserts at the quadrate tubercle on it.']},
  {id:'fqt',num:'1.7.1',n:'Quadrate tubercle',la:'tuberculum quadratum',p:[150,152,6,6],
   t:['Small elevation on the intertrochanteric crest, about the junction of its upper third and lower two thirds.','Insertion of quadratus femoris.']},
  {id:'f2',num:'2',n:'Shaft',la:'corpus femoris',grp:true},
@@ -2739,7 +2835,7 @@ blAdd({id:'femur',type:'long',typeLabel:'Long bone · lower limb',name:'Femur',l
  {id:'ficf',num:'3.7',n:'Intercondylar fossa',la:'fossa intercondylaris',p:[152,718,12,20],
   t:['Deep notch between the condyles on the posterior and inferior surfaces.','The anterior cruciate ligament attaches to the medial surface of the lateral condyle (the upper, posterior part of the lateral wall).','The posterior cruciate ligament attaches to the lateral surface of the medial condyle (the lower, anterior part of the medial wall).'],
   why:'The cruciate ligaments run through this notch, crossing in the middle of the joint, and they keep the femur from sliding on the tibia.',
-  c:'The ACL is the most commonly injured of the knee ligaments.'}
+  c:'The ACL is torn far more often than the PCL.'}
  ]});
 
 blAdd({id:'tibia',type:'long',typeLabel:'Long bone · lower limb',name:'Tibia',la:'tibia',
@@ -3020,7 +3116,7 @@ blAdd({id:'scaphoid',type:'short',typeLabel:'Short bone · carpal',name:'Scaphoi
  {id:'sctub',num:'1.4',n:'Tubercle',la:'tuberculum ossis scaphoidei',a:[190,228,16,14,-30],
   t:['Projection on the palmar surface of the distal pole, at the base of the thenar eminence.','The transverse carpal ligament (flexor retinaculum) attaches to it, and some fibres of abductor pollicis brevis may arise from it.'],
   why:'It forms the radial side of the carpal tunnel. The flexor retinaculum is anchored here and on the other three corners of the carpus.',
-  c:'The tubercle can be felt at the base of the thenar eminence, in line with the radial border of the long finger.'},
+  c:'The tubercle can be felt at the base of the thenar eminence.'},
  {id:'sc2',num:'2',n:'Articular facets',la:'',grp:true},
  {id:'sclun',num:'2.1',n:'Lunate facet',la:'facies articularis lunata',a:[74,134,8,28],
   t:['Flat, crescent-shaped (semilunar) facet on the ulnar side.','Articulates with the lunate.'],
@@ -3287,7 +3383,7 @@ blAdd({id:'sternum',type:'flat',typeLabel:'Flat bone · thorax',name:'Sternum',l
  {id:'mang',num:'2.1',n:'Sternal angle',la:'angulus sterni',a:{d:'M62 148C96 154 144 154 178 148',w:7,m:[120,152]},p:{d:'M62 148C96 154 144 154 178 148',w:7,m:[120,152]},
   t:['Slightly raised transverse ridge where the manubrium joins the body (manubriosternal joint).','The 2nd costal cartilages attach on each side, so the 2nd rib is found here and the other ribs are counted from it.','Lies at the level of the T4/T5 intervertebral disc.','At this level: the start and end of the aortic arch, the bifurcation of the trachea (carina), the arch of the azygos vein, and the boundary between the superior and inferior mediastinum.'],
   why:'The manubrium and body are joined at a slight angle by a fibrocartilage joint, which makes the ridge. The first rib is hidden behind the clavicle, so the 2nd rib at the sternal angle is the reliable starting point for counting ribs.',
-  c:'It is the most common site of sternal fracture. Also the landmark for locating the aortic and pulmonary valve auscultation areas in the 2nd intercostal spaces, either side of the sternum.'},
+  c:'It lies at the level of the 2nd costal cartilages, so it is the starting point for counting ribs. The aortic and pulmonary auscultation areas are in the 2nd intercostal spaces, either side of the sternum.'},
  {id:'m3',num:'3',n:'Body',la:'corpus sterni',grp:true},
  {id:'mbod',num:'3.1',n:'Body (gladiolus)',la:'corpus sterni',a:[120,290,40,128],p:[120,290,40,128],
   t:['Longest part of the sternum, longer, narrower and thinner than the manubrium.','Anterior surface: pectoralis major attaches on either side.','Posterior surface: the lower part gives origin to transversus thoracis.','Formed from four sternebrae that fuse in the young adult.'],
@@ -3329,7 +3425,7 @@ blAdd({id:'rib',type:'flat',typeLabel:'Flat bone · thorax',name:'Typical rib (r
  {id:'r2',num:'2',n:'Shaft',la:'corpus costae',grp:true},
  {id:'rang',num:'2.1',n:'Angle',la:'angulus costae',a:[148,134,16,14],p:[148,134,16,14],
   t:['Sharp bend in the shaft, a short distance beyond the tubercle, where the rib turns forwards.','A tendon of iliocostalis attaches here.','The part between the angle and the tubercle gives attachment to longissimus.'],
-  why:'The bend makes the rib wrap around the chest wall. It is also the weakest place for muscle force to act, so it is where the back muscles pull the ribs down in forced expiration.'},
+  why:'The bend makes the rib wrap around the chest wall. Iliocostalis attaches at the angle, and its pull there helps to depress the ribs in forced expiration.'},
  {id:'rsh',num:'2.2',n:'Shaft (body)',la:'corpus costae',a:[250,184,70,16,5],p:[250,184,70,16,5],
   t:['Thin, flat, curved bar forming most of the rib.','External surface: serratus anterior attaches to ribs 1 to 8 or 9.','The intercostal muscles attach to the borders and the intercostal spaces.'],
   why:'The thin curved shaft is light but strong and flexible, so it can protect the organs and still move with each breath.',
@@ -3481,7 +3577,7 @@ blAdd({id:'skull',type:'flat',typeLabel:'Flat and irregular bones · skull',name
   why:'It anchors the strong ligament and muscles that hold the head up from behind, so it is a visible bump at the back of the skull.'},
  {id:'kpem',num:'3.8',n:'Parietal eminence',la:'tuber parietale',
   l:[326,78,18,16],s:[170,290,18,18],
-  t:['Rounded bulge near the centre of the outer surface of each parietal bone.','Marks the point where ossification of the parietal bone began.','The width of the skull is usually measured just below it.']},
+  t:['Rounded bulge near the centre of the outer surface of each parietal bone.','Marks the point where ossification of the parietal bone began.']},
 
  {id:'k4',num:'4',n:'Lateral features',la:'',grp:true},
  {id:'kzarc',num:'4.1',n:'Zygomatic arch',la:'arcus zygomaticus',
@@ -3547,7 +3643,7 @@ blAdd({id:'skull',type:'flat',typeLabel:'Flat and irregular bones · skull',name
   t:['Lies under the eyebrow in the supraorbital margin of the frontal bone, at the upper and inner part of the orbit.','Transmits the supraorbital nerve, artery and vein.','In some skulls it is an open notch rather than a complete hole.']},
  {id:'kiof',num:'5.1.10',n:'Infraorbital foramen',la:'foramen infraorbitale',
   a:[204,288,5,5],
-  t:['Opening in the maxilla below the infraorbital margin, about 6 to 11 mm below it.','Transmits the infraorbital nerve (a branch of the maxillary nerve, V2) and the infraorbital artery and vein.','The nerve reaches it through the infraorbital groove on the floor of the orbit.'],
+  t:['Opening in the maxilla below the infraorbital margin, about 1 cm below it.','Transmits the infraorbital nerve (a branch of the maxillary nerve, V2) and the infraorbital artery and vein.','The nerve reaches it through the infraorbital groove on the floor of the orbit.'],
   c:'Pressing here can test sensation of the cheek and upper lip. Fractures of the cheek can damage the infraorbital nerve.'},
  {id:'kopt',num:'5.1.11',n:'Optic canal',la:'canalis opticus',
   a:[226,232,5,5],f:[242,198,4.5,4.5],
@@ -3663,7 +3759,7 @@ blAdd({id:'skull',type:'flat',typeLabel:'Flat and irregular bones · skull',name
   t:['Opening in the palatine bone, towards the side of the back of the hard palate and near the maxilla.','Transmits the descending palatine (greater palatine) vessels and the greater palatine nerve.','Often lies level with the upper third molar tooth.']},
  {id:'kpty',num:'8.4',n:'Pterygoid process',la:'processus pterygoideus',
   i:[235,182,18,18],
-  t:['Process of the sphenoid bone that projects downwards behind the maxilla.','Has a medial and a lateral plate, which enclose the pterygoid fossa between them. The fossa holds the medial pterygoid muscle and gives origin to the tensor veli palatini.','The pterygoid canal opens through its base.'],
+  t:['Process of the sphenoid bone that projects downwards behind the maxilla.','Has a medial and a lateral plate, which enclose the pterygoid fossa between them. The fossa holds the medial pterygoid muscle.','The pterygoid canal opens through its base.'],
   why:'It gives broad surfaces for the pterygoid muscles that move the jaw and for the muscles of the soft palate and pharynx.',
   c:'The pterygoid processes are involved in Le Fort fractures of the midface.'},
  {id:'kptl',num:'8.4.1',n:'Lateral pterygoid plate',la:'lamina lateralis processus pterygoidei',
@@ -4434,7 +4530,7 @@ blAdd({id:'rib1',type:'flat',typeLabel:'Flat bone · thorax',name:'First rib',la
    t:['A small bump on the inner (medial) border of the upper surface, between the two grooves.','The scalenus anterior muscle attaches to it.'],
    why:'The tubercle gives the scalenus anterior muscle a place to pull on, and it marks the border between the artery and the vein.'},
   {id:'r1vein',num:'2.3',n:'Groove for the subclavian vein',la:'sulcus venae subclaviae',s:{d:'M208 146L256 172',w:7,m:[232,160]},
-   t:['The groove in front of the scalene tubercle.','The subclavian vein lies in it, sitting closer to the rib than the artery does.']},
+   t:['The groove in front of the scalene tubercle.','The subclavian vein lies in it.']},
   {id:'r1med',num:'2.4',n:'Attachment of scalenus medius',la:'',s:{poly:[110,70,150,98,138,124,104,98],m:[128,96],area:900},
    t:['Scalenus medius attaches to the upper surface, behind the groove for the subclavian artery.']},
   {id:'r1sa',num:'2.5',n:'Origin of serratus anterior',la:'',s:{d:'M250 150L318 174',w:6,m:[284,162]},
@@ -4779,7 +4875,7 @@ blAdd({id:'ethmoid',type:'irregular',typeLabel:'Irregular bone · skull',name:'E
    why:'The crista galli is the front anchor of the falx cerebri, the sheet of dura that separates the two cerebral hemispheres.'},
   G('e2','2','Perpendicular plate'),
   {id:'epp',num:'2.1',n:'Perpendicular plate',la:'lamina perpendicularis',a:P(EPP,{area:900}),
-   t:['A thin vertical plate that descends from the cribriform plate in the midline.','Forms the upper part of the bony nasal septum (about the upper two thirds).','Joins the vomer below and the septal cartilage in front.']},
+   t:['A thin vertical plate that descends from the cribriform plate in the midline.','Forms the upper part of the bony nasal septum.','Joins the vomer below and the septal cartilage in front.']},
   G('e3','3','Labyrinth'),
   {id:'elab',num:'3.1',n:'Ethmoidal labyrinth',la:'labyrinthus ethmoidalis',a:P(ELAB,{area:2000}),s:P([52,100,146,100,150,160,146,240,52,240,40,170],{area:3000}),
    t:['The mass of bone on each side of the perpendicular plate.','Contains the ethmoidal air cells (the ethmoid sinuses), which open into the nose.'],
@@ -5110,7 +5206,7 @@ var JL_J=[
  clin:[['Inversion sprain','The lateral ligament complex is torn, usually the ATFL first, when the foot is twisted inwards under load.'],['Ankle fractures','Lateral, medial or posterior malleolus fractures, or combinations: bimalleolar and trimalleolar fractures.'],['High ankle sprain','An injury of the syndesmosis.']]},
 {id:'st',n:'Subtalar joint',reg:'low',cls:'Synovial',ty:'plane',tq:1,tl:'Plane',axes:'Gliding',
  bl:[['talus','Talus'],['calcaneus','Calcaneus']],
- surf:'The talus meets the calcaneus at three facets (anterior, middle and posterior). The sustentaculum tali forms the floor of the middle facet. It is functionally a plane joint.',
+ surf:'The talus meets the calcaneus at the posterior, middle and anterior facets (sources differ on which count as the subtalar joint itself). The sustentaculum tali forms the floor of the middle facet. It is functionally a plane joint.',
  lig:[['Interosseous talocalcaneal ligament','A thick, strong band in the sinus tarsi. The main ligament of the joint.']],
  mov:[['Inversion and eversion','The foot turns inwards or outwards. The joint adds little to dorsiflexion and plantarflexion.']],
  stab:'The interosseous talocalcaneal ligament.',
@@ -5123,12 +5219,12 @@ var JL_J=[
 /* ---------- head, neck and spine ---------- */
 {id:'tmj',n:'Temporomandibular joint (TMJ)',reg:'axial',cls:'Synovial',ty:null,tq:0,tl:'Hinge and gliding (ginglymoarthrodial)',axes:'Hinge plus sliding',
  bl:[['temporal','Temporal bone'],['skull','Skull (mandible)']],
- surf:'The head of the mandible fits in the mandibular fossa of the temporal bone, with the articular tubercle (eminence) in front. A fibrocartilage articular disc divides the joint into an upper and a lower compartment. The lower compartment allows rotation (hinge). The upper allows translation (sliding).',
- lig:[['Capsule','A loose envelope attached to the rim of the fossa and articular tubercle above and the neck of the mandible below.'],['Temporomandibular (lateral) ligament','A thickening of the lateral capsule. It limits backwards movement of the mandible.'],['Sphenomandibular and stylomandibular ligaments','Accessory ligaments that are not attached to the joint itself. They tighten on protrusion.']],
+ surf:'The head of the mandible fits in the mandibular fossa of the temporal bone, with the articular tubercle (eminence) in front. A fibrous (often called fibrocartilage) articular disc divides the joint into an upper and a lower compartment. The lower compartment allows rotation (hinge). The upper allows translation (sliding).',
+ lig:[['Capsule','A loose envelope attached to the rim of the fossa and articular tubercle above and the neck of the mandible below.'],['Temporomandibular (lateral) ligament','A thickening of the lateral capsule. It limits backwards movement of the mandible.'],['Sphenomandibular and stylomandibular ligaments','Accessory ligaments that are not attached to the joint itself. The stylomandibular ligament limits protrusion, and the sphenomandibular ligament limits excessive opening.']],
  mov:[['Elevation (closing)','Masseter, temporalis, medial pterygoid'],['Depression (opening)','Lateral pterygoid, helped by the digastric, mylohyoid and geniohyoid'],['Protrusion','Lateral pterygoid'],['Side-to-side movement','The lateral pterygoids acting alternately (with the medial pterygoid)']],
  stab:'The capsule, the disc and the ligaments.',
  clin:[['Dislocation','The head of the mandible slips forward out of the fossa.'],['Temporomandibular disorder (TMD)','Pain and dysfunction of the joint and the muscles of mastication. Myofascial pain is the commonest cause. Anterior displacement of the disc is one form.']],
- note:'The nerve supply is from branches of the mandibular nerve (V3): the auriculotemporal and masseteric nerves. It is the only synovial joint in the skull.'},
+ note:'The nerve supply is from branches of the mandibular nerve (V3): the auriculotemporal and masseteric nerves. It is the only freely movable joint of the skull.'},
 {id:'ao',n:'Atlanto-occipital joint',reg:'axial',cls:'Synovial',ty:'cond',tq:1,tl:'Condyloid',axes:'Biaxial',
  bl:[['skull','Skull (occipital condyles)'],['atlas','Atlas']],
  surf:'A pair of condyloid joints between the occipital condyles and the lateral masses of the atlas. The capsules are thin and loose.',
@@ -5153,7 +5249,7 @@ var JL_J=[
 {id:'fac',n:'Facet (zygapophysial) joints',reg:'axial',cls:'Synovial',ty:'plane',tq:1,tl:'Plane',axes:'Gliding',
  bl:[['cervical','Cervical vertebra'],['lumbar','Lumbar vertebra']],
  surf:'Between the inferior articular process of the upper vertebra and the superior articular process of the one below. There is one on each side at every level.',lig:[],
- mov:[['Thoracic','Limit flexion and forward sliding, and make rotation possible.'],['Lumbar','Face so that flexion and extension are possible, and rotation is limited. They protect against forward shear and too much rotation.']],
+ mov:[['Thoracic','Face roughly in the coronal plane, so they allow rotation and lateral flexion but limit flexion and extension.'],['Lumbar','Face so that flexion and extension are possible, and rotation is limited. They protect against forward shear and too much rotation.']],
  stab:'',
  clin:[['Facet joint arthropathy (facet syndrome)','Wear and degeneration cause a dull back ache. The joints can enlarge and narrow the intervertebral foramen.']],
  note:'Supplied by the medial branches of the dorsal rami of the spinal nerves.'},
@@ -5203,7 +5299,7 @@ var JL_QA=[
 {c:'cl',q:'Articular cartilage in a synovial joint is which type of cartilage?',a:'Hyaline cartilage',w:['Fibrocartilage','Elastic cartilage'],why:'It reduces friction and absorbs shock.'},
 {c:'cl',q:'Which structure deepens the glenoid fossa?',a:'The glenoid labrum',w:['An articular disc','A meniscus','The transverse humeral ligament'],why:'A fibrocartilage rim. The hip has an equivalent, the acetabular labrum.'},
 {c:'cl',q:'What does a bursa do?',a:'It reduces friction at a point of rubbing',w:['It makes synovial fluid for the joint cavity','It holds the bones together','It covers the bone ends'],why:'A small fluid-filled sac. It can become inflamed (bursitis).'},
-{c:'cl',q:'Which synovial joint structure makes up a fibrocartilage pad between the bone ends?',a:'A meniscus or articular disc',w:['A bursa','The synovial membrane','The labrum'],why:'Examples are the knee menisci and the TMJ disc.'},
+{c:'cl',q:'Which synovial joint structure is a fibrocartilage pad between the bone ends?',a:'A meniscus or articular disc',w:['A bursa','The synovial membrane','The labrum'],why:'Examples are the knee menisci and the TMJ disc.'},
 /* types */
 {c:'ty',q:'Which type of synovial joint allows only flexion and extension?',a:'Hinge',w:['Pivot','Condyloid','Plane'],why:'One axis, one plane.'},
 {c:'ty',q:'Which type of synovial joint allows one bone to rotate around its long axis within a ring?',a:'Pivot',w:['Hinge','Saddle','Ball and socket'],why:'Such as the atlantoaxial and radioulnar joints.'},
@@ -5281,7 +5377,7 @@ var JL_QA=[
 {c:'cx',q:'Golfer\'s elbow involves which structure?',a:'The medial epicondyle and the common flexor origin',w:['The lateral epicondyle and the common extensor origin','The olecranon bursa','The radial head'],why:'Tennis elbow is the lateral side.'},
 {c:'cx',q:'What is olecranon bursitis?',a:'Inflammation of the subcutaneous olecranon bursa',w:['Inflammation of the annular ligament','Tearing of the triceps tendon','A fracture of the olecranon'],why:'From repeated pressure or friction. It can become infected.'},
 {c:'cx',q:'An isolated injury of the distal tibiofibular syndesmosis is called what?',a:'A high ankle sprain',w:['An inversion sprain','A Colles\' fracture','A deltoid sprain'],why:'It is often associated with an ankle fracture.'},
-{c:'cx',q:'Why is a posterior dislocation of the sternoclavicular joint dangerous?',a:'It can compress structures in the mediastinum',w:['It always tears the subclavian artery','It always paralyses the arm','It causes the lung to collapse every time'],why:'It may be life-threatening and usually needs surgery.'},
+{c:'cx',q:'Why is a posterior dislocation of the sternoclavicular joint dangerous?',a:'It can compress structures in the mediastinum',w:['It always tears the subclavian artery','It always paralyses the arm','It causes the lung to collapse every time'],why:'It may be life-threatening and needs urgent reduction.'},
 {c:'cx',q:'In AC joint separation, what is injured in grade III?',a:'The AC and coracoclavicular ligaments are both completely torn',w:['Only a stretched AC ligament','The AC ligament is torn with a partial coracoclavicular tear','The clavicle fractures'],why:'The clavicle sits above the acromion on X-ray.'},
 {c:'cx',q:'A fracture of the dens involves which joint?',a:'The atlantoaxial joint',w:['The atlanto-occipital joint','The sternoclavicular joint','The C5-C6 facet joint'],why:'The dens belongs to the axis.'},
 {c:'cx',q:'Which hormone loosens the pubic symphysis and sacroiliac ligaments in pregnancy?',a:'Relaxin',w:['Insulin','Cortisol','Thyroxine'],why:'It increases pelvic flexibility.'},
@@ -5703,7 +5799,7 @@ function jlAct(e){
     case 'qcat':JL.qc[d.k]=!JL.qc[d.k];jlRender();break;
     case 'qn':JL.qn=parseInt(d.n,10);jlRender();break;
     case 'qstart':jlQStart();jlRender();jlTop();break;
-    case 'qpick':{var Q=JL.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);if(Q.cur.opts[Q.ans]===Q.cur.a)Q.score++;else Q.missed.push(Q.qs[Q.i]);jlRender();break}
+    case 'qpick':{var Q=JL.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);var okx=Q.cur.opts[Q.ans]===Q.cur.a;if(okx)Q.score++;else Q.missed.push(Q.qs[Q.i]);if(typeof srsGrade==='function')srsGrade('jl',Q.qs[Q.i],okx);jlRender();break}
     case 'qnext':{var Q2=JL.q;if(Q2.i+1>=Q2.n)Q2.phase='done';else{Q2.i++;jlQSet()}jlRender();jlTop();break}
     case 'qend':JL.q=null;jlRender();break;
     case 'qretry':{jlQStart(jlShuf(JL.q.missed));jlRender();break}
@@ -6093,7 +6189,7 @@ function clAct(e){
     case 'qcat':CL.qc[d.k]=!CL.qc[d.k];clRender();break;
     case 'qn':CL.qn=parseInt(d.n,10);clRender();break;
     case 'qstart':clQStart();clRender();clTop();break;
-    case 'qpick':{var Q=CL.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);if(Q.cur.opts[Q.ans]===Q.cur.a)Q.score++;else Q.missed.push(Q.qs[Q.i]);clRender();break}
+    case 'qpick':{var Q=CL.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);var okx=Q.cur.opts[Q.ans]===Q.cur.a;if(okx)Q.score++;else Q.missed.push(Q.qs[Q.i]);if(typeof srsGrade==='function')srsGrade('cl',Q.qs[Q.i],okx);clRender();break}
     case 'qnext':{var Q2=CL.q;if(Q2.i+1>=Q2.n)Q2.phase='done';else{Q2.i++;clQSet()}clRender();clTop();break}
     case 'qend':CL.q=null;clRender();break;
     case 'qretry':{clQStart(clShuf(CL.q.missed));clRender();break}
@@ -6102,6 +6198,207 @@ function clAct(e){
 document.addEventListener('click',clAct);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('cl');if(o&&!o.hidden)clClose()}});
 window.__CL={CL_LOC:CL_LOC,CL_QA:CL_QA,CL_TYPES:CL_TYPES,clPool:clPool};
+
+/* ===== Home hub: search, continue, spaced-repetition review queue ===== */
+var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
+var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
+var SRSINT=[0,1,3,7,14,30];
+function hubDay(){return Math.floor(Date.now()/864e5)}
+function srsLoad(){try{var s=localStorage.getItem(SRSKEY);return s?JSON.parse(s):{}}catch(e){return {}}}
+var SRS=srsLoad();
+function srsSave(){try{localStorage.setItem(SRSKEY,JSON.stringify(SRS))}catch(e){}}
+function srsGrade(src,x,ok){
+  if(!x||!x.q)return;
+  var k=src+':'+x.q,r=SRS[k];
+  if(!ok){SRS[k]={s:src,q:x.q,a:x.a,w:x.w,why:x.why||'',b:0,d:hubDay(),n:(r?r.n:0)+1};srsSave();return}
+  if(!r)return;
+  r.b=Math.min(5,r.b+1);r.d=hubDay()+SRSINT[r.b];srsSave();
+}
+function srsList(){return Object.keys(SRS).map(function(k){return SRS[k]})}
+function srsDue(){var t=hubDay();return srsList().filter(function(r){return r.d<=t})}
+function srsStats(){var l=srsList();return {total:l.length,due:srsDue().length,mastered:l.filter(function(r){return r.b>=4}).length}}
+function hubShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function hubTheme(t){try{document.documentElement.setAttribute('data-theme',t);localStorage.setItem(THEMEKEY,t)}catch(e){}}
+(function(){var t='dark';try{t=localStorage.getItem(THEMEKEY)||'dark'}catch(e){}document.documentElement.setAttribute('data-theme',t)})();
+
+/* ---------- search index ---------- */
+function hubIndex(){
+  if(HUB.idx)return HUB.idx;
+  var X=[];
+  function add(t,n,s,extra,go){X.push({t:t,n:n,s:s||'',k:(n+' '+(s||'')+' '+(extra||'')).toLowerCase(),go:go})}
+  ITEMS.forEach(function(it){add(it.sys==='mu'?'Muscle':(it.cat==='joint'?'Figure joint':'Bone'),it.n,it.reg,'',['main',it.id])});
+  BLORDER.forEach(function(id){var b=BLB[id];add('Bone lab',b.name,b.typeLabel||'',b.la||'',['bl',id]);
+    (b.lm||[]).forEach(function(l){if(!l.grp)add('Landmark',l.n,b.name,l.la||'',['bl',id,l.id])})});
+  JL_J.forEach(function(j){add('Joint',j.n,j.cls+' · '+j.tl,'',['jl',j.id]);
+    (j.lig||[]).forEach(function(l){add('Ligament',l[0],j.n,'',['jl',j.id])});
+    (j.clin||[]).forEach(function(c){add('Clinical',c[0],j.n,'',['jl',j.id])})});
+  JL_TYPES.forEach(function(t){add('Joint type',t.n,t.axes,t.ex.join(' '),['jlt',t.id])});
+  JL_MOVES.forEach(function(m){add('Movement',m[0],'Joint lab',m[1],['jlm'])});
+  CL_TYPES.forEach(function(t){add('Cartilage type',t.n,t.coll,t.ex.join(' '),['clt',t.id])});
+  CL_LOC.forEach(function(l){add('Cartilage',l.n,l.note.slice(0,60),'',['clw'])});
+  CL_CX.forEach(function(c){add('Clinical',c[0],'Cartilage lab','',['clc'])});
+  HUB.idx=X;return X;
+}
+function hubSearch(q){
+  var toks=q.toLowerCase().split(/\s+/).filter(Boolean);if(!toks.length)return [];
+  var out=[];
+  hubIndex().forEach(function(e){
+    for(var i=0;i<toks.length;i++)if(e.k.indexOf(toks[i])<0)return;
+    var nl=e.n.toLowerCase(),sc=nl.indexOf(toks[0])===0?0:(nl.indexOf(toks[0])>-1?1:2);
+    out.push({e:e,sc:sc})});
+  out.sort(function(a,b){return a.sc-b.sc||a.e.n.length-b.e.n.length});
+  var seen={},res=[];
+  out.forEach(function(o){var k=o.e.t+'|'+o.e.n+'|'+o.e.s;if(seen[k])return;seen[k]=1;if(res.length<30)res.push(o.e)});
+  return res;
+}
+function hubResultsHTML(){
+  var q=HUB.q.trim();
+  if(!q)return '';
+  HUB.res=hubSearch(q);
+  if(!HUB.res.length)return '<div class="hub-empty">Nothing matches &ldquo;'+blE(q)+'&rdquo;. Try a shorter word.</div>';
+  return HUB.res.map(function(e,i){return '<button class="hub-r" data-hub="go" data-i="'+i+'"><span class="hub-rt">'+blE(e.t)+'</span><span class="hub-rn">'+blE(e.n)+'</span><span class="hub-rs">'+blE(e.s)+'</span></button>'}).join('');
+}
+
+/* ---------- continue where you left off ---------- */
+function hubLast(){try{var s=localStorage.getItem(LASTKEY);return s?JSON.parse(s):null}catch(e){return null}}
+function hubSaveLast(){
+  try{
+    var a=null;
+    if(!$('#bl').hidden)a={a:'bl',bone:BL.bone,tab:BL.tab};
+    else if(!$('#jl').hidden)a={a:'jl',tab:JL.tab,j:JL.j};
+    else if(!$('#cl').hidden)a={a:'cl',tab:CL.tab};
+    else if(!HUB.open)a={a:'main',sys:st.sys,sel:st.sel};
+    if(a)localStorage.setItem(LASTKEY,JSON.stringify(a));
+  }catch(e){}
+}
+var HUBTAB={jl:{classes:'Classes',types:'Types',joints:'Joints',moves:'Movements',quiz:'Quiz'},cl:{types:'Types',where:'Where is it?',zones:'Zones',clin:'Clinical',quiz:'Quiz'}};
+function hubLastLabel(a){
+  if(!a)return null;
+  if(a.a==='bl'&&BLB[a.bone])return ['Bone lab',BLB[a.bone].name];
+  if(a.a==='jl'){var j=jlJoint(a.j);if(a.tab==='joints'&&j)return ['Joint lab',j.n];return [HUBTAB.jl[a.tab]||'Home tab','Joint lab']}
+  if(a.a==='cl')return [HUBTAB.cl[a.tab]||'Home tab','Cartilage lab'];
+  if(a.a==='main'){var it=ITEMS.filter(function(i){return i.id===a.sel})[0];return [a.sys==='mu'?'Muscles':'Skeleton',it?it.n:'Figure']}
+  return null;
+}
+function hubResume(a){
+  if(!a)return;
+  if(a.a==='bl'&&BLB[a.bone]){BL.tab=a.tab||'lm';BL.bone=a.bone;BL.view=blViews(BLB[a.bone])[0][0];BL.sel=null;BL.mode='learn';BL.q=null;blOpen()}
+  else if(a.a==='jl'){JL.tab=a.tab||'classes';if(jlJoint(a.j))JL.j=a.j;jlOpen()}
+  else if(a.a==='cl'){CL.tab=a.tab||'types';clOpen()}
+  else if(a.a==='main'){hubClose();st.sys=a.sys||'sk';st.tab='explore';st.sel=a.sel||null;Q.phase='setup';render()}
+}
+
+/* ---------- navigation from search ---------- */
+function hubGo(g){
+  var k=g[0];
+  if(k==='main'){
+    var it=ITEMS.filter(function(i){return i.id===g[1]})[0];if(!it)return;
+    hubClose();st.sys=it.sys;st.tab='explore';st.sel=it.id;Q.phase='setup';
+    if(it.cat==='joint')st.layers.joint=true;else st.layers.bone=true;
+    var vs=Object.keys(it.v||{});if(vs.length&&!it.v[st.view[st.sys]])st.view[st.sys]=vs[0];
+    render();window.scrollTo(0,0);
+  }else if(k==='bl'){BL.tab='lm';BL.bone=g[1];BL.view=blViews(BLB[g[1]])[0][0];BL.sel=g[2]||null;BL.mode='learn';BL.q=null;blOpen()}
+  else if(k==='jl'){var jj=jlJoint(g[1]);JL.tab='joints';JL.j=g[1];JL.reg='all';JLDG.sel=null;JLDG.q=null;JLDG.res=null;JLDG.mode='learn';var dg=jlDgOf(jj);JLDG.view=dg?dg.views[0].k:'a';jlOpen()}
+  else if(k==='jlt'){JL.tab='types';JL.ty=g[1];jlOpen()}
+  else if(k==='jlm'){JL.tab='moves';jlOpen()}
+  else if(k==='clt'){CL.tab='types';CL.ty=g[1];clOpen()}
+  else if(k==='clw'){CL.tab='where';clOpen()}
+  else if(k==='clc'){CL.tab='clin';clOpen()}
+}
+
+/* ---------- review session ---------- */
+function hubStartReview(){
+  var due=srsDue().sort(function(a,b){return a.b-b.b||a.d-b.d}).slice(0,15);
+  if(!due.length)return;
+  HUB.rv={list:due,i:0,score:0,ans:null,opts:null,done:false};
+  hubRvOpts();HUB.view='review';hubRender();
+}
+function hubRvOpts(){var R=HUB.rv,r=R.list[R.i];R.opts=hubShuf([r.a].concat(r.w));R.ans=null}
+function hubRvPick(i){
+  var R=HUB.rv;if(!R||R.ans!==null)return;
+  var r=R.list[R.i];R.ans=i;
+  var ok=R.opts[i]===r.a;
+  if(ok){R.score++;r.b=Math.min(5,r.b+1);r.d=hubDay()+SRSINT[r.b]}else{r.b=0;r.d=hubDay();r.n=(r.n||0)+1}
+  srsSave();hubRender();
+}
+function hubRvHTML(){
+  var R=HUB.rv,h='<div class="hub-top"><button class="btn ghost small" data-hub="home">&larr; Home</button><span class="hub-pill">Review queue</span></div>';
+  if(R.done){
+    var st2=srsStats();
+    return h+'<div class="hub-card hub-rv"><p class="eyebrow">Review finished</p><h2>'+R.score+' out of '+R.list.length+'</h2><p class="muted">'+(st2.due?st2.due+' more are still due.':'Nothing else is due. Missed questions come back sooner, and ones you get right come back after longer gaps.')+'</p><div class="row-opts"><button class="btn" data-hub="home">Back to home</button>'+(st2.due?'<button class="btn ghost" data-hub="review">Keep going</button>':'')+'</div></div>';
+  }
+  var r=R.list[R.i];
+  h+='<div class="hub-card hub-rv"><div class="bl-score"><span>Question '+(R.i+1)+' of '+R.list.length+'</span><span>Score '+R.score+'</span></div><div class="bar"><i style="width:'+Math.round(R.i/R.list.length*100)+'%"></i></div>';
+  h+='<p class="bl-q">'+blE(r.q)+'</p><div class="bl-opts">';
+  R.opts.forEach(function(o,i){var c='bl-opt';if(R.ans!==null){if(o===r.a)c+=' ok';else if(i===R.ans)c+=' bad'}h+='<button class="'+c+'" data-hub="rvpick" data-i="'+i+'"'+(R.ans!==null?' disabled':'')+'>'+blE(o)+'</button>'});
+  h+='</div>';
+  if(R.ans!==null){var ok=R.opts[R.ans]===r.a;h+='<div class="fb'+(ok?'':' no')+'"><b>'+(ok?'Right.':'Not quite.')+'</b>'+(ok?'':'The answer is '+blE(r.a)+'. ')+blE(r.why||'')+'</div><div class="row-opts"><button class="btn" data-hub="rvnext">'+(R.i+1>=R.list.length?'Finish':'Next')+'</button></div>'}
+  return h+'</div>';
+}
+
+/* ---------- home ---------- */
+var HUBICON={
+ main:'<svg viewBox="0 0 48 48"><circle cx="24" cy="9" r="5"/><path d="M24 15v16M13 20h22M24 31l-8 13M24 31l8 13"/></svg>',
+ bl:'<svg viewBox="0 0 48 48"><path d="M13 12a5 5 0 1 1 8 4l14 14a5 5 0 1 1 4 8 5 5 0 0 1-8-4L13 20a5 5 0 0 1 0-8z"/></svg>',
+ jl:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 6v12M24 30v12M6 24h12M30 24h12"/></svg>',
+ cl:'<svg viewBox="0 0 48 48"><path d="M8 30c4-12 10-18 16-18s12 6 16 18"/><path d="M12 36c3-7 7-11 12-11s9 4 12 11"/></svg>'
+};
+function hubHome(){
+  var h=new Date().getHours(),g=h<5?'Still up':h<12?'Good morning':h<18?'Good afternoon':'Good evening';
+  var s=srsStats(),last=hubLast(),ll=hubLastLabel(last),th=document.documentElement.getAttribute('data-theme')||'dark';
+  var o='<div class="hub-top"><span class="hub-pill">Anatomy Drill</span><button class="chip" data-hub="theme" aria-label="Switch theme">'+(th==='dark'?'Light mode':'Dark mode')+'</button></div>';
+  o+='<div class="hub-hero"><div class="hub-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></div><p class="eyebrow">'+g+', Yusuf</p><h1>Anatomy Drill</h1><p class="hub-sub">Bones, joints, cartilage and muscles. Revise, test, repeat.</p></div>';
+  o+='<div class="hub-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="hubq" type="search" placeholder="Search bones, landmarks, joints, ligaments, muscles" value="'+blE(HUB.q)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search everything"></div>';
+  o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
+  {
+    o+='<div id="hubmain"'+(HUB.q.trim()?' hidden':'')+'><div class="hub-two">';
+    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint and Cartilage lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
+    if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
+    o+='</div>';
+    o+='<div class="hub-tiles">';
+    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations']].forEach(function(t){
+      o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
+    o+='</div></div>';
+  }
+  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div></footer>';
+  return o;
+}
+function hubRender(){
+  var b=document.getElementById('hubbody');if(!b)return;
+  var keep=document.activeElement&&document.activeElement.id==='hubq';
+  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():hubHome();
+  if(keep){var i=document.getElementById('hubq');if(i){i.focus();try{i.setSelectionRange(i.value.length,i.value.length)}catch(e){}}}
+}
+function hubOpen(){hubSaveLast();HUB.open=true;HUB.view='home';HUB.q='';var h=document.getElementById('hub');h.hidden=false;document.body.style.overflow='hidden';hubRender();h.scrollTop=0}
+function hubClose(){HUB.open=false;var h=document.getElementById('hub');h.hidden=true;document.body.style.overflow=''}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-hub]');if(!t||!document.getElementById('hub').contains(t))return;
+  var a=t.dataset.hub;
+  if(a==='go'){hubGo(HUB.res[parseInt(t.dataset.i,10)].go)}
+  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else clOpen()}
+  else if(a==='cont')hubResume(hubLast());
+  else if(a==='review')hubStartReview();
+  else if(a==='rvpick')hubRvPick(parseInt(t.dataset.i,10));
+  else if(a==='rvnext'){var R=HUB.rv;if(R.i+1>=R.list.length){R.done=true}else{R.i++;hubRvOpts()}hubRender();document.getElementById('hub').scrollTop=0}
+  else if(a==='home'){HUB.view='home';hubRender()}
+  else if(a==='theme'){hubTheme((document.documentElement.getAttribute('data-theme')||'dark')==='dark'?'light':'dark');hubRender()}
+});
+document.addEventListener('input',function(e){
+  if(e.target&&e.target.id==='hubq'){HUB.q=e.target.value;
+    document.getElementById('hubres').innerHTML=hubResultsHTML();
+    var m=document.getElementById('hubmain');if(m)m.hidden=!!HUB.q.trim()}
+});
+/* labs return to the hub beneath them, so refresh it and remember where the user was */
+(function(){
+  var ob=blClose,oj=jlClose,oc=clClose;
+  blClose=function(){hubSaveLast();var r=ob.apply(this,arguments);if(HUB.open)hubRender();return r};
+  jlClose=function(){hubSaveLast();var r=oj.apply(this,arguments);if(HUB.open)hubRender();return r};
+  clClose=function(){hubSaveLast();var r=oc.apply(this,arguments);if(HUB.open)hubRender();return r};
+})();
+window.addEventListener('pagehide',hubSaveLast);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')hubSaveLast()});
+window.__HUB={HUB:HUB,SRS:SRS,srsGrade:srsGrade,srsStats:srsStats,hubSearch:hubSearch,hubOpen:hubOpen,hubClose:hubClose};
+if(!window.__NOHUB)hubOpen();
 
 loadModes();
 initStore();
