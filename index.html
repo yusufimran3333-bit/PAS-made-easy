@@ -421,6 +421,23 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .ml-empty{color:var(--muted);text-align:center;padding:26px 10px}
 .ml-inj-k{font-size:12.5px;font-weight:700;color:var(--accent)}
 @media(max-width:560px){.ml-grid{column-width:auto;column-count:1}}
+#mi .seg{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#mi .seg::-webkit-scrollbar{display:none}
+#mi .seg button{white-space:nowrap;flex:0 0 auto}
+.mi .mi-sv{display:block;width:100%;max-width:200px;margin:0 auto;border-radius:12px;background:#FBF3F7}
+.mi .mi-sv.wide{max-width:420px}.mi .mi-sv.sarc{max-width:520px;background:var(--surface-2,#fff);color:var(--ink)}
+.mi .mi-cap{font-size:13px;color:var(--muted);margin:6px 0 0}
+.mi-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.mi-card{padding:14px}.mi-card h3{margin:8px 0 4px;font-size:18px}
+.mi-card.cov{cursor:pointer;text-align:center}
+.mi dl{margin:0}.mi dt{font-weight:700;margin-top:10px}.mi dd{margin:2px 0 0;line-height:1.5;color:var(--muted)}
+.mi .mi-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.mi-two{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.mi-two{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:start}}
+.mi .mi-big svg{max-width:300px}
+.mi-note{border-left:3px solid var(--accent);padding-left:10px;color:var(--muted);font-size:14px;margin:10px 0}
+.mi-pick{display:flex;flex-wrap:wrap;gap:8px}
+.mi-scale{font-size:12.5px;color:var(--muted);margin:4px 0 10px}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -494,7 +511,7 @@ h1,h2{letter-spacing:-.015em}
 .hub-cont:hover{border-color:var(--accent)}.hub-cont:active{transform:scale(.99)}
 .hub-cn{font:400 28px/1.15 var(--f-display);margin:4px 0 6px;text-wrap:balance}
 .hub-tiles{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(min-width:700px){.hub-tiles{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(min-width:700px){.hub-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(min-width:1100px){.hub-tiles{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(min-width:700px) and (max-width:900px){.hub-tile{padding:13px}.hub-tile b{font-size:19px}}
 .hub-tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:16px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,0) 55%),var(--surface);color:var(--ink);min-height:178px;box-shadow:0 16px 40px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .15s,border-color .2s,box-shadow .25s}
 :root[data-theme="light"] .hub-tile{background:var(--surface)}
@@ -517,7 +534,7 @@ h1,h2{letter-spacing:-.015em}
       <h1>Anatomy Drill</h1>
       <p class="sub" id="prog"></p>
     </div></div>
-    <div class="hdr-r"><button class="btn small home" data-act="hubopen">Home</button><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="mlopen">Muscle lab</button><button class="btn small" data-act="clopen">Cartilage lab</button>
+    <div class="hdr-r"><button class="btn small home" data-act="hubopen">Home</button><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="mlopen">Muscle lab</button><button class="btn small" data-act="clopen">Cartilage lab</button><button class="btn small" data-act="miopen">Microanatomy</button>
     <div class="seg" id="sysSeg" role="tablist" aria-label="System">
       <button data-act="sys" data-s="sk" class="on">Skeleton</button>
       <button data-act="sys" data-s="mu">Muscles</button>
@@ -614,6 +631,14 @@ h1,h2{letter-spacing:-.015em}
     <div class="seg" id="mltabs"><button data-ml="tab" data-t="list" class="on">Muscles</button><button data-ml="tab" data-t="nerve">By nerve</button><button data-ml="tab" data-t="inj">Nerve injuries</button><button data-ml="tab" data-t="quiz">Quiz</button></div>
   </div>
   <div id="mlbody"></div>
+</div>
+<div id="mi" class="bl" hidden role="dialog" aria-label="Microanatomy lab">
+  <div class="bl-top">
+    <button class="btn ghost small" data-mi="close">&larr; Back</button>
+    <h2>Microanatomy lab</h2>
+    <div class="seg" id="mitabs"><button data-mi="tab" data-t="blood" class="on">Blood cells</button><button data-mi="tab" data-t="epi">Epithelia</button><button data-mi="tab" data-t="ct">Connective tissue</button><button data-mi="tab" data-t="mu">Muscle</button><button data-mi="tab" data-t="meth">Stains and microscope</button><button data-mi="tab" data-t="quiz">Quiz</button></div>
+  </div>
+  <div id="mibody"></div>
 </div>
 <div id="hub" class="hub" hidden role="dialog" aria-label="Home"><div class="hub-bg" aria-hidden="true"></div><div class="hub-in" id="hubbody"></div></div>
 
@@ -1411,6 +1436,7 @@ function act(a,d,ev){
     case 'clopen':clOpen();break;
     case 'hubopen':hubOpen();break;
     case 'mlopen':mlOpen();break;
+    case 'miopen':miOpen();break;
     case 'pickmc':answerMc(parseInt(d.i,10));break;
     case 'next':nextQ();break;
   }
@@ -6687,6 +6713,215 @@ document.addEventListener('input',function(e){if(e.target&&e.target.id==='mlf'){
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('ml');if(o&&!o.hidden)mlClose()}});
 window.__ML={ML_M:ML_M,ML_QA:ML_QA,ML_CX:ML_CX,mlPool:mlPool,ML:ML};
 
+var MI_BLOOD=[{"id": "rbc", "n": "Erythrocyte (red blood cell)", "short": "Red cell", "pct": "Not a leukocyte", "size": "About 7 \u00b5m", "nuc": "None (anucleate)", "cyt": "Pink to orange with H&E, evenly stained. A biconcave disc, so the centre is paler.", "fn": "Carries oxygen. Highly deformable. Under normal conditions never leaves the circulatory system.", "tip": "Use it as your ruler: every white cell is compared with its roughly 7 \u00b5m width.", "src": "slide"}, {"id": "neut", "n": "Neutrophil", "short": "Neutrophil", "pct": "60 to 70% of leukocytes", "size": "12 to 14 \u00b5m", "nuc": "Multi-lobed (usually 3 to 5 lobes joined by thin strands)", "cyt": "Pale, with poorly stained granules.", "fn": "Phagocytic. Destroys micro-organisms.", "tip": "Most common white cell, and the granules hardly show. Think \"lots of lobes, pale cytoplasm\".", "src": "slide"}, {"id": "eos", "n": "Eosinophil", "short": "Eosinophil", "pct": "2 to 4% of leukocytes", "size": "12 to 17 \u00b5m", "nuc": "Bi-lobed", "cyt": "Bright red granules (eosin-loving).", "fn": "First line of defence against parasites (has IgE receptors). Attracted to sites of inflammation after mast cell degranulation. Releases inflammatory mediators such as leukotriene B4 and contributes to asthma. May also dampen inflammation, for example by breaking down histamine.", "tip": "Two lobes plus bright red granules: \"eosin\" means red-pink.", "src": "slide"}, {"id": "baso", "n": "Basophil", "short": "Basophil", "pct": "Less than 1% of leukocytes", "size": "14 to 16 \u00b5m", "nuc": "Bi-lobed, but hard to see because deep blue granules cover it", "cyt": "Deep blue granules (basic-dye loving).", "fn": "Related to tissue mast cells (similar origin in the bone marrow, but not identical). Has IgE receptors. Allergens make it degranulate, which causes inflammation (allergic reaction).", "tip": "The rarest white cell. If the nucleus is hidden under deep blue granules, it is a basophil.", "src": "slide"}, {"id": "mono", "n": "Monocyte", "short": "Monocyte", "pct": "2 to 8% of leukocytes", "size": "Up to 20 \u00b5m (largest)", "nuc": "Large, eccentric, bean or horseshoe shaped", "cyt": "Abundant, greyish blue, without obvious granules.", "fn": "Highly motile and phagocytic. Precursor of tissue macrophages.", "tip": "The biggest white cell with a kidney-bean nucleus pushed to one side.", "src": "slide"}, {"id": "lymph", "n": "Lymphocyte", "short": "Lymphocyte", "pct": "20 to 40% of leukocytes", "size": "6 to 9 \u00b5m (smallest white cell)", "nuc": "Large and round, about 90% of the cell", "cyt": "A thin rim of pale blue cytoplasm.", "fn": "Adaptive immunity. B cells give the humoral response (antibodies). T cells give the cell-mediated response. Larger ones (9 to 15 \u00b5m, about 3%) are either being activated or are natural killer (NK) cells.", "tip": "A dark round nucleus filling almost the whole cell, about the size of a red cell.", "src": "slide"}, {"id": "plt", "n": "Platelet", "short": "Platelet", "pct": "Not a leukocyte", "size": "About 2 to 3 \u00b5m (standard figure, not on your slide)", "nuc": "None. Cell fragments.", "cyt": "Small purple fragments, often in clumps.", "fn": "First line of defence when a blood vessel is damaged. Sticks to defects and takes part in blood clotting.", "tip": "Tiny purple specks, much smaller than a red cell.", "src": "slide"}];var MI_BLOOD_NOTE="Order of abundance, most to least: Neutrophil, Lymphocyte, Monocyte, Eosinophil, Basophil (\"Never Let Monkeys Eat Bananas\"). Sizes and percentages are from your imaging slides. Textbook ranges differ a little.";var MI_EPI=[{"id": "ss", "n": "Simple squamous", "shape": "squamous", "arr": "simple", "where": "Lining surfaces for passive transport of gases or fluids: alveoli of the lung (type 1 pneumocytes) and the endothelium of capillaries.", "fn": "Passive transport and exchange. The alveolar barrier is under 0.5 \u00b5m thick because the endothelium shares a basal lamina with type 1 pneumocytes.", "look": "A single layer of flat cells with flat nuclei."}, {"id": "sc", "n": "Simple cuboidal", "shape": "cuboidal", "arr": "simple", "where": "Small ducts and tubules: kidney collecting tubules, and the small excretory ducts of the salivary glands and pancreas (for example the striated duct).", "fn": "Lines small ducts and tubules.", "look": "A single layer of square-looking cells with round central nuclei."}, {"id": "scol", "n": "Simple columnar", "shape": "columnar", "arr": "simple", "where": "Absorptive surfaces such as the small intestine, and secretory surfaces such as the stomach. Goblet cells are often scattered through it.", "fn": "Absorption (microvilli form a brush border) and secretion.", "look": "A single layer of tall cells with oval nuclei near the base."}, {"id": "pseudo", "n": "Pseudostratified columnar (ciliated, with goblet cells)", "shape": "columnar", "arr": "pseudo", "where": "Much of the upper respiratory tract: trachea, bronchi and larger bronchioles.", "fn": "Cilia move fluid and particles along the surface. Goblet cells make mucus.", "look": "Looks layered because the nuclei sit at different heights, but every cell touches the basal lamina."}, {"id": "sn", "n": "Stratified squamous, non-keratinised", "shape": "squamous", "arr": "strat", "where": "Oral cavity, pharynx, oesophagus, anal canal, uterine cervix and vagina.", "fn": "Protection against abrasion. Kept moist by glandular secretions. Cells stay nucleated.", "look": "Many layers, with the surface cells flattened but still nucleated."}, {"id": "sk", "n": "Stratified squamous, keratinised", "shape": "squamous", "arr": "strat", "kerat": true, "where": "Skin (epidermis).", "fn": "Protection against UV, heat, chemicals and abrasion, and prevents desiccation. The top layer is dead cells without nuclei.", "look": "Many layers with a thick dead, pink keratin layer at the top."}, {"id": "trans", "n": "Transitional (urothelium)", "shape": "", "arr": "trans", "where": "Urinary tract only (in mammals): for example the ureter and bladder.", "fn": "Stretches a lot (bladder), protects against toxic urine and is waterproof, so water cannot leak into concentrated urine.", "look": "Several layers. The cells stay nucleated and more rounded than the surface cells of other stratified epithelia."}];var MI_EPI_ID=[["Cells form dense sheets", "Cells are attached to each other by desmosomes and adherens junctions."], ["No blood vessels", "Oxygen and nutrients diffuse from blood vessels in the connective tissue below."], ["Sits on a basal lamina", "This separates the epithelium from the connective tissue and gives support and attachment."], ["Stains well with H&E", "Nuclei blue, cytoplasm pink."]];var MI_EPI_SP=[["Microvilli", "0.5 to 1 \u00b5m long. Shape kept by actin filaments anchored to the cell membrane, whose bases form part of the terminal web linked to intermediate filaments. They increase surface area for absorption and form a brush border."], ["Cilia", "7 to 10 \u00b5m long. Motile. Core of 9 microtubule doublets around a central pair (9+2). They grow from a basal body, structurally identical to a centriole, which acts as a template. They move fluid and particles along the surface."], ["Keratinisation", "Cells become flat, keratins cross-link by S-S bridges, and the cells die, lose their nuclei and organelles and dehydrate, packing the keratin filaments together. Protects and prevents desiccation."], ["Goblet cell", "A modified columnar cell that makes and secretes mucus. Found in many simple epithelia, especially in the respiratory and gastrointestinal tracts. Stains poorly with H&E, so it looks like an empty gap."]];var MI_CT_TYPES=[{"id": "loose", "n": "Loose (areolar)", "look": "Sparse fibres and lots of ground substance, with scattered cells.", "where": "Mesentery, lamina propria of the digestive and respiratory tracts, stroma of glands, hypodermis of the skin.", "pts": "Contains collagen bundles and elastic fibres. Fibroblasts have oval nuclei. Mast cells, macrophages and capillaries may be present."}, {"id": "dirr", "n": "Dense irregular", "look": "Coarse, thick, interwoven bundles of collagen running in all directions.", "where": "Dermis of the skin (papillary and reticular layers).", "pts": "Fibroblasts are sparse and sit between the bundles. Carries blood vessels, lymphatics and nerves."}, {"id": "dreg", "n": "Dense regular", "look": "Parallel bundles of collagen with rows of fibrocytes between them.", "where": "Tendons and ligaments. The nuchal ligament is an elastic example (stain with orcein).", "pts": "Fibrocyte nuclei look like thin dark lines. In an elastic ligament, elastin lets it stretch and recoil while collagen stops over-stretching."}];var MI_CT_SEC=[["What connective tissue does", [["Framework", "Forms the architectural framework that preserves body form, fills the spaces between other tissues, and gives structural support and attachment."], ["Protection and defence", "Physical protection, and defence through immune cells. A barrier to micro-organisms that get through the epithelium."], ["Supply and storage", "Conduit for blood vessels and nerves, a nutrient route to epithelia, and a store (for example lipids). Also takes part in wound healing."], ["Soft and hard", "Soft connective tissue is not mineralised. Hard connective tissue (bone and cartilage) is."]]], ["Cells", [["Permanent cells", "Fibroblasts (make collagen and ground substance) and adipose cells."], ["Transient cells", "Mast cells, plasma cells, leukocytes and lymphocytes."], ["Fibroblast", "Mature ones have a condensed, elongated nucleus and little cytoplasm. Active ones have more cytoplasm with rough ER and Golgi."], ["Adipose cell", "Single cells or groups in connective tissue, mostly in large adipose spreads. Adipose tissue is about 15 to 20% of body weight in men and 20 to 25% in women. It is the largest energy store, acts as a shock absorber (soles, palms), shapes the body and fills spaces."]]], ["Fibres and ground substance", [["Collagen", "The most numerous fibre. Appears white en masse, as in tendon. Inelastic, with tensile strength greater than steel, so tissue is both flexible and strong. Often in parallel bundles."], ["Elastic fibres", "Stretchable and resilient. Made as tropoelastin, which polymerises outside the cell. Fibrillin microfibrils are built into the elastin. Show up with orcein."], ["Ground substance", "A viscous, colourless, transparent gel of glycoproteins and proteoglycans. Proteoglycans are a protein core with glycosaminoglycan (GAG) side chains. Also acts as a lubricant and a barrier to foreign particles."]]], ["Cartilage (hard connective tissue)", [["Composition", "About 75% water and 25% organic. The organic part is mostly type II collagen (about 60%, tensile strength) and GAGs such as chondroitin sulphate (about 40%, forming hydrated proteoglycans that resist compression)."], ["Growth", "Appositional growth (fibroblasts in the perichondrium become chondrocytes) and interstitial growth (chondrocytes in the matrix divide)."], ["No blood supply", "Nourished by diffusion. The matrix is semi-rigid and permeable."]]]];var MI_MU=[{"id": "sk", "n": "Skeletal muscle", "where": "Attached to the skeleton by tendons.", "ctl": "Voluntary", "str": "Striated", "nuc": "Many nuclei, pushed to the edge (periphery)", "cell": "A very long multinucleate fibre (syncytium). Each fibre is one cell.", "other": "Packed with myofibrils made of repeating sarcomeres. Satellite cells sit on the surface, so it can repair and grow."}, {"id": "ca", "n": "Cardiac muscle", "where": "The heart.", "ctl": "Involuntary (autonomic nervous system)", "str": "Striated", "nuc": "One or two nuclei, in the centre", "cell": "Short cells joined end to end by intercalated discs (modified Z-lines). Gap junctions pass action potentials, so the tissue acts as a functional syncytium.", "other": "Many mitochondria and a rich blood supply (aerobic metabolism). No satellite cells, so it cannot regenerate."}, {"id": "sm", "n": "Smooth muscle", "where": "Walls of the gut, blood vessels, respiratory tract and urogenital tract, often in layers running in alternate directions.", "ctl": "Involuntary (autonomic nervous system)", "str": "Not striated", "nuc": "One nucleus, in the centre", "cell": "Spindle-shaped cells about 5 \u00b5m wide and 20 to 500 \u00b5m long. Each is surrounded by a basal lamina.", "other": "Actin filaments (and less myosin) attach to dense bodies in the cytoplasm and to attachment plaques at the membrane. Loosely organised, so no striations. Forms a functional syncytium. Can stretch and hold tension for long periods. Cells twist when they contract."}];var MI_MU_SEC=[["Connective tissue in skeletal muscle", [["Epimysium", "The tough outer layer around the whole muscle (epi = upon)."], ["Perimysium", "Surrounds a bundle of fibres to make a fascicle (peri = around)."], ["Endomysium", "Surrounds each muscle fibre inside a fascicle (endo = within)."], ["Tendon link", "The three layers merge with the dense collagen of the tendon at the myotendinous junction. Tendons transmit force to bone. Blood vessels and nerves run in this connective tissue."]]], ["Muscle fibre and growth", [["Muscle fibre", "One giant multinucleate cell. The myonuclei sit at the edge. The cytoplasm is packed with myofibrils. A myofibre (cell) is filled with many myofibrils (not the same thing)."], ["Development", "Myoblasts fuse into myotubes (immature fibres)."], ["Satellite cells", "Resident muscle stem cells on the fibre surface, normally quiet. Fibres are post-mitotic, so their myonuclei cannot divide. Satellite cells are activated to become myoblasts, which add nuclei to existing fibres or fuse into new fibres, and they also self-renew. Important for growth, maintenance, hypertrophy and repair."]]], ["Sarcomere and contraction", [["Sarcomere", "The contractile unit, from one Z-line to the next. Gives the striated look."], ["Filaments", "Thick filaments are myosin. Thin filaments are actin."], ["A band", "The dark band. It holds the thick myosin filaments."], ["I band", "The light band, with thin actin filaments only. Each sarcomere has a whole A band and two half I bands."], ["H band", "The centre of the A band, where myosin is not overlapped by actin."], ["Sliding filament theory", "The thin filaments slide over the thick ones, so the sarcomere shortens."], ["T-tubules", "The tubular system carries the action potential through the fibre. Each sarcomere has a pair of triads at the A-I border."]]], ["Nerve supply", [["Motor unit", "One motor neurone supplies many muscle fibres. That neurone plus its fibres is a motor unit."], ["Neuromuscular junction", "The motor end plate, where the nerve meets the fibre membrane. In mammals each fibre has one motor neurone."], ["Fine control", "Small motor units in the hands and eye muscles give fine control. Leg muscles have much larger units."]]]];var MI_ST_SEC=[["Stains", [["H&E", "Haematoxylin is dark blue and acts like a basic dye, binding negatively charged structures such as DNA and RNA. Eosin is red and acidic, and binds positively charged structures (most cell proteins). Result: nuclei blue, cytoplasm pink (varying shades), muscle fibres red, collagen pale pink, erythrocytes orange."], ["Trichrome (Gomori)", "Helps separate collagen from smooth muscle. Nuclei blue or grey, collagen green, muscle red, erythrocytes red, background blue-green."], ["Orcein", "Stains elastic fibres (for example in the nuchal ligament)."], ["Why stain", "Unstained sections show little. Tissue has to be sectioned and stained to see it with a light microscope."]]], ["Artefacts of processing", [["What histology shows", "A dead, fixed, sliced and stained representation of how the tissue looked alive."], ["Degradation", "Enzymes break tissue down, and cilia can be lost."], ["Dehydration", "Shrinkage and cracks along borders."], ["Folds", "Made when the cut section is placed on the glass slide."], ["Lipid depletion", "Fat is dissolved by the organic solvents."]]], ["Using the microscope", [["Total magnification", "Magnification of the objective lens multiplied by magnification of the ocular (eyepiece) lens."], ["Step 1: focus the objective", "Start with the lowest-power lens. Rack the stage away first, find the specimen while looking at the stage, then focus by racking down while looking through the eyepieces. Adjust the eyepiece width and focus for each eye."], ["Step 2: focus the condenser", "Do this once at the start. Use the x10 objective, focus the condenser on a pencil point over the light source, then defocus slightly."], ["Step 3: set the iris diaphragm", "Open it to about two thirds of the field of view. Redo it whenever you change objective."], ["Poor image?", "Check the substage diaphragm has not been closed by accident. It is a common cause, and it affects resolution."], ["Units", "10^-3 m is a millimetre, 10^-6 m a micrometre, 10^-9 m a nanometre. Resolution is the smallest distance at which two points still look like two separate objects."]]], ["Layers you will see again", [["GI tract wall", "All of the gut has the same basic layers: mucosa (epithelium, lamina propria, muscularis mucosae), submucosa, muscularis externa (inner circular and outer longitudinal layers), then adventitia or serosa. The serosa is covered by simple squamous mesothelium."], ["Small intestine", "Villi have a core of loose connective tissue (lamina propria) with blood and lymph vessels, nerve fibres and smooth muscle, covered by enterocytes and goblet cells. The ileum is easy to spot by its Peyer patches (lymphoid tissue)."], ["Skin dermis", "Dense irregular connective tissue with a papillary and a reticular layer, carrying vessels, lymphatics and nerves."]]]];var MI_QA=[{"q": "Which white blood cell is the most common?", "a": "Neutrophil", "w": ["Lymphocyte", "Monocyte", "Eosinophil"], "why": "Neutrophils make up 60 to 70% of leukocytes."}, {"q": "Which white blood cell is the least common?", "a": "Basophil", "w": ["Eosinophil", "Monocyte", "Lymphocyte"], "why": "Basophils are less than 1% of leukocytes."}, {"q": "Which cell has a multi-lobed nucleus and poorly stained granules?", "a": "Neutrophil", "w": ["Eosinophil", "Basophil", "Monocyte"], "why": "It is phagocytic and destroys micro-organisms."}, {"q": "Which cell has a bi-lobed nucleus and bright red granules?", "a": "Eosinophil", "w": ["Basophil", "Neutrophil", "Monocyte"], "why": "Eosin is a red-pink dye."}, {"q": "Which cell has deep blue granules that hide a bi-lobed nucleus?", "a": "Basophil", "w": ["Eosinophil", "Neutrophil", "Lymphocyte"], "why": "It is related to tissue mast cells."}, {"q": "Which cell has a large, eccentric bean or horseshoe shaped nucleus?", "a": "Monocyte", "w": ["Lymphocyte", "Neutrophil", "Basophil"], "why": "It is the precursor of tissue macrophages."}, {"q": "Which cell has a nucleus that fills about 90% of the cell with only a thin rim of cytoplasm?", "a": "Lymphocyte", "w": ["Monocyte", "Basophil", "Eosinophil"], "why": "Lymphocytes are responsible for adaptive immunity."}, {"q": "Which is the smallest white blood cell?", "a": "Lymphocyte", "w": ["Neutrophil", "Basophil", "Monocyte"], "why": "Lymphocytes are 6 to 9 \u00b5m across."}, {"q": "Which is the largest white blood cell?", "a": "Monocyte", "w": ["Neutrophil", "Lymphocyte", "Eosinophil"], "why": "Monocytes can reach about 20 \u00b5m."}, {"q": "Which cell is the first line of defence against parasites?", "a": "Eosinophil", "w": ["Neutrophil", "Basophil", "Lymphocyte"], "why": "It has IgE receptors and is attracted to sites of inflammation."}, {"q": "Which blood cell is the precursor of tissue macrophages?", "a": "Monocyte", "w": ["Neutrophil", "Lymphocyte", "Eosinophil"], "why": "Monocytes are highly motile and phagocytic."}, {"q": "Which blood cell is related to tissue mast cells?", "a": "Basophil", "w": ["Eosinophil", "Neutrophil", "Monocyte"], "why": "They have a similar origin in the bone marrow, but are not identical."}, {"q": "Which cells are responsible for adaptive immunity?", "a": "Lymphocytes", "w": ["Neutrophils", "Monocytes", "Platelets"], "why": "B cells make antibodies and T cells give cell-mediated immunity."}, {"q": "Which lymphocytes give the humoral (antibody) response?", "a": "B cells", "w": ["T cells", "NK cells", "Monocytes"], "why": "T cells give the cell-mediated response."}, {"q": "About how wide is a red blood cell?", "a": "7 \u00b5m", "w": ["3 \u00b5m", "12 \u00b5m", "20 \u00b5m"], "why": "It is a handy ruler for judging other cells on a smear."}, {"q": "Which blood component is the first line of defence when a vessel is damaged?", "a": "Platelets", "w": ["Erythrocytes", "Neutrophils", "Plasma proteins only"], "why": "Platelets stick to defects and take part in clotting."}, {"q": "Which cell releases leukotriene B4 and contributes to asthma?", "a": "Eosinophil", "w": ["Neutrophil", "Monocyte", "Lymphocyte"], "why": "Eosinophils release additional inflammatory mediators."}, {"q": "Which cell has IgE receptors and degranulates when exposed to allergens?", "a": "Basophil", "w": ["Neutrophil", "Monocyte", "Lymphocyte"], "why": "This leads to inflammation, the allergic reaction."}, {"q": "What is the correct order of white cells from most to least common?", "a": "Neutrophil, lymphocyte, monocyte, eosinophil, basophil", "w": ["Neutrophil, monocyte, lymphocyte, basophil, eosinophil", "Lymphocyte, neutrophil, eosinophil, monocyte, basophil", "Neutrophil, eosinophil, lymphocyte, monocyte, basophil"], "why": "Never Let Monkeys Eat Bananas."}, {"q": "What are larger lymphocytes (9 to 15 \u00b5m) thought to be?", "a": "Activated cells or natural killer cells", "w": ["Monocytes", "Eosinophils", "Red cell precursors"], "why": "About 3% of lymphocytes are this size."}, {"q": "How does an epithelium get its oxygen and nutrients?", "a": "By diffusion from blood vessels in the connective tissue below", "w": ["From its own capillaries", "Directly from the lumen only", "Through the basal lamina blood vessels"], "why": "Epithelia have no blood vessels of their own."}, {"q": "What does an epithelium sit on?", "a": "A basal lamina", "w": ["A layer of adipose tissue", "A layer of smooth muscle", "A layer of cartilage"], "why": "It separates the epithelium from the connective tissue."}, {"q": "Which junctions attach epithelial cells to each other?", "a": "Desmosomes and adherens junctions", "w": ["Only gap junctions", "Hemidesmosomes only", "Neuromuscular junctions"], "why": "This is what makes the dense sheet."}, {"q": "Which epithelium lines capillaries and alveoli?", "a": "Simple squamous", "w": ["Simple cuboidal", "Simple columnar", "Transitional"], "why": "It suits passive transport of gases and fluids."}, {"q": "Which epithelium lines small ducts and tubules such as kidney collecting tubules?", "a": "Simple cuboidal", "w": ["Simple squamous", "Simple columnar", "Stratified squamous"], "why": "Also the small excretory ducts of salivary glands and pancreas."}, {"q": "Which epithelium lines the absorptive surface of the small intestine?", "a": "Simple columnar", "w": ["Simple cuboidal", "Pseudostratified columnar", "Transitional"], "why": "Its microvilli form a brush border."}, {"q": "Which epithelium lines the trachea and bronchi?", "a": "Pseudostratified ciliated columnar with goblet cells", "w": ["Simple columnar with microvilli", "Stratified squamous, non-keratinised", "Transitional"], "why": "Cilia move mucus and particles along the surface."}, {"q": "Which epithelium lines the oesophagus?", "a": "Stratified squamous, non-keratinised", "w": ["Stratified squamous, keratinised", "Simple columnar", "Pseudostratified columnar"], "why": "It protects against abrasion and is kept moist by mucous glands in the submucosa."}, {"q": "Which epithelium covers the skin?", "a": "Stratified squamous, keratinised", "w": ["Stratified squamous, non-keratinised", "Transitional", "Simple squamous"], "why": "The top layer is dead cells without nuclei."}, {"q": "Which epithelium is found only in the urinary tract?", "a": "Transitional", "w": ["Stratified squamous, non-keratinised", "Simple cuboidal", "Pseudostratified columnar"], "why": "It stretches and is waterproof."}, {"q": "What is the key feature of a pseudostratified epithelium?", "a": "All cells touch the basal lamina, but nuclei lie at different heights", "w": ["It has several true layers", "Only the tall cells touch the basal lamina", "It has no basal lamina"], "why": "It only looks layered."}, {"q": "What is the main job of microvilli?", "a": "Increase surface area for absorption", "w": ["Move mucus", "Make keratin", "Join cells together"], "why": "They are 0.5 to 1 \u00b5m long and held by actin filaments."}, {"q": "How are the microtubules arranged in a motile cilium?", "a": "9 doublets around a central pair", "w": ["9 singlets around a central pair", "9 triplets with no central pair", "2 doublets around 9 singlets"], "why": "This is the \"9+2\" arrangement."}, {"q": "A cilium grows from a basal body. What is it structurally identical to?", "a": "A centriole", "w": ["A ribosome", "A desmosome", "A lysosome"], "why": "It acts as a template for the microtubules."}, {"q": "What does a goblet cell make?", "a": "Mucus", "w": ["Surfactant", "Keratin", "Collagen"], "why": "It stains poorly with H&E, so it looks empty."}, {"q": "What happens to cells during keratinisation?", "a": "They flatten, die, and lose their nuclei and organelles", "w": ["They stay nucleated and round", "They divide faster", "They become columnar"], "why": "Keratins cross-link by S-S bridges."}, {"q": "Why is transitional epithelium suited to the bladder?", "a": "It stretches and is waterproof", "w": ["It absorbs urine", "It makes keratin", "It is a single thin layer for diffusion"], "why": "Its cells stay nucleated and more rounded."}, {"q": "Which alveolar cell secretes surfactant?", "a": "Type 2 pneumocyte", "w": ["Type 1 pneumocyte", "Endothelial cell", "Goblet cell"], "why": "They are about 60% of the cells but cover under 10% of the surface."}, {"q": "Which alveolar cell covers over 90% of the surface?", "a": "Type 1 pneumocyte", "w": ["Type 2 pneumocyte", "Goblet cell", "Ciliated cell"], "why": "They are about 40% of the cells but cover most of the surface."}, {"q": "What do fibroblasts make?", "a": "Collagen and ground substance", "w": ["Antibodies", "Surfactant", "Keratin"], "why": "Active ones have more cytoplasm with rough ER and Golgi."}, {"q": "Which are the permanent cells of connective tissue?", "a": "Fibroblasts and adipose cells", "w": ["Mast cells and plasma cells", "Leukocytes and lymphocytes", "Plasma cells and fibroblasts"], "why": "Mast cells, plasma cells, leukocytes and lymphocytes are transient."}, {"q": "Which fibre is the most numerous in connective tissue?", "a": "Collagen", "w": ["Elastic fibres", "Reticulin", "Fibrillin"], "why": "It is inelastic, with tensile strength greater than steel."}, {"q": "Which stain shows elastic fibres?", "a": "Orcein", "w": ["H&E alone", "Gomori trichrome (green)", "Eosin alone"], "why": "For example in the nuchal ligament."}, {"q": "Where is dense irregular connective tissue found?", "a": "Dermis of the skin", "w": ["Tendons", "Mesentery", "Hyaline cartilage"], "why": "Thick, interwoven bundles of collagen."}, {"q": "Where is dense regular connective tissue found?", "a": "Tendons and ligaments", "w": ["Dermis", "Mesentery", "Lamina propria"], "why": "Parallel collagen bundles with rows of fibrocytes."}, {"q": "What do fibrocyte nuclei look like in dense regular connective tissue?", "a": "Thin dark lines", "w": ["Large round pale circles", "Horseshoes", "Empty gaps"], "why": "They sit between the parallel bundles."}, {"q": "Which tissue contains loose (areolar) connective tissue?", "a": "Lamina propria and hypodermis", "w": ["Tendon", "Nuchal ligament", "Epidermis"], "why": "Also the mesentery and the stroma of glands."}, {"q": "What are the two layers of the dermis?", "a": "Papillary and reticular", "w": ["Basal and spinous", "Mucosa and submucosa", "Inner and outer circular"], "why": "The dermis is dense irregular connective tissue."}, {"q": "Why does the nuchal ligament contain both elastin and collagen?", "a": "Elastin lets it stretch and recoil, collagen stops over-stretching", "w": ["Elastin gives tensile strength, collagen gives recoil", "Both make it waterproof", "Collagen makes it stain with orcein"], "why": "It stores energy to help bring the head back up."}, {"q": "Roughly what share of body weight is adipose tissue in women?", "a": "20 to 25%", "w": ["5 to 10%", "35 to 40%", "50%"], "why": "In men it is about 15 to 20%."}, {"q": "What divides connective tissue into soft and hard?", "a": "Whether it is mineralised", "w": ["Whether it has fibres", "Whether it has blood vessels", "Whether it has a basal lamina"], "why": "Hard connective tissue is bone and cartilage."}, {"q": "What are proteoglycans made of?", "a": "A protein core with glycosaminoglycan side chains", "w": ["Collagen and elastin", "Actin and myosin", "Keratin and fibrillin"], "why": "They are the main part of the ground substance."}, {"q": "Which layer surrounds the whole skeletal muscle?", "a": "Epimysium", "w": ["Perimysium", "Endomysium", "Perichondrium"], "why": "Epi means upon."}, {"q": "Which layer surrounds a bundle of muscle fibres (a fascicle)?", "a": "Perimysium", "w": ["Epimysium", "Endomysium", "Periosteum"], "why": "Peri means around."}, {"q": "Which layer surrounds each individual muscle fibre?", "a": "Endomysium", "w": ["Epimysium", "Perimysium", "Epineurium"], "why": "Endo means within."}, {"q": "Where do the muscle connective tissue layers merge with the tendon?", "a": "Myotendinous junction", "w": ["Neuromuscular junction", "Intercalated disc", "Dense body"], "why": "Tendons transmit muscle force to bone."}, {"q": "Where are the nuclei of a skeletal muscle fibre?", "a": "Many, at the periphery", "w": ["One, in the centre", "Many, in the centre", "One, at the periphery"], "why": "The fibre is a syncytium."}, {"q": "Which muscle has intercalated discs?", "a": "Cardiac muscle", "w": ["Skeletal muscle", "Smooth muscle", "All three"], "why": "They are modified Z-lines with gap junctions."}, {"q": "Which muscle has spindle-shaped cells, no striations and a single central nucleus?", "a": "Smooth muscle", "w": ["Cardiac muscle", "Skeletal muscle", "Myoepithelium only"], "why": "It is controlled by the autonomic nervous system."}, {"q": "What are satellite cells?", "a": "Resident muscle stem cells", "w": ["Fibroblasts in the endomysium", "Immature nerve cells", "Remnants of myoblasts that cannot divide"], "why": "They can be activated to become myoblasts."}, {"q": "Why can cardiac muscle not regenerate?", "a": "It has no satellite cells", "w": ["It has no blood supply", "It has no nuclei", "It has no striations"], "why": "Satellite cells are what repair skeletal muscle."}, {"q": "What is the contractile unit of skeletal muscle?", "a": "Sarcomere", "w": ["Myofibre", "Fascicle", "Motor unit"], "why": "It runs from one Z-line to the next."}, {"q": "Which band of the sarcomere contains the thick myosin filaments?", "a": "A band", "w": ["I band", "H band alone", "Z-line"], "why": "The A band is the dark band."}, {"q": "Which band contains only thin actin filaments?", "a": "I band", "w": ["A band", "H band", "M-line"], "why": "It is the light band, and each sarcomere has two half I bands."}, {"q": "What is the H band?", "a": "The centre of the A band where actin does not overlap myosin", "w": ["The gap between two sarcomeres", "The edge of the I band", "The line holding thin filaments"], "why": "It shrinks when the sarcomere shortens."}, {"q": "What is a motor unit?", "a": "One motor neurone and all the muscle fibres it supplies", "w": ["One muscle fibre and its capillaries", "A fascicle and its perimysium", "A sarcomere and its T-tubules"], "why": "Small units in the hands and eyes give fine control."}, {"q": "Where are the triads of the tubular system found?", "a": "At the A-I border of each sarcomere", "w": ["At the Z-line", "At the M-line", "At the H band"], "why": "The tubules carry the action potential into the fibre."}, {"q": "What is the difference between a myofibre and a myofibril?", "a": "A myofibre is a muscle cell, filled with many myofibrils", "w": ["They are the same thing", "A myofibril is a cell, filled with myofibres", "A myofibre is a bundle of fascicles"], "why": "Myofibrils are made of sarcomeres."}, {"q": "How long are smooth muscle cells?", "a": "20 to 500 \u00b5m", "w": ["2 to 5 \u00b5m", "1 to 3 mm", "Over 10 cm"], "why": "They are about 5 \u00b5m wide."}, {"q": "Where do smooth muscle myofilaments attach?", "a": "Dense bodies and attachment plaques", "w": ["Z-lines", "Intercalated discs", "T-tubules"], "why": "They are loosely organised, so there are no striations."}, {"q": "Myoblasts fuse to form what?", "a": "Myotubes", "w": ["Satellite cells", "Fascicles", "Myofibrils"], "why": "Myotubes are immature muscle fibres."}, {"q": "What does haematoxylin stain, and what colour?", "a": "Nuclei (DNA and RNA), blue", "w": ["Cytoplasm, pink", "Collagen, green", "Muscle, red"], "why": "It acts like a basic dye and binds negative charge."}, {"q": "What colour do erythrocytes stain with H&E?", "a": "Orange", "w": ["Blue", "Green", "Black"], "why": "Muscle is red and collagen pale pink."}, {"q": "With a Gomori trichrome stain, what colour is collagen?", "a": "Green", "w": ["Red", "Orange", "Pale pink"], "why": "Muscle is red, which separates collagen from smooth muscle."}, {"q": "How do you work out total magnification?", "a": "Objective lens x ocular lens", "w": ["Objective lens + ocular lens", "Condenser x objective", "Ocular lens only"], "why": "For example a x10 eyepiece with a x40 objective gives x400."}, {"q": "Which objective do you start with when focusing?", "a": "The lowest power", "w": ["The highest power", "Oil immersion", "Any, it does not matter"], "why": "It protects the slide and the lens."}, {"q": "What is a common reason for a poor image?", "a": "The substage iris diaphragm has been closed by accident", "w": ["The slide is upside down only", "The condenser is too high", "The eyepieces are too wide"], "why": "Check it before turning the light up."}, {"q": "Which is an artefact of tissue processing?", "a": "Shrinkage and cracks from dehydration", "w": ["Nuclei turning orange", "Cells growing larger", "New collagen forming"], "why": "Others are folds, lipid loss and loss of cilia."}, {"q": "What is the order of the GI tract wall layers from the inside?", "a": "Mucosa, submucosa, muscularis externa, serosa or adventitia", "w": ["Submucosa, mucosa, serosa, muscularis externa", "Mucosa, muscularis externa, submucosa, serosa", "Serosa, muscularis externa, submucosa, mucosa"], "why": "The mucosa has epithelium, lamina propria and muscularis mucosae."}, {"q": "How are the two layers of the muscularis externa arranged?", "a": "Inner circular and outer longitudinal", "w": ["Inner longitudinal and outer circular", "Both circular", "Both longitudinal"], "why": "Smooth muscle in alternate directions."}, {"q": "What is 10^-6 m?", "a": "A micrometre", "w": ["A millimetre", "A nanometre", "A centimetre"], "why": "10^-3 m is a millimetre and 10^-9 m a nanometre."}, {"q": "How can you recognise the ileum?", "a": "Peyer patches (lymphoid aggregations)", "w": ["Brunner glands", "Thick keratinised surface", "Cartilage rings"], "why": "They are lymphoid tissue in the wall."}, {"q": "What forms the core of an intestinal villus?", "a": "Lamina propria (loose connective tissue)", "w": ["Submucosa only", "Dense regular connective tissue", "Muscularis externa"], "why": "With blood and lymph vessels, nerve fibres and smooth muscle."}];
+
+/* ---- schematic drawings for the Microanatomy lab ---- */
+function miRnd(seed){var s=seed||7;return function(){s=(s*9301+49297)%233280;return s/233280}}
+function miC(x,y,r,f,s,sw){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+f+'"'+(s?' stroke="'+s+'" stroke-width="'+(sw||1)+'"':'')+'/>'}
+function miE(x,y,rx,ry,f,s,rot){return '<ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="'+f+'"'+(s?' stroke="'+s+'"':'')+(rot?' transform="rotate('+rot+' '+x+' '+y+')"':'')+'/>'}
+function miR(x,y,w,h,f,s,rx){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+(rx||0)+'" fill="'+f+'"'+(s?' stroke="'+s+'"':'')+'/>'}
+function miDots(n,cx,cy,rad,r,col,seed,op){var g=miRnd(seed),h='';for(var i=0;i<n;i++){var a=g()*6.283,d=Math.sqrt(g())*rad;h+=miC((cx+Math.cos(a)*d).toFixed(1),(cy+Math.sin(a)*d).toFixed(1),r,col)}return '<g'+(op?' opacity="'+op+'"':'')+'>'+h+'</g>'}
+/* 8 px per micrometre, drawn in a 160 box */
+function miCell(id){
+  var h='',c=80,ol='rgba(60,30,60,.35)';
+  if(id==='rbc'){h+=miC(c,c,28,'#EE9078',ol)+miC(c,c,11,'#F6BCA9')}
+  else if(id==='neut'){h+=miC(c,c,52,'#F4DDE6',ol)+miDots(40,c,c,46,1.7,'#E2BCD3',3)
+    var L=[[-26,-8],[-8,-26],[14,-14],[22,10]];h+='<path d="M'+(c+L[0][0])+' '+(c+L[0][1])+' L'+(c+L[1][0])+' '+(c+L[1][1])+' L'+(c+L[2][0])+' '+(c+L[2][1])+' L'+(c+L[3][0])+' '+(c+L[3][1])+'" stroke="#5A3F96" stroke-width="4" fill="none" stroke-linecap="round"/>';
+    L.forEach(function(p){h+=miC(c+p[0],c+p[1],13,'#5A3F96')})}
+  else if(id==='eos'){h+=miC(c,c,58,'#F7DADA',ol)+miDots(75,c,c,52,3.3,'#E5432C',11)
+    h+='<path d="M'+(c-12)+' '+(c-6)+' L'+(c+12)+' '+(c+8)+'" stroke="#4F3C94" stroke-width="5"/>'+miC(c-16,c-6,16,'#4F3C94')+miC(c+16,c+8,16,'#4F3C94')}
+  else if(id==='baso'){h+=miC(c,c,60,'#E6E0F2',ol)+miE(c-14,c-4,22,18,'#4B4A9A')+miE(c+18,c+10,20,17,'#4B4A9A')+miDots(90,c,c,54,4.6,'#2A2C8C',23,.9)}
+  else if(id==='mono'){h+=miC(c,c,68,'#C7D2E6',ol)+miDots(8,c,c,50,3,'#E4EAF5',5)+miE(c-6,c-4,38,34,'#6A5AA6')+miC(c-28,c+8,17,'#C7D2E6')}
+  else if(id==='lymph'){h+=miC(c,c,32,'#A8C7E6',ol)+miC(c-1,c,27,'#463C92')+miDots(14,c-1,c,22,3,'#5B52A8',9)}
+  else if(id==='plt'){h+=miE(c-12,c-4,10,6,'#9A78C4',null,-20)+miE(c+8,c+4,8,5,'#9A78C4',null,30)+miE(c+16,c-10,6,4,'#9A78C4',null,10)+miDots(8,c,c,16,1.4,'#6A4A98',2)}
+  return '<svg viewBox="0 0 160 160" class="mi-sv" role="img" aria-label="Schematic drawing of a cell">'+h+'</svg>';
+}
+function miNuc(x,y,rx,ry){return miE(x,y,rx,ry,'#5A3F96','#3A2570')}
+function miEpiSvg(id){
+  var W=240,H=150,y0=118,h='',F='#F5D7E3',S='rgba(120,50,90,.5)',i;
+  function bl(){return miR(0,y0,W,3,'#C99BB5')+miR(0,y0+3,W,H-y0-3,'#FBEAF1')+'<path d="M0 134 Q30 128 60 136 T120 134 T180 136 T240 132" stroke="#E7BDD2" fill="none"/>'}
+  function row(y,ht,n,fill,nuc,rr,off){var w=W/n,t='';for(var k=0;k<n;k++){var x=(off||0)+k*w;t+=miR(x+.5,y,w-1,ht,fill,S,rr||0);if(nuc)t+=miNuc(x+w/2,y+ht/2,Math.min(w/2-5,9),Math.min(ht/2-2,Math.max(3,ht/2-3)))}return t}
+  if(id==='ss'){h+=row(y0-12,12,5,F,true,6)}
+  else if(id==='sc'){h+=row(y0-36,36,6,F,true,2).replace(/rx="2"/g,'rx="2"')}
+  else if(id==='scol'){
+    h+=row(y0-64,64,8,F,false,2);
+    for(i=0;i<8;i++){var cx=i*30+15;if(i===3){h+=miE(cx,y0-30,13,26,'#FCF4F8','#C99BB5')+miE(cx,y0-6,7,4,'#5A3F96')}else{h+=miE(cx,y0-14,6,12,'#5A3F96','#3A2570');h+='<g stroke="#8A4A74" stroke-width="1.4">';for(var m=0;m<7;m++)h+='<line x1="'+(cx-10+m*3.3)+'" y1="'+(y0-64)+'" x2="'+(cx-10+m*3.3)+'" y2="'+(y0-70)+'"/>';h+='</g>'}}}
+  else if(id==='pseudo'){
+    var hs=[88,52,76,44,82,58,70,48],w2=240/8;
+    for(i=0;i<8;i++){var x=i*w2,ht=hs[i];h+=miR(x+.5,y0-ht,w2-1,ht,i===3?'#FCF4F8':F,S,3);
+      if(i===3)h+=miE(x+w2/2,y0-8,6,4,'#5A3F96');
+      else{h+=miNuc(x+w2/2,y0-ht+(ht>60?24:14)+(i%3)*10,6,10);if(ht>60){h+='<g stroke="#8A4A74" stroke-width="1.6">';for(var m2=0;m2<5;m2++)h+='<line x1="'+(x+4+m2*5)+'" y1="'+(y0-ht)+'" x2="'+(x+4+m2*5)+'" y2="'+(y0-ht-7)+'"/>';h+='</g>'}}}}
+  else if(id==='sn'||id==='sk'){
+    var dead=id==='sk'?3:0,rows=[[y0-34,34,6,2],[y0-34-26,26,6,6],[y0-34-26-20,20,6,8],[y0-34-26-20-14,14,6,8]];
+    h+=row(rows[0][0],rows[0][1],7,F,true,2);h+=row(rows[1][0],rows[1][1],6,F,true,8);h+=row(rows[2][0],rows[2][1],5,F,true,8);
+    if(id==='sk'){h+=row(y0-34-26-20-8,8,5,'#E9B7C9',true,4);var top=y0-34-26-20-8-22;h+=miR(0,top,W,22,'#D98BA8','rgba(120,50,90,.6)',2)+'<g stroke="#B8587F" stroke-width="1">';for(var q=0;q<5;q++)h+='<line x1="0" y1="'+(top+4+q*4)+'" x2="'+W+'" y2="'+(top+4+q*4)+'"/>';h+='</g>'}
+    else h+=row(rows[3][0]-2,14,5,F,true,7)}
+  else if(id==='trans'){
+    h+=row(y0-28,28,8,F,true,3);h+=row(y0-28-30,30,6,F,true,10);
+    var t2=y0-28-30-34;for(i=0;i<3;i++){var cx2=i*80+40;h+='<path d="M'+(cx2-38)+' '+(t2+34)+' L'+(cx2-38)+' '+(t2+14)+' Q'+cx2+' '+(t2-12)+' '+(cx2+38)+' '+(t2+14)+' L'+(cx2+38)+' '+(t2+34)+' Z" fill="'+F+'" stroke="'+S+'"/>'+miNuc(cx2,t2+20,10,7)}}
+  return '<svg viewBox="0 0 240 150" class="mi-sv wide" role="img" aria-label="Schematic drawing of an epithelium">'+bl()+h+'</svg>';
+}
+function miMuSvg(id){
+  var h='',i;
+  if(id==='sk'){for(i=0;i<3;i++){var y=12+i*36;h+=miR(4,y,232,30,'#E48A8A','rgba(120,40,40,.5)',3);
+      for(var x=10;x<236;x+=7)h+='<line x1="'+x+'" y1="'+(y+2)+'" x2="'+x+'" y2="'+(y+28)+'" stroke="#C45F5F" stroke-width="2.6"/>';
+      [30,90,150,205].forEach(function(nx,k){h+=miE(nx+(i*13)%30,y+(k%2?25:5),9,3.4,'#5A3F96','#3A2570')})}}
+  else if(id==='ca'){var rows=[[6,30],[44,30],[82,30]];
+    rows.forEach(function(r,ri){var off=ri*24;for(var k=0;k<3;k++){var x=4+off+k*78;if(x>200)continue;h+=miR(x,r[0],72,r[1],'#E48A8A','rgba(120,40,40,.5)',5);for(var s=x+6;s<x+70;s+=7)h+='<line x1="'+s+'" y1="'+(r[0]+2)+'" x2="'+s+'" y2="'+(r[0]+r[1]-2)+'" stroke="#C45F5F" stroke-width="2"/>';h+=miE(x+36,r[0]+15,8,6,'#5A3F96','#3A2570');h+=miR(x+72,r[0],4,r[1],'#7B2A3A')}});
+    h+=miR(76,32,6,14,'#E48A8A')+miR(100,70,6,14,'#E48A8A')}
+  else if(id==='sm'){var pos=[[10,16,0],[80,22,0],[150,14,0],[40,52,0],[120,58,0],[190,50,0],[14,88,0],[90,92,0],[165,86,0]];
+    pos.forEach(function(p){var x=p[0],y=p[1];h+='<path d="M'+x+' '+(y+10)+' Q'+(x+30)+' '+(y-6)+' '+(x+60)+' '+(y+10)+' Q'+(x+30)+' '+(y+26)+' '+x+' '+(y+10)+'Z" fill="#EBB2C0" stroke="rgba(150,60,90,.5)"/>'+miE(x+30,y+10,14,3.6,'#5A3F96','#3A2570')})}
+  return '<svg viewBox="0 0 240 120" class="mi-sv wide" role="img" aria-label="Schematic drawing of muscle tissue">'+h+'</svg>';
+}
+function miCtSvg(id){
+  var h='',g=miRnd(id==='loose'?4:(id==='dirr'?8:2)),i;
+  if(id==='loose'){for(i=0;i<22;i++){var x=g()*220,y=g()*100;h+='<path d="M'+x+' '+y+' q'+(g()*40-10)+' '+(g()*30-15)+' '+(g()*50)+' '+(g()*30-15)+'" stroke="'+(i%3?'#E8B6C8':'#8A5A7A')+'" stroke-width="'+(i%3?3:.9)+'" fill="none"/>'}
+    h+=miE(60,40,9,4,'#5A3F96',null,25)+miE(150,70,9,4,'#5A3F96',null,-30)+miC(190,30,14,'#FCF4F8','#C99BB5')+miC(110,95,5,'#6A3F8F')}
+  else if(id==='dirr'){for(i=0;i<16;i++){var y2=g()*110;h+='<path d="M-10 '+(y2+g()*30)+' Q'+(60+g()*40)+' '+(y2-30+g()*40)+' '+(130+g()*40)+' '+(y2+g()*20)+' T250 '+(y2-10+g()*40)+'" stroke="#E9A9C0" stroke-width="'+(6+g()*5)+'" fill="none" opacity=".85"/>'}
+    h+=miE(70,60,7,3,'#5A3F96',null,40)+miE(170,36,7,3,'#5A3F96',null,-20)+miE(130,98,7,3,'#5A3F96',null,10)}
+  else{for(i=0;i<7;i++){h+=miR(0,6+i*16.5,240,12,'#EBB0C5')}
+    for(i=0;i<7;i++){for(var k=0;k<3;k++)h+=miE(24+g()*190,12+i*16.5+(i%2?6:0)*0,9,1.5,'#4A3590')}}
+  return '<svg viewBox="0 0 240 120" class="mi-sv wide" role="img" aria-label="Schematic drawing of connective tissue">'+h+'</svg>';
+}
+function miSarcSvg(){
+  var h='',L=18,R=282,i;
+  h+='<line x1="'+L+'" y1="14" x2="'+L+'" y2="104" stroke="#444" stroke-width="3"/><line x1="'+R+'" y1="14" x2="'+R+'" y2="104" stroke="#444" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="94" stroke="#999" stroke-dasharray="3 3"/>';
+  [30,52,74].forEach(function(y){h+='<line x1="'+L+'" y1="'+y+'" x2="140" y2="'+y+'" stroke="#E0883A" stroke-width="3"/><line x1="'+R+'" y1="'+(y+11)+'" x2="160" y2="'+(y+11)+'" stroke="#E0883A" stroke-width="3"/>'});
+  [41,63,85].forEach(function(y){h+='<line x1="85" y1="'+y+'" x2="215" y2="'+y+'" stroke="#2F6FB5" stroke-width="7" stroke-linecap="round" opacity=".9"/>'});
+  function br(x1,x2,y,t,col,dy){return '<path d="M'+x1+' '+y+' v6 H'+x2+' v-6" stroke="'+col+'" fill="none" stroke-width="1.6"/><text x="'+((x1+x2)/2)+'" y="'+(y+19+(dy||0))+'" text-anchor="middle" font-size="11" fill="#222">'+t+'</text>'}
+  h+=br(85,215,112,'A band (myosin)','#2F6FB5')+br(L,85,112,'half I','#E0883A')+br(215,R,112,'half I','#E0883A')+br(140,160,112,'H band','#888',13);
+  h+='<text x="'+L+'" y="10" text-anchor="middle" font-size="11" fill="#222">Z</text><text x="'+R+'" y="10" text-anchor="middle" font-size="11" fill="#222">Z</text><text x="150" y="20" text-anchor="middle" font-size="11" fill="#222">M</text>';
+  return '<svg viewBox="0 0 300 160" class="mi-sv sarc" role="img" aria-label="Schematic of one sarcomere between two Z-lines. Blue thick myosin in the centre, orange thin actin from each Z-line.">'+h+'</svg><p class="mi-cap">Schematic of one sarcomere (Z-line to Z-line). Orange: thin actin filaments. Blue: thick myosin filaments. The A band is the length of the thick filaments, the I band holds only actin, and the H band is the middle gap with no actin overlap.</p>';
+}
+
+/* ===== Microanatomy lab ===== */
+var MI={tab:'blood',cell:'neut',cmp:false,cover:false,rv:{},ep:{shape:null,arr:null,ker:false},qn:10,q:null,vq:null,qsub:'text',vk:'blood',vn:10};
+function miE2(s){return blE(s)}
+function miBody(){return document.getElementById('mibody')}
+function miShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function miOpen(){var o=document.getElementById('mi');o.hidden=false;document.body.style.overflow='hidden';miRender()}
+function miClose(){var o=document.getElementById('mi');o.hidden=true;document.body.style.overflow=''}
+function miTop(){var o=document.getElementById('mi');if(o)o.scrollTop=0}
+function miDL(pts){var h='<dl>';pts.forEach(function(p){h+='<dt>'+miE2(p[0])+'</dt><dd>'+miE2(p[1])+'</dd>'});return h+'</dl>'}
+function miSecs(list){return list.map(function(s){return '<section class="card mi-card"><h3>'+miE2(s[0])+'</h3>'+miDL(s[1])+'</section>'}).join('')}
+function miBloodCell(id){return MI_BLOOD.filter(function(c){return c.id===id})[0]}
+function miBloodHTML(){
+  var h='<div class="bl-wrap mi"><div class="bl-row"><div class="seg"><button data-mi="bmode" data-m="one" class="'+(MI.cmp?'':'on')+'">One cell</button><button data-mi="bmode" data-m="cmp" class="'+(MI.cmp?'on':'')+'">Compare all</button></div></div>';
+  h+='<p class="mi-scale">All cells are drawn at the same scale (a red cell is about 7 µm). Schematic drawings, not real micrographs.</p>';
+  if(!MI.cmp){
+    h+='<div class="bl-row scroll mi-pick">'+MI_BLOOD.map(function(c){return '<button class="chip'+(c.id===MI.cell?' on':'')+'" data-mi="cell" data-id="'+c.id+'">'+miE2(c.short)+'</button>'}).join('')+'</div>';
+    var c=miBloodCell(MI.cell);
+    h+='<div class="mi-two"><section class="card mi-card mi-big">'+miCell(c.id)+'<h3 style="text-align:center">'+miE2(c.n)+'</h3></section><section class="card mi-card">'+miDL([['How common',c.pct],['Size',c.size],['Nucleus',c.nuc],['Cytoplasm and granules',c.cyt],['Job',c.fn],['How to spot it',c.tip]])+'</section></div>';
+  }else{
+    h+='<div class="bl-row"><button class="chip'+(MI.cover?' on':'')+'" data-mi="cover">Hide names (tap a cell to reveal)</button></div><div class="mi-grid">';
+    MI_BLOOD.forEach(function(c){var hid=MI.cover&&!MI.rv[c.id];h+='<section class="card mi-card cov" data-mi="reveal" data-id="'+c.id+'">'+miCell(c.id)+'<h3>'+(hid?'?':miE2(c.short))+'</h3><p class="mi-cap">'+(hid?'Tap to reveal':miE2(c.size)+' · '+miE2(c.pct))+'</p></section>'});
+    h+='</div>';
+  }
+  h+='<p class="mi-note">'+miE2(MI_BLOOD_NOTE)+'</p></div>';
+  return h;
+}
+function miEpiResolve(){
+  var e=MI.ep,key=null;
+  if(e.arr==='trans')key='trans';
+  else if(e.arr&&e.shape){
+    if(e.arr==='simple'){key={squamous:'ss',cuboidal:'sc',columnar:'scol'}[e.shape]}
+    else if(e.arr==='pseudo'&&e.shape==='columnar')key='pseudo';
+    else if(e.arr==='strat'&&e.shape==='squamous')key=e.ker?'sk':'sn';
+  }
+  return key;
+}
+function miEpiHTML(){
+  var e=MI.ep,h='<div class="bl-wrap mi"><section class="card mi-card"><h3>Build an epithelium</h3><p class="sub">Choose the cell shape and the arrangement. It names the tissue and shows where to find it.</p>';
+  h+='<p class="eyebrow">Cell shape</p><div class="mi-row">'+['squamous','cuboidal','columnar'].map(function(s){return '<button class="chip'+(e.shape===s?' on':'')+'" data-mi="eshape" data-v="'+s+'">'+s.charAt(0).toUpperCase()+s.slice(1)+'</button>'}).join('')+'</div>';
+  h+='<p class="eyebrow">Arrangement</p><div class="mi-row">'+[['simple','Simple (one layer)'],['pseudo','Pseudostratified'],['strat','Stratified (many layers)'],['trans','Transitional']].map(function(a){return '<button class="chip'+(e.arr===a[0]?' on':'')+'" data-mi="earr" data-v="'+a[0]+'">'+a[1]+'</button>'}).join('')+'</div>';
+  if(e.arr==='strat'&&e.shape==='squamous')h+='<div class="mi-row"><button class="chip'+(e.ker?' on':'')+'" data-mi="eker">Keratinised (dead surface layer)</button></div>';
+  var key=miEpiResolve();
+  if(key){var t=MI_EPI.filter(function(x){return x.id===key})[0];
+    h+='<div class="mi-two" style="margin-top:12px"><div>'+miEpiSvg(t.id)+'<p class="mi-cap">Schematic. Pink band at the bottom: connective tissue. Line above it: basal lamina.</p></div><div><h3 style="margin:0 0 6px">'+miE2(t.n)+'</h3>'+miDL([['What it looks like',t.look],['Where',t.where],['What it does',t.fn]])+'</div></div>';
+  }else if(e.arr&&(e.shape||e.arr==='trans')){h+='<p class="mi-note">That combination is not on your slides. Try another shape or arrangement.</p>'}
+  h+='</section><div class="mi-grid">'+MI_EPI.map(function(t){return '<section class="card mi-card">'+miEpiSvg(t.id)+'<h3>'+miE2(t.n)+'</h3><p class="mi-cap">'+miE2(t.where)+'</p></section>'}).join('')+'</div>';
+  h+=miSecs([['Identifying features of an epithelium',MI_EPI_ID],['Surface specialisations and special cells',MI_EPI_SP]]);
+  return h+'</div>';
+}
+function miCtHTML(){
+  var h='<div class="bl-wrap mi"><div class="mi-grid">'+MI_CT_TYPES.map(function(t){return '<section class="card mi-card">'+miCtSvg(t.id)+'<h3>'+miE2(t.n)+'</h3>'+miDL([['Looks like',t.look],['Where',t.where],['Notes',t.pts]])+'</section>'}).join('')+'</div>';
+  h+=miSecs(MI_CT_SEC);
+  h+='<p class="mi-note">For bone and cartilage cells, ossification and the bone-versus-cartilage comparison, see the Bone tissue tab in the Bone lab and the Cartilage lab.</p>';
+  return h+'</div>';
+}
+function miMuHTML(){
+  var h='<div class="bl-wrap mi"><div class="mi-grid">'+MI_MU.map(function(m){return '<section class="card mi-card">'+miMuSvg(m.id)+'<h3>'+miE2(m.n)+'</h3>'+miDL([['Where',m.where],['Control',m.ctl],['Striations',m.str],['Nuclei',m.nuc],['Cells',m.cell],['Also',m.other]])+'</section>'}).join('')+'</div>';
+  h+='<section class="card mi-card"><h3>Sarcomere</h3>'+miSarcSvg()+'</section>';
+  h+=miSecs(MI_MU_SEC);
+  return h+'</div>';
+}
+function miMethHTML(){return '<div class="bl-wrap mi">'+miSecs(MI_ST_SEC)+'</div>'}
+/* ---- quiz ---- */
+function miQSet(){var Q=MI.q,x=Q.qs[Q.i];Q.cur={q:x.q,a:x.a,why:x.why,opts:miShuf([x.a].concat(x.w))};Q.ans=null}
+function miQHTML(){
+  var Q=MI.q;
+  if(!Q)return '<section class="card mi-card"><p class="bl-q">Questions from your lectures</p><p class="sub">'+MI_QA.length+' questions in the bank. Missed ones join your Home review queue.</p><div class="mi-row">'+[10,20,MI_QA.length].map(function(n,i){return '<button class="chip'+(MI.qn===n?' on':'')+'" data-mi="qn" data-n="'+n+'">'+(i===2?'All ('+n+')':n)+'</button>'}).join('')+'</div><button class="btn" data-mi="qstart">Start</button></section>';
+  if(Q.phase==='done')return '<section class="card mi-card"><p class="bl-q">Round finished: '+Q.score+' of '+Q.n+'.</p>'+(Q.missed.length?'<button class="btn" data-mi="qretry">Retry the '+Q.missed.length+' missed</button> ':'')+'<button class="btn ghost" data-mi="qend">Done</button></section>';
+  var c=Q.cur,h='<section class="card mi-card"><div class="bl-score"><span>Question '+(Q.i+1)+' of '+Q.n+'</span><span>Score '+Q.score+'</span></div><p class="bl-q">'+miE2(c.q)+'</p><div class="bl-opts">';
+  c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}h+='<button class="'+cls+'" data-mi="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+miE2(o)+'</button>'});
+  h+='</div>';
+  if(Q.ans!==null){var ok=c.opts[Q.ans]===c.a;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'It is '+miE2(c.a)+'. ')+miE2(c.why)+'</div><button class="btn" data-mi="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  return h+'<div style="margin-top:10px"><button class="btn small ghost" data-mi="qend">End round</button></div></section>';
+}
+var MIVK={blood:'Blood cells',epi:'Epithelia',mu:'Muscle'};
+function miVItems(k){
+  if(k==='blood')return MI_BLOOD.map(function(c){return {id:c.id,n:c.short,svg:function(){return miCell(c.id)},why:c.tip+' '+c.nuc+'.'}});
+  if(k==='epi')return MI_EPI.map(function(t){return {id:t.id,n:t.n,svg:function(){return miEpiSvg(t.id)},why:t.look+' '+t.where}});
+  return MI_MU.map(function(m){return {id:m.id,n:m.n,svg:function(){return miMuSvg(m.id)},why:m.nuc+'. '+m.str+'. '+m.cell}});
+}
+function miVSet(){var V=MI.vq,x=V.qs[V.i],pool=miVItems(V.k).filter(function(y){return y.id!==x.id});V.cur={item:x,opts:miShuf([x].concat(miShuf(pool).slice(0,3)))};V.ans=null}
+function miVHTML(){
+  var V=MI.vq,h='';
+  if(!V)return '<section class="card mi-card"><p class="bl-q">Spot it: name the drawing</p><p class="sub">A schematic is shown. Pick what it is. Not scored into your review queue.</p><div class="mi-row">'+Object.keys(MIVK).map(function(k){return '<button class="chip'+(MI.vk===k?' on':'')+'" data-mi="vk" data-k="'+k+'">'+MIVK[k]+'</button>'}).join('')+'</div><button class="btn" data-mi="vstart">Start</button></section>';
+  if(V.phase==='done')return '<section class="card mi-card"><p class="bl-q">Round finished: '+V.score+' of '+V.n+'.</p><button class="btn" data-mi="vstart">Go again</button> <button class="btn ghost" data-mi="vend">Done</button></section>';
+  var c=V.cur;h+='<section class="card mi-card"><div class="bl-score"><span>Picture '+(V.i+1)+' of '+V.n+'</span><span>Score '+V.score+'</span></div><div class="mi-big" style="margin:8px 0">'+c.item.svg()+'</div><p class="bl-q">What is this?</p><div class="bl-opts">';
+  c.opts.forEach(function(o,i){var cls='bl-opt';if(V.ans!==null){if(o.id===c.item.id)cls+=' ok';else if(i===V.ans)cls+=' bad'}h+='<button class="'+cls+'" data-mi="vpick" data-i="'+i+'"'+(V.ans!==null?' disabled':'')+'>'+miE2(o.n)+'</button>'});
+  h+='</div>';
+  if(V.ans!==null){var ok=c.opts[V.ans].id===c.item.id;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'It is '+miE2(c.item.n)+'. ')+miE2(c.item.why)+'</div><button class="btn" data-mi="vnext">'+(V.i+1>=V.n?'See results':'Next')+'</button>'}
+  return h+'<div style="margin-top:10px"><button class="btn small ghost" data-mi="vend">End round</button></div></section>';
+}
+function miQuizHTML(){
+  return '<div class="bl-wrap mi"><div class="bl-row"><div class="seg"><button data-mi="qsub" data-s="text" class="'+(MI.qsub==='text'?'on':'')+'">Questions</button><button data-mi="qsub" data-s="pic" class="'+(MI.qsub==='pic'?'on':'')+'">Spot it (pictures)</button></div></div>'+(MI.qsub==='text'?miQHTML():miVHTML())+'</div>';
+}
+function miRender(){
+  var b=miBody();if(!b)return;
+  document.querySelectorAll('#mitabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===MI.tab)});
+  b.innerHTML=MI.tab==='blood'?miBloodHTML():MI.tab==='epi'?miEpiHTML():MI.tab==='ct'?miCtHTML():MI.tab==='mu'?miMuHTML():MI.tab==='meth'?miMethHTML():miQuizHTML();
+}
+function miAct(e){
+  var t=e.target.closest&&e.target.closest('[data-mi]');if(!t)return;var d=t.dataset;
+  switch(d.mi){
+    case 'close':miClose();break;
+    case 'tab':MI.tab=d.t;miRender();miTop();break;
+    case 'bmode':MI.cmp=d.m==='cmp';miRender();break;
+    case 'cell':MI.cell=d.id;miRender();break;
+    case 'cover':MI.cover=!MI.cover;MI.rv={};miRender();break;
+    case 'reveal':if(MI.cover){MI.rv[d.id]=!MI.rv[d.id];miRender()}break;
+    case 'eshape':MI.ep.shape=MI.ep.shape===d.v?null:d.v;miRender();break;
+    case 'earr':MI.ep.arr=MI.ep.arr===d.v?null:d.v;if(d.v==='trans')MI.ep.shape=null;miRender();break;
+    case 'eker':MI.ep.ker=!MI.ep.ker;miRender();break;
+    case 'qsub':MI.qsub=d.s;miRender();break;
+    case 'qn':MI.qn=parseInt(d.n,10);miRender();break;
+    case 'qstart':case 'qretry':{var qs=d.mi==='qretry'?miShuf(MI.q.missed):miShuf(MI_QA).slice(0,MI.qn);MI.q={phase:'run',qs:qs,i:0,n:qs.length,score:0,missed:[],ans:null,cur:null};miQSet();miRender();break}
+    case 'qpick':{var Q=MI.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);var ok=Q.cur.opts[Q.ans]===Q.cur.a;if(ok)Q.score++;else Q.missed.push(Q.qs[Q.i]);if(typeof srsGrade==='function')srsGrade('mi',Q.qs[Q.i],ok);miRender();break}
+    case 'qnext':{var Q2=MI.q;if(Q2.i+1>=Q2.n)Q2.phase='done';else{Q2.i++;miQSet()}miRender();break}
+    case 'qend':MI.q=null;miRender();break;
+    case 'vk':MI.vk=d.k;miRender();break;
+    case 'vstart':{var items=miShuf(miVItems(MI.vk)),n=Math.min(MI.vn,Math.max(items.length,1)*2),qs2=[];while(qs2.length<MI.vn)qs2=qs2.concat(miShuf(items));qs2=qs2.slice(0,MI.vn);MI.vq={k:MI.vk,phase:'run',qs:qs2,i:0,n:qs2.length,score:0,ans:null,cur:null};miVSet();miRender();break}
+    case 'vpick':{var V=MI.vq;if(!V||V.ans!==null)break;V.ans=parseInt(d.i,10);if(V.cur.opts[V.ans].id===V.cur.item.id)V.score++;miRender();break}
+    case 'vnext':{var V2=MI.vq;if(V2.i+1>=V2.n)V2.phase='done';else{V2.i++;miVSet()}miRender();break}
+    case 'vend':MI.vq=null;miRender();break;
+  }
+}
+document.addEventListener('click',miAct);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('mi');if(o&&!o.hidden)miClose()}});
+window.__MI={MI:MI,MI_QA:MI_QA};
+
 var BT_SEC=[
 {id:'fn',n:'What bones do',pts:[
  ['Support and protection','Bones hold the body up and shield organs: skull (brain), ribs and sternum (heart and lungs), vertebrae (spinal cord).'],
@@ -6883,6 +7118,11 @@ function hubIndex(){
   CL_LOC.forEach(function(l){add('Cartilage',l.n,l.note.slice(0,60),'',['clw'])});
   CL_CX.forEach(function(c){add('Clinical',c[0],'Cartilage lab','',['clc'])});
   ML_M.forEach(function(m){add('Muscle lab',m.n,(mlReg(m.r)||[0,''])[1],m.nv+' '+m.i+' '+m.o,['ml',m.id])});
+  MI_BLOOD.forEach(function(c){add('Blood cell',c.n,c.pct+' · '+c.size,c.nuc+' '+c.cyt+' '+c.fn,['mi','blood',c.id])});
+  MI_EPI.forEach(function(t){add('Epithelium',t.n,t.where.slice(0,60),t.fn,['mi','epi'])});
+  MI_CT_TYPES.forEach(function(t){add('Connective tissue',t.n,t.where.slice(0,60),t.look,['mi','ct'])});
+  MI_MU.forEach(function(m){add('Muscle tissue',m.n,m.nuc,m.cell+' '+m.other,['mi','mu'])});
+  [[MI_CT_SEC,'ct'],[MI_MU_SEC,'mu'],[MI_ST_SEC,'meth']].forEach(function(p){p[0].forEach(function(s){s[1].forEach(function(x){add('Microanatomy',x[0],s[0],x[1],['mi',p[1]])})})});
   ML_CX.forEach(function(c){add('Nerve injury',c[0],c[5],c[3],['mli'])});
   HUB.idx=X;return X;
 }
@@ -6915,17 +7155,19 @@ function hubSaveLast(){
     else if(!$('#jl').hidden)a={a:'jl',tab:JL.tab,j:JL.j};
     else if(!$('#cl').hidden)a={a:'cl',tab:CL.tab};
     else if(!$('#ml').hidden)a={a:'ml',tab:ML.tab,f:ML.f};
+    else if(!$('#mi').hidden)a={a:'mi',tab:MI.tab};
     else if(!HUB.open)a={a:'main',sys:st.sys,sel:st.sel};
     if(a)localStorage.setItem(LASTKEY,JSON.stringify(a));
   }catch(e){}
 }
-var HUBTAB={ml:{list:'Muscles',nerve:'By nerve',inj:'Nerve injuries',quiz:'Quiz'},jl:{classes:'Classes',types:'Types',joints:'Joints',moves:'Movements',quiz:'Quiz'},cl:{types:'Types',where:'Where is it?',zones:'Zones',clin:'Clinical',quiz:'Quiz'}};
+var HUBTAB={mi:{blood:'Blood cells',epi:'Epithelia',ct:'Connective tissue',mu:'Muscle',meth:'Stains and microscope',quiz:'Quiz'},ml:{list:'Muscles',nerve:'By nerve',inj:'Nerve injuries',quiz:'Quiz'},jl:{classes:'Classes',types:'Types',joints:'Joints',moves:'Movements',quiz:'Quiz'},cl:{types:'Types',where:'Where is it?',zones:'Zones',clin:'Clinical',quiz:'Quiz'}};
 function hubLastLabel(a){
   if(!a)return null;
   if(a.a==='bl'&&a.tab==='tissue')return ['Bone tissue','Bone lab'];
   if(a.a==='bl'&&BLB[a.bone])return ['Bone lab',BLB[a.bone].name];
   if(a.a==='jl'){var j=jlJoint(a.j);if(a.tab==='joints'&&j)return ['Joint lab',j.n];return [HUBTAB.jl[a.tab]||'Home tab','Joint lab']}
   if(a.a==='cl')return [HUBTAB.cl[a.tab]||'Home tab','Cartilage lab'];
+  if(a.a==='mi')return [HUBTAB.mi[a.tab]||'Home tab','Microanatomy lab'];
   if(a.a==='ml')return [HUBTAB.ml[a.tab]||'Home tab','Muscle lab'];
   if(a.a==='main'){var it=ITEMS.filter(function(i){return i.id===a.sel})[0];return [a.sys==='mu'?'Muscles':'Skeleton',it?it.n:'Figure']}
   return null;
@@ -6937,6 +7179,7 @@ function hubResume(a){
   else if(a.a==='jl'){JL.tab=a.tab||'classes';if(jlJoint(a.j))JL.j=a.j;jlOpen()}
   else if(a.a==='cl'){CL.tab=a.tab||'types';clOpen()}
   else if(a.a==='ml'){ML.tab=a.tab||'list';mlOpen()}
+  else if(a.a==='mi'){MI.tab=a.tab||'blood';miOpen()}
   else if(a.a==='main'){hubClose();st.sys=a.sys||'sk';st.tab='explore';st.sel=a.sel||null;Q.phase='setup';render()}
 }
 
@@ -6958,6 +7201,7 @@ function hubGo(g){
   else if(k==='clw'){CL.tab='where';clOpen()}
   else if(k==='clc'){CL.tab='clin';clOpen()}
   else if(k==='ml'){ML.tab='list';ML.reg='all';var mm=ML_M.filter(function(x){return x.id===g[1]})[0];ML.f=mm.n;ML.open[mm.id]=true;ML.cover=false;mlOpen()}
+  else if(k==='mi'){MI.tab=g[1];if(g[2])MI.cell=g[2];miOpen()}
   else if(k==='mli'){ML.tab='inj';mlOpen()}
 }
 
@@ -6996,6 +7240,7 @@ var HUBICON={
  main:'<svg viewBox="0 0 48 48"><circle cx="24" cy="9" r="5"/><path d="M24 15v16M13 20h22M24 31l-8 13M24 31l8 13"/></svg>',
  bl:'<svg viewBox="0 0 48 48"><path d="M13 12a5 5 0 1 1 8 4l14 14a5 5 0 1 1 4 8 5 5 0 0 1-8-4L13 20a5 5 0 0 1 0-8z"/></svg>',
  jl:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 6v12M24 30v12M6 24h12M30 24h12"/></svg>',
+ mi:'<svg viewBox="0 0 48 48"><circle cx="22" cy="22" r="9"/><path d="M29 29l10 10"/><circle cx="22" cy="22" r="3"/></svg>',
  cl:'<svg viewBox="0 0 48 48"><path d="M8 30c4-12 10-18 16-18s12 6 16 18"/><path d="M12 36c3-7 7-11 12-11s9 4 12 11"/></svg>',
  ml:'<svg viewBox="0 0 48 48"><path d="M10 34c0-10 8-20 20-22 4 8 2 18-6 24-4 3-10 3-14-2z"/><path d="M18 30c4-4 8-8 11-14"/></svg>'
 };
@@ -7012,7 +7257,7 @@ function hubHome(){
     if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
     o+='</div>';
     o+='<div class="hub-tiles">';
-    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations']].forEach(function(t){
+    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations'],['mi','Microanatomy lab','Blood, epithelia, connective tissue, muscle',MI_QA.length+' questions']].forEach(function(t){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
@@ -7031,7 +7276,7 @@ document.addEventListener('click',function(e){
   var t=e.target.closest&&e.target.closest('[data-hub]');if(!t||!document.getElementById('hub').contains(t))return;
   var a=t.dataset.hub;
   if(a==='go'){hubGo(HUB.res[parseInt(t.dataset.i,10)].go)}
-  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else if(l==='ml')mlOpen();else clOpen()}
+  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else if(l==='ml')mlOpen();else if(l==='mi')miOpen();else clOpen()}
   else if(a==='cont')hubResume(hubLast());
   else if(a==='review')hubStartReview();
   else if(a==='rvpick')hubRvPick(parseInt(t.dataset.i,10));
@@ -7046,10 +7291,11 @@ document.addEventListener('input',function(e){
 });
 /* labs return to the hub beneath them, so refresh it and remember where the user was */
 (function(){
-  var ob=blClose,oj=jlClose,oc=clClose,om=mlClose;
+  var ob=blClose,oj=jlClose,oc=clClose,om=mlClose,omi=miClose;
   blClose=function(){hubSaveLast();var r=ob.apply(this,arguments);if(HUB.open)hubRender();return r};
   jlClose=function(){hubSaveLast();var r=oj.apply(this,arguments);if(HUB.open)hubRender();return r};
   mlClose=function(){hubSaveLast();var r=om.apply(this,arguments);if(HUB.open)hubRender();return r};
+  miClose=function(){hubSaveLast();var r=omi.apply(this,arguments);if(HUB.open)hubRender();return r};
   clClose=function(){hubSaveLast();var r=oc.apply(this,arguments);if(HUB.open)hubRender();return r};
 })();
 window.addEventListener('pagehide',hubSaveLast);
