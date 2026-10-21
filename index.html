@@ -263,6 +263,9 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .bl-row .seg::-webkit-scrollbar{display:none}
 .bl-row .seg button{white-space:nowrap;flex:0 0 auto}
 @media(max-width:859px){.bl-svgbox{height:min(62vh,125vw);min-height:320px}.bl-grid.t .bl-svgbox{height:min(52vh,480px)}}
+.bt .bt-sec h3{margin:0 0 8px}.bt dl{margin:0}.bt dt{font-weight:700;margin-top:10px}.bt dd{margin:2px 0 0;color:var(--muted,inherit);line-height:1.5}
+.bt .bt-dg{display:block;width:min(220px,70%);margin:6px auto}.bt .bt-cap{font-size:.8rem;opacity:.75;text-align:center;margin:0 0 6px}
+@media(max-width:859px){#bl[data-mode="study"] .bl-top{position:static}.bl-grid.s .bl-stage{position:sticky;top:0;z-index:4;padding:8px}.bl-grid.s .bl-svgbox{height:min(42vh,380px);min-height:230px}.bl-grid.s .bl-hint{display:none}}
 #jl .seg{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 #jl .seg::-webkit-scrollbar{display:none}
 #jl .seg button{white-space:nowrap;flex:0 0 auto}
@@ -390,6 +393,34 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .cl-tr{display:grid;grid-template-columns:minmax(100px,.6fr) repeat(3,minmax(0,1fr));gap:10px;padding:9px 12px;border-top:1px solid var(--line);font-size:14px;align-items:start}
 .cl-tr:first-child{border-top:0}.cl-th{background:var(--bg);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
 @media(max-width:640px){.cl-tr{grid-template-columns:1fr;gap:3px}.cl-th{display:none}.cl-tr span[data-l]::before{content:attr(data-l) ": ";font-weight:700;color:var(--muted)}}
+#ml .seg{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#ml .seg::-webkit-scrollbar{display:none}
+#ml .seg button{white-space:nowrap;flex:0 0 auto}
+.ml-note{font-size:13px;color:var(--muted);margin:2px 0 10px}
+.ml-find{width:100%;min-height:46px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 15.5px var(--f-body);-webkit-appearance:none;appearance:none;margin-bottom:10px}
+.ml-find:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.ml-grid{column-width:300px;column-gap:10px}
+.ml-grid>.card{break-inside:avoid;margin-bottom:10px;display:block}
+.ml-card{padding:0;overflow:hidden}
+.ml-h{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:transparent;color:var(--ink);padding:12px 14px;min-height:56px}
+.ml-h b{flex:1;min-width:0;font:400 21px/1.15 var(--f-display)}
+.ml-tg{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.ml-ch{width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s;flex:none;margin-right:2px}
+.ml-card.open .ml-ch{transform:rotate(-135deg)}
+.ml-b{padding:0 14px 14px;display:none}
+.ml-card.open .ml-b{display:block}
+.ml-dl{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;margin:0}
+.ml-dl dt{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:8px}
+.ml-dl dd{margin:0;font-size:14.5px}
+.ml-cov{display:block;width:100%;text-align:left;border:1px dashed color-mix(in srgb,var(--accent) 50%,var(--line));background:var(--accent-soft);border-radius:8px;padding:8px 10px;color:var(--muted);font:500 13.5px var(--f-body);min-height:38px}
+.ml-nt{margin-top:10px;font-size:13.5px;color:var(--muted);border-left:3px solid var(--accent);padding-left:10px}
+.ml-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 14px}
+.ml-ng{padding:0}
+.ml-ngh{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px 8px}
+.ml-ngh b{font:400 20px/1.15 var(--f-display)}
+.ml-empty{color:var(--muted);text-align:center;padding:26px 10px}
+.ml-inj-k{font-size:12.5px;font-weight:700;color:var(--accent)}
+@media(max-width:560px){.ml-grid{column-width:auto;column-count:1}}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -463,7 +494,8 @@ h1,h2{letter-spacing:-.015em}
 .hub-cont:hover{border-color:var(--accent)}.hub-cont:active{transform:scale(.99)}
 .hub-cn{font:400 28px/1.15 var(--f-display);margin:4px 0 6px;text-wrap:balance}
 .hub-tiles{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(min-width:700px){.hub-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:700px){.hub-tiles{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(min-width:700px) and (max-width:900px){.hub-tile{padding:13px}.hub-tile b{font-size:19px}}
 .hub-tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:16px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,0) 55%),var(--surface);color:var(--ink);min-height:178px;box-shadow:0 16px 40px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .15s,border-color .2s,box-shadow .25s}
 :root[data-theme="light"] .hub-tile{background:var(--surface)}
 .hub-tile:hover{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent),0 18px 44px -20px color-mix(in srgb,var(--accent) 55%,transparent)}
@@ -485,7 +517,7 @@ h1,h2{letter-spacing:-.015em}
       <h1>Anatomy Drill</h1>
       <p class="sub" id="prog"></p>
     </div></div>
-    <div class="hdr-r"><button class="btn small home" data-act="hubopen">Home</button><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="clopen">Cartilage lab</button>
+    <div class="hdr-r"><button class="btn small home" data-act="hubopen">Home</button><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="mlopen">Muscle lab</button><button class="btn small" data-act="clopen">Cartilage lab</button>
     <div class="seg" id="sysSeg" role="tablist" aria-label="System">
       <button data-act="sys" data-s="sk" class="on">Skeleton</button>
       <button data-act="sys" data-s="mu">Muscles</button>
@@ -555,7 +587,7 @@ h1,h2{letter-spacing:-.015em}
   <div class="bl-top">
     <button class="btn ghost small" data-bl="close">&larr; Back</button>
     <h2>Bone lab</h2>
-    <div class="seg" id="bltabs"><button data-bl="tab" data-t="types" class="on">Bone types</button><button data-bl="tab" data-t="lm">Bone landmarks</button></div>
+    <div class="seg" id="bltabs"><button data-bl="tab" data-t="types" class="on">Bone types</button><button data-bl="tab" data-t="lm">Bone landmarks</button><button data-bl="tab" data-t="tissue">Bone tissue</button></div>
   </div>
   <div id="blbody"></div>
 </div>
@@ -574,6 +606,14 @@ h1,h2{letter-spacing:-.015em}
     <div class="seg" id="cltabs"><button data-cl="tab" data-t="types" class="on">Types</button><button data-cl="tab" data-t="where">Where is it?</button><button data-cl="tab" data-t="zones">Zones</button><button data-cl="tab" data-t="clin">Clinical</button><button data-cl="tab" data-t="quiz">Quiz</button></div>
   </div>
   <div id="clbody"></div>
+</div>
+<div id="ml" class="bl" hidden role="dialog" aria-label="Muscle lab">
+  <div class="bl-top">
+    <button class="btn ghost small" data-ml="close">&larr; Back</button>
+    <h2>Muscle lab</h2>
+    <div class="seg" id="mltabs"><button data-ml="tab" data-t="list" class="on">Muscles</button><button data-ml="tab" data-t="nerve">By nerve</button><button data-ml="tab" data-t="inj">Nerve injuries</button><button data-ml="tab" data-t="quiz">Quiz</button></div>
+  </div>
+  <div id="mlbody"></div>
 </div>
 <div id="hub" class="hub" hidden role="dialog" aria-label="Home"><div class="hub-bg" aria-hidden="true"></div><div class="hub-in" id="hubbody"></div></div>
 
@@ -1370,6 +1410,7 @@ function act(a,d,ev){
     case 'jlopen':jlOpen();break;
     case 'clopen':clOpen();break;
     case 'hubopen':hubOpen();break;
+    case 'mlopen':mlOpen();break;
     case 'pickmc':answerMc(parseInt(d.i,10));break;
     case 'next':nextQ();break;
   }
@@ -1983,7 +2024,7 @@ function v3Close(){
 /* ===== Bone lab: bone types + numbered landmark explorer ===== */
 var BLP=['#e0483e','#3f8fd9','#f0a21a','#2fa56b','#8e5bd0','#e0689f','#1fb2b8','#9aa31f','#d9702a','#5b6fd6','#2a8f5a','#c24a8a','#6a9a2f','#b5543a'];
 var BLB={},BLORDER=[];
-var BL={tab:'types',type:'long',bone:'humerus',view:'a',sel:null,names:false,vb:null,base:null,mode:'learn',qm:{find:true,name:true,rel:true,why:true},q:null,sort:null,sortRes:null,sortSet:null};
+var BL={tab:'types',type:'long',bone:'humerus',view:'a',sel:null,names:false,vb:null,base:null,mode:'learn',sd:{sel:null,rev:false,hint:false,ptr:false,only:false,marks:{},msg:''},qm:{find:true,name:true,rel:true,why:true},q:null,sort:null,sortRes:null,sortSet:null};
 var BLNS='http://www.w3.org/2000/svg';
 function blE(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function bf(n){return Math.round(n*10)/10}
@@ -2026,7 +2067,7 @@ function blPolyPath(c,smooth){var p=[];for(var i=0;i<c.length;i+=2)p.push([c[i],
 /* ---------- viewer drawing ---------- */
 function blScale(){var s=document.getElementById('blsvg'),vb=BL.vb;if(!s||!vb)return 1;var bb=s.getBoundingClientRect();var k=Math.min(bb.width/vb[2],bb.height/vb[3]);return k>0?1/k:1}
 function blSvg(){
-  var b=blBone(),v=BL.view,fl=blFlip(b,v),W=b.w,sil=blSilh(b,v),bx=blBounds(b),q=BL.q&&BL.q.phase==='run'?BL.q.cur:null;
+  var b=blBone(),v=BL.view,fl=blFlip(b,v),W=b.w,sil=blSilh(b,v),bx=blBounds(b),q=BL.q&&BL.q.phase==='run'?BL.q.cur:(BL.mode==='study'&&BL.sd&&BL.sd.sel?{hl:BL.sd.sel}:null);
   var h='<svg id="blsvg" viewBox="'+BL.vb.join(' ')+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="'+blE(b.name)+' diagram">';
   h+='<defs><linearGradient id="blsh" gradientUnits="userSpaceOnUse" x1="'+bx[0]+'" x2="'+(bx[0]+bx[2])+'" y1="0" y2="0"><stop offset="0" stop-color="#1c1208" stop-opacity=".38"/><stop offset=".2" stop-color="#1c1208" stop-opacity=".08"/><stop offset=".42" stop-color="#fff" stop-opacity=".22"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#1c1208" stop-opacity=".42"/></linearGradient>';
   h+='<filter id="blblur" x="-20%" y="-10%" width="140%" height="120%"><feGaussianBlur stdDeviation="'+(bx[2]/38)+'"/></filter><filter id="blgr" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="2" seed="7"/><feColorMatrix type="matrix" values="0 0 0 0 .22  0 0 0 0 .15  0 0 0 0 .06  0 0 0 1.1 -.42"/></filter>';
@@ -2122,6 +2163,7 @@ function blWire(){
 function blTap(e){
   var l=blHit(e);
   if(BL.mode==='learn'){BL.sel=l?l.id:null;blPaint();blPanel()}
+  else if(BL.mode==='study')blStudyTap(l);
   else blFindAnswer(l);
 }
 function blFocus(id){var b=blBone(),l=b.lm.filter(function(x){return x.id===id})[0];if(!l)return;
@@ -2147,6 +2189,7 @@ function blRender(){
   var body=blGo();if(!body)return;
   document.querySelectorAll('#bltabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===BL.tab)});
   if(BL.tab==='types'){body.innerHTML=blTypesHTML();return}
+  if(BL.tab==='tissue'){body.innerHTML=btHTML();return}
   var b=blBone(),views=blViews(b);
   if(!blItems(b,BL.view).length)BL.view=views[0][0];
   var h='<div class="bl-wrap"><div class="bl-row scroll" id="blbones">';
@@ -2154,16 +2197,16 @@ function blRender(){
   BLORDER.forEach(function(id){var x=BLB[id];h+='<button class="chip'+(id===BL.bone?' on':'')+'" data-bl="bone" data-id="'+id+'">'+blE(x.name)+'</button>'});
   h+='</div><div class="bl-row"><div class="seg">';
   views.forEach(function(v){h+='<button data-bl="view" data-v="'+v[0]+'" class="'+(BL.view===v[0]?'on':'')+'">'+v[1]+'</button>'});
-  h+='</div><div class="seg"><button data-bl="mode" data-m="learn" class="'+(BL.mode==='learn'?'on':'')+'">Learn</button><button data-bl="mode" data-m="test" class="'+(BL.mode==='test'?'on':'')+'">Test</button></div>';
+  h+='</div><div class="seg"><button data-bl="mode" data-m="learn" class="'+(BL.mode==='learn'?'on':'')+'">Learn</button><button data-bl="mode" data-m="study" class="'+(BL.mode==='study'?'on':'')+'">Study</button><button data-bl="mode" data-m="test" class="'+(BL.mode==='test'?'on':'')+'">Test</button></div>';
   if(BL.mode==='learn')h+='<button class="chip'+(BL.names?' on':'')+'" data-bl="names">Show names</button>';
-  h+='</div><div class="bl-grid'+(BL.mode==='test'?' t':'')+'"><section class="card bl-stage"><div class="bl-svgbox" id="blbox"><div class="bl-zoom"><button data-bl="zin" aria-label="Zoom in">+</button><button data-bl="zout" aria-label="Zoom out">&minus;</button><button data-bl="zfit" aria-label="Reset view" style="font-size:13px">Fit</button></div></div><p class="bl-hint">Pinch or scroll to zoom, drag to move'+(BL.mode==='learn'?', tap a number or colour to learn it.':'.')+'</p></section><section class="card" id="blpanel"></section></div></div>';
+  h+='</div><div class="bl-grid'+(BL.mode==='test'?' t':(BL.mode==='study'?' s':''))+'"><section class="card bl-stage"><div class="bl-svgbox" id="blbox"><div class="bl-zoom"><button data-bl="zin" aria-label="Zoom in">+</button><button data-bl="zout" aria-label="Zoom out">&minus;</button><button data-bl="zfit" aria-label="Reset view" style="font-size:13px">Fit</button></div></div><p class="bl-hint">Pinch or scroll to zoom, drag to move'+(BL.mode==='learn'?', tap a number or colour to learn it.':(BL.mode==='study'?', tap a part of the bone.':'.'))+'</p></section><section class="card" id="blpanel"></section></div></div>';
   body.innerHTML=h;
-  var ov=document.getElementById('bl');if(BL.mode==='test'||BL._top){ov.scrollTop=0;BL._top=false}
+  var ov=document.getElementById('bl');ov.dataset.mode=BL.tab==='lm'?BL.mode:'';if(BL.mode==='test'||BL._top){ov.scrollTop=0;BL._top=false}
   blFit();blPaint();blWire();blPanel();
 }
 function blPanel(){
   var p=document.getElementById('blpanel');if(!p)return;
-  p.innerHTML=BL.mode==='learn'?blLearnHTML():blTestHTML();
+  p.innerHTML=BL.mode==='learn'?blLearnHTML():(BL.mode==='study'?blStudyHTML():blTestHTML());
 }
 function blLearnHTML(){
   var b=blBone(),v=BL.view,h='<p class="eyebrow">'+blE(b.typeLabel||'')+'</p><h2>'+blE(b.name)+' <span style="font-size:17px;color:var(--muted);font-style:italic">'+blE(b.la||'')+'</span></h2>';
@@ -2257,7 +2300,7 @@ var BLT=[
   struct:['The shaft is mostly compact (cortical) bone around a central medullary cavity containing bone marrow.','The ends contain spongy (cancellous) bone covered by a thin compact shell, and the joint surfaces are covered by articular (hyaline) cartilage.','In a growing bone, the epiphyseal plate between epiphysis and shaft is where it lengthens.'],
   why:'Rigid levers for movement. A hollow tube resists bending for its weight, and the wider ends spread load across the joint and give room for ligament and tendon attachments.',
   ex:['Humerus','Radius','Ulna','Femur','Tibia','Fibula','Clavicle','Metacarpals','Metatarsals','Phalanges'],
-  note:'"Long" describes shape, not size: the phalanges are long bones.'},
+  note:'"Long" describes shape, not size. Your KCL worksheet calls the phalanges "miniature long bones".'},
  {k:'short',n:'Short bones',tag:'Roughly as long as wide',
   def:'Short bones are roughly cube-shaped, about equal in length, width and thickness.',
   struct:['Spongy (cancellous) bone covered by a thin layer of compact bone.','No true shaft (diaphysis) or metaphysis. Carpals and tarsals usually ossify from a single centre.','Joint surfaces are covered with hyaline cartilage.'],
@@ -2327,6 +2370,54 @@ function blSortHTML(){
   if(S.res)h+='<div class="bl-sec"><b>'+(S.res.ok?'Correct':'Not quite')+'</b><p>'+blE(it[2])+'</p></div><div class="bl-row" style="margin-top:12px"><button class="btn" data-bl="sortnext">'+(S.i+1>=S.n?'Finish':'Next')+'</button></div>';
   return h+'</div>';
 }
+/* ---------- study mode ---------- */
+function blStudyMarks(){var b=blBone();return BL.sd.marks[b.id]||(BL.sd.marks[b.id]={})}
+function blStudyShow(id){
+  var b=blBone(),l=b.lm.filter(function(x){return x.id===id})[0];if(!l)return;
+  BL.sd.sel=id;BL.sd.rev=false;BL.sd.hint=false;BL.sd.msg='';
+  if(!l[BL.view]){var f=blViews(b).filter(function(x){return l[x[0]]})[0];if(f){BL.view=f[0];blRender();return}}
+  blPaint();blPanel();
+}
+function blStudyTap(l){
+  BL.sd.ptr=false;
+  if(!l){BL.sd.sel=null;BL.sd.rev=false;BL.sd.msg='Nothing there. Tap on the bone itself.';blPaint();blPanel();return}
+  BL.sd.sel=l.id;BL.sd.rev=false;BL.sd.hint=false;BL.sd.msg='';blPaint();blPanel();
+}
+function blStudyNext(){
+  var b=blBone(),m=blStudyMarks(),pool=blLeaves(b);
+  if(BL.sd.only){var ms=pool.filter(function(l){return m[l.id]==='miss'});if(ms.length)pool=ms}
+  else{var rest=pool.filter(function(l){return m[l.id]!=='got'});if(rest.length)pool=rest}
+  if(pool.length>1&&BL.sd.sel)pool=pool.filter(function(l){return l.id!==BL.sd.sel});
+  var l=pool[Math.floor(Math.random()*pool.length)];BL.sd.ptr=true;blStudyShow(l.id);
+}
+function blStudyMark(v){
+  var m=blStudyMarks();if(BL.sd.sel)m[BL.sd.sel]=v;
+  if(BL.sd.ptr){blStudyNext();return}
+  BL.sd.sel=null;BL.sd.rev=false;BL.sd.hint=false;blPaint();blPanel();
+}
+function blStudyHTML(){
+  var b=blBone(),sd=BL.sd,m=blStudyMarks(),pool=blLeaves(b);
+  var got=pool.filter(function(l){return m[l.id]==='got'}).length,miss=pool.filter(function(l){return m[l.id]==='miss'});
+  var h='<p class="eyebrow">Study</p><h2>'+blE(b.name)+'</h2>';
+  h+='<p class="sub">'+got+' got it · '+miss.length+' missed · '+(pool.length-got-miss.length)+' not tried (of '+pool.length+'). Nothing here is scored.</p>';
+  var l=sd.sel&&b.lm.filter(function(x){return x.id===sd.sel})[0];
+  if(!l){
+    h+='<p>Tap any part of the bone. Say its name in your head, then reveal it to check.</p>';
+    if(sd.msg)h+='<p class="sub">'+blE(sd.msg)+'</p>';
+  }else if(!sd.rev){
+    h+='<div class="bl-card"><p class="bl-q">What is the highlighted part?</p><p class="sub">Say it in your head first.</p>';
+    if(sd.hint){var g=b.lm.filter(function(x){return x.grp&&x.num===l.num.split('.')[0]})[0];h+='<p><b>Hint:</b> '+(g?'it belongs to <i>'+blE(g.n)+'</i>.':'look at its position on the bone.')+(l.t&&l.t[0]?'':'')+'</p>'}
+    h+='<div class="bl-row"><button class="btn" data-bl="sdrev">Reveal</button>'+(sd.hint?'':'<button class="btn ghost" data-bl="sdhint">Hint</button>')+'</div></div>';
+  }else{
+    h+=blCard(l);
+    h+='<div class="bl-row" style="margin-top:10px"><button class="btn" data-bl="sdmark" data-m="got">Got it</button><button class="btn ghost" data-bl="sdmark" data-m="miss">Missed</button></div>';
+  }
+  h+='<div class="bl-row" style="margin-top:14px"><button class="btn ghost small" data-bl="sdnext">'+(sd.ptr?'Next one':'Pick one for me')+'</button>'
+   +(miss.length?'<button class="chip'+(sd.only?' on':'')+'" data-bl="sdonly">Only missed ('+miss.length+')</button>':'')
+   +((got||miss.length)?'<button class="btn ghost small" data-bl="sdreset">Reset marks</button>':'')+'</div>';
+  if(miss.length){h+='<p class="eyebrow" style="margin-top:14px">Missed</p><div class="bl-ex">'+miss.map(function(x){return '<button class="chip" data-bl="sdgo" data-id="'+x.id+'">'+blE(x.n)+'</button>'}).join('')+'</div>'}
+  return h;
+}
 /* ---------- open/close + events ---------- */
 function blOpen(){var o=document.getElementById('bl');o.hidden=false;document.body.style.overflow='hidden';blRender()}
 function blClose(){var o=document.getElementById('bl');o.hidden=true;document.body.style.overflow='';if(typeof JL!=='undefined'&&JL.ret){JL.ret=false;jlOpen()}}
@@ -2337,9 +2428,16 @@ function blAct(e){
     case 'tab':BL.tab=d.t;blRender();break;
     case 'type':BL.type=d.k;if(d.k!=='sort')BL.sort=null;blRender();break;
     case 'openbone':BL.tab='lm';BL.bone=d.id;BL.view=blViews(BLB[d.id])[0][0];BL.sel=null;BL.mode='learn';BL.q=null;blRender();break;
-    case 'bone':BL.bone=d.id;BL.view=blViews(BLB[d.id])[0][0];BL.sel=null;BL.q=null;blRender();break;
-    case 'view':BL.view=d.v;BL.sel=null;blFit();blPaint();blPanel();document.querySelectorAll('[data-bl="view"]').forEach(function(x){x.classList.toggle('on',x.dataset.v===BL.view)});break;
-    case 'mode':BL.mode=d.m;BL.q=null;BL.sel=null;blRender();break;
+    case 'bone':BL.sd.sel=null;BL.sd.rev=false;BL.bone=d.id;BL.view=blViews(BLB[d.id])[0][0];BL.sel=null;BL.q=null;blRender();break;
+    case 'view':BL.view=d.v;BL.sel=null;if(BL.sd.sel&&!blBone().lm.filter(function(x){return x.id===BL.sd.sel})[0][d.v]){BL.sd.sel=null;BL.sd.rev=false}blFit();blPaint();blPanel();document.querySelectorAll('[data-bl="view"]').forEach(function(x){x.classList.toggle('on',x.dataset.v===BL.view)});break;
+    case 'mode':BL.mode=d.m;BL.q=null;BL.sel=null;BL.sd.sel=null;BL.sd.rev=false;BL.sd.hint=false;BL.sd.ptr=false;BL.sd.msg='';blRender();break;
+    case 'sdrev':BL.sd.rev=true;blPanel();break;
+    case 'sdhint':BL.sd.hint=!BL.sd.hint;blPanel();break;
+    case 'sdmark':blStudyMark(d.m);break;
+    case 'sdnext':blStudyNext();break;
+    case 'sdonly':BL.sd.only=!BL.sd.only;blPanel();break;
+    case 'sdreset':BL.sd.marks[blBone().id]={};BL.sd.only=false;blPanel();break;
+    case 'sdgo':BL.sd.ptr=false;blStudyShow(d.id);break;
     case 'names':BL.names=!BL.names;blRender();break;
     case 'sel':var l=blBone().lm.filter(function(x){return x.id===d.id})[0];
       if(!l[BL.view]){var f=blViews(blBone()).filter(function(x){return l[x[0]]})[0];if(f){BL.view=f[0];BL.sel=d.id;blRender();break}}
@@ -5032,7 +5130,7 @@ var JL_CLASSES={
     {n:'Syndesmosis',fn:'Amphiarthrosis (slightly movable)',ex:['Middle radioulnar joint','Middle and inferior tibiofibular joints'],t:'Bones joined by a sheet or band of fibrous tissue, such as an interosseous membrane. A little movement is possible.'}]},
   {id:'cart',n:'Cartilaginous',col:'#3E8E5A',tissue:'Cartilage',blurb:'Bones are joined by cartilage. No joint cavity. Some movement or none, depending on the type.',
    subs:[
-    {n:'Primary cartilaginous (synchondrosis)',fn:'Synarthrosis (immovable)',ex:['Growth plate between the diaphysis and epiphysis of a growing long bone'],t:'Bones joined by hyaline cartilage.'},
+    {n:'Primary cartilaginous (synchondrosis)',fn:'Synarthrosis (immovable)',ex:['Growth plate between the diaphysis and epiphysis of a growing long bone','First sternocostal joint','Costochondral joints'],t:'Bones joined by hyaline cartilage.'},
     {n:'Secondary cartilaginous (symphysis)',fn:'Amphiarthrosis (slightly movable)',ex:['Pubic symphysis','Intervertebral discs (between vertebral bodies)'],t:'Hyaline cartilage covers the bone ends, with fibrocartilage joining them.'}]},
   {id:'syn',n:'Synovial',col:'#2F7FC4',tissue:'Fluid-filled joint cavity inside a fibrous capsule',blurb:'The bones are not joined directly. They are separated by a synovial cavity, so the joint is freely movable.',
    subs:[{n:'Synovial joint',fn:'Diarthrosis (freely movable)',ex:['Shoulder','Elbow','Hip','Knee'],t:'Six types, based on the shape of the surfaces and the movements allowed (see Synovial types).'}]}],
@@ -5052,7 +5150,7 @@ var JL_CLASSES={
 };
 
 var JL_TYPES=[
- {id:'plane',n:'Plane (gliding)',axes:'Non-axial',aid:'none',move:'Flat or nearly flat surfaces slide over each other. There is no angular movement.',ex:['Acromioclavicular joint','Intercarpal joints','Subtalar joint (functionally)','Facet (zygapophysial) joints of the spine'],tip:'Think of sliding one book over another.',
+ {id:'plane',n:'Plane (gliding)',axes:'Uniaxial',aid:'uni',move:'Flat or nearly flat surfaces slide over each other in one plane. Your KCL lecture groups plane joints as uniaxial; many textbooks call them non-axial because there is no angular movement.',ex:['Acromioclavicular joint','Intercarpal joints','Intertarsal joints','Subtalar joint (functionally)','Facet (zygapophysial) joints of the spine'],tip:'Think of sliding one book over another.',
   btn:[['Slide left',{sx:-40}],['Slide right',{sx:40}],['Slide forwards',{sz:34}],['Slide back',{sz:-34}]],no:[]},
  {id:'hinge',n:'Hinge',axes:'Uniaxial',aid:'uni',move:'Flexion and extension only, in one plane, like a door hinge.',ex:['Elbow (humeroulnar part)','Ankle (talocrural)','Knee (a modified hinge)','Interphalangeal joints of the fingers'],tip:'One axis, one plane: flexion and extension.',
   btn:[['Flexion',{flex:70}],['Extension',{flex:0}]],no:[['Try abduction','A hinge cannot abduct. It has one axis only.'],['Try rotation','A hinge cannot rotate. It has one axis only.']]},
@@ -5183,7 +5281,7 @@ var JL_J=[
  mov:[['Flexion','Iliopsoas, rectus femoris, sartorius, pectineus'],['Extension','Gluteus maximus, hamstrings'],['Abduction','Gluteus medius and minimus, tensor fasciae latae, piriformis'],['Adduction','Adductors longus, brevis and magnus, gracilis, pectineus'],['Lateral rotation','Gluteus maximus, piriformis, quadratus femoris, obturators and gemelli'],['Medial rotation','Anterior fibres of gluteus medius and minimus, tensor fasciae latae']],
  stab:'Stability comes first, because the joint bears weight. The socket is deep and enclosed by the labrum. The ligaments are strong and spiral, and they tighten in extension.',
  clin:[['Neck of femur fracture','Common in older people with osteoporosis. The blood supply from the circumflex femoral arteries can be disrupted, which can cause avascular necrosis of the femoral head. The medial circumflex femoral artery supplies most of the head.'],['Posterior dislocation','About 90 per cent of dislocations. It follows trauma to a flexed knee (a dashboard injury). The hip is flexed, adducted and internally rotated. The sciatic nerve can be injured, and avascular necrosis is a risk.'],['Developmental dysplasia of the hip','A shallow acetabulum. It is treated early, for example with a Pavlik harness.']]},
-{id:'knee',dg:'knee',n:'Knee joint',reg:'low',cls:'Synovial',ty:'hinge',tq:0,tl:'Modified hinge',axes:'Mainly uniaxial, with some rotation',
+{id:'knee',dg:'knee',n:'Knee joint',reg:'low',cls:'Synovial',ty:'hinge',tq:1,tl:'Hinge (often called a modified hinge)',axes:'Mainly uniaxial, with some rotation',
  bl:[['femur','Femur'],['tibia','Tibia'],['patella','Patella']],
  surf:'The medial and lateral femoral condyles meet the tibial condyles (tibiofemoral joint). The patella slides on the front of the femur (patellofemoral joint). All are in one joint cavity. The C-shaped menisci deepen the tibial surface and absorb shock.',
  lig:[['Anterior cruciate ligament (ACL)','From the anterior intercondylar area of the tibia to the lateral femoral condyle. It stops the tibia sliding forwards.'],['Posterior cruciate ligament (PCL)','From the posterior intercondylar area of the tibia to the medial femoral condyle. It stops the tibia sliding backwards.'],['Medial collateral ligament (MCL)','From the medial femoral epicondyle to the medial tibial condyle. It resists valgus force.'],['Lateral collateral ligament (LCL)','From the lateral femoral epicondyle to the head of the fibula. It resists varus force.'],['Patellar ligament','From the patella to the tibial tuberosity. It continues the quadriceps tendon.'],['Medial and lateral menisci','The medial is larger and less curved. The lateral is smaller, more circular and more mobile.'],['Bursae','Suprapatellar (the largest, it communicates with the joint), prepatellar, infrapatellar and semimembranosus.']],
@@ -5219,7 +5317,7 @@ var JL_J=[
 /* ---------- head, neck and spine ---------- */
 {id:'tmj',n:'Temporomandibular joint (TMJ)',reg:'axial',cls:'Synovial',ty:null,tq:0,tl:'Hinge and gliding (ginglymoarthrodial)',axes:'Hinge plus sliding',
  bl:[['temporal','Temporal bone'],['skull','Skull (mandible)']],
- surf:'The head of the mandible fits in the mandibular fossa of the temporal bone, with the articular tubercle (eminence) in front. A fibrous (often called fibrocartilage) articular disc divides the joint into an upper and a lower compartment. The lower compartment allows rotation (hinge). The upper allows translation (sliding).',
+ surf:'The head of the mandible fits in the mandibular fossa of the temporal bone, with the articular tubercle (eminence) in front. A fibrocartilaginous articular disc (as in your KCL lecture) divides the joint into an upper and a lower compartment. The lower compartment allows rotation (hinge). The upper allows translation (sliding).',
  lig:[['Capsule','A loose envelope attached to the rim of the fossa and articular tubercle above and the neck of the mandible below.'],['Temporomandibular (lateral) ligament','A thickening of the lateral capsule. It limits backwards movement of the mandible.'],['Sphenomandibular and stylomandibular ligaments','Accessory ligaments that are not attached to the joint itself. The stylomandibular ligament limits protrusion, and the sphenomandibular ligament limits excessive opening.']],
  mov:[['Elevation (closing)','Masseter, temporalis, medial pterygoid'],['Depression (opening)','Lateral pterygoid, helped by the digastric, mylohyoid and geniohyoid'],['Protrusion','Lateral pterygoid'],['Side-to-side movement','The lateral pterygoids acting alternately (with the medial pterygoid)']],
  stab:'The capsule, the disc and the ligaments.',
@@ -5268,6 +5366,19 @@ var JL_J=[
  mov:[['Slight movement','Increases in pregnancy.']],
  stab:'The superior and inferior pubic ligaments. The superior ligament is reinforced by the tendons of rectus abdominis, external oblique and gracilis.',
  clin:[['Pregnancy','The hormone relaxin loosens the ligaments and the normal gap widens.'],['Diastasis and symphysiolysis','Excessive separation can cause pelvic girdle pain.'],['Osteitis pubis','An inflammatory condition of the symphysis.']]},
+{id:'ms',n:'Manubriosternal joint',reg:'axial',cls:'Cartilaginous',ty:null,tq:0,tl:'Secondary cartilaginous (symphysis)',axes:'Very slight movement',
+ bl:[['rib2','Rib 2 (sits at this level)']],
+ surf:'The manubrium meets the body of the sternum at the sternal angle (of Louis). A fibrocartilage disc lies between them. Textbooks differ on the details: it is usually described as a secondary cartilaginous joint, and in many older people it ossifies.',
+ lig:[],mov:[['Very slight','Allows a little movement of the sternum during deep breathing.']],
+ stab:'Held by the disc and the surrounding sternal ligaments.',
+ clin:[['Sternal angle','A key landmark. It lies at the level of the second costal cartilage, the T4/T5 disc, the carina and the start of the aortic arch.']]},
+{id:'sco',n:'Sternocostal joints',reg:'axial',cls:'Cartilaginous',ty:null,tq:0,tl:'First: primary cartilaginous. Second to seventh: synovial',axes:'Immovable (first) or slight gliding',
+ bl:[['rib1','Rib 1'],['rib2','Rib 2']],
+ surf:'Where the costal cartilages meet the sternum. The first costal cartilage joins the manubrium directly by hyaline cartilage (a primary cartilaginous joint, or synchondrosis). The second to seventh are usually synovial, with a small cavity. Your KCL lecture lists the first sternocostal joint and the costochondral joints (rib to costal cartilage) as primary cartilaginous joints.',
+ lig:[['Radiate sternocostal ligaments','Fan out from the costal cartilages over the front of the sternum.']],
+ mov:[['Slight gliding','Lets the ribs move in breathing.']],
+ stab:'The radiate sternocostal ligaments.',
+ clin:[['Costochondritis','Inflammation of a costochondral or sternocostal junction. It causes chest wall pain that is worse on pressing or deep breathing.']]},
 /* ---------- fibrous and cartilaginous ---------- */
 {id:'suture',n:'Skull sutures',reg:'other',cls:'Fibrous',ty:null,tq:0,tl:'Suture',axes:'Immovable',
  bl:[['skull','Skull']],
@@ -5836,7 +5947,7 @@ var CL_TYPES=[
   fn:'Flexible support that springs back to shape.',
   feat:['Type II collagen plus a dense network of elastic fibres','Stains with orcein or Verhoeff (elastic stains)','Perichondrium present','Resists calcification and ossification','Found where a structure must bend and recoil'],
   tip:'Think floppy and bendy: ear and epiglottis.',
-  ex:['Auricle of the ear','Epiglottis','Corniculate cartilage','Cuneiform cartilage']},
+  ex:['Auricle of the ear','Auditory (Eustachian) tube (your lecture lists it as elastic; some books say mixed)','Epiglottis','Corniculate cartilage','Cuneiform cartilage']},
  {id:'fi',n:'Fibrocartilage',s:'Fibrocartilage',col:'#B5546F',coll:'Type I (thick bundles), some type II',peri:'Absent',
   look:'Dense, white and tough. Thick bundles of type I collagen run in parallel, with rows of chondrocytes squeezed between them.',
   fn:'Resists compression, tension and shear. It is the shock absorber and the strong, flexible link between bones.',
@@ -5862,6 +5973,7 @@ var CL_LOC=[
  ['Thyroid cartilage','hy','air','The largest laryngeal cartilage, with the laryngeal prominence (Adam\'s apple). It calcifies with age.'],
  ['Cricoid cartilage','hy','air','The only complete ring of cartilage in the airway. It lies below the thyroid cartilage.'],
  ['Arytenoid cartilage','mix','air','Mostly hyaline, but the apex and the vocal process are elastic. It moves the vocal folds.'],
+ ['Auditory (Eustachian) tube','el','face','Your KCL lecture lists the auditory tube as elastic cartilage. Some textbooks describe its cartilage as mixed elastic and hyaline, so trust your lecture.'],
  ['Epiglottis','el','air','A leaf-shaped flap that folds back over the laryngeal inlet when swallowing.'],
  ['Corniculate cartilage','el','air','A small nodule on the apex of each arytenoid.'],
  ['Cuneiform cartilage','el','air','A small rod in the aryepiglottic fold, in front of the corniculate cartilage.'],
@@ -6199,6 +6311,536 @@ document.addEventListener('click',clAct);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('cl');if(o&&!o.hidden)clClose()}});
 window.__CL={CL_LOC:CL_LOC,CL_QA:CL_QA,CL_TYPES:CL_TYPES,clPool:clPool};
 
+/* ===== Muscle lab data ===== */
+var ML_REG=[['face','Face and jaw'],['neck','Neck'],['back','Back'],['thorax','Thorax'],['abd','Abdomen'],['shoulder','Shoulder'],['arm','Arm'],['fant','Forearm: front'],['fpost','Forearm: back'],['hand','Hand'],['glut','Gluteal region'],['thigh','Thigh'],['leg','Leg']];
+var ML_NG={ma:'Mandibular (V3)',fa:'Facial (VII)',acc:'Accessory (XI)',dors:'Dorsal scapular',ph:'Phrenic',ic:'Intercostal and lower thoracic',sup:'Suprascapular',ax:'Axillary',sub:'Subscapular',mc:'Musculocutaneous',rad:'Radial',pin:'Posterior interosseous (radial)',med:'Median',ain:'Anterior interosseous (median)',uln:'Ulnar',lt:'Long thoracic',pec:'Pectoral',td:'Thoracodorsal',sg:'Superior gluteal',ig:'Inferior gluteal',fem:'Femoral',obt:'Obturator',sci:'Sciatic (tibial part)',cf:'Common fibular (and branches)',dfn:'Deep fibular',sfn:'Superficial fibular',tib:'Tibial',lum:'Anterior rami of lumbar nerves',dr:'Dorsal rami of spinal nerves',ant:'Cervical anterior rami',nbp:'Nerve to piriformis, obturator internus, quadratus femoris'};
+/* [name, region, origin, insertion, nerve, roots, action, blood supply, nerve groups, note] */
+var ML_RAW=[
+/* face and jaw */
+["Masseter","face","Lower border and medial surface of the zygomatic arch","Lateral surface of the ramus and angle of the mandible","Masseteric nerve (from the mandibular nerve, V3)","V3","Elevates the mandible (closes the jaw)","Masseteric artery (from the maxillary artery)",["ma"],"A very strong muscle of mastication."],
+["Temporalis","face","Temporal fossa and temporal fascia","Coronoid process and anterior border of the ramus of the mandible","Deep temporal nerves (from the mandibular nerve, V3)","V3","Elevates the mandible; the posterior fibres retract it","Deep temporal arteries (from the maxillary artery)",["ma"],"Fan-shaped. Its tendon passes deep to the zygomatic arch."],
+["Medial pterygoid","face","Medial surface of the lateral pterygoid plate and the pyramidal process of the palatine bone (deep head); tuberosity of the maxilla (superficial head)","Medial surface of the ramus and angle of the mandible","Nerve to medial pterygoid (from the mandibular nerve, V3)","V3","Elevates the mandible and helps to protrude it","Pterygoid branches of the maxillary artery",["ma"],"Mirrors the masseter on the inside of the ramus."],
+["Lateral pterygoid","face","Greater wing of the sphenoid (upper head); lateral surface of the lateral pterygoid plate (lower head)","Pterygoid fovea on the neck of the mandible, and the articular disc and capsule of the TMJ","Nerve to lateral pterygoid (from the mandibular nerve, V3)","V3","Protrudes the mandible and opens the jaw. Acting on one side it moves the jaw sideways","Pterygoid branches of the maxillary artery",["ma"],"The only muscle of mastication that opens the jaw. In a lesion of V3 the jaw deviates towards the weak side on opening."],
+["Buccinator","face","Outer surfaces of the alveolar processes of the maxilla and mandible, and the pterygomandibular raphe","Angle of the mouth, blending with orbicularis oris","Buccal branches of the facial nerve (CN VII)","VII","Presses the cheek against the teeth, keeping food between the teeth when chewing","Buccal branch of the maxillary artery, and the facial artery",["fa"],"Supplied by the facial nerve, not the trigeminal nerve, even though the buccal branch of V3 gives its sensation."],
+["Orbicularis oculi","face","Medial margin of the orbit and the medial palpebral ligament","Skin around the orbit and the tarsal plates of the eyelids","Temporal and zygomatic branches of the facial nerve (CN VII)","VII","Closes the eyelids","Branches of the facial, superficial temporal and ophthalmic arteries",["fa"],"Facial nerve palsy leaves the eye unable to close."],
+["Frontalis (occipitofrontalis)","face","Epicranial aponeurosis (galea aponeurotica)","Skin of the eyebrows and forehead","Temporal branches of the facial nerve (CN VII)","VII","Raises the eyebrows and wrinkles the forehead","Supraorbital and supratrochlear arteries",["fa"],"In an upper motor neuron lesion (such as a stroke) the forehead is spared because of bilateral cortical input."],
+/* neck */
+["Sternocleidomastoid","neck","Manubrium of the sternum (sternal head) and medial third of the clavicle (clavicular head)","Mastoid process and lateral half of the superior nuchal line","Accessory nerve (CN XI), with proprioceptive fibres from C2 and C3","XI, C2 to C3","One side tilts the head to the same side and turns the face to the opposite side. Both sides together flex the neck","Occipital and superior thyroid arteries",["acc"],"Divides the neck into the anterior and posterior triangles."],
+["Scalenus anterior","neck","Anterior tubercles of the transverse processes of C3 to C6","Scalene tubercle of the first rib","Anterior rami of C5 to C6","C5 to C6","Elevates the first rib in inspiration and flexes the neck","Ascending cervical branch of the inferior thyroid artery",["ant"],"The phrenic nerve runs down its anterior surface. The subclavian vein lies in front of it and the subclavian artery behind it."],
+["Digastric","neck","Mastoid notch of the temporal bone (posterior belly); digastric fossa of the mandible (anterior belly)","Intermediate tendon, held to the hyoid bone by a fibrous sling","Nerve to mylohyoid (V3) for the anterior belly; facial nerve (CN VII) for the posterior belly","V3 and VII","Depresses the mandible and elevates the hyoid bone","Submental branch of the facial artery (anterior belly); occipital and posterior auricular arteries (posterior belly)",["ma","fa"],"A good example of a muscle with two embryological origins and two nerve supplies."],
+/* back */
+["Trapezius","back","Superior nuchal line, external occipital protuberance, ligamentum nuchae and the spinous processes of C7 to T12","Lateral third of the clavicle, acromion and spine of the scapula","Accessory nerve (CN XI), with proprioceptive fibres from C3 and C4","XI, C3 to C4","Elevates (upper fibres), retracts (middle fibres) and depresses (lower fibres) the scapula, and rotates it for abduction above 90 degrees","Superficial branch of the transverse cervical artery",["acc"],"Injury to the accessory nerve gives a drooping shoulder and weak shrugging."],
+["Latissimus dorsi","back","Spinous processes of T7 to L5, thoracolumbar fascia, iliac crest and the lower three or four ribs","Floor of the intertubercular groove of the humerus","Thoracodorsal nerve","C6 to C8","Extends, adducts and medially rotates the arm","Thoracodorsal artery",["td"],"Used in climbing and in pulling the body up."],
+["Levator scapulae","back","Transverse processes of C1 to C4","Superior angle and upper medial border of the scapula","Dorsal scapular nerve, with branches from C3 and C4","C3 to C5","Elevates the scapula and rotates the glenoid cavity downwards","Transverse cervical, dorsal scapular and ascending cervical arteries",["dors","ant"],""],
+["Rhomboid major","back","Spinous processes of T2 to T5","Medial border of the scapula below the spine","Dorsal scapular nerve","C4 to C5","Retracts the scapula and rotates the glenoid cavity downwards","Dorsal scapular artery",["dors"],"Lies deep to trapezius."],
+["Rhomboid minor","back","Ligamentum nuchae and the spinous processes of C7 and T1","Medial border of the scapula at the root of the spine","Dorsal scapular nerve","C4 to C5","Retracts the scapula and rotates the glenoid cavity downwards","Dorsal scapular artery",["dors"],""],
+["Erector spinae","back","Sacrum, iliac crest and the spinous processes of the lumbar vertebrae","Ribs, transverse processes of the vertebrae and the skull (mastoid process)","Dorsal rami of the spinal nerves","","Extends and laterally flexes the vertebral column","Posterior branches of the posterior intercostal, subcostal and lumbar arteries",["dr"],"Three columns: iliocostalis, longissimus and spinalis."],
+/* thorax */
+["External intercostals","thorax","Inferior border of the rib above","Superior border of the rib below","Intercostal nerves","T1 to T11","Elevate the ribs in inspiration","Posterior and anterior intercostal arteries",["ic"],"Fibres run downwards and forwards (hands in pockets)."],
+["Internal intercostals","thorax","Inferior border of the rib above","Superior border of the rib below","Intercostal nerves","T1 to T11","Depress the ribs in forced expiration","Posterior and anterior intercostal arteries",["ic"],"Fibres run downwards and backwards, at right angles to the external intercostals."],
+["Diaphragm","thorax","Xiphoid process (sternal part), inner surfaces of the lower six costal cartilages (costal part), and the lumbar vertebrae and arcuate ligaments (lumbar part)","Central tendon","Phrenic nerve (motor and sensory)","C3 to C5","Main muscle of inspiration. It contracts and flattens, which increases the vertical size of the thorax","Pericardiacophrenic, musculophrenic and inferior phrenic arteries",["ph"],"C3, 4, 5 keeps the diaphragm alive. The crura are attached to the upper lumbar vertebrae."],
+["Pectoralis major","thorax","Medial half of the clavicle, sternum and the upper six costal cartilages","Lateral lip of the intertubercular groove of the humerus","Medial and lateral pectoral nerves","C5 to T1","Adducts and medially rotates the arm. The clavicular head also flexes the arm","Pectoral branch of the thoracoacromial artery",["pec"],"Forms the anterior wall of the axilla."],
+["Pectoralis minor","thorax","Ribs 3 to 5, near their costal cartilages","Coracoid process of the scapula","Medial pectoral nerve","C8 to T1","Protracts and depresses the scapula, and holds it against the thoracic wall","Pectoral branch of the thoracoacromial artery, and the lateral thoracic artery",["pec"],"The axillary artery is divided into three parts by this muscle."],
+["Serratus anterior","thorax","Outer surfaces of ribs 1 to 8","Anterior surface of the medial border of the scapula","Long thoracic nerve","C5 to C7","Protracts the scapula, rotates it for abduction above 90 degrees and holds it against the chest wall","Lateral thoracic artery and the thoracodorsal artery",["lt"],"Long thoracic nerve injury gives a winged scapula."],
+/* abdomen */
+["Rectus abdominis","abd","Pubic symphysis and pubic crest","Xiphoid process and the costal cartilages of ribs 5 to 7","Thoracoabdominal nerves (T7 to T11) and the subcostal nerve (T12)","T7 to T12","Flexes the trunk and compresses the abdomen","Superior and inferior epigastric arteries",["ic"],"Enclosed in the rectus sheath and divided by tendinous intersections."],
+["External oblique","abd","External surfaces of ribs 5 to 12","Iliac crest, linea alba and pubic tubercle","Thoracoabdominal nerves (T7 to T11) and the subcostal nerve (T12)","T7 to T12","Compresses the abdomen, flexes the trunk, and rotates it to the opposite side","Posterior intercostal, subcostal and deep circumflex iliac arteries, and the inferior epigastric artery",["ic"],"Fibres run downwards and medially (hands in pockets). Its lower border forms the inguinal ligament."],
+["Internal oblique","abd","Thoracolumbar fascia, anterior two thirds of the iliac crest and the lateral two thirds of the inguinal ligament","Inferior borders of ribs 10 to 12, the linea alba, and the pecten pubis via the conjoint tendon","Thoracoabdominal nerves (T7 to T11), the subcostal nerve, and the iliohypogastric and ilioinguinal nerves (L1)","T7 to L1","Compresses the abdomen, flexes the trunk, and rotates it to the same side","Posterior intercostal, subcostal, superior and inferior epigastric and deep circumflex iliac arteries",["ic","lum"],"Gives the cremaster muscle in the male."],
+["Transversus abdominis","abd","Inner surfaces of the costal cartilages of ribs 7 to 12, thoracolumbar fascia, iliac crest and the lateral third of the inguinal ligament","Linea alba, pubic crest and the pecten pubis via the conjoint tendon","Thoracoabdominal nerves (T7 to T11), the subcostal nerve, and the iliohypogastric and ilioinguinal nerves (L1)","T7 to L1","Compresses the abdominal contents","Posterior intercostal, subcostal, superior and inferior epigastric and deep circumflex iliac arteries",["ic","lum"],"The deepest of the three flat muscles. Its fibres run horizontally."],
+["Quadratus lumborum","abd","Iliac crest and the iliolumbar ligament","Twelfth rib and the transverse processes of L1 to L4","Anterior rami of T12 to L4","T12 to L4","Extends and laterally flexes the trunk, and fixes the twelfth rib in inspiration","Lumbar, subcostal and iliolumbar arteries",["lum"],"Forms part of the posterior abdominal wall."],
+["Psoas major","abd","Transverse processes and bodies of T12 to L5, and the intervertebral discs","Lesser trochanter of the femur (with iliacus)","Anterior rami of L1 to L3","L1 to L3","Flexes the thigh at the hip. It flexes the trunk when the thigh is fixed","Lumbar arteries and the iliolumbar artery",["lum"],"The lumbar plexus lies within it."],
+["Iliacus","abd","Iliac fossa","Lesser trochanter of the femur, via the psoas tendon","Femoral nerve","L2 to L4","Flexes the thigh at the hip","Iliac branch of the iliolumbar artery, and the deep circumflex iliac artery",["fem"],"Psoas major and iliacus together are called iliopsoas."],
+/* shoulder */
+["Deltoid","shoulder","Lateral third of the clavicle, acromion and the spine of the scapula","Deltoid tuberosity of the humerus","Axillary nerve","C5 to C6","Abducts the arm from 15 to 90 degrees. The anterior fibres flex and the posterior fibres extend","Posterior circumflex humeral artery, and the deltoid branch of the thoracoacromial artery",["ax"],"Axillary nerve injury gives weak abduction and loss of sensation over the regimental badge area."],
+["Supraspinatus","shoulder","Supraspinous fossa of the scapula","Superior facet of the greater tubercle of the humerus","Suprascapular nerve","C5 to C6","Starts abduction of the arm (the first 15 degrees) and stabilises the humeral head","Suprascapular artery",["sup"],"The most commonly torn rotator cuff tendon."],
+["Infraspinatus","shoulder","Infraspinous fossa of the scapula","Middle facet of the greater tubercle of the humerus","Suprascapular nerve","C5 to C6","Laterally rotates the arm and stabilises the humeral head","Suprascapular and circumflex scapular arteries",["sup"],""],
+["Teres minor","shoulder","Upper two thirds of the lateral border of the scapula","Inferior facet of the greater tubercle of the humerus","Axillary nerve","C5 to C6","Laterally rotates the arm and stabilises the humeral head","Circumflex scapular artery",["ax"],"Supplied by the axillary nerve, unlike the other two lateral rotators."],
+["Subscapularis","shoulder","Subscapular fossa of the scapula","Lesser tubercle of the humerus","Upper and lower subscapular nerves","C5 to C6","Medially rotates the arm and stabilises the humeral head","Subscapular artery",["sub"],"The only rotator cuff muscle on the front of the scapula."],
+["Teres major","shoulder","Inferior angle of the scapula","Medial lip of the intertubercular groove of the humerus","Lower subscapular nerve","C5 to C6","Adducts and medially rotates the arm","Circumflex scapular artery",["sub"],"Not part of the rotator cuff."],
+/* arm */
+["Coracobrachialis","arm","Tip of the coracoid process","Middle third of the medial surface of the humerus","Musculocutaneous nerve","C5 to C7","Flexes and adducts the arm","Muscular branches of the brachial artery",["mc"],"The musculocutaneous nerve pierces it."],
+["Biceps brachii","arm","Supraglenoid tubercle (long head) and the coracoid process (short head)","Radial tuberosity and the bicipital aponeurosis","Musculocutaneous nerve","C5 to C6","Flexes the elbow and supinates the forearm","Brachial artery",["mc"],"Most powerful as a supinator with the elbow flexed (turning a screwdriver)."],
+["Brachialis","arm","Distal half of the anterior surface of the humerus","Coronoid process and tuberosity of the ulna","Musculocutaneous nerve, with a small branch from the radial nerve","C5 to C6","Flexes the elbow in all positions of the forearm","Brachial artery, and the radial recurrent artery",["mc","rad"],"The main flexor of the elbow."],
+["Triceps brachii","arm","Infraglenoid tubercle (long head) and the posterior humerus (lateral and medial heads)","Olecranon of the ulna","Radial nerve","C6 to C8","Extends the elbow. The long head also extends and adducts the arm","Profunda brachii artery",["rad"],"The radial nerve runs in the spiral groove between the lateral and medial heads."],
+/* forearm front */
+["Pronator teres","fant","Medial epicondyle of the humerus (humeral head) and the coronoid process of the ulna (ulnar head)","Middle of the lateral surface of the radius","Median nerve","C6 to C7","Pronates the forearm and helps to flex the elbow","Ulnar artery",["med"],"The median nerve passes between its two heads."],
+["Flexor carpi radialis","fant","Medial epicondyle of the humerus (common flexor origin)","Bases of the second and third metacarpals","Median nerve","C6 to C7","Flexes and abducts the hand at the wrist","Radial and ulnar arteries",["med"],""],
+["Palmaris longus","fant","Medial epicondyle of the humerus (common flexor origin)","Flexor retinaculum and the palmar aponeurosis","Median nerve","C7 to C8","Flexes the wrist and tenses the palmar aponeurosis","Ulnar artery",["med"],"Absent in about 15 per cent of people, with no loss of function."],
+["Flexor carpi ulnaris","fant","Medial epicondyle of the humerus and the olecranon and posterior border of the ulna","Pisiform, hook of the hamate and the base of the fifth metacarpal","Ulnar nerve","C7 to C8","Flexes and adducts the hand at the wrist","Ulnar artery",["uln"],"The only forearm flexor supplied by the ulnar nerve other than the medial half of flexor digitorum profundus."],
+["Flexor digitorum superficialis","fant","Medial epicondyle, the ulnar collateral ligament and the coronoid process (humeroulnar head); the oblique line of the radius (radial head)","Sides of the middle phalanges of the second to fifth fingers","Median nerve","C8 to T1","Flexes the proximal interphalangeal joints of the second to fifth fingers","Ulnar and radial arteries",["med"],"Its tendons split to let the profundus tendons through."],
+["Flexor digitorum profundus","fant","Proximal three quarters of the medial and anterior surfaces of the ulna, and the interosseous membrane","Bases of the distal phalanges of the second to fifth fingers","Medial half (fingers 4 and 5): ulnar nerve. Lateral half (fingers 2 and 3): anterior interosseous branch of the median nerve","","Flexes the distal interphalangeal joints of the second to fifth fingers","Anterior interosseous artery, and the ulnar artery",["ain","uln"],"The only muscle that flexes the distal interphalangeal joints."],
+["Flexor pollicis longus","fant","Anterior surface of the radius and the interosseous membrane","Base of the distal phalanx of the thumb","Anterior interosseous nerve (from the median nerve)","","Flexes the interphalangeal joint of the thumb","Anterior interosseous artery, and the radial artery",["ain"],""],
+["Pronator quadratus","fant","Distal quarter of the anterior surface of the ulna","Distal quarter of the anterior surface of the radius","Anterior interosseous nerve (from the median nerve)","","Pronates the forearm and binds the distal radius and ulna together","Anterior interosseous artery",["ain"],""],
+/* forearm back */
+["Brachioradialis","fpost","Lateral supracondylar ridge of the humerus","Base of the styloid process of the radius","Radial nerve","C5 to C6","Flexes the elbow, best with the forearm in mid-pronation","Radial recurrent artery",["rad"],"A flexor of the elbow supplied by the radial nerve. It is in the posterior compartment."],
+["Supinator","fpost","Lateral epicondyle, the radial collateral and annular ligaments, and the supinator crest of the ulna","Lateral surface of the proximal third of the radius","Deep branch of the radial nerve (posterior interosseous nerve)","C5 to C6","Supinates the forearm","Radial recurrent and posterior interosseous recurrent arteries",["pin"],"The posterior interosseous nerve pierces it."],
+["Extensor carpi radialis longus","fpost","Lateral supracondylar ridge of the humerus","Base of the second metacarpal","Radial nerve","C6 to C7","Extends and abducts the hand at the wrist","Radial artery, and the radial recurrent artery",["rad"],""],
+["Extensor carpi radialis brevis","fpost","Lateral epicondyle of the humerus (common extensor origin)","Base of the third metacarpal","Deep branch of the radial nerve (posterior interosseous nerve)","C7 to C8","Extends and abducts the hand at the wrist","Radial artery",["pin"],""],
+["Extensor digitorum","fpost","Lateral epicondyle of the humerus (common extensor origin)","Extensor expansions of the second to fifth fingers","Posterior interosseous nerve","C7 to C8","Extends the second to fifth fingers at the metacarpophalangeal joints","Posterior interosseous artery, with the radial recurrent artery",["pin"],""],
+["Extensor carpi ulnaris","fpost","Lateral epicondyle of the humerus and the posterior border of the ulna","Base of the fifth metacarpal","Posterior interosseous nerve","C7 to C8","Extends and adducts the hand at the wrist","Posterior interosseous artery, and the ulnar artery",["pin"],""],
+["Abductor pollicis longus","fpost","Posterior surfaces of the ulna, the radius and the interosseous membrane","Base of the first metacarpal","Posterior interosseous nerve","C7 to C8","Abducts and extends the thumb","Posterior interosseous artery",["pin"],"Its tendon forms the radial border of the anatomical snuffbox, with extensor pollicis brevis."],
+["Extensor pollicis longus","fpost","Posterior surface of the ulna and the interosseous membrane","Base of the distal phalanx of the thumb","Posterior interosseous nerve","C7 to C8","Extends the interphalangeal joint of the thumb","Posterior interosseous artery",["pin"],"Its tendon forms the ulnar border of the anatomical snuffbox. It turns round Lister's tubercle."],
+/* hand */
+["Abductor pollicis brevis","hand","Flexor retinaculum, and the tubercles of the scaphoid and trapezium","Lateral side of the base of the proximal phalanx of the thumb","Recurrent branch of the median nerve","C8 to T1","Abducts the thumb","Superficial palmar branch of the radial artery",["med"],"A thenar muscle. Damage to the recurrent branch causes thenar wasting."],
+["Opponens pollicis","hand","Flexor retinaculum and the tubercle of the trapezium","Lateral half of the first metacarpal","Recurrent branch of the median nerve","C8 to T1","Opposes the thumb","Superficial palmar branch of the radial artery",["med"],""],
+["Adductor pollicis","hand","Capitate and bases of the second and third metacarpals (oblique head); anterior surface of the third metacarpal (transverse head)","Medial side of the base of the proximal phalanx of the thumb","Deep branch of the ulnar nerve","C8 to T1","Adducts the thumb","Deep palmar arch",["uln"],"Tested by Froment's sign, where a patient grips paper with the thumb flexed."],
+["Dorsal interossei","hand","Adjacent sides of two metacarpals","Extensor expansions and the bases of the proximal phalanges of the second to fourth fingers","Deep branch of the ulnar nerve","C8 to T1","Abduct the fingers from the middle finger (DAB: Dorsal ABduct)","Deep palmar arch and the palmar metacarpal arteries",["uln"],"Four muscles. DAB and PAD."],
+["Palmar interossei","hand","Palmar surfaces of the second, fourth and fifth metacarpals","Extensor expansions of the same fingers","Deep branch of the ulnar nerve","C8 to T1","Adduct the fingers towards the middle finger (PAD: Palmar ADduct)","Deep palmar arch and the palmar metacarpal arteries",["uln"],"Three muscles."],
+/* gluteal */
+["Gluteus maximus","glut","Posterior ilium behind the posterior gluteal line, the sacrum and the coccyx","Gluteal tuberosity of the femur and the iliotibial tract","Inferior gluteal nerve","L5 to S2","Extends and laterally rotates the thigh. It is most active in climbing stairs and rising from sitting","Inferior and superior gluteal arteries",["ig"],"Damage gives difficulty rising from a chair and climbing stairs."],
+["Gluteus medius","glut","External surface of the ilium between the anterior and posterior gluteal lines","Lateral surface of the greater trochanter","Superior gluteal nerve","L4 to S1","Abducts the thigh and holds the pelvis level when walking","Superior gluteal artery",["sg"],"Weakness gives a positive Trendelenburg sign."],
+["Gluteus minimus","glut","External surface of the ilium between the anterior and inferior gluteal lines","Anterior surface of the greater trochanter","Superior gluteal nerve","L4 to S1","Abducts the thigh and holds the pelvis level when walking","Superior gluteal artery",["sg"],"Lies deep to gluteus medius."],
+["Tensor fasciae latae","glut","Anterior superior iliac spine and the anterior part of the iliac crest","Iliotibial tract, which attaches to the lateral condyle of the tibia","Superior gluteal nerve","L4 to L5","Abducts and medially rotates the thigh, and steadies the knee","Ascending branch of the lateral circumflex femoral artery, and the superior gluteal artery",["sg"],""],
+["Piriformis","glut","Anterior surface of the sacrum (S2 to S4) and the margin of the greater sciatic foramen","Superior border of the greater trochanter","Nerve to piriformis","S1 to S2","Laterally rotates the thigh, and abducts it when the hip is flexed","Superior and inferior gluteal arteries",["nbp"],"A landmark for the gluteal region. The sciatic nerve usually leaves the pelvis below it."],
+["Obturator internus","glut","Internal surface of the obturator membrane and the surrounding bone","Medial surface of the greater trochanter","Nerve to obturator internus","L5 to S1","Laterally rotates the thigh, and abducts it when the hip is flexed","Obturator and internal pudendal arteries",["nbp"],"Its tendon leaves the pelvis through the lesser sciatic foramen."],
+["Quadratus femoris","glut","Lateral border of the ischial tuberosity","Quadrate tubercle on the intertrochanteric crest of the femur","Nerve to quadratus femoris","L5 to S1","Laterally rotates the thigh","Medial circumflex femoral artery",["nbp"],""],
+/* thigh */
+["Sartorius","thigh","Anterior superior iliac spine","Upper medial surface of the tibia (pes anserinus)","Femoral nerve","L2 to L3","Flexes, abducts and laterally rotates the hip, and flexes the knee","Muscular branches of the femoral artery",["fem"],"The longest muscle in the body. Its action puts the legs in a cross-legged (tailor) position."],
+["Rectus femoris","thigh","Anterior inferior iliac spine and the rim of the acetabulum","Tibial tuberosity via the quadriceps tendon, patella and patellar ligament","Femoral nerve","L2 to L4","Flexes the hip and extends the knee","Lateral circumflex femoral artery (descending branch)",["fem"],"The only part of quadriceps that crosses the hip."],
+["Vastus lateralis","thigh","Greater trochanter and the lateral lip of the linea aspera","Tibial tuberosity via the quadriceps tendon, patella and patellar ligament","Femoral nerve","L2 to L4","Extends the knee","Descending branch of the lateral circumflex femoral artery",["fem"],"The largest part of quadriceps."],
+["Vastus medialis","thigh","Intertrochanteric line and the medial lip of the linea aspera","Tibial tuberosity via the quadriceps tendon, patella and patellar ligament","Femoral nerve","L2 to L4","Extends the knee and keeps the patella tracking centrally","Femoral artery and the profunda femoris artery",["fem"],"Its lower fibres stop the patella dislocating laterally."],
+["Vastus intermedius","thigh","Anterior and lateral surfaces of the upper two thirds of the femoral shaft","Tibial tuberosity via the quadriceps tendon, patella and patellar ligament","Femoral nerve","L2 to L4","Extends the knee","Descending branch of the lateral circumflex femoral artery",["fem"],""],
+["Pectineus","thigh","Pecten pubis","Pectineal line of the femur","Femoral nerve (an accessory obturator nerve sometimes helps)","L2 to L3","Adducts and flexes the thigh","Medial circumflex femoral and obturator arteries",["fem"],"Can have a dual nerve supply from the femoral and obturator nerves."],
+["Adductor longus","thigh","Body of the pubis below the pubic crest","Middle third of the linea aspera","Obturator nerve","L2 to L4","Adducts and flexes the thigh","Profunda femoris artery",["obt"],"Forms the medial border of the femoral triangle."],
+["Adductor brevis","thigh","Body and inferior ramus of the pubis","Pectineal line and the upper part of the linea aspera","Obturator nerve","","Adducts the thigh","Profunda femoris and obturator arteries",["obt"],""],
+["Adductor magnus","thigh","Inferior pubic ramus and ischial ramus (adductor part); ischial tuberosity (hamstring part)","Gluteal tuberosity, linea aspera and medial supracondylar line (adductor part); adductor tubercle of the femur (hamstring part)","Obturator nerve (adductor part) and the tibial part of the sciatic nerve (hamstring part)","L2 to L4","Adducts the thigh. The hamstring part also extends it","Perforating branches of the profunda femoris artery, and the obturator artery",["obt","sci"],"Has a dual nerve supply: the adductor part from the obturator nerve and the hamstring part from the sciatic nerve."],
+["Gracilis","thigh","Body and inferior ramus of the pubis","Upper medial surface of the tibia (pes anserinus)","Obturator nerve","L2 to L3","Adducts the thigh and flexes the knee","Medial circumflex femoral artery, and the profunda femoris artery",["obt"],"The only adductor that crosses the knee."],
+["Biceps femoris","thigh","Ischial tuberosity (long head) and the linea aspera (short head)","Head of the fibula","Tibial nerve (long head) and common fibular nerve (short head), both parts of the sciatic nerve","L5 to S3","Flexes the knee and extends the hip. It laterally rotates the flexed knee","Perforating branches of the profunda femoris artery, and the inferior gluteal artery",["sci","cf"],"The short head is the only hamstring supplied by the common fibular nerve."],
+["Semitendinosus","thigh","Ischial tuberosity","Upper medial surface of the tibia (pes anserinus)","Tibial part of the sciatic nerve","L5 to S2","Flexes the knee, extends the hip and medially rotates the flexed knee","Perforating branches of the profunda femoris artery, and the inferior gluteal artery",["sci"],""],
+["Semimembranosus","thigh","Ischial tuberosity","Posterior surface of the medial tibial condyle","Tibial part of the sciatic nerve","L5 to S2","Flexes the knee, extends the hip and medially rotates the flexed knee","Perforating branches of the profunda femoris artery, and the inferior gluteal artery",["sci"],"Its tendon gives the oblique popliteal ligament."],
+/* leg */
+["Tibialis anterior","leg","Lateral condyle and upper half of the lateral surface of the tibia","Medial cuneiform and the base of the first metatarsal","Deep fibular nerve","L4 to L5","Dorsiflexes and inverts the foot","Anterior tibial artery",["dfn"],"Weakness gives foot drop."],
+["Extensor digitorum longus","leg","Lateral condyle of the tibia, the anterior surface of the fibula and the interosseous membrane","Middle and distal phalanges of the second to fifth toes","Deep fibular nerve","L5 to S1","Extends the toes and dorsiflexes the foot","Anterior tibial artery",["dfn"],""],
+["Extensor hallucis longus","leg","Middle part of the anterior surface of the fibula and the interosseous membrane","Dorsal surface of the distal phalanx of the great toe","Deep fibular nerve","L5 to S1","Extends the great toe and dorsiflexes the foot","Anterior tibial artery",["dfn"],""],
+["Fibularis longus","leg","Head and upper two thirds of the lateral surface of the fibula","Base of the first metatarsal and the medial cuneiform","Superficial fibular nerve","L5 to S2","Everts the foot and weakly plantarflexes it. It supports the arches","Fibular artery, and the anterior tibial artery",["sfn"],"Its tendon runs under the foot like a stirrup."],
+["Fibularis brevis","leg","Distal two thirds of the lateral surface of the fibula","Tuberosity at the base of the fifth metatarsal","Superficial fibular nerve","L5 to S2","Everts the foot and weakly plantarflexes it","Fibular artery",["sfn"],""],
+["Gastrocnemius","leg","Medial and lateral condyles of the femur","Calcaneus via the calcaneal tendon","Tibial nerve","S1 to S2","Plantarflexes the ankle and flexes the knee","Sural arteries",["tib"],"Crosses both the knee and the ankle."],
+["Soleus","leg","Soleal line of the tibia and the head and upper shaft of the fibula","Calcaneus via the calcaneal tendon","Tibial nerve","S1 to S2","Plantarflexes the ankle","Posterior tibial and fibular arteries",["tib"],"The calf muscle pump. It acts in standing to stop the body falling forwards."],
+["Popliteus","leg","Lateral condyle of the femur and the lateral meniscus","Posterior surface of the tibia above the soleal line","Tibial nerve","L4 to S1","Unlocks the knee by laterally rotating the femur on the tibia at the start of flexion","Inferior medial and lateral genicular arteries, and the posterior tibial artery",["tib"],"Its tendon lies inside the knee joint capsule."],
+["Tibialis posterior","leg","Interosseous membrane and the posterior surfaces of the tibia and fibula","Tuberosity of the navicular, the cuneiforms, the cuboid and the bases of the second to fourth metatarsals","Tibial nerve","L4 to L5","Plantarflexes and inverts the foot. It supports the medial arch","Posterior tibial and fibular arteries",["tib"],"The deepest muscle of the posterior compartment. Its tendon passes behind the medial malleolus."],
+["Flexor digitorum longus","leg","Posterior surface of the tibia","Bases of the distal phalanges of the second to fifth toes","Tibial nerve","L5 to S2","Flexes the toes and plantarflexes the foot","Posterior tibial artery",["tib"],""],
+["Flexor hallucis longus","leg","Posterior surface of the fibula and the interosseous membrane","Base of the distal phalanx of the great toe","Tibial nerve","S2 to S3","Flexes the great toe and plantarflexes the foot","Fibular artery",["tib"],"Its tendon passes under the sustentaculum tali."]
+];
+var ML_M=ML_RAW.map(function(r,i){return {id:'m'+i,n:r[0],r:r[1],o:r[2],i:r[3],nv:r[4],rt:r[5],a:r[6],ar:r[7],ng:r[8],note:r[9]}});
+
+/* nerve injuries: [nerve, roots, muscles affected, what you see, common cause, key] */
+var ML_CX=[
+ ["Axillary nerve","C5 to C6","Deltoid and teres minor","Weak abduction from 15 to 90 degrees (supraspinatus starts abduction), a flattened shoulder and loss of sensation over the regimental badge area.","Fracture of the surgical neck of the humerus, or an anterior shoulder dislocation.","Regimental badge area"],
+ ["Musculocutaneous nerve","C5 to C7","Biceps brachii, brachialis and coracobrachialis","Weak elbow flexion and supination, and loss of sensation on the lateral forearm.","Rare. It can be injured in shoulder trauma or surgery.","Weak elbow flexion"],
+ ["Radial nerve","C5 to T1","Triceps and the extensors of the wrist and fingers","Wrist drop. Sensation is lost over the back of the hand near the thumb. Triceps is spared if the injury is in the spiral groove, because its branches leave higher up.","Fracture of the shaft of the humerus (spiral groove), or prolonged pressure in the armpit or on the arm (Saturday night palsy).","Wrist drop"],
+ ["Median nerve at the wrist","C6 to T1","Thenar muscles (abductor pollicis brevis, opponens pollicis, flexor pollicis brevis) and the lateral two lumbricals","Wasting of the thenar eminence, weak thumb abduction and opposition, and numbness of the lateral three and a half fingers on the palm side.","Carpal tunnel syndrome, or a cut wrist.","Thenar wasting and weak opposition"],
+ ["Median nerve at the elbow or above","C5 to T1","Forearm flexors and pronators (except flexor carpi ulnaris and the medial half of flexor digitorum profundus), and the thenar muscles","Weak wrist flexion and pronation. On trying to make a fist the index and middle fingers stay straight (hand of benediction).","Supracondylar fracture of the humerus, or elbow injuries.","Hand of benediction"],
+ ["Ulnar nerve","C8 to T1","Flexor carpi ulnaris, medial half of flexor digitorum profundus, adductor pollicis, interossei, hypothenar muscles and the medial two lumbricals","Claw hand (the ring and little fingers), weak finger abduction and adduction, and a positive Froment's sign. Sensation is lost on the little finger and half of the ring finger.","Fracture of the medial epicondyle, or compression at the elbow (cubital tunnel) or wrist.","Claw hand and Froment's sign"],
+ ["Long thoracic nerve","C5 to C7","Serratus anterior","Winged scapula. The medial border of the scapula lifts away from the chest wall when pushing against a wall, and the arm cannot be raised above the horizontal.","Axillary surgery (such as mastectomy), or a stab wound to the side of the chest.","Winged scapula"],
+ ["Accessory nerve (CN XI)","Cranial","Trapezius and sternocleidomastoid","A drooping shoulder, weak shrugging and difficulty raising the arm above the horizontal.","Surgery in the posterior triangle of the neck (such as a lymph node biopsy).","Weak shrug and drooping shoulder"],
+ ["Phrenic nerve","C3 to C5","Diaphragm","Paralysis of half of the diaphragm, which rises on a chest X-ray, with shortness of breath on lying flat or exertion.","Neck or thoracic surgery, or invasion by a lung tumour.","Hemidiaphragm paralysis"],
+ ["Superior gluteal nerve","L4 to S1","Gluteus medius, gluteus minimus and tensor fasciae latae","Trendelenburg sign: when standing on the affected leg the pelvis drops on the opposite side. The patient waddles.","A misplaced intramuscular injection in the gluteal region, or hip surgery.","Trendelenburg sign"],
+ ["Inferior gluteal nerve","L5 to S2","Gluteus maximus","Difficulty rising from a chair and climbing stairs, and a weak extension of the hip.","Hip surgery or a pelvic fracture.","Difficulty rising from sitting"],
+ ["Femoral nerve","L2 to L4","Quadriceps femoris, sartorius, iliacus and pectineus","Weak knee extension (the knee gives way), a lost knee jerk, and numbness over the front of the thigh and medial leg.","Pelvic fracture, a bleed into iliopsoas, or hip surgery.","Weak knee extension"],
+ ["Obturator nerve","L2 to L4","Adductors of the thigh (except the hamstring part of adductor magnus)","Weak adduction and difficulty crossing the legs. A patch of numbness on the medial thigh.","Pelvic surgery or an obturator hernia.","Weak adduction"],
+ ["Sciatic nerve","L4 to S3","Hamstrings and all muscles below the knee","Weak knee flexion, foot drop and loss of sensation below the knee (except the medial leg).","Posterior dislocation of the hip, or an injection into the lower inner buttock.","Weak knee flexion and foot drop"],
+ ["Common fibular nerve","L4 to S2","Dorsiflexors and evertors of the foot","Foot drop with a high-stepping gait, inability to evert the foot, and sensory loss over the front and outside of the leg and the top of the foot.","Fracture of the neck of the fibula, or pressure from a tight cast.","Foot drop and high-stepping gait"],
+ ["Tibial nerve","L4 to S3","Plantarflexors, invertors and toe flexors","Unable to plantarflex or invert the foot or stand on tiptoe, and numbness of the sole.","Knee dislocation or injury in the popliteal fossa.","Loss of plantarflexion"],
+ ["Facial nerve (CN VII)","Cranial","Muscles of facial expression","Drooping of the whole of one side of the face, including the forehead, with an eye that will not close (Bell's palsy). In a stroke the forehead is spared.","Bell's palsy, a parotid tumour or a skull base fracture.","Whole-face droop including the forehead"],
+ ["Mandibular nerve (V3)","Cranial","Muscles of mastication","Weak chewing on the affected side. On opening, the jaw deviates towards the weak side because the lateral pterygoid on that side cannot push the jaw forwards.","Skull base lesions or tumours.","Jaw deviates to the weak side"]
+];
+/* handwritten questions. c: nv=nerves, ac=actions, cx=clinical, lo=landmarks and tricks */
+var ML_QA=[
+ {c:'nv',q:'Which nerve supplies all the muscles of the anterior compartment of the arm?',a:'Musculocutaneous nerve',w:['Radial nerve','Median nerve','Axillary nerve'],why:'Biceps, brachialis and coracobrachialis. Brachialis also gets a small branch from the radial nerve.'},
+ {c:'nv',q:'Which nerve supplies the muscles of the posterior compartment of the arm and forearm?',a:'Radial nerve',w:['Ulnar nerve','Median nerve','Musculocutaneous nerve'],why:'Triceps in the arm, and the extensors in the forearm (through the posterior interosseous nerve for most).'},
+ {c:'nv',q:'Which forearm flexor is supplied by the ulnar nerve, apart from the medial half of flexor digitorum profundus?',a:'Flexor carpi ulnaris',w:['Flexor carpi radialis','Palmaris longus','Pronator teres'],why:'The rest of the anterior forearm is supplied by the median nerve.'},
+ {c:'nv',q:'Which muscles of the hand are supplied by the recurrent branch of the median nerve?',a:'The thenar muscles',w:['The hypothenar muscles','The interossei','Adductor pollicis'],why:'Abductor pollicis brevis, opponens pollicis and flexor pollicis brevis (LOAF includes the lateral two lumbricals).'},
+ {c:'nv',q:'Which thenar muscle is NOT supplied by the median nerve?',a:'Adductor pollicis',w:['Abductor pollicis brevis','Opponens pollicis','Lateral two lumbricals'],why:'Adductor pollicis is supplied by the deep branch of the ulnar nerve.'},
+ {c:'nv',q:'Which nerve supplies the interossei of the hand?',a:'Deep branch of the ulnar nerve',w:['Recurrent branch of the median nerve','Posterior interosseous nerve','Superficial branch of the radial nerve'],why:'It supplies all the interossei and the medial two lumbricals.'},
+ {c:'nv',q:'What does DAB and PAD stand for?',a:'Dorsal interossei ABduct; Palmar interossei ADduct',w:['Dorsal interossei ADduct; Palmar interossei ABduct','Dorsal interossei flex; Palmar interossei extend','Deep branch ABducts; Posterior branch ADducts'],why:'The movements are relative to the middle finger.'},
+ {c:'nv',q:'Which nerve supplies quadriceps femoris?',a:'Femoral nerve',w:['Obturator nerve','Sciatic nerve','Superior gluteal nerve'],why:'L2 to L4. It also supplies sartorius, iliacus and pectineus.'},
+ {c:'nv',q:'Which nerve supplies most of the adductor muscles of the thigh?',a:'Obturator nerve',w:['Femoral nerve','Sciatic nerve','Inferior gluteal nerve'],why:'The hamstring part of adductor magnus is supplied by the sciatic nerve instead.'},
+ {c:'nv',q:'Which nerve supplies gluteus maximus?',a:'Inferior gluteal nerve',w:['Superior gluteal nerve','Sciatic nerve','Obturator nerve'],why:'L5 to S2.'},
+ {c:'nv',q:'Which nerve supplies gluteus medius and minimus?',a:'Superior gluteal nerve',w:['Inferior gluteal nerve','Femoral nerve','Obturator nerve'],why:'L4 to S1. It also supplies tensor fasciae latae.'},
+ {c:'nv',q:'Which hamstring is supplied partly by the common fibular nerve?',a:'Biceps femoris (short head)',w:['Semitendinosus','Semimembranosus','Gracilis'],why:'The long head is supplied by the tibial part of the sciatic nerve.'},
+ {c:'nv',q:'Which nerve supplies the muscles of the anterior compartment of the leg?',a:'Deep fibular nerve',w:['Superficial fibular nerve','Tibial nerve','Common fibular nerve only'],why:'Tibialis anterior, extensor digitorum longus and extensor hallucis longus.'},
+ {c:'nv',q:'Which nerve supplies the muscles of the lateral compartment of the leg?',a:'Superficial fibular nerve',w:['Deep fibular nerve','Tibial nerve','Femoral nerve'],why:'Fibularis longus and brevis, which evert the foot.'},
+ {c:'nv',q:'Which nerve supplies the muscles of the posterior compartment of the leg?',a:'Tibial nerve',w:['Common fibular nerve','Sciatic nerve (as a whole)','Superficial fibular nerve'],why:'The calf muscles and the deep flexors.'},
+ {c:'nv',q:'Which nerve supplies the diaphragm?',a:'Phrenic nerve (C3 to C5)',w:['Vagus nerve','Intercostal nerves','Long thoracic nerve'],why:'C3, 4, 5 keeps the diaphragm alive. It supplies the motor and most of the sensation.'},
+ {c:'nv',q:'Which nerve supplies serratus anterior?',a:'Long thoracic nerve',w:['Thoracodorsal nerve','Dorsal scapular nerve','Medial pectoral nerve'],why:'C5 to C7. Injury gives a winged scapula.'},
+ {c:'nv',q:'Which nerve supplies the rhomboids and levator scapulae?',a:'Dorsal scapular nerve',w:['Long thoracic nerve','Suprascapular nerve','Thoracodorsal nerve'],why:'Levator scapulae also gets branches from C3 and C4.'},
+ {c:'nv',q:'Which nerve supplies latissimus dorsi?',a:'Thoracodorsal nerve',w:['Long thoracic nerve','Axillary nerve','Dorsal scapular nerve'],why:'It runs with the thoracodorsal artery.'},
+ {c:'nv',q:'Which two rotator cuff muscles are supplied by the suprascapular nerve?',a:'Supraspinatus and infraspinatus',w:['Supraspinatus and teres minor','Infraspinatus and subscapularis','Teres minor and subscapularis'],why:'Teres minor is supplied by the axillary nerve, and subscapularis by the subscapular nerves.'},
+ {c:'nv',q:'Which rotator cuff muscle is supplied by the axillary nerve?',a:'Teres minor',w:['Infraspinatus','Supraspinatus','Subscapularis'],why:'The axillary nerve also supplies the deltoid.'},
+ {c:'nv',q:'Which muscle of the face is supplied by the facial nerve although it sits in the cheek next to the mandibular nerve territory?',a:'Buccinator',w:['Masseter','Temporalis','Medial pterygoid'],why:'The muscles of mastication are supplied by V3, but buccinator is a muscle of facial expression.'},
+ {c:'nv',q:'Which nerve supplies the four muscles of mastication?',a:'Mandibular nerve (V3)',w:['Facial nerve (CN VII)','Maxillary nerve (V2)','Ophthalmic nerve (V1)'],why:'Masseter, temporalis, medial pterygoid and lateral pterygoid.'},
+ {c:'ac',q:'Which muscle of mastication opens the jaw?',a:'Lateral pterygoid',w:['Masseter','Temporalis','Medial pterygoid'],why:'The others close the jaw. Gravity and the suprahyoid muscles help to open it.'},
+ {c:'ac',q:'Which rotator cuff muscle starts abduction of the arm?',a:'Supraspinatus',w:['Infraspinatus','Teres minor','Subscapularis'],why:'The deltoid then takes over, from 15 to 90 degrees.'},
+ {c:'ac',q:'Which muscle flexes the distal interphalangeal joints?',a:'Flexor digitorum profundus',w:['Flexor digitorum superficialis','Lumbricals','Palmar interossei'],why:'Superficialis flexes the proximal interphalangeal joints.'},
+ {c:'ac',q:'Which muscle flexes the proximal interphalangeal joints of the fingers?',a:'Flexor digitorum superficialis',w:['Flexor digitorum profundus','Extensor digitorum','Dorsal interossei'],why:'Its tendons split to let the profundus tendons through.'},
+ {c:'ac',q:'Which muscle is the main extensor of the knee?',a:'Quadriceps femoris',w:['Hamstrings','Gastrocnemius','Sartorius'],why:'Vastus lateralis, medialis and intermedius, and rectus femoris.'},
+ {c:'ac',q:'Which muscle unlocks the knee at the start of flexion?',a:'Popliteus',w:['Rectus femoris','Biceps femoris','Gracilis'],why:'It laterally rotates the femur on the fixed tibia.'},
+ {c:'ac',q:'Which muscle of the leg dorsiflexes and inverts the foot?',a:'Tibialis anterior',w:['Tibialis posterior','Fibularis longus','Extensor digitorum longus'],why:'Tibialis posterior plantarflexes and inverts.'},
+ {c:'ac',q:'Which muscles evert the foot?',a:'Fibularis longus and brevis',w:['Tibialis anterior and posterior','Gastrocnemius and soleus','Extensor hallucis longus and flexor hallucis longus'],why:'They are in the lateral compartment of the leg.'},
+ {c:'ac',q:'Which muscle is the main muscle of inspiration?',a:'Diaphragm',w:['External intercostals','Internal intercostals','Pectoralis minor'],why:'It flattens when it contracts, which increases the vertical size of the thorax.'},
+ {c:'ac',q:'In which direction do the fibres of external intercostals run?',a:'Downwards and forwards (hands in pockets)',w:['Downwards and backwards','Horizontally','Upwards and forwards'],why:'The internal intercostals run at right angles to them.'},
+ {c:'ac',q:'Which muscle of the abdominal wall has horizontal fibres?',a:'Transversus abdominis',w:['External oblique','Internal oblique','Rectus abdominis'],why:'It is the deepest of the three flat muscles.'},
+ {c:'ac',q:'Which muscle is the only adductor that crosses the knee?',a:'Gracilis',w:['Adductor longus','Adductor brevis','Pectineus'],why:'It inserts into the pes anserinus.'},
+ {c:'ac',q:'Which three muscles insert into the pes anserinus?',a:'Sartorius, gracilis and semitendinosus',w:['Sartorius, gracilis and semimembranosus','Rectus femoris, sartorius and gracilis','Biceps femoris, gracilis and semitendinosus'],why:'They insert on the upper medial surface of the tibia, supplied by the femoral, obturator and sciatic nerves respectively.'},
+ {c:'ac',q:'Which muscle of the forearm supinates the forearm?',a:'Supinator',w:['Pronator teres','Pronator quadratus','Brachioradialis'],why:'Biceps brachii also supinates, especially with the elbow flexed.'},
+ {c:'lo',q:'The tendons of which two muscles form the borders of the anatomical snuffbox?',a:'Abductor pollicis longus and extensor pollicis brevis (radial border), extensor pollicis longus (ulnar border)',w:['Abductor pollicis longus and flexor pollicis longus','Extensor pollicis brevis and flexor carpi radialis','Extensor digitorum and extensor pollicis longus'],why:'The floor includes the scaphoid and trapezium.'},
+ {c:'lo',q:'Which muscle divides the axillary artery into three parts?',a:'Pectoralis minor',w:['Pectoralis major','Subscapularis','Serratus anterior'],why:'The first part is medial to it, the second behind it and the third lateral to it.'},
+ {c:'lo',q:'The median nerve passes between the two heads of which muscle?',a:'Pronator teres',w:['Supinator','Flexor carpi ulnaris','Brachialis'],why:'The posterior interosseous nerve pierces supinator instead.'},
+ {c:'lo',q:'The posterior interosseous nerve pierces which muscle?',a:'Supinator',w:['Pronator teres','Brachialis','Triceps brachii'],why:'It is the continuation of the deep branch of the radial nerve.'},
+ {c:'lo',q:'The musculocutaneous nerve pierces which muscle?',a:'Coracobrachialis',w:['Biceps brachii','Brachialis','Deltoid'],why:'It then runs between biceps and brachialis.'},
+ {c:'lo',q:'The sciatic nerve usually leaves the pelvis in relation to which muscle?',a:'Below piriformis',w:['Above piriformis','Through obturator internus','Above gluteus medius'],why:'The superior gluteal vessels and nerve leave above piriformis.'},
+ {c:'lo',q:'Which structure lies in front of scalenus anterior, and which behind?',a:'The subclavian vein in front, the subclavian artery behind',w:['The subclavian artery in front, the subclavian vein behind','Both in front','Both behind'],why:'The phrenic nerve runs down the front of the muscle.'},
+ {c:'lo',q:'The popliteus tendon lies in which structure?',a:'Inside the knee joint capsule',w:['In the adductor canal','Behind the medial malleolus','In the carpal tunnel'],why:'It arises from the lateral femoral condyle, inside the capsule.'},
+ {c:'lo',q:'Which muscle forms the medial border of the femoral triangle?',a:'Adductor longus',w:['Sartorius','Pectineus','Gracilis'],why:'Sartorius forms the lateral border and the inguinal ligament the base.'},
+ {c:'lo',q:'Which muscle is the longest in the body?',a:'Sartorius',w:['Gracilis','Rectus femoris','Biceps femoris'],why:'It runs from the anterior superior iliac spine to the medial tibia.'}
+];
+
+/* ===== Muscle lab ===== */
+var ML={tab:'list',reg:'all',f:'',cover:false,rev:{},open:{},nopen:{},cxo:{},qc:{nv:true,ac:true,oi:true,cx:true,lo:true},qn:10,qr:'all',z:null};
+var MLQC={nv:'Nerve supply',ac:'Actions',oi:'Origins and insertions',cx:'Nerve injuries',lo:'Landmarks and tricks'};
+var MLQR={all:'Everywhere',hn:'Head and neck',tr:'Trunk',ul:'Upper limb',ll:'Lower limb'};
+var MLRG={face:'hn',neck:'hn',back:'tr',thorax:'tr',abd:'tr',shoulder:'ul',arm:'ul',fant:'ul',fpost:'ul',hand:'ul',glut:'ll',thigh:'ll',leg:'ll'};
+var MLNN={ma:'Mandibular nerve (V3)',fa:'Facial nerve (CN VII)',acc:'Accessory nerve (CN XI)',dors:'Dorsal scapular nerve',ph:'Phrenic nerve',sup:'Suprascapular nerve',ax:'Axillary nerve',sub:'Subscapular nerves',mc:'Musculocutaneous nerve',rad:'Radial nerve',pin:'Posterior interosseous nerve',med:'Median nerve',ain:'Anterior interosseous nerve',uln:'Ulnar nerve',lt:'Long thoracic nerve',pec:'Pectoral nerves',td:'Thoracodorsal nerve',sg:'Superior gluteal nerve',ig:'Inferior gluteal nerve',fem:'Femoral nerve',obt:'Obturator nerve',sci:'Sciatic nerve (tibial part)',cf:'Common fibular nerve',dfn:'Deep fibular nerve',sfn:'Superficial fibular nerve',tib:'Tibial nerve'};
+var MLCONF=[['rad','pin'],['med','ain'],['sci','tib','cf'],['dfn','sfn','cf'],['ma','fa']];
+function mlE(s){return blE(s)}
+function mlBody(){return document.getElementById('mlbody')}
+function mlTop(){var o=document.getElementById('ml');if(o)o.scrollTop=0}
+function mlShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function mlOpen(){var o=document.getElementById('ml');o.hidden=false;document.body.style.overflow='hidden';mlRender()}
+function mlClose(){var o=document.getElementById('ml');o.hidden=true;document.body.style.overflow=''}
+function mlReg(id){return ML_REG.filter(function(r){return r[0]===id})[0]}
+function mlRender(){
+  var b=mlBody();if(!b)return;
+  document.querySelectorAll('#mltabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===ML.tab)});
+  b.innerHTML=ML.tab==='list'?mlListShell():ML.tab==='nerve'?mlNerveHTML():ML.tab==='inj'?mlInjHTML():mlQuizHTML();
+}
+function mlCoverChip(label){return '<button class="chip'+(ML.cover?' on':'')+'" data-ml="cover" aria-pressed="'+ML.cover+'">'+label+'</button>'}
+/* ---------- muscles ---------- */
+function mlField(m,k,label,val){
+  if(!val)return '';
+  var key=m.id+':'+k;
+  var v=(ML.cover&&!ML.rev[key])?'<button class="ml-cov" data-ml="rev" data-k="'+key+'">Tap to reveal</button>':mlE(val);
+  return '<dt>'+label+'</dt><dd>'+v+'</dd>';
+}
+function mlCard(m){
+  var op=!!ML.open[m.id],r=mlReg(m.r);
+  var h='<div class="card ml-card'+(op?' open':'')+'"><button class="ml-h" data-ml="tog" data-id="'+m.id+'" aria-expanded="'+op+'"><b>'+mlE(m.n)+'</b><span class="ml-tg">'+mlE(r?r[1]:'')+'</span><i class="ml-ch"></i></button>';
+  if(op){
+    h+='<div class="ml-b"><dl class="ml-dl">'+mlField(m,'o','Origin',m.o)+mlField(m,'i','Insertion',m.i)+mlField(m,'nv','Nerve supply',m.nv+(m.rt&&!/^(V3|VII|V3 and VII)$/.test(m.rt)?' ('+m.rt+')':''))+mlField(m,'a','Action',m.a)+mlField(m,'ar','Blood supply',m.ar)+'</dl>';
+    var allRev=!ML.cover||['o','i','nv','a','ar'].every(function(k){return ML.rev[m.id+':'+k]});
+    if(m.note&&allRev)h+='<p class="ml-nt">'+mlE(m.note)+'</p>';
+    h+='</div>';
+  }
+  return h+'</div>';
+}
+function mlFiltered(){
+  var t=ML.f.trim().toLowerCase();
+  return ML_M.filter(function(m){
+    if(ML.reg!=='all'&&m.r!==ML.reg)return false;
+    if(!t)return true;
+    return (m.n+' '+m.nv+' '+m.i+' '+m.o).toLowerCase().indexOf(t)>-1;
+  });
+}
+function mlListHTML(){
+  var l=mlFiltered();
+  if(!l.length)return '<div class="ml-empty">No muscles match. Try another region or word.</div>';
+  return '<div class="ml-grid">'+l.map(mlCard).join('')+'</div>';
+}
+function mlListShell(){
+  var h='<div class="bl-wrap"><p class="ml-note">'+ML_M.length+' muscles. Tap a muscle to open it. Nerve roots and blood supply differ a little between textbooks, so if your KCL notes disagree, go with your notes.</p>';
+  h+='<input id="mlf" class="ml-find" type="search" placeholder="Filter by muscle, nerve, origin or insertion" value="'+mlE(ML.f)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Filter muscles">';
+  h+='<div class="bl-row scroll"><button class="chip'+(ML.reg==='all'?' on':'')+'" data-ml="reg" data-r="all">All</button>'+ML_REG.map(function(r){return '<button class="chip'+(ML.reg===r[0]?' on':'')+'" data-ml="reg" data-r="'+r[0]+'">'+mlE(r[1])+'</button>'}).join('')+'</div>';
+  h+='<div class="bl-row">'+mlCoverChip('Cover the answers (test yourself)')+'</div>';
+  h+='<div id="mllist">'+mlListHTML()+'</div></div>';
+  return h;
+}
+/* ---------- by nerve ---------- */
+function mlNerveHTML(){
+  var h='<div class="bl-wrap"><p class="ml-note">Which muscles does each nerve supply? Turn on cover mode to recall the list before you look.</p><div class="bl-row">'+mlCoverChip('Cover the muscle lists')+'</div><div class="ml-grid">';
+  Object.keys(ML_NG).forEach(function(g){
+    var ms=ML_M.filter(function(m){return m.ng.indexOf(g)>-1});if(!ms.length)return;
+    var shown=!ML.cover||ML.nopen[g];
+    h+='<div class="card ml-ng"><div class="ml-ngh"><b>'+mlE(ML_NG[g])+'</b><span class="ml-tg">'+ms.length+' muscle'+(ms.length>1?'s':'')+'</span></div>';
+    if(shown)h+='<div class="ml-chips">'+ms.map(function(m){return '<button class="chip" data-ml="go" data-id="'+m.id+'">'+mlE(m.n)+'</button>'}).join('')+'</div>';
+    else h+='<div class="ml-chips"><button class="ml-cov" data-ml="nrev" data-g="'+g+'">Tap to show the muscles</button></div>';
+    h+='</div>';
+  });
+  return h+'</div></div>';
+}
+/* ---------- nerve injuries ---------- */
+function mlInjHTML(){
+  var h='<div class="bl-wrap"><p class="ml-note">What you see when each nerve is injured, and the usual cause.</p><div class="bl-row">'+mlCoverChip('Hide the key finding until I open a card')+'</div><div class="ml-grid">';
+  ML_CX.forEach(function(c,i){
+    var op=!!ML.cxo[i];
+    h+='<div class="card ml-card'+(op?' open':'')+'"><button class="ml-h" data-ml="cxt" data-i="'+i+'" aria-expanded="'+op+'"><b>'+mlE(c[0])+'</b><span class="ml-tg">'+mlE(c[1])+'</span><i class="ml-ch"></i></button>';
+    if(!ML.cover||op)h+='<div style="padding:0 14px '+(op?'0':'12px')+'"><span class="ml-inj-k">'+mlE(c[5])+'</span></div>';
+    if(op)h+='<div class="ml-b"><dl class="ml-dl"><dt>Muscles affected</dt><dd>'+mlE(c[2])+'</dd><dt>What you see</dt><dd>'+mlE(c[3])+'</dd><dt>Usual cause</dt><dd>'+mlE(c[4])+'</dd></dl></div>';
+    h+='</div>';
+  });
+  return h+'</div></div>';
+}
+/* ---------- quiz ---------- */
+function mlConf(a,b){if(a===b)return true;for(var i=0;i<MLCONF.length;i++)if(MLCONF[i].indexOf(a)>-1&&MLCONF[i].indexOf(b)>-1)return true;return false}
+var MLSAFE=[0,1,2,3,5,6,7,8,9,10,11,12,14,16,17];
+function mlPool(){
+  var pool=[],rg=ML.qr,inR=function(m){return rg==='all'||MLRG[m.r]===rg};
+  if(rg==='all')ML_QA.forEach(function(x){if(ML.qc[x.c])pool.push({q:x.q,a:x.a,w:x.w,why:x.why})});
+  var ms=ML_M.filter(inR);
+  if(ML.qc.nv){
+    var cleanG=Object.keys(MLNN);
+    ms.forEach(function(m){
+      if(m.ng.length!==1||!MLNN[m.ng[0]])return;var g=m.ng[0];
+      var w=mlShuf(cleanG.filter(function(x){return !mlConf(x,g)})).slice(0,3).map(function(x){return MLNN[x]});
+      pool.push({q:'Which nerve supplies '+m.n.charAt(0).toLowerCase()+m.n.slice(1)+'?',a:MLNN[g],w:w,why:m.n+': '+m.nv+(m.rt&&!/^(V3|VII|V3 and VII)$/.test(m.rt)?' ('+m.rt+')':'')+'.'});
+    });
+  }
+  function others(m,key,n){
+    var seen={},out=[];seen[m[key]]=1;
+    mlShuf(ML_M.filter(function(x){return x!==m&&x.r===m.r})).concat(mlShuf(ML_M.filter(function(x){return x.r!==m.r}))).forEach(function(x){
+      if(out.length>=n||seen[x[key]])return;
+      if(key==='a'&&x.a.split(' ')[0]===m.a.split(' ')[0])return;
+      seen[x[key]]=1;out.push(x[key])});
+    return out;
+  }
+  if(ML.qc.ac){
+    var cnt={};ML_M.forEach(function(m){cnt[m.a]=(cnt[m.a]||0)+1});
+    ms.forEach(function(m){
+      if(cnt[m.a]>1)return;var w=others(m,'a',3);if(w.length<3)return;
+      pool.push({q:'What is the action of '+m.n.charAt(0).toLowerCase()+m.n.slice(1)+'?',a:m.a,w:w,why:m.n+': '+m.a+'.'});
+    });
+  }
+  if(ML.qc.oi){
+    ms.forEach(function(m){
+      var wi=others(m,'i',3),wo=others(m,'o',3);
+      if(wi.length>=3)pool.push({q:'Where does '+m.n.charAt(0).toLowerCase()+m.n.slice(1)+' insert?',a:m.i,w:wi,why:m.n+' inserts on the '+m.i.charAt(0).toLowerCase()+m.i.slice(1)+'.'});
+      if(wo.length>=3)pool.push({q:'Where does '+m.n.charAt(0).toLowerCase()+m.n.slice(1)+' arise?',a:m.o,w:wo,why:m.n+' arises from the '+m.o.charAt(0).toLowerCase()+m.o.slice(1)+'.'});
+    });
+  }
+  if(ML.qc.cx&&rg==='all'){
+    MLSAFE.forEach(function(i){
+      var c=ML_CX[i],rest=MLSAFE.filter(function(j){return j!==i});
+      pool.push({q:'Which nerve injury gives this: '+c[5].charAt(0).toLowerCase()+c[5].slice(1)+'?',a:c[0],w:mlShuf(rest).slice(0,3).map(function(j){return ML_CX[j][0]}),why:c[0]+': '+c[3]});
+      pool.push({q:'What is the typical result of injury to the '+c[0].charAt(0).toLowerCase()+c[0].slice(1)+'?',a:c[5],w:mlShuf(rest).slice(0,3).map(function(j){return ML_CX[j][5]}),why:c[3]+' Usual cause: '+c[4]});
+    });
+  }
+  return pool;
+}
+function mlQStart(list){
+  var qs=list||mlShuf(mlPool());if(!list&&ML.qn)qs=qs.slice(0,ML.qn);
+  if(!qs.length)return;
+  ML.z={phase:'run',qs:qs,i:0,n:qs.length,score:0,missed:[],ans:null,cur:null};mlQSet();
+}
+function mlQSet(){var Q=ML.z,x=Q.qs[Q.i];Q.cur={q:x.q,a:x.a,why:x.why,opts:mlShuf([x.a].concat(x.w))};Q.ans=null}
+function mlQuizHTML(){
+  var Q=ML.z;
+  if(!Q||Q.phase==='setup'){
+    var pool=mlPool(),h='<div class="bl-wrap"><div class="card"><p class="eyebrow">Quiz</p><h2>Test yourself on muscles</h2><p class="muted">Questions you miss go into the review queue on the home screen.</p>';
+    h+='<div class="bl-row">'+Object.keys(MLQC).map(function(k){return '<button class="chip'+(ML.qc[k]?' on':'')+'" data-ml="qcat" data-k="'+k+'" aria-pressed="'+!!ML.qc[k]+'">'+mlE(MLQC[k])+'</button>'}).join('')+'</div>';
+    h+='<div class="bl-row"><span class="eyebrow" style="margin:0">Region</span>'+Object.keys(MLQR).map(function(k){return '<button class="chip'+(ML.qr===k?' on':'')+'" data-ml="qreg" data-k="'+k+'">'+mlE(MLQR[k])+'</button>'}).join('')+'</div>';
+    h+='<div class="bl-row"><span class="eyebrow" style="margin:0">Questions</span>'+[10,20,0].map(function(n){return '<button class="chip'+(ML.qn===n?' on':'')+'" data-ml="qn" data-n="'+n+'">'+(n||'All')+'</button>'}).join('')+'</div>';
+    h+='<p class="muted">'+pool.length+' questions available with these choices.</p><button class="btn" data-ml="qstart"'+(pool.length?'':' disabled')+'>Start quiz</button></div></div>';
+    return h;
+  }
+  if(Q.phase==='done'){
+    var h2='<div class="bl-wrap"><div class="card"><p class="eyebrow">Round finished</p><h2>'+Q.score+' out of '+Q.n+'</h2>';
+    if(Q.missed.length){h2+='<p class="muted">Worth another look (these are now in your review queue):</p><ul class="bl-ul">'+Q.missed.map(function(m){return '<li>'+mlE(m.q)+' <b>'+mlE(m.a)+'</b></li>'}).join('')+'</ul>'}
+    else h2+='<p class="muted">No misses. Nice.</p>';
+    h2+='<div class="bl-row" style="margin-top:12px">'+(Q.missed.length?'<button class="btn" data-ml="qretry">Practise the misses</button>':'')+'<button class="btn ghost" data-ml="qend">New round</button></div></div></div>';
+    return h2;
+  }
+  var c=Q.cur;
+  var h3='<div class="bl-wrap"><div class="card"><div class="bl-score"><span>Question '+(Q.i+1)+' of '+Q.n+'</span><span>Score '+Q.score+'</span></div><p class="bl-q">'+mlE(c.q)+'</p><div class="bl-opts">';
+  c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
+    h3+='<button class="'+cls+'" data-ml="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+mlE(o)+'</button>'});
+  h3+='</div>';
+  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'It is '+mlE(c.a)+'. ')+mlE(c.why)+'</div><button class="btn" data-ml="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  h3+='<div class="bl-row" style="margin-top:10px"><button class="btn small ghost" data-ml="qend">End round</button></div></div></div>';
+  return h3;
+}
+/* ---------- events ---------- */
+function mlAct(e){
+  var el=e.target.closest&&e.target.closest('[data-ml]');if(!el)return;
+  var a=el.dataset.ml,d=el.dataset;
+  switch(a){
+    case 'close':mlClose();break;
+    case 'tab':ML.tab=d.t;mlRender();mlTop();break;
+    case 'reg':ML.reg=d.r;mlRender();break;
+    case 'cover':ML.cover=!ML.cover;if(ML.cover){ML.rev={};ML.nopen={}}mlRender();break;
+    case 'tog':ML.open[d.id]=!ML.open[d.id];mlRender();break;
+    case 'rev':ML.rev[d.k]=true;mlRender();break;
+    case 'nrev':ML.nopen[d.g]=true;mlRender();break;
+    case 'cxt':ML.cxo[d.i]=!ML.cxo[d.i];mlRender();break;
+    case 'go':{var m=ML_M.filter(function(x){return x.id===d.id})[0];ML.tab='list';ML.reg='all';ML.f=m.n;ML.open[m.id]=true;mlRender();mlTop();break}
+    case 'qcat':ML.qc[d.k]=!ML.qc[d.k];mlRender();break;
+    case 'qreg':ML.qr=d.k;mlRender();break;
+    case 'qn':ML.qn=parseInt(d.n,10);mlRender();break;
+    case 'qstart':mlQStart();mlRender();mlTop();break;
+    case 'qpick':{var Q=ML.z;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);var okx=Q.cur.opts[Q.ans]===Q.cur.a;if(okx)Q.score++;else Q.missed.push(Q.qs[Q.i]);if(typeof srsGrade==='function')srsGrade('ml',Q.qs[Q.i],okx);mlRender();break}
+    case 'qnext':{var Q2=ML.z;if(Q2.i+1>=Q2.n)Q2.phase='done';else{Q2.i++;mlQSet()}mlRender();mlTop();break}
+    case 'qend':ML.z=null;mlRender();break;
+    case 'qretry':{mlQStart(mlShuf(ML.z.missed));mlRender();break}
+  }
+}
+document.addEventListener('click',mlAct);
+document.addEventListener('input',function(e){if(e.target&&e.target.id==='mlf'){ML.f=e.target.value;var l=document.getElementById('mllist');if(l)l.innerHTML=mlListHTML()}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('ml');if(o&&!o.hidden)mlClose()}});
+window.__ML={ML_M:ML_M,ML_QA:ML_QA,ML_CX:ML_CX,mlPool:mlPool,ML:ML};
+
+var BT_SEC=[
+{id:'fn',n:'What bones do',pts:[
+ ['Support and protection','Bones hold the body up and shield organs: skull (brain), ribs and sternum (heart and lungs), vertebrae (spinal cord).'],
+ ['Movement','Bones act as levers. Muscles pull on them across joints.'],
+ ['Mineral store','Bone stores calcium and phosphate and releases them to keep blood levels steady.'],
+ ['Blood cell production','Red bone marrow makes blood cells (haematopoiesis). Yellow marrow stores fat.'],
+ ['Bone is an organ','It is made of bone tissue plus cartilage, fibrous connective tissue, blood vessels, nerves and marrow.']]},
+{id:'ct',n:'Compact and spongy bone',pts:[
+ ['Compact (cortical) bone','Dense outer layer. Made of osteons. Gives strength and resists bending and twisting.'],
+ ['Spongy (cancellous, trabecular) bone','A lattice of thin plates (trabeculae) with spaces filled by red marrow. Lighter. Found in the epiphyses and inside flat and short bones.'],
+ ['Osteopetrosis ("marble bone")','Osteoclasts fail to resorb bone, so bone becomes dense but brittle. The marrow space is crowded out, which causes anaemia, and fractures are common.']]},
+{id:'os',n:'Osteon (Haversian system)',dg:true,pts:[
+ ['Osteonal (Haversian) canal','Runs along the long axis in the centre of each osteon. Carries blood vessels and nerves.'],
+ ['Size and boundary','An osteon has about 4 to 20 concentric lamellae. A thin cement line of mineralised matrix surrounds it. Each lamella is about 5 micrometres thick, and collagen runs in alternate directions in neighbouring lamellae.'],
+ ['Concentric lamellae','Rings of matrix around the canal. Collagen fibres run in different directions in neighbouring rings.'],
+ ['Lacunae and canaliculi','Osteocytes sit in lacunae. Tiny canaliculi link neighbouring lacunae so cells can pass nutrients along.'],
+ ['Perforating (Volkmann) canals','Run across the bone and join osteonal canals to each other, to the periosteum and to the marrow cavity.'],
+ ['Other lamellae','Circumferential lamellae run around the whole shaft (outer and inner). Interstitial lamellae fill gaps between osteons and are remnants of old osteons.'],
+ ['Periosteum','Covers the outside of the bone (not the joint surfaces). Outer fibrous layer, inner layer with osteoprogenitor cells. Rich in nerves, so it is pain sensitive. Anchored by perforating (Sharpey) fibres.'],
+ ['Endosteum','A thin cellular layer lining the marrow cavity and the trabeculae.']]},
+{id:'ce',n:'Bone cells and matrix',pts:[
+ ['Osteoprogenitor cell','A stem cell in the periosteum and endosteum. Divides and becomes an osteoblast.'],
+ ['Osteoblast','Builds bone. Secretes osteoid (collagen type I and ground substance), which then mineralises. Looks like a secretory cell: lots of rough ER and Golgi. Matrix vesicles carry alkaline phosphatase, which starts mineralisation.'],
+ ['Bone-lining cell','A flat, resting cell on the surface of bone that is not being remodelled. May be an inactive osteoblast.'],
+ ['Osteocyte','A mature cell trapped in a lacuna. Few organelles. Its processes in the canaliculi are joined by gap junctions. Helps maintain the matrix, and acts as a strain sensor for remodelling.'],
+ ['Osteoclast','A large multinucleated cell that breaks bone down (resorption). Comes from haemopoietic stem cells (the monocyte and macrophage line), not from the osteoblast line. Sits in a resorption pit called a Howship\'s lacuna.'],
+ ['Matrix','Organic part (mostly type I collagen) gives flexibility. Inorganic part (hydroxyapatite, calcium phosphate) gives hardness. By weight about 60% is mineral, 25% organic and 15% water. About 90% of the organic part is type I collagen. The mineral is hydroxyapatite, in tiny needle-like crystals or thin plates.']]},
+{id:'rm',n:'Remodelling and trabeculae',pts:[
+ ['How an osteon forms','Osteoclasts tunnel through existing bone. Blood vessels and osteoprogenitor cells invade the tunnel, and osteoblasts lay down lamellae on its walls. Interstitial lamellae are what is left of old osteons.'],
+ ['Trabeculae','Plates of lamellae about 50 micrometres thick. They line up along lines of stress, which resists force with little extra mass.'],
+ ['Hormones','Calcitonin directly inhibits osteoclasts. Parathyroid hormone acts on osteoblasts, which release signals that make osteoclasts differentiate.']]},
+{id:'cb',n:'Bone compared with cartilage',pts:[
+ ['Matrix','Cartilage matrix is semi-rigid and permeable to water and small molecules. Bone matrix is rigid and impermeable.'],
+ ['Growth','Cartilage grows by appositional and interstitial growth. Bone grows by appositional growth only.'],
+ ['Blood supply','Cartilage has none and relies on diffusion. Bone needs a blood supply.'],
+ ['Surface covering','Non-articular bone is covered by periosteum. Articular cartilage is hyaline and has no perichondrium.'],
+ ['Cartilage composition','About 75% water. The organic part is mostly type II collagen (tensile strength) plus proteoglycans with chondroitin sulphate (resist compression).']]},
+{id:'dv',n:'Bone development',pts:[
+ ['Intramembranous ossification','Bone forms directly in a sheet of mesenchyme. Makes most skull bones, the mandible and much of the clavicle. Mesenchyme cells become osteoblasts, form an ossification centre and trabeculae, and the surface becomes periosteum.'],
+ ['Endochondral ossification','Bone replaces a hyaline cartilage model. Makes most of the skeleton, including the long bones.'],
+ ['Primary ossification centre','In the diaphysis. A periosteal bud (nutrient artery plus osteoprogenitor cells and osteoclasts) invades the cartilage model. Appears before birth. The medullary cavity forms as bone is resorbed.'],
+ ['Secondary ossification centres','In the epiphyses, mostly after birth. Cartilage remains as the articular cartilage and as the epiphyseal plate.'],
+ ['Parts of a growing long bone','Diaphysis (shaft), epiphysis (end), metaphysis (the flared region between them, next to the epiphyseal plate). The epiphyseal plate is hyaline cartilage and lengthens the bone.'],
+ ['Plate closure','The plate stops growing and ossifies, leaving the epiphyseal line. This happens from adolescence to early adulthood, at different ages in different bones. Check the ages on your lecture slide.']]}
+];
+var BT_GL=[
+['Projections for attachment',[['Tubercle','A small rounded bump (the smallest of the three).'],['Tuberosity','A large, rough, rounded projection (the largest of the three).'],['Trochanter','A large blunt projection. Only on the femur (greater and lesser trochanters).'],['Line','A low, narrow ridge.'],['Crest','A prominent ridge.'],['Spine','A sharp, slender projection (a short process, e.g. the spine of the scapula).'],['Process','Any bony projection.'],['Epicondyle','A bump on or above a condyle, for ligament and muscle attachment.']]],
+['Projections for joints',[['Head','A rounded end, often on a neck.'],['Condyle','A rounded swelling covered with articular cartilage.'],['Facet','A small, smooth, flat articular surface.'],['Capitulum','"Little head": the rounded lateral part of the lower humerus that meets the radius.'],['Trochlea','A pulley-shaped surface, e.g. on the lower humerus for the ulna.']]],
+['Depressions and openings',[['Fossa','A shallow depression.'],['Foramen','A hole for nerves or vessels.'],['Groove (sulcus)','A long furrow, often for a tendon, nerve or vessel.'],['Notch','An indentation in the edge of a bone.'],['Canal (meatus)','A tunnel through bone.'],['Fissure','A narrow slit-like opening.']]]];
+var BT_QA=[
+{q:'Which cell builds new bone matrix?',a:'Osteoblast',w:['Osteoclast','Osteocyte','Chondrocyte'],why:'Osteoblasts secrete osteoid, which then mineralises.'},
+{q:'Which cell breaks bone down?',a:'Osteoclast',w:['Osteoblast','Osteocyte','Osteoprogenitor cell'],why:'Osteoclasts are large, multinucleated and resorb bone.'},
+{q:'Which is the mature bone cell that sits in a lacuna?',a:'Osteocyte',w:['Osteoblast','Osteoclast','Osteoprogenitor cell'],why:'Osteocytes maintain the matrix.'},
+{q:'Which bone cell is a stem cell?',a:'Osteoprogenitor cell',w:['Osteocyte','Osteoclast','Osteoblast'],why:'It divides and gives rise to osteoblasts.'},
+{q:'Osteoclasts come from which cell line?',a:'Monocyte and macrophage line',w:['Osteoblast line','Chondrocyte line','Fibroblast line'],why:'They are formed by fusion of monocyte-derived cells.'},
+{q:'What runs in the central canal of an osteon?',a:'Blood vessels and nerves',w:['Only collagen fibres','Osteoclasts only','Red marrow'],why:'The osteonal (Haversian) canal carries vessels and nerves.'},
+{q:'What joins one osteonal canal to the next and to the periosteum?',a:'Perforating (Volkmann) canals',w:['Canaliculi','Lacunae','Sharpey fibres'],why:'They run across the bone.'},
+{q:'What are the tiny channels linking neighbouring lacunae?',a:'Canaliculi',w:['Volkmann canals','Trabeculae','Lamellae'],why:'Osteocyte processes pass through them.'},
+{q:'What is the name for the rings of matrix around an osteonal canal?',a:'Concentric lamellae',w:['Trabeculae','Interstitial lamellae','Circumferential lamellae'],why:'Each osteon is built of concentric lamellae.'},
+{q:'What are interstitial lamellae?',a:'Remnants of old osteons',w:['Rings around the whole shaft','Spaces filled with marrow','The lining of the marrow cavity'],why:'They fill gaps between osteons.'},
+{q:'Which layer lines the marrow cavity?',a:'Endosteum',w:['Periosteum','Perichondrium','Epiphyseal plate'],why:'The endosteum is a thin cellular layer, also covering trabeculae.'},
+{q:'Which layer covers the outside of a bone and is pain sensitive?',a:'Periosteum',w:['Endosteum','Synovial membrane','Perichondrium'],why:'It is rich in nerves.'},
+{q:'What anchors the periosteum to the bone?',a:'Perforating (Sharpey) fibres',w:['Canaliculi','Trabeculae','Volkmann vessels'],why:'Collagen fibres that penetrate the outer lamellae.'},
+{q:'Which type of bone is made of trabeculae?',a:'Spongy bone',w:['Compact bone','Both equally','Neither'],why:'Spongy bone is a lattice with red marrow in the spaces.'},
+{q:'Which type of bone is made of osteons?',a:'Compact bone',w:['Spongy bone','Cartilage','Marrow'],why:'Compact bone forms the dense outer layer.'},
+{q:'Where is red marrow, which makes blood cells, found in adults?',a:'In spongy bone',w:['In the periosteum','In compact bone','In articular cartilage'],why:'It fills the spaces between trabeculae.'},
+{q:'Which condition is caused by failure of osteoclast function, giving dense but brittle bone?',a:'Osteopetrosis',w:['Osteoporosis','Rickets','Osteomalacia'],why:'Bone is not resorbed, so it is dense but brittle, and the marrow space is crowded out.'},
+{q:'Which mineral gives bone its hardness?',a:'Hydroxyapatite (calcium phosphate)',w:['Type I collagen','Elastin','Keratin'],why:'The organic collagen gives flexibility.'},
+{q:'Which ossification forms bone directly in mesenchyme?',a:'Intramembranous',w:['Endochondral','Appositional only','Secondary only'],why:'Skull bones, mandible and much of the clavicle form this way.'},
+{q:'Which ossification replaces a hyaline cartilage model?',a:'Endochondral',w:['Intramembranous','Membranous','Periosteal only'],why:'Most of the skeleton, including long bones.'},
+{q:'Which bones form by intramembranous ossification?',a:'Flat bones of the skull',w:['Femur','Humerus','Tibia'],why:'Long bones form by endochondral ossification.'},
+{q:'Where does the primary ossification centre appear in a long bone?',a:'In the diaphysis',w:['In the epiphysis','In the epiphyseal line','In the periosteum only'],why:'It appears before birth.'},
+{q:'What enters the cartilage model to start the primary centre?',a:'The periosteal bud',w:['The epiphyseal plate','The medullary cavity','A Volkmann canal'],why:'It carries the nutrient artery, osteoprogenitor cells and osteoclasts.'},
+{q:'Where do secondary ossification centres appear?',a:'In the epiphyses, mostly after birth',w:['In the diaphysis before birth','In the periosteum','In the metaphysis only'],why:'Cartilage persists as articular cartilage and the epiphyseal plate.'},
+{q:'What lengthens a growing long bone?',a:'The epiphyseal plate',w:['The periosteum','The endosteum','The epiphyseal line'],why:'The plate is hyaline cartilage that keeps adding new cartilage which ossifies.'},
+{q:'What is left when the epiphyseal plate stops growing?',a:'The epiphyseal line',w:['The metaphysis','The medullary cavity','The periosteal bud'],why:'The plate ossifies and leaves a line.'},
+{q:'Which part of a long bone is the shaft?',a:'Diaphysis',w:['Epiphysis','Metaphysis','Apophysis'],why:'The epiphyses are the ends.'},
+{q:'Which part of a long bone lies between the shaft and the end, next to the growth plate?',a:'Metaphysis',w:['Diaphysis','Epiphysis','Condyle'],why:'It is the flared region.'},
+{q:'Which bone marking is a hole for nerves or vessels?',a:'Foramen',w:['Fossa','Sulcus','Trochanter'],why:'Foramina transmit nerves and vessels.'},
+{q:'Which bone marking is a shallow depression?',a:'Fossa',w:['Foramen','Tubercle','Crest'],why:'Examples are the glenoid and olecranon fossae.'},
+{q:'Which marking is a large blunt projection found only on the femur?',a:'Trochanter',w:['Tuberosity','Epicondyle','Tubercle'],why:'Greater and lesser trochanters.'},
+{q:'Which marking is a pulley-shaped articular surface?',a:'Trochlea',w:['Capitulum','Facet','Epicondyle'],why:'The humeral trochlea meets the ulna.'},
+{q:'Which marking means "little head" and is on the lower lateral humerus?',a:'Capitulum',w:['Trochlea','Condyle','Tubercle'],why:'It articulates with the radius.'},
+{q:'Which marking is a small, smooth, flat articular surface?',a:'Facet',w:['Fossa','Tubercle','Notch'],why:'For example the vertebral articular facets.'},
+{q:'Which marking is a low narrow ridge?',a:'Line',w:['Crest','Spine','Foramen'],why:'A crest is a more prominent ridge.'},
+{q:'Which cell comes from haemopoietic stem cells?',a:'Osteoclast',w:['Osteoblast','Osteocyte','Osteoprogenitor cell'],why:'Osteoprogenitor cells, osteoblasts and osteocytes come from the mesenchymal line.'},
+{q:'What is the resorption pit that an osteoclast sits in called?',a:"Howship's lacuna",w:['Haversian canal','Volkmann canal','Canaliculus'],why:'Osteoclasts dig these pits in the bone surface.'},
+{q:'Which enzyme in osteoblast matrix vesicles helps start mineralisation?',a:'Alkaline phosphatase',w:['Carbonic anhydrase','Acid phosphatase','Collagenase'],why:'It neutralises the inhibiting effect of pyrophosphate on calcium deposition.'},
+{q:'Which hormone directly inhibits osteoclasts?',a:'Calcitonin',w:['Parathyroid hormone','Insulin','Growth hormone'],why:'Parathyroid hormone works through osteoblasts, which release signals that drive osteoclast differentiation.'},
+{q:'Which type of collagen makes up about 90% of the organic part of bone?',a:'Type I',w:['Type II','Type III','Type IV'],why:'Cartilage is mostly type II.'},
+{q:'Approximately what proportion of bone by weight is mineral?',a:'About 60%',w:['About 15%','About 25%','About 90%'],why:'By weight: about 60% mineral, 25% organic, 15% water.'},
+{q:'Which statement about growth is correct?',a:'Cartilage grows by appositional and interstitial growth, bone by appositional growth only',w:['Bone grows by interstitial growth','Cartilage grows by appositional growth only','Both grow by interstitial growth only'],why:'Bone matrix is rigid, so cells cannot divide inside it.'},
+{q:'Which tissue needs no blood supply?',a:'Cartilage',w:['Compact bone','Spongy bone','Periosteum'],why:'Cartilage is nourished by diffusion.'},
+{q:'How do trabeculae in spongy bone line up?',a:'Along lines of stress',w:['Randomly','Perpendicular to stress','Around a central canal'],why:'This resists force while adding little mass.'},
+{q:'What surrounds each osteon as a boundary?',a:'A cement line',w:['The periosteum','The endosteum','A perichondrium'],why:'A thin line of mineralised matrix.'},
+{q:'What is a bone-lining cell?',a:'A flat, resting cell on the surface of bone that is not being remodelled',w:['A multinucleated resorbing cell','A cell trapped in a lacuna','A cell that secretes osteoid'],why:'It may be an inactive osteoblast.'},
+{q:'How does a new osteon form?',a:'Osteoclasts tunnel, then osteoblasts lay lamellae on the tunnel wall',w:['Osteoblasts tunnel, then osteoclasts fill it','Cartilage is replaced by bone','The periosteum folds inwards'],why:'Blood vessels and osteoprogenitor cells invade the tunnel.'}
+];
+
+var BT={sub:'learn',gl:false,q:null};
+function btDiagram(){
+  return '<svg viewBox="0 0 220 220" class="bt-dg" role="img" aria-label="Schematic cross section of an osteon"><g fill="none" stroke="var(--bone-line)" stroke-width="2"><circle cx="110" cy="110" r="96"/><circle cx="110" cy="110" r="76" opacity=".8"/><circle cx="110" cy="110" r="56" opacity=".8"/><circle cx="110" cy="110" r="36" opacity=".8"/></g><circle cx="110" cy="110" r="20" fill="var(--hl)" opacity=".85"/>'
+   +[[110,48],[110,172],[48,110],[172,110],[66,66],[154,154],[66,154],[154,66],[110,88],[110,132]].map(function(p){return '<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="6" ry="3.5" fill="var(--bone-line)"/>'}).join('')
+   +'<g font-size="10" fill="currentColor"><text x="110" y="113" text-anchor="middle" fill="var(--accent-ink,#000)">canal</text></g></svg>'
+   +'<p class="bt-cap">Schematic. Central canal in the middle, concentric lamellae as rings, osteocytes in lacunae between them.</p>';
+}
+function btLearn(){
+  var h='';
+  BT_SEC.forEach(function(s){
+    h+='<section class="card bt-sec"><h3>'+blE(s.n)+'</h3>';
+    if(s.dg)h+=btDiagram();
+    h+='<dl>';s.pts.forEach(function(p){h+='<dt>'+blE(p[0])+'</dt><dd>'+blE(p[1])+'</dd>'});
+    h+='</dl></section>'});
+  return h;
+}
+function btGloss(){
+  var h='';
+  BT_GL.forEach(function(g){h+='<section class="card bt-sec"><h3>'+blE(g[0])+'</h3><dl>';
+    g[1].forEach(function(p){h+='<dt>'+blE(p[0])+'</dt><dd>'+blE(p[1])+'</dd>'});h+='</dl></section>'});
+  return h;
+}
+function btShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function btQSet(){var Q=BT.q,x=Q.qs[Q.i];Q.cur={q:x.q,a:x.a,why:x.why,opts:btShuf([x.a].concat(x.w))};Q.ans=null}
+function btQHTML(){
+  var Q=BT.q;
+  if(!Q)return '<section class="card"><p class="bl-q">Test yourself on bone tissue, development and markings.</p><p class="muted">'+BT_QA.length+' questions. Missed ones come back in your Home review queue.</p><button class="btn" data-bt="qstart">Start</button></section>';
+  if(Q.phase==='done')return '<section class="card"><p class="bl-q">Round finished: '+Q.score+' of '+Q.n+'.</p>'+(Q.missed.length?'<button class="btn" data-bt="qretry">Retry the '+Q.missed.length+' missed</button> ':'')+'<button class="btn ghost" data-bt="qend">Done</button></section>';
+  var c=Q.cur,h='<section class="card"><div class="bl-score"><span>Question '+(Q.i+1)+' of '+Q.n+'</span><span>Score '+Q.score+'</span></div><p class="bl-q">'+blE(c.q)+'</p><div class="bl-opts">';
+  c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
+    h+='<button class="'+cls+'" data-bt="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+blE(o)+'</button>'});
+  h+='</div>';
+  if(Q.ans!==null){var ok=c.opts[Q.ans]===c.a;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'It is '+blE(c.a)+'. ')+blE(c.why)+'</div><button class="btn" data-bt="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  h+='<div style="margin-top:10px"><button class="btn small ghost" data-bt="qend">End round</button></div></section>';
+  return h;
+}
+function btHTML(){
+  var h='<div class="bl-wrap bt"><div class="bl-row"><div class="seg">'
+   +[['learn','Learn'],['gloss','Markings glossary'],['quiz','Quiz']].map(function(t){return '<button data-bt="sub" data-s="'+t[0]+'" class="'+(BT.sub===t[0]?'on':'')+'">'+t[1]+'</button>'}).join('')+'</div></div>';
+  h+=BT.sub==='learn'?btLearn():(BT.sub==='gloss'?btGloss():btQHTML());
+  return h+'</div>';
+}
+function btAct(e){
+  var t=e.target.closest&&e.target.closest('[data-bt]');if(!t)return;
+  var d=t.dataset;
+  switch(d.bt){
+    case 'sub':BT.sub=d.s;blRender();break;
+    case 'qstart':case 'qretry':{var qs=d.bt==='qretry'?btShuf(BT.q.missed):btShuf(BT_QA).slice(0,15);BT.q={phase:'run',qs:qs,i:0,n:qs.length,score:0,missed:[],ans:null,cur:null};btQSet();blRender();break}
+    case 'qpick':{var Q=BT.q;if(!Q||Q.ans!==null)break;Q.ans=parseInt(d.i,10);var ok=Q.cur.opts[Q.ans]===Q.cur.a;if(ok)Q.score++;else Q.missed.push(Q.qs[Q.i]);if(typeof srsGrade==='function')srsGrade('bt',Q.qs[Q.i],ok);blRender();break}
+    case 'qnext':{var Q2=BT.q;if(Q2.i+1>=Q2.n)Q2.phase='done';else{Q2.i++;btQSet()}blRender();break}
+    case 'qend':BT.q=null;blRender();break;
+  }
+}
+document.addEventListener('click',btAct);
+window.__BT={BT:BT,BT_QA:BT_QA,BT_SEC:BT_SEC};
+
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
 var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
@@ -6229,6 +6871,8 @@ function hubIndex(){
   ITEMS.forEach(function(it){add(it.sys==='mu'?'Muscle':(it.cat==='joint'?'Figure joint':'Bone'),it.n,it.reg,'',['main',it.id])});
   BLORDER.forEach(function(id){var b=BLB[id];add('Bone lab',b.name,b.typeLabel||'',b.la||'',['bl',id]);
     (b.lm||[]).forEach(function(l){if(!l.grp)add('Landmark',l.n,b.name,l.la||'',['bl',id,l.id])})});
+  BT_SEC.forEach(function(s){s.pts.forEach(function(p){add('Bone tissue',p[0],s.n,p[1],['blt'])})});
+  BT_GL.forEach(function(g){g[1].forEach(function(p){add('Bone marking',p[0],g[0],p[1],['blg'])})});
   JL_J.forEach(function(j){add('Joint',j.n,j.cls+' · '+j.tl,'',['jl',j.id]);
     (j.lig||[]).forEach(function(l){add('Ligament',l[0],j.n,'',['jl',j.id])});
     (j.clin||[]).forEach(function(c){add('Clinical',c[0],j.n,'',['jl',j.id])})});
@@ -6237,6 +6881,8 @@ function hubIndex(){
   CL_TYPES.forEach(function(t){add('Cartilage type',t.n,t.coll,t.ex.join(' '),['clt',t.id])});
   CL_LOC.forEach(function(l){add('Cartilage',l.n,l.note.slice(0,60),'',['clw'])});
   CL_CX.forEach(function(c){add('Clinical',c[0],'Cartilage lab','',['clc'])});
+  ML_M.forEach(function(m){add('Muscle lab',m.n,(mlReg(m.r)||[0,''])[1],m.nv+' '+m.i+' '+m.o,['ml',m.id])});
+  ML_CX.forEach(function(c){add('Nerve injury',c[0],c[5],c[3],['mli'])});
   HUB.idx=X;return X;
 }
 function hubSearch(q){
@@ -6267,24 +6913,29 @@ function hubSaveLast(){
     if(!$('#bl').hidden)a={a:'bl',bone:BL.bone,tab:BL.tab};
     else if(!$('#jl').hidden)a={a:'jl',tab:JL.tab,j:JL.j};
     else if(!$('#cl').hidden)a={a:'cl',tab:CL.tab};
+    else if(!$('#ml').hidden)a={a:'ml',tab:ML.tab,f:ML.f};
     else if(!HUB.open)a={a:'main',sys:st.sys,sel:st.sel};
     if(a)localStorage.setItem(LASTKEY,JSON.stringify(a));
   }catch(e){}
 }
-var HUBTAB={jl:{classes:'Classes',types:'Types',joints:'Joints',moves:'Movements',quiz:'Quiz'},cl:{types:'Types',where:'Where is it?',zones:'Zones',clin:'Clinical',quiz:'Quiz'}};
+var HUBTAB={ml:{list:'Muscles',nerve:'By nerve',inj:'Nerve injuries',quiz:'Quiz'},jl:{classes:'Classes',types:'Types',joints:'Joints',moves:'Movements',quiz:'Quiz'},cl:{types:'Types',where:'Where is it?',zones:'Zones',clin:'Clinical',quiz:'Quiz'}};
 function hubLastLabel(a){
   if(!a)return null;
+  if(a.a==='bl'&&a.tab==='tissue')return ['Bone tissue','Bone lab'];
   if(a.a==='bl'&&BLB[a.bone])return ['Bone lab',BLB[a.bone].name];
   if(a.a==='jl'){var j=jlJoint(a.j);if(a.tab==='joints'&&j)return ['Joint lab',j.n];return [HUBTAB.jl[a.tab]||'Home tab','Joint lab']}
   if(a.a==='cl')return [HUBTAB.cl[a.tab]||'Home tab','Cartilage lab'];
+  if(a.a==='ml')return [HUBTAB.ml[a.tab]||'Home tab','Muscle lab'];
   if(a.a==='main'){var it=ITEMS.filter(function(i){return i.id===a.sel})[0];return [a.sys==='mu'?'Muscles':'Skeleton',it?it.n:'Figure']}
   return null;
 }
 function hubResume(a){
   if(!a)return;
-  if(a.a==='bl'&&BLB[a.bone]){BL.tab=a.tab||'lm';BL.bone=a.bone;BL.view=blViews(BLB[a.bone])[0][0];BL.sel=null;BL.mode='learn';BL.q=null;blOpen()}
+  if(a.a==='bl'&&a.tab==='tissue'){BL.tab='tissue';blOpen()}
+  else if(a.a==='bl'&&BLB[a.bone]){BL.tab=a.tab||'lm';BL.bone=a.bone;BL.view=blViews(BLB[a.bone])[0][0];BL.sel=null;BL.mode='learn';BL.q=null;blOpen()}
   else if(a.a==='jl'){JL.tab=a.tab||'classes';if(jlJoint(a.j))JL.j=a.j;jlOpen()}
   else if(a.a==='cl'){CL.tab=a.tab||'types';clOpen()}
+  else if(a.a==='ml'){ML.tab=a.tab||'list';mlOpen()}
   else if(a.a==='main'){hubClose();st.sys=a.sys||'sk';st.tab='explore';st.sel=a.sel||null;Q.phase='setup';render()}
 }
 
@@ -6299,11 +6950,14 @@ function hubGo(g){
     render();window.scrollTo(0,0);
   }else if(k==='bl'){BL.tab='lm';BL.bone=g[1];BL.view=blViews(BLB[g[1]])[0][0];BL.sel=g[2]||null;BL.mode='learn';BL.q=null;blOpen()}
   else if(k==='jl'){var jj=jlJoint(g[1]);JL.tab='joints';JL.j=g[1];JL.reg='all';JLDG.sel=null;JLDG.q=null;JLDG.res=null;JLDG.mode='learn';var dg=jlDgOf(jj);JLDG.view=dg?dg.views[0].k:'a';jlOpen()}
+  else if(k==='blt'||k==='blg'){BL.tab='tissue';BT.sub=k==='blg'?'gloss':'learn';blOpen()}
   else if(k==='jlt'){JL.tab='types';JL.ty=g[1];jlOpen()}
   else if(k==='jlm'){JL.tab='moves';jlOpen()}
   else if(k==='clt'){CL.tab='types';CL.ty=g[1];clOpen()}
   else if(k==='clw'){CL.tab='where';clOpen()}
   else if(k==='clc'){CL.tab='clin';clOpen()}
+  else if(k==='ml'){ML.tab='list';ML.reg='all';var mm=ML_M.filter(function(x){return x.id===g[1]})[0];ML.f=mm.n;ML.open[mm.id]=true;ML.cover=false;mlOpen()}
+  else if(k==='mli'){ML.tab='inj';mlOpen()}
 }
 
 /* ---------- review session ---------- */
@@ -6341,7 +6995,8 @@ var HUBICON={
  main:'<svg viewBox="0 0 48 48"><circle cx="24" cy="9" r="5"/><path d="M24 15v16M13 20h22M24 31l-8 13M24 31l8 13"/></svg>',
  bl:'<svg viewBox="0 0 48 48"><path d="M13 12a5 5 0 1 1 8 4l14 14a5 5 0 1 1 4 8 5 5 0 0 1-8-4L13 20a5 5 0 0 1 0-8z"/></svg>',
  jl:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 6v12M24 30v12M6 24h12M30 24h12"/></svg>',
- cl:'<svg viewBox="0 0 48 48"><path d="M8 30c4-12 10-18 16-18s12 6 16 18"/><path d="M12 36c3-7 7-11 12-11s9 4 12 11"/></svg>'
+ cl:'<svg viewBox="0 0 48 48"><path d="M8 30c4-12 10-18 16-18s12 6 16 18"/><path d="M12 36c3-7 7-11 12-11s9 4 12 11"/></svg>',
+ ml:'<svg viewBox="0 0 48 48"><path d="M10 34c0-10 8-20 20-22 4 8 2 18-6 24-4 3-10 3-14-2z"/><path d="M18 30c4-4 8-8 11-14"/></svg>'
 };
 function hubHome(){
   var h=new Date().getHours(),g=h<5?'Still up':h<12?'Good morning':h<18?'Good afternoon':'Good evening';
@@ -6352,11 +7007,11 @@ function hubHome(){
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
     o+='<div id="hubmain"'+(HUB.q.trim()?' hidden':'')+'><div class="hub-two">';
-    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint and Cartilage lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
+    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
     if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
     o+='</div>';
     o+='<div class="hub-tiles">';
-    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations']].forEach(function(t){
+    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations']].forEach(function(t){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
@@ -6375,7 +7030,7 @@ document.addEventListener('click',function(e){
   var t=e.target.closest&&e.target.closest('[data-hub]');if(!t||!document.getElementById('hub').contains(t))return;
   var a=t.dataset.hub;
   if(a==='go'){hubGo(HUB.res[parseInt(t.dataset.i,10)].go)}
-  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else clOpen()}
+  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else if(l==='ml')mlOpen();else clOpen()}
   else if(a==='cont')hubResume(hubLast());
   else if(a==='review')hubStartReview();
   else if(a==='rvpick')hubRvPick(parseInt(t.dataset.i,10));
@@ -6390,9 +7045,10 @@ document.addEventListener('input',function(e){
 });
 /* labs return to the hub beneath them, so refresh it and remember where the user was */
 (function(){
-  var ob=blClose,oj=jlClose,oc=clClose;
+  var ob=blClose,oj=jlClose,oc=clClose,om=mlClose;
   blClose=function(){hubSaveLast();var r=ob.apply(this,arguments);if(HUB.open)hubRender();return r};
   jlClose=function(){hubSaveLast();var r=oj.apply(this,arguments);if(HUB.open)hubRender();return r};
+  mlClose=function(){hubSaveLast();var r=om.apply(this,arguments);if(HUB.open)hubRender();return r};
   clClose=function(){hubSaveLast();var r=oc.apply(this,arguments);if(HUB.open)hubRender();return r};
 })();
 window.addEventListener('pagehide',hubSaveLast);
