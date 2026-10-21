@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0B7A82">
+<meta name="theme-color" content="#0B1722">
 <meta name="description" content="Anatomy revision: skeleton, muscles, bones, joints, cartilage and quizzes.">
 <meta name="author" content="Yusuf Butt">
 <meta name="copyright" content="(c) 2026 Yusuf Butt">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -438,6 +438,13 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .mi-note{border-left:3px solid var(--accent);padding-left:10px;color:var(--muted);font-size:14px;margin:10px 0}
 .mi-pick{display:flex;flex-wrap:wrap;gap:8px}
 .mi-scale{font-size:12.5px;color:var(--muted);margin:4px 0 10px}
+.rc .rc-ta,.rc-ta{width:100%;box-sizing:border-box;background:var(--surface-2,rgba(255,255,255,.05));color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:16px/1.45 var(--f-body,system-ui);resize:vertical}
+.rc-mine{border-left:3px solid var(--accent);padding-left:10px;margin:8px 0;color:var(--muted)}.rc-mine p{margin:2px 0 0;white-space:pre-line}
+.rc-ans{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.hub-bkrow{margin:14px 0 4px;text-align:center}
+.ph{margin-top:14px;padding-top:10px;border-top:1px dashed var(--line)}.ph-row{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.ph-i{position:relative}.ph-i img{display:block;height:110px;max-width:100%;border-radius:10px;border:1px solid var(--line)}
+.ph-i button{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:18px;line-height:1}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -2417,7 +2424,7 @@ function blStudyNext(){
   var l=pool[Math.floor(Math.random()*pool.length)];BL.sd.ptr=true;blStudyShow(l.id);
 }
 function blStudyMark(v){
-  var m=blStudyMarks();if(BL.sd.sel)m[BL.sd.sel]=v;
+  var m=blStudyMarks();if(BL.sd.sel){m[BL.sd.sel]=v;blStudyPersist();var lm=blBone().lm.filter(function(x){return x.id===BL.sd.sel})[0],it=lm&&blStudyItem(lm);if(it)srsGrade('bl',it,v==='got')}
   if(BL.sd.ptr){blStudyNext();return}
   BL.sd.sel=null;BL.sd.rev=false;BL.sd.hint=false;blPaint();blPanel();
 }
@@ -5684,22 +5691,25 @@ function jlTop(){var o=document.getElementById('jl');if(o)o.scrollTop=0}
 
 /* ---------- classes ---------- */
 function jlClassesHTML(){
-  var h='<div class="bl-wrap"><div class="card"><p class="eyebrow">Step 1</p><h2>How joints are classified</h2><p class="muted">Joints are classified by what binds the bones together (structural) and by how much they move (functional). The two line up, but not perfectly.</p></div>';
+  var h='<div class="bl-wrap"><div class="card"><p class="eyebrow">Step 1</p><h2>How joints are classified</h2><p class="muted">Joints are classified by what binds the bones together (structural) and by how much they move (functional). The two line up, but not perfectly.</p><div class="bl-row">'+rcChip()+'</div></div>';
   h+='<div class="jl-cgrid">';
   JL_CLASSES.structural.forEach(function(c){
-    h+='<section class="card jl-cls" style="--c:'+c.col+'"><h3>'+jlE(c.n)+' joints</h3><p class="jl-tis"><b>Held by:</b> '+jlE(c.tissue)+'</p><p>'+jlE(c.blurb)+'</p>';
+    var inner='<h3>'+jlE(c.n)+' joints</h3><p class="jl-tis"><b>Held by:</b> '+jlE(c.tissue)+'</p><p>'+jlE(c.blurb)+'</p>';
     c.subs.forEach(function(s){
-      h+='<div class="jl-sub"><div class="jl-subh"><b>'+jlE(s.n)+'</b><span class="jl-fn">'+jlE(s.fn)+'</span></div><p>'+jlE(s.t)+'</p><div class="bl-ex">'+s.ex.map(function(e){return '<span>'+jlE(e)+'</span>'}).join('')+'</div></div>';
+      inner+='<div class="jl-sub"><div class="jl-subh"><b>'+jlE(s.n)+'</b><span class="jl-fn">'+jlE(s.fn)+'</span></div><p>'+jlE(s.t)+'</p><div class="bl-ex">'+s.ex.map(function(e){return '<span>'+jlE(e)+'</span>'}).join('')+'</div></div>';
     });
-    h+='</section>';
+    var at=c.n+' joints are held by '+c.tissue+'. '+c.blurb+'\n'+c.subs.map(function(s){return s.n+' ('+s.fn+'): '+s.t+' Examples: '+s.ex.join(', ')+'.'}).join('\n');
+    h+=rcCard('jl-'+c.n,c.n+' joints','What holds the bones together, what are the subtypes, how much do they move, and what are examples?',at,inner,'jl-cls','style="--c:'+c.col+'"');
   });
   h+='</div>';
-  h+='<div class="card" style="margin-top:14px"><h3 style="font:400 24px/1.1 var(--f-display);margin:0 0 6px">Functional classes</h3><div class="jl-fgrid">';
-  JL_CLASSES.functional.forEach(function(f){h+='<div class="jl-f"><b>'+jlE(f.n)+'</b><span>'+jlE(f.t)+'</span><small>'+jlE(f.ex)+'</small></div>'});
-  h+='</div></div>';
-  h+='<div class="card" style="margin-top:14px"><h3 style="font:400 24px/1.1 var(--f-display);margin:0 0 6px">Parts of a synovial joint</h3><div class="jl-sgrid">';
-  JL_CLASSES.synovial.forEach(function(s){h+='<div class="jl-s"><b>'+jlE(s[0])+'</b><p>'+jlE(s[1])+'</p></div>'});
-  h+='</div></div>';
+  var fi='<h3 style="font:400 24px/1.1 var(--f-display);margin:0 0 6px">Functional classes</h3><div class="jl-fgrid">';
+  JL_CLASSES.functional.forEach(function(f){fi+='<div class="jl-f"><b>'+jlE(f.n)+'</b><span>'+jlE(f.t)+'</span><small>'+jlE(f.ex)+'</small></div>'});
+  fi+='</div>';
+  h+='<div style="margin-top:14px">'+rcCard('jl-func','Functional classes of joints','Name the functional classes, how much each moves, and an example of each.',JL_CLASSES.functional.map(function(f){return f.n+': '+f.t+' ('+f.ex+')'}).join('\n'),fi,'')+'</div>';
+  var si='<h3 style="font:400 24px/1.1 var(--f-display);margin:0 0 6px">Parts of a synovial joint</h3><div class="jl-sgrid">';
+  JL_CLASSES.synovial.forEach(function(s){si+='<div class="jl-s"><b>'+jlE(s[0])+'</b><p>'+jlE(s[1])+'</p></div>'});
+  si+='</div>';
+  h+='<div style="margin-top:14px">'+rcCard('jl-syn','Parts of a synovial joint','List the parts of a typical synovial joint and what each does.',JL_CLASSES.synovial.map(function(s){return s[0]+': '+s[1]}).join('\n'),si,'')+'</div>';
   h+='<div class="card" style="margin-top:14px"><p style="margin:0">Next, tap <b>Synovial types</b> to see the six types of synovial joint move, or <b>Joints</b> for each joint in detail.</p></div></div>';
   return h;
 }
@@ -6803,7 +6813,7 @@ function miOpen(){var o=document.getElementById('mi');o.hidden=false;document.bo
 function miClose(){var o=document.getElementById('mi');o.hidden=true;document.body.style.overflow=''}
 function miTop(){var o=document.getElementById('mi');if(o)o.scrollTop=0}
 function miDL(pts){var h='<dl>';pts.forEach(function(p){h+='<dt>'+miE2(p[0])+'</dt><dd>'+miE2(p[1])+'</dd>'});return h+'</dl>'}
-function miSecs(list){return list.map(function(s){return '<section class="card mi-card"><h3>'+miE2(s[0])+'</h3>'+miDL(s[1])+'</section>'}).join('')}
+function miSecs(list,pre){return '<div class="bl-row">'+rcChip()+'</div>'+list.map(function(s,i){return rcCard('mi-'+(pre||'x')+i+s[0].slice(0,6),s[0],'Explain this in your own words, then check.',s[1].map(function(p){return p[0]+': '+p[1]}).join('\n'),'<h3>'+miE2(s[0])+'</h3>'+miDL(s[1]),'mi-card')}).join('')}
 function miBloodCell(id){return MI_BLOOD.filter(function(c){return c.id===id})[0]}
 function miBloodHTML(){
   var h='<div class="bl-wrap mi"><div class="bl-row"><div class="seg"><button data-mi="bmode" data-m="one" class="'+(MI.cmp?'':'on')+'">One cell</button><button data-mi="bmode" data-m="cmp" class="'+(MI.cmp?'on':'')+'">Compare all</button></div></div>';
@@ -6811,7 +6821,7 @@ function miBloodHTML(){
   if(!MI.cmp){
     h+='<div class="bl-row scroll mi-pick">'+MI_BLOOD.map(function(c){return '<button class="chip'+(c.id===MI.cell?' on':'')+'" data-mi="cell" data-id="'+c.id+'">'+miE2(c.short)+'</button>'}).join('')+'</div>';
     var c=miBloodCell(MI.cell);
-    h+='<div class="mi-two"><section class="card mi-card mi-big">'+miCell(c.id)+'<h3 style="text-align:center">'+miE2(c.n)+'</h3></section><section class="card mi-card">'+miDL([['How common',c.pct],['Size',c.size],['Nucleus',c.nuc],['Cytoplasm and granules',c.cyt],['Job',c.fn],['How to spot it',c.tip]])+'</section></div>';
+    h+='<div class="mi-two"><section class="card mi-card mi-big">'+miCell(c.id)+'<h3 style="text-align:center">'+miE2(c.n)+'</h3></section><section class="card mi-card">'+miDL([['How common',c.pct],['Size',c.size],['Nucleus',c.nuc],['Cytoplasm and granules',c.cyt],['Job',c.fn],['How to spot it',c.tip]])+phHTML('blood:'+c.id)+'</section></div>';
   }else{
     h+='<div class="bl-row"><button class="chip'+(MI.cover?' on':'')+'" data-mi="cover">Hide names (tap a cell to reveal)</button></div><div class="mi-grid">';
     MI_BLOOD.forEach(function(c){var hid=MI.cover&&!MI.rv[c.id];h+='<section class="card mi-card cov" data-mi="reveal" data-id="'+c.id+'">'+miCell(c.id)+'<h3>'+(hid?'?':miE2(c.short))+'</h3><p class="mi-cap">'+(hid?'Tap to reveal':miE2(c.size)+' · '+miE2(c.pct))+'</p></section>'});
@@ -6837,25 +6847,25 @@ function miEpiHTML(){
   if(e.arr==='strat'&&e.shape==='squamous')h+='<div class="mi-row"><button class="chip'+(e.ker?' on':'')+'" data-mi="eker">Keratinised (dead surface layer)</button></div>';
   var key=miEpiResolve();
   if(key){var t=MI_EPI.filter(function(x){return x.id===key})[0];
-    h+='<div class="mi-two" style="margin-top:12px"><div>'+miEpiSvg(t.id)+'<p class="mi-cap">Schematic. Pink band at the bottom: connective tissue. Line above it: basal lamina.</p></div><div><h3 style="margin:0 0 6px">'+miE2(t.n)+'</h3>'+miDL([['What it looks like',t.look],['Where',t.where],['What it does',t.fn]])+'</div></div>';
+    h+='<div class="mi-two" style="margin-top:12px"><div>'+miEpiSvg(t.id)+'<p class="mi-cap">Schematic. Pink band at the bottom: connective tissue. Line above it: basal lamina.</p></div><div><h3 style="margin:0 0 6px">'+miE2(t.n)+'</h3>'+miDL([['What it looks like',t.look],['Where',t.where],['What it does',t.fn]])+phHTML('epi:'+t.id)+'</div></div>';
   }else if(e.arr&&(e.shape||e.arr==='trans')){h+='<p class="mi-note">That combination is not on your slides. Try another shape or arrangement.</p>'}
   h+='</section><div class="mi-grid">'+MI_EPI.map(function(t){return '<section class="card mi-card">'+miEpiSvg(t.id)+'<h3>'+miE2(t.n)+'</h3><p class="mi-cap">'+miE2(t.where)+'</p></section>'}).join('')+'</div>';
-  h+=miSecs([['Identifying features of an epithelium',MI_EPI_ID],['Surface specialisations and special cells',MI_EPI_SP]]);
+  h+=miSecs([['Identifying features of an epithelium',MI_EPI_ID],['Surface specialisations and special cells',MI_EPI_SP]],'ep');
   return h+'</div>';
 }
 function miCtHTML(){
-  var h='<div class="bl-wrap mi"><div class="mi-grid">'+MI_CT_TYPES.map(function(t){return '<section class="card mi-card">'+miCtSvg(t.id)+'<h3>'+miE2(t.n)+'</h3>'+miDL([['Looks like',t.look],['Where',t.where],['Notes',t.pts]])+'</section>'}).join('')+'</div>';
-  h+=miSecs(MI_CT_SEC);
+  var h='<div class="bl-wrap mi"><div class="mi-grid">'+MI_CT_TYPES.map(function(t){return '<section class="card mi-card">'+miCtSvg(t.id)+'<h3>'+miE2(t.n)+'</h3>'+miDL([['Looks like',t.look],['Where',t.where],['Notes',t.pts]])+phHTML('ct:'+t.id)+'</section>'}).join('')+'</div>';
+  h+=miSecs(MI_CT_SEC,'ct');
   h+='<p class="mi-note">For bone and cartilage cells, ossification and the bone-versus-cartilage comparison, see the Bone tissue tab in the Bone lab and the Cartilage lab.</p>';
   return h+'</div>';
 }
 function miMuHTML(){
-  var h='<div class="bl-wrap mi"><div class="mi-grid">'+MI_MU.map(function(m){return '<section class="card mi-card">'+miMuSvg(m.id)+'<h3>'+miE2(m.n)+'</h3>'+miDL([['Where',m.where],['Control',m.ctl],['Striations',m.str],['Nuclei',m.nuc],['Cells',m.cell],['Also',m.other]])+'</section>'}).join('')+'</div>';
+  var h='<div class="bl-wrap mi"><div class="mi-grid">'+MI_MU.map(function(m){return '<section class="card mi-card">'+miMuSvg(m.id)+'<h3>'+miE2(m.n)+'</h3>'+miDL([['Where',m.where],['Control',m.ctl],['Striations',m.str],['Nuclei',m.nuc],['Cells',m.cell],['Also',m.other]])+phHTML('mu:'+m.id)+'</section>'}).join('')+'</div>';
   h+='<section class="card mi-card"><h3>Sarcomere</h3>'+miSarcSvg()+'</section>';
-  h+=miSecs(MI_MU_SEC);
+  h+=miSecs(MI_MU_SEC,'mu');
   return h+'</div>';
 }
-function miMethHTML(){return '<div class="bl-wrap mi">'+miSecs(MI_ST_SEC)+'</div>'}
+function miMethHTML(){return '<div class="bl-wrap mi">'+miSecs(MI_ST_SEC,'st')+'</div>'}
 /* ---- quiz ---- */
 function miQSet(){var Q=MI.q,x=Q.qs[Q.i];Q.cur={q:x.q,a:x.a,why:x.why,opts:miShuf([x.a].concat(x.w))};Q.ans=null}
 function miQHTML(){
@@ -6892,6 +6902,7 @@ function miRender(){
   var b=miBody();if(!b)return;
   document.querySelectorAll('#mitabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===MI.tab)});
   b.innerHTML=MI.tab==='blood'?miBloodHTML():MI.tab==='epi'?miEpiHTML():MI.tab==='ct'?miCtHTML():MI.tab==='mu'?miMuHTML():MI.tab==='meth'?miMethHTML():miQuizHTML();
+  if(typeof phFill==='function')phFill();
 }
 function miAct(e){
   var t=e.target.closest&&e.target.closest('[data-mi]');if(!t)return;var d=t.dataset;
@@ -7029,12 +7040,13 @@ function btDiagram(){
    +'<p class="bt-cap">Schematic. Central canal in the middle, concentric lamellae as rings, osteocytes in lacunae between them.</p>';
 }
 function btLearn(){
-  var h='';
+  var h='<div class="bl-row">'+rcChip()+'</div>';
   BT_SEC.forEach(function(s){
-    h+='<section class="card bt-sec"><h3>'+blE(s.n)+'</h3>';
-    if(s.dg)h+=btDiagram();
-    h+='<dl>';s.pts.forEach(function(p){h+='<dt>'+blE(p[0])+'</dt><dd>'+blE(p[1])+'</dd>'});
-    h+='</dl></section>'});
+    var inner='<h3>'+blE(s.n)+'</h3>';
+    if(s.dg)inner+=btDiagram();
+    inner+='<dl>';s.pts.forEach(function(p){inner+='<dt>'+blE(p[0])+'</dt><dd>'+blE(p[1])+'</dd>'});
+    inner+='</dl>';
+    h+=rcCard('bt-'+s.id,s.n,'Explain this in your own words, then check.',s.pts.map(function(p){return p[0]+': '+p[1]}).join('\n'),inner,'bt-sec')});
   return h;
 }
 function btGloss(){
@@ -7077,6 +7089,121 @@ function btAct(e){
 document.addEventListener('click',btAct);
 window.__BT={BT:BT,BT_QA:BT_QA,BT_SEC:BT_SEC};
 
+/* ===== Recall first, persistence, backup, personal photos ===== */
+var RCKEY='anatomy-drill-rc',NOTEKEY='anatomy-drill-notes',STUDYKEY='anatomy-drill-study';
+function rcLoad(k,d){try{var s=localStorage.getItem(k);return s?JSON.parse(s):d}catch(e){return d}}
+function rcSave(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var RC={on:!!(rcLoad(RCKEY,{}).on),rev:{},g:{}};
+var RCNOTES=rcLoad(NOTEKEY,{});
+try{BL.sd.marks=rcLoad(STUDYKEY,{})}catch(e){}
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+function rcAgain(){
+  if(!document.getElementById('jl').hidden)jlRender();
+  else if(!document.getElementById('bl').hidden)blRender();
+  else if(!document.getElementById('mi').hidden)miRender();
+}
+function rcChip(){return '<button class="chip'+(RC.on?' on':'')+'" data-rc="toggle" title="Hide the answers. Write what you remember first, then reveal.">Recall first</button>'}
+function rcCard(id,title,prompt,ansText,inner,cls,attrs){
+  var open='<section class="card '+(cls||'')+(RC.on?' rc':'')+'" '+(attrs||'')+'>';
+  if(!RC.on)return open+inner+'</section>';
+  var rv=RC.rev[id],g=RC.g[id],note=RCNOTES[id]||'';
+  var h=open+'<p class="eyebrow">Recall first</p><h3>'+blE(title)+'</h3><p class="muted">'+blE(prompt)+'</p>';
+  if(!rv){
+    h+='<textarea class="rc-ta" data-rcta="'+id+'" rows="3" placeholder="Write or say what you remember, in your own words...">'+blE(note)+'</textarea><div class="bl-row" style="margin-top:8px"><button class="btn" data-rc="reveal" data-id="'+id+'">Reveal the answer</button></div>';
+  }else{
+    if(note)h+='<div class="rc-mine"><b>What you wrote</b><p>'+blE(note)+'</p></div>';
+    h+='<div class="rc-ans">'+inner+'</div>';
+    if(!g)h+='<p class="eyebrow" style="margin-top:12px">How did you do?</p><div class="bl-row"><button class="btn" data-rc="grade" data-id="'+id+'" data-g="knew">Knew it</button><button class="btn ghost" data-rc="grade" data-id="'+id+'" data-g="partly">Partly</button><button class="btn ghost" data-rc="grade" data-id="'+id+'" data-g="missed">Missed it</button></div>';
+    else h+='<p class="muted" style="margin-top:10px">'+(g==='knew'?'Nice. It will come back for review later.':'Added to your review queue. You will see it again soon.')+'</p><div class="bl-row"><button class="btn ghost small" data-rc="again" data-id="'+id+'">Try again</button></div>';
+  }
+  RCITEMS[id]={title:title,prompt:prompt,ans:ansText};
+  return h+'</section>';
+}
+var RCITEMS={};
+function rcGrade(id,g){
+  var it=RCITEMS[id];if(!it)return;
+  var item={q:'Recall: '+it.title+'. '+it.prompt,a:it.ans,w:[],why:'',self:true};
+  if(g==='knew'){srsGrade('rc',item,true)}
+  else{srsGrade('rc',item,false);if(g==='partly'){var k='rc:'+item.q;if(SRS[k]){SRS[k].b=1;SRS[k].d=hubDay()+1;srsSave()}}}
+  RC.g[id]=g;
+  if(g==='knew'&&!SRS['rc:'+item.q]){/* first time right: schedule it for a later check */SRS['rc:'+item.q]={s:'rc',q:item.q,a:item.a,w:[],why:'',self:1,b:2,d:hubDay()+SRSINT[2],n:0};srsSave()}
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-rc]');if(!t)return;var d=t.dataset;
+  if(d.rc==='toggle'){RC.on=!RC.on;RC.rev={};RC.g={};rcSave(RCKEY,{on:RC.on});rcAgain()}
+  else if(d.rc==='reveal'){RC.rev[d.id]=true;rcAgain()}
+  else if(d.rc==='grade'){rcGrade(d.id,d.g);rcAgain()}
+  else if(d.rc==='again'){delete RC.rev[d.id];delete RC.g[d.id];rcAgain()}
+});
+document.addEventListener('input',function(e){var t=e.target;if(t&&t.dataset&&t.dataset.rcta){RCNOTES[t.dataset.rcta]=t.value;rcSave(NOTEKEY,RCNOTES)}});
+
+/* ---- Study mode: persist marks and feed the review queue ---- */
+function blStudyPersist(){rcSave(STUDYKEY,BL.sd.marks)}
+function blStudyItem(l){
+  var b=blBone(),text=null;
+  var ls=blShuffle((l.t||[]).filter(function(t){return !blLeaks(l,t.replace(/<[^>]+>/g,''))&&blUniq(b,l,t,'rel')}));
+  if(ls.length)text=ls[0];
+  else if(l.why&&!blLeaks(l,l.why.replace(/<[^>]+>/g,''))&&blUniq(b,l,l.why,'why'))text=l.why;
+  if(!text)return null;
+  var others=blShuffle(blLeaves(b).filter(function(x){return x.id!==l.id})).slice(0,3).map(function(x){return x.n});
+  return {q:b.name+': which landmark fits this? '+text.replace(/<[^>]+>/g,''),a:l.n,w:others,why:(l.t&&l.t[0]?l.t[0].replace(/<[^>]+>/g,''):'')};
+}
+
+/* ---- Backup and restore ---- */
+function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY]}
+function bkCode(){
+  var d={};bkKeys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)d[k]=v}catch(e){}});
+  var s=JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d});
+  try{return btoa(unescape(encodeURIComponent(s)))}catch(e){return ''}
+}
+function bkRestore(code){
+  var o;try{o=JSON.parse(decodeURIComponent(escape(atob(code.trim()))))}catch(e){try{o=JSON.parse(code)}catch(e2){return 'That code did not work. Copy the whole thing and try again.'}}
+  if(!o||o.app!=='anatomy-drill'||!o.d)return 'That is not an Anatomy Drill backup.';
+  var n=0;bkKeys().forEach(function(k){if(typeof o.d[k]==='string'){try{localStorage.setItem(k,o.d[k]);n++}catch(e){}}});
+  SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});RC.on=!!rcLoad(RCKEY,{}).on;
+  try{document.documentElement.setAttribute('data-theme',localStorage.getItem(THEMEKEY)||'dark')}catch(e){}
+  return 'Restored '+n+' sets of progress. Your review queue now has '+srsList().length+' items.';
+}
+function bkHTML(){
+  var code=bkCode(),st=srsStats();
+  var h='<div class="hub-top"><button class="btn ghost small" data-hub="home">&larr; Home</button><span class="hub-pill">Backup and restore</span></div>';
+  h+='<div class="hub-card"><p class="eyebrow">Your progress lives on this device</p><p>Right now: '+st.total+' items in your review queue, '+st.mastered+' mastered. Your phone and iPad do not share progress by themselves. To move it, save a backup here and restore it on the other device. Do it again whenever you want them to match.</p>';
+  h+='<div class="row-opts"><button class="btn" data-bk="file">Save backup file</button><button class="btn ghost" data-bk="copy">Copy backup code</button></div><textarea id="bkcode" class="rc-ta" rows="3" readonly>'+code+'</textarea><p class="muted" id="bkmsg"></p></div>';
+  h+='<div class="hub-card"><p class="eyebrow">Restore</p><p class="muted">Paste a backup code, or choose a backup file. This replaces the progress on this device.</p><textarea id="bkin" class="rc-ta" rows="3" placeholder="Paste backup code here"></textarea><div class="row-opts"><button class="btn" data-bk="restore">Restore</button><label class="btn ghost" style="cursor:pointer">Choose backup file<input type="file" id="bkfile" accept=".json,.txt,application/json,text/plain" hidden></label></div><p class="muted" id="bkmsg2"></p></div>';
+  h+='<p class="muted" id="bkpers"></p>';
+  return h;
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-bk]');if(!t)return;var a=t.dataset.bk;
+  if(a==='copy'){var ta=document.getElementById('bkcode'),m=document.getElementById('bkmsg');ta.value=bkCode();
+    function ok(){if(m)m.textContent='Copied. Paste it into Notes or a message to yourself, then restore it on the other device.'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(ok,function(){ta.select();if(m)m.textContent='Select all and copy the code above.'})}else{ta.select();try{document.execCommand('copy');ok()}catch(x){if(m)m.textContent='Select all and copy the code above.'}}}
+  else if(a==='file'){var blob=new Blob([bkCode()],{type:'text/plain'}),u=URL.createObjectURL(blob),l=document.createElement('a');l.href=u;l.download='anatomy-drill-backup-'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(u);l.remove()},500);var m2=document.getElementById('bkmsg');if(m2)m2.textContent='If nothing downloaded, use Copy backup code instead.'}
+  else if(a==='restore'){var v=document.getElementById('bkin').value,r=v.trim()?bkRestore(v):'Paste a backup code first.';var mm=document.getElementById('bkmsg2');if(mm)mm.textContent=r}
+});
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='bkfile'){var f=e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var r=bkRestore(String(rd.result)),mm=document.getElementById('bkmsg2');if(mm)mm.textContent=r};rd.readAsText(f)}});
+
+/* ---- personal photos (stored on this device only) ---- */
+var PHDB=null;
+function phOpen(cb){if(PHDB)return cb(PHDB);try{var r=indexedDB.open('anatomy-drill-photos',1);r.onupgradeneeded=function(){r.result.createObjectStore('p',{keyPath:'id'})};r.onsuccess=function(){PHDB=r.result;cb(PHDB)};r.onerror=function(){cb(null)}}catch(e){cb(null)}}
+function phAll(key,cb){phOpen(function(db){if(!db)return cb([]);try{var q=db.transaction('p').objectStore('p').getAll();q.onsuccess=function(){cb((q.result||[]).filter(function(x){return x.key===key}).sort(function(a,b){return a.ts-b.ts}))};q.onerror=function(){cb([])}}catch(e){cb([])}})}
+function phHTML(key){return '<div class="ph" data-phkey="'+key+'"><p class="eyebrow">Your own photos</p><div class="ph-row" data-phrow></div><button class="btn ghost small" data-ph="add" data-key="'+key+'">Add a photo</button><p class="mi-cap">Add a micrograph from your lecture or practical. It stays on this device only and is not in your backup.</p></div>'}
+function phFill(){document.querySelectorAll('[data-phkey]').forEach(function(el){var key=el.dataset.phkey,row=el.querySelector('[data-phrow]');phAll(key,function(list){row.innerHTML=list.map(function(x){var u=URL.createObjectURL(x.blob);return '<span class="ph-i"><img src="'+u+'" alt="Your photo"><button data-ph="del" data-id="'+x.id+'" aria-label="Delete photo">&times;</button></span>'}).join('')})})}
+function phAdd(key){
+  var inp=document.createElement('input');inp.type='file';inp.accept='image/*';
+  inp.onchange=function(){var f=inp.files[0];if(!f)return;var img=new Image(),u=URL.createObjectURL(f);
+    img.onload=function(){var s=Math.min(1,1100/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);
+      c.toBlob(function(b){phOpen(function(db){if(!db)return;var tx=db.transaction('p','readwrite');tx.objectStore('p').put({id:key+'|'+Date.now(),key:key,ts:Date.now(),blob:b});tx.oncomplete=phFill})},'image/jpeg',.82)};
+    img.src=u};
+  inp.click();
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-ph]');if(!t)return;
+  if(t.dataset.ph==='add')phAdd(t.dataset.key);
+  else if(t.dataset.ph==='del'){phOpen(function(db){if(!db)return;var tx=db.transaction('p','readwrite');tx.objectStore('p').delete(t.dataset.id);tx.oncomplete=phFill})}
+  else if(t.dataset.ph==='zoom'){}
+});
+
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
 var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
@@ -7088,7 +7215,7 @@ function srsSave(){try{localStorage.setItem(SRSKEY,JSON.stringify(SRS))}catch(e)
 function srsGrade(src,x,ok){
   if(!x||!x.q)return;
   var k=src+':'+x.q,r=SRS[k];
-  if(!ok){SRS[k]={s:src,q:x.q,a:x.a,w:x.w,why:x.why||'',b:0,d:hubDay(),n:(r?r.n:0)+1};srsSave();return}
+  if(!ok){SRS[k]={s:src,q:x.q,a:x.a,w:x.w,why:x.why||'',self:x.self?1:0,b:0,d:hubDay(),n:(r?r.n:0)+1};srsSave();return}
   if(!r)return;
   r.b=Math.min(5,r.b+1);r.d=hubDay()+SRSINT[r.b];srsSave();
 }
@@ -7212,7 +7339,7 @@ function hubStartReview(){
   HUB.rv={list:due,i:0,score:0,ans:null,opts:null,done:false};
   hubRvOpts();HUB.view='review';hubRender();
 }
-function hubRvOpts(){var R=HUB.rv,r=R.list[R.i];R.opts=hubShuf([r.a].concat(r.w));R.ans=null}
+function hubRvOpts(){var R=HUB.rv,r=R.list[R.i];R.opts=r.self?[]:hubShuf([r.a].concat(r.w));R.ans=null;R.rev=false}
 function hubRvPick(i){
   var R=HUB.rv;if(!R||R.ans!==null)return;
   var r=R.list[R.i];R.ans=i;
@@ -7228,6 +7355,14 @@ function hubRvHTML(){
   }
   var r=R.list[R.i];
   h+='<div class="hub-card hub-rv"><div class="bl-score"><span>Question '+(R.i+1)+' of '+R.list.length+'</span><span>Score '+R.score+'</span></div><div class="bar"><i style="width:'+Math.round(R.i/R.list.length*100)+'%"></i></div>';
+  if(r.self){
+    h+='<p class="bl-q">'+blE(r.q)+'</p>';
+    if(!R.rev)h+='<p class="muted">Say or write your answer first, then reveal.</p><div class="row-opts"><button class="btn" data-hub="rvrev">Reveal</button></div>';
+    else{h+='<div class="fb" style="white-space:pre-line"><b>Answer</b> '+blE(r.a)+'</div>';
+      if(R.ans===null)h+='<div class="row-opts"><button class="btn" data-hub="rvgrade" data-g="knew">Knew it</button><button class="btn ghost" data-hub="rvgrade" data-g="partly">Partly</button><button class="btn ghost" data-hub="rvgrade" data-g="missed">Missed it</button></div>';
+      else h+='<div class="row-opts"><button class="btn" data-hub="rvnext">'+(R.i+1>=R.list.length?'Finish':'Next')+'</button></div>'}
+    return h+'</div>';
+  }
   h+='<p class="bl-q">'+blE(r.q)+'</p><div class="bl-opts">';
   R.opts.forEach(function(o,i){var c='bl-opt';if(R.ans!==null){if(o===r.a)c+=' ok';else if(i===R.ans)c+=' bad'}h+='<button class="'+c+'" data-hub="rvpick" data-i="'+i+'"'+(R.ans!==null?' disabled':'')+'>'+blE(o)+'</button>'});
   h+='</div>';
@@ -7261,13 +7396,14 @@ function hubHome(){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
+  o+='<div class="hub-bkrow"><button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div>';
   o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div></footer>';
   return o;
 }
 function hubRender(){
   var b=document.getElementById('hubbody');if(!b)return;
   var keep=document.activeElement&&document.activeElement.id==='hubq';
-  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():hubHome();
+  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():(HUB.view==='backup'?bkHTML():hubHome());
   if(keep){var i=document.getElementById('hubq');if(i){i.focus();try{i.setSelectionRange(i.value.length,i.value.length)}catch(e){}}}
 }
 function hubOpen(){hubSaveLast();HUB.open=true;HUB.view='home';HUB.q='';var h=document.getElementById('hub');h.hidden=false;document.body.style.overflow='hidden';hubRender();h.scrollTop=0}
@@ -7280,6 +7416,11 @@ document.addEventListener('click',function(e){
   else if(a==='cont')hubResume(hubLast());
   else if(a==='review')hubStartReview();
   else if(a==='rvpick')hubRvPick(parseInt(t.dataset.i,10));
+  else if(a==='rvrev'){HUB.rv.rev=true;hubRender()}
+  else if(a==='rvgrade'){var R2=HUB.rv,r2=R2.list[R2.i],g=t.dataset.g;if(R2.ans===null){R2.ans=0;
+      if(g==='knew'){R2.score++;r2.b=Math.min(5,r2.b+1);r2.d=hubDay()+SRSINT[r2.b]}else if(g==='partly'){r2.b=1;r2.d=hubDay()+1;r2.n=(r2.n||0)+1}else{r2.b=0;r2.d=hubDay();r2.n=(r2.n||0)+1}
+      srsSave();hubRender()}}
+  else if(a==='backup'){HUB.view='backup';hubRender();document.getElementById('hub').scrollTop=0;try{if(navigator.storage&&navigator.storage.persisted)navigator.storage.persisted().then(function(p){var e=document.getElementById('bkpers');if(e)e.textContent=p?'Your browser has marked this app storage as protected.':'Your browser has not marked this storage as protected, so back up now and then.'})}catch(x){}}
   else if(a==='rvnext'){var R=HUB.rv;if(R.i+1>=R.list.length){R.done=true}else{R.i++;hubRvOpts()}hubRender();document.getElementById('hub').scrollTop=0}
   else if(a==='home'){HUB.view='home';hubRender()}
   else if(a==='theme'){hubTheme((document.documentElement.getAttribute('data-theme')||'dark')==='dark'?'light':'dark');hubRender()}
