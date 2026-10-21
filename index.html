@@ -2024,7 +2024,7 @@ function v3Close(){
 /* ===== Bone lab: bone types + numbered landmark explorer ===== */
 var BLP=['#e0483e','#3f8fd9','#f0a21a','#2fa56b','#8e5bd0','#e0689f','#1fb2b8','#9aa31f','#d9702a','#5b6fd6','#2a8f5a','#c24a8a','#6a9a2f','#b5543a'];
 var BLB={},BLORDER=[];
-var BL={tab:'types',type:'long',bone:'humerus',view:'a',sel:null,names:false,vb:null,base:null,mode:'learn',sd:{sel:null,rev:false,hint:false,ptr:false,only:false,marks:{},msg:''},qm:{find:true,name:true,rel:true,why:true},q:null,sort:null,sortRes:null,sortSet:null};
+var BL={tab:'types',type:'long',bone:'humerus',view:'a',sel:null,names:false,vb:null,base:null,mode:'learn',sd:{out:true,sel:null,rev:false,hint:false,ptr:false,only:false,marks:{},msg:''},qm:{find:true,name:true,rel:true,why:true},q:null,sort:null,sortRes:null,sortSet:null};
 var BLNS='http://www.w3.org/2000/svg';
 function blE(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function bf(n){return Math.round(n*10)/10}
@@ -2084,8 +2084,8 @@ function blSvg(){
   h+='<g id="blreg">';
   items.forEach(function(it){
     var l=it.l,r=it.r,col=l.col,sel=BL.sel===l.id,hl=q&&q.hl===l.id;
-    var show=hl||(learn&&(!l.lazy||sel));if(!show)return;
-    var fo=hl?.9:(sel?.95:(BL.sel?.5:.78)),stc=hl?'var(--hl-line)':'#fff',sw=sel||hl?2.6:1.2;
+    var study=BL.mode==='study'&&BL.sd.out,show=hl||study||(learn&&(!l.lazy||sel));if(!show)return;
+    var fo=hl?.92:(study?.4:(sel?.95:(BL.sel?.5:.78))),stc=hl?'var(--hl-line)':'#fff',sw=sel||hl?2.6:1.2;
     if(hl)col='var(--hl)';
     if(r.line)h+='<path d="'+r.d+'" fill="none" stroke="'+col+'" stroke-opacity="'+fo+'" stroke-width="'+r.w+'" stroke-linecap="round"/>';
     else if(r.poly)h+='<path d="'+blPolyPath(r.poly,r.smooth)+'" fill="'+col+'" fill-opacity="'+fo+'" stroke="'+stc+'" stroke-width="'+sw+'"/>';
@@ -2402,7 +2402,7 @@ function blStudyHTML(){
   h+='<p class="sub">'+got+' got it · '+miss.length+' missed · '+(pool.length-got-miss.length)+' not tried (of '+pool.length+'). Nothing here is scored.</p>';
   var l=sd.sel&&b.lm.filter(function(x){return x.id===sd.sel})[0];
   if(!l){
-    h+='<p>Tap any part of the bone. Say its name in your head, then reveal it to check.</p>';
+    h+='<p>'+(sd.out?'Every coloured patch is something to learn. Tap one, say its name in your head, then reveal it to check.':'Outlines are off. Tap where you think a landmark is, then reveal it to check.')+'</p>';
     if(sd.msg)h+='<p class="sub">'+blE(sd.msg)+'</p>';
   }else if(!sd.rev){
     h+='<div class="bl-card"><p class="bl-q">What is the highlighted part?</p><p class="sub">Say it in your head first.</p>';
@@ -2412,7 +2412,7 @@ function blStudyHTML(){
     h+=blCard(l);
     h+='<div class="bl-row" style="margin-top:10px"><button class="btn" data-bl="sdmark" data-m="got">Got it</button><button class="btn ghost" data-bl="sdmark" data-m="miss">Missed</button></div>';
   }
-  h+='<div class="bl-row" style="margin-top:14px"><button class="btn ghost small" data-bl="sdnext">'+(sd.ptr?'Next one':'Pick one for me')+'</button>'
+  h+='<div class="bl-row" style="margin-top:14px"><button class="chip'+(sd.out?' on':'')+'" data-bl="sdout">Show outlines</button><button class="btn ghost small" data-bl="sdnext">'+(sd.ptr?'Next one':'Pick one for me')+'</button>'
    +(miss.length?'<button class="chip'+(sd.only?' on':'')+'" data-bl="sdonly">Only missed ('+miss.length+')</button>':'')
    +((got||miss.length)?'<button class="btn ghost small" data-bl="sdreset">Reset marks</button>':'')+'</div>';
   if(miss.length){h+='<p class="eyebrow" style="margin-top:14px">Missed</p><div class="bl-ex">'+miss.map(function(x){return '<button class="chip" data-bl="sdgo" data-id="'+x.id+'">'+blE(x.n)+'</button>'}).join('')+'</div>'}
@@ -2435,6 +2435,7 @@ function blAct(e){
     case 'sdhint':BL.sd.hint=!BL.sd.hint;blPanel();break;
     case 'sdmark':blStudyMark(d.m);break;
     case 'sdnext':blStudyNext();break;
+    case 'sdout':BL.sd.out=!BL.sd.out;blPaint();blPanel();break;
     case 'sdonly':BL.sd.only=!BL.sd.only;blPanel();break;
     case 'sdreset':BL.sd.marks[blBone().id]={};BL.sd.only=false;blPanel();break;
     case 'sdgo':BL.sd.ptr=false;blStudyShow(d.id);break;
