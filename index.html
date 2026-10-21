@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B1722">
-<meta name="description" content="Anatomy revision: skeleton, muscles, bones, joints, cartilage and quizzes.">
+<meta name="description" content="Osteon: anatomy and microanatomy revision. Unofficial student-made tool.">
 <meta name="author" content="Yusuf Butt">
 <meta name="copyright" content="(c) 2026 Yusuf Butt">
 <link rel="manifest" href="manifest.webmanifest">
@@ -12,9 +12,9 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Anatomy Drill">
+<meta name="apple-mobile-web-app-title" content="Osteon">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Anatomy Drill</title>
+<title>Osteon</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&display=swap">
@@ -445,6 +445,14 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .ph{margin-top:14px;padding-top:10px;border-top:1px dashed var(--line)}.ph-row{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
 .ph-i{position:relative}.ph-i img{display:block;height:110px;max-width:100%;border-radius:10px;border:1px solid var(--line)}
 .ph-i button{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:18px;line-height:1}
+.osi{position:fixed;inset:0;z-index:90;background:rgba(3,10,16,.72);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.osi[hidden]{display:none}
+.osi-card{width:min(480px,100%);background:var(--surface,#12202c);color:var(--ink,#fff);border:1px solid var(--line,rgba(255,255,255,.15));border-radius:20px;padding:20px 20px 18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.osi-card h2{margin:14px 0 8px;font-size:30px;line-height:1.1}.osi-card p{margin:0 0 10px;line-height:1.55}
+.osi-n{color:var(--muted);font-size:14.5px}
+.osi-top{display:flex;justify-content:space-between;align-items:center}.osi-dots{display:flex;gap:6px}.osi-dots i{width:8px;height:8px;border-radius:50%;background:var(--line,rgba(255,255,255,.25))}.osi-dots i.on{background:var(--accent,#4FC3CB)}
+.osi-bt{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.hub-disc{margin:6px auto 0;max-width:520px;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.5}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -538,7 +546,7 @@ h1,h2{letter-spacing:-.015em}
 <div class="app">
   <header>
     <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></span><div>
-      <h1>Anatomy Drill</h1>
+      <h1>Osteon</h1>
       <p class="sub" id="prog"></p>
     </div></div>
     <div class="hdr-r"><button class="btn small home" data-act="hubopen">Home</button><button class="btn small" data-act="blopen">Bone lab</button><button class="btn small" data-act="jlopen">Joint lab</button><button class="btn small" data-act="mlopen">Muscle lab</button><button class="btn small" data-act="clopen">Cartilage lab</button><button class="btn small" data-act="miopen">Microanatomy</button>
@@ -7150,7 +7158,7 @@ function blStudyItem(l){
 }
 
 /* ---- Backup and restore ---- */
-function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY]}
+function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY]}
 function bkCode(){
   var d={};bkKeys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)d[k]=v}catch(e){}});
   var s=JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d});
@@ -7158,7 +7166,7 @@ function bkCode(){
 }
 function bkRestore(code){
   var o;try{o=JSON.parse(decodeURIComponent(escape(atob(code.trim()))))}catch(e){try{o=JSON.parse(code)}catch(e2){return 'That code did not work. Copy the whole thing and try again.'}}
-  if(!o||o.app!=='anatomy-drill'||!o.d)return 'That is not an Anatomy Drill backup.';
+  if(!o||o.app!=='anatomy-drill'||!o.d)return 'That is not an Osteon backup.';
   var n=0;bkKeys().forEach(function(k){if(typeof o.d[k]==='string'){try{localStorage.setItem(k,o.d[k]);n++}catch(e){}}});
   SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});RC.on=!!rcLoad(RCKEY,{}).on;
   try{document.documentElement.setAttribute('data-theme',localStorage.getItem(THEMEKEY)||'dark')}catch(e){}
@@ -7204,6 +7212,65 @@ document.addEventListener('click',function(e){
   else if(t.dataset.ph==='zoom'){}
 });
 
+/* ===== Osteon: first-launch intro, credit guard, usage log ===== */
+var OSKEY='osteon-intro-v1',OSLOG='osteon-log';
+var OSTXT='Osteon · © 2026 Yusuf Butt';
+var OSM='​‌​​‌‌​‌';
+function osWM(s){return (typeof s==='string'&&s.length>40&&s.indexOf(OSM)<0)?s+OSM:s}
+(function(){
+  try{
+    MI_BLOOD.forEach(function(c){c.fn=osWM(c.fn);c.tip=osWM(c.tip)});
+    [BT_SEC,MI_CT_SEC,MI_MU_SEC,MI_ST_SEC].forEach(function(L){L.forEach(function(s){s[1].forEach(function(p){p[1]=osWM(p[1])})})});
+    MI_QA.forEach(function(q){q.why=osWM(q.why)});BT_QA.forEach(function(q){q.why=osWM(q.why)});
+  }catch(e){}
+})();
+var OSSL=[
+ ['Welcome to Osteon','Your anatomy and microanatomy revision app: bones, joints, cartilage, muscles, blood cells, epithelia and more. Made by Yusuf Butt, KCL medicine, cohort of 2031.','Osteon is an unofficial student-made revision tool. It is not endorsed by King’s College London. Always check it against your own lecture notes.'],
+ ['Home','Search anything from the bar at the top: a bone, a landmark, a muscle, a cell. The tiles open each lab. “Continue where you left off” takes you straight back to where you stopped.','Add Osteon to your Home Screen from your browser’s share menu to use it like an app.'],
+ ['The review queue','When you get a question wrong, it comes back soon. When you get it right, it comes back after longer and longer gaps. That is spaced repetition. A few minutes a day beats one long session.','Open Home and tap the review queue when it shows something due.'],
+ ['Learn by recalling','Switch on “Recall first” on a topic. It hides the answer, you write what you remember, then you reveal it and mark how you did. In the Bone lab, Study mode shows every landmark. Tap one, say its name in your head, then reveal it.','Trying to remember first, even when you get it wrong, is what makes it stick.'],
+ ['Your progress','Your progress is saved on this device only. To move it to another device, use “Back up or restore progress” at the bottom of Home.','Found a bug or something wrong? Use the email at the bottom of Home. Thank you for testing.']
+];
+var OSI=0;
+function osIntroHTML(){
+  var s=OSSL[OSI],h='<div class="osi-card" role="dialog" aria-modal="true" aria-label="How to use Osteon"><div class="osi-top"><span class="osi-dots">'+OSSL.map(function(x,i){return '<i class="'+(i===OSI?'on':'')+'"></i>'}).join('')+'</span><button class="chip" data-os="skip">Skip</button></div>';
+  h+='<h2>'+blE(s[0])+'</h2><p>'+blE(s[1])+'</p><p class="osi-n">'+blE(s[2])+'</p><div class="osi-bt">'+(OSI>0?'<button class="btn ghost" data-os="prev">Back</button>':'<span></span>')+'<button class="btn" data-os="next">'+(OSI===OSSL.length-1?'Start using Osteon':'Next')+'</button></div></div>';
+  return h;
+}
+function osIntro(open){
+  var el=document.getElementById('osintro');
+  if(!el){el=document.createElement('div');el.id='osintro';el.className='osi';document.body.appendChild(el)}
+  if(open===false){el.hidden=true;return}
+  el.hidden=false;el.innerHTML=osIntroHTML();
+}
+function osIntroMaybe(){var seen=false;try{seen=!!localStorage.getItem(OSKEY)}catch(e){}if(!seen){OSI=0;osIntro()}}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-os]');if(!t)return;var a=t.dataset.os;
+  if(a==='next'){if(OSI>=OSSL.length-1){osDone()}else{OSI++;osIntro()}}
+  else if(a==='prev'){OSI=Math.max(0,OSI-1);osIntro()}
+  else if(a==='skip')osDone();
+  else if(a==='open'){OSI=0;osIntro()}
+});
+function osDone(){try{localStorage.setItem(OSKEY,'1')}catch(e){}osIntro(false)}
+if(!window.__NOHUB)setTimeout(osIntroMaybe,350);
+
+/* ---- credit guard: the name stays on every screen, and comes back if it is removed ---- */
+var OSBS='position:fixed;left:0;right:0;bottom:max(3px,env(safe-area-inset-bottom,0px));text-align:center;font:600 10.5px/1 system-ui,sans-serif;letter-spacing:.04em;opacity:.5;color:#8fa3b3;pointer-events:none;z-index:95;display:block;visibility:visible;';
+function osGuard(){
+  var b=document.getElementById('oscr');
+  if(!b){b=document.createElement('div');b.id='oscr';b.setAttribute('aria-hidden','true');document.body.appendChild(b)}
+  if(b.textContent!==OSTXT)b.textContent=OSTXT;
+  if(b.getAttribute('style')!==OSBS)b.setAttribute('style',OSBS);
+  if(document.title.indexOf('Osteon')!==0)document.title='Osteon';
+}
+osGuard();
+try{new MutationObserver(function(){osGuard()}).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['style','hidden','class']})}catch(e){}
+setInterval(osGuard,4000);
+try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600 13px system-ui;color:#4FC3CB')}catch(e){}
+
+/* ---- usage log (powers the progress map later). Stays on this device. ---- */
+function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
+
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
 var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
@@ -7214,6 +7281,7 @@ var SRS=srsLoad();
 function srsSave(){try{localStorage.setItem(SRSKEY,JSON.stringify(SRS))}catch(e){}}
 function srsGrade(src,x,ok){
   if(!x||!x.q)return;
+  if(typeof osLog==='function')osLog(src,x.q,ok);
   var k=src+':'+x.q,r=SRS[k];
   if(!ok){SRS[k]={s:src,q:x.q,a:x.a,w:x.w,why:x.why||'',self:x.self?1:0,b:0,d:hubDay(),n:(r?r.n:0)+1};srsSave();return}
   if(!r)return;
@@ -7382,8 +7450,8 @@ var HUBICON={
 function hubHome(){
   var h=new Date().getHours(),g=h<5?'Still up':h<12?'Good morning':h<18?'Good afternoon':'Good evening';
   var s=srsStats(),last=hubLast(),ll=hubLastLabel(last),th=document.documentElement.getAttribute('data-theme')||'dark';
-  var o='<div class="hub-top"><span class="hub-pill">Anatomy Drill</span><button class="chip" data-hub="theme" aria-label="Switch theme">'+(th==='dark'?'Light mode':'Dark mode')+'</button></div>';
-  o+='<div class="hub-hero"><div class="hub-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></div><p class="eyebrow">'+g+', Yusuf</p><h1>Anatomy Drill</h1><p class="hub-sub">Bones, joints, cartilage and muscles. Revise, test, repeat.</p></div>';
+  var o='<div class="hub-top"><span class="hub-pill">Osteon</span><button class="chip" data-hub="theme" aria-label="Switch theme">'+(th==='dark'?'Light mode':'Dark mode')+'</button></div>';
+  o+='<div class="hub-hero"><div class="hub-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></div><p class="eyebrow">'+g+', Yusuf</p><h1>Osteon</h1><p class="hub-sub">Anatomy and microanatomy. Revise, recall, repeat.</p></div>';
   o+='<div class="hub-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="hubq" type="search" placeholder="Search bones, landmarks, joints, ligaments, muscles" value="'+blE(HUB.q)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search everything"></div>';
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
@@ -7396,7 +7464,7 @@ function hubHome(){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
-  o+='<div class="hub-bkrow"><button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div>';
+  o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
   o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div></footer>';
   return o;
 }

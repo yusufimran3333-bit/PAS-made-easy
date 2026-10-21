@@ -1,7 +1,7 @@
 {
- "name": "Anatomy Drill",
- "short_name": "Anatomy",
- "description": "Anatomy revision: skeleton, muscles, bones, joints and quizzes.",
+ "name": "Osteon",
+ "short_name": "Osteon",
+ "description": "Anatomy and microanatomy revision: bones, joints, cartilage, muscles and histology.",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
