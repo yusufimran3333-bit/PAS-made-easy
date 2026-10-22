@@ -7838,7 +7838,8 @@ initStore();
 })();
 </script>
 
-<div id="pwaUpd" hidden style="position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:99;background:#131B2B;color:#fff;border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;font:600 14px system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35)"><span>A new version is ready.</span><button id="pwaReload" style="border:0;border-radius:8px;background:#4FC3CB;color:#06282B;font:700 14px system-ui,sans-serif;padding:9px 14px;min-height:40px">Reload</button></div>
+<style>#pwaUpd[hidden]{display:none!important}#pwaUpd:not([hidden]){display:flex}</style>
+<div id="pwaUpd" hidden style="position:fixed;left:50%;transform:translateX(-50%);top:max(10px,env(safe-area-inset-top,0px));z-index:99;background:#131B2B;color:#fff;border-radius:999px;padding:6px 6px 6px 16px;gap:10px;align-items:center;font:600 14px system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:nowrap"><span>Update ready</span><button id="pwaReload" style="border:0;border-radius:999px;background:#4FC3CB;color:#06282B;font:700 14px system-ui,sans-serif;padding:8px 14px;min-height:36px">Reload</button><button id="pwaLater" aria-label="Dismiss" style="border:0;background:transparent;color:#9fb0c3;font:600 14px system-ui,sans-serif;padding:8px 10px;min-height:36px">Later</button></div>
 <script>
 (function(){
   if(!('serviceWorker' in navigator)||location.protocol==='file:')return;
@@ -7848,7 +7849,7 @@ initStore();
     if(had){var b=document.getElementById('pwaUpd');if(b)b.hidden=false}
     had=true;
   });
-  var r=document.getElementById('pwaReload');if(r)r.addEventListener('click',function(){location.reload()});
+  var r=document.getElementById('pwaReload');if(r)r.addEventListener('click',function(){location.reload()});var l=document.getElementById('pwaLater');if(l)l.addEventListener('click',function(){document.getElementById('pwaUpd').hidden=true});
 })();
 </script>
 </html>
