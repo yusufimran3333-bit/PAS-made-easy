@@ -453,7 +453,8 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .osi-top{display:flex;justify-content:space-between;align-items:center}.osi-dots{display:flex;gap:6px}.osi-dots i{width:8px;height:8px;border-radius:50%;background:var(--line,rgba(255,255,255,.25))}.osi-dots i.on{background:var(--accent,#4FC3CB)}
 .osi-bt{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
 .hub-disc{margin:6px auto 0;max-width:520px;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.5}
-.bz-fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(max(22px,env(safe-area-inset-bottom,0px)) + 16px);z-index:66;display:flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 12px;border-radius:22px;border:1px solid var(--line,rgba(255,255,255,.2));background:var(--accent,#3DE0D0);color:#06232a;font:700 14px system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bz-fab{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(max(22px,env(safe-area-inset-bottom,0px)) + 14px);z-index:66;display:flex;align-items:center;gap:8px;height:42px;padding:0 16px 0 13px;border-radius:21px;border:1px solid rgba(79,195,203,.45);background:linear-gradient(160deg,#16303d,#0B1722);color:#e8f6f8;font:600 13.5px/1 system-ui,-apple-system,sans-serif;letter-spacing:.03em;box-shadow:0 8px 22px rgba(6,18,28,.35),inset 0 1px 0 rgba(255,255,255,.08);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+.bz-fab svg{color:#6fd6dc}.bz-fab:active{transform:scale(.96)}
 body.bz-on .bz-fab{display:none}
 .bz{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;overflow:hidden}
 .bz[hidden]{display:none}
@@ -493,6 +494,11 @@ body.bz-on .bz-fab{display:none}
 .bz-ck{flex:none;width:22px;height:22px;border-radius:7px;border:2px solid var(--line);margin-top:1px;display:flex;align-items:center;justify-content:center}
 .bz-pt.on{border-color:var(--accent);background:rgba(61,224,208,.08)}.bz-pt.on .bz-ck{background:var(--accent);border-color:var(--accent)}.bz-pt.on .bz-ck::after{content:"";width:6px;height:11px;border:solid #06232a;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
 .bz-ptx b{display:block;font-size:13px;color:var(--muted);margin-bottom:2px}
+
+.bz-main.lock .bz-pane{touch-action:none;overscroll-behavior:contain}
+.bz-cv{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.bz-hint{position:absolute;left:50%;top:max(120px,18vh);transform:translateX(-50%);z-index:5;max-width:min(420px,90vw);background:#131B2B;color:#fff;border-radius:12px;padding:10px 14px;font:600 13.5px/1.4 system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s}
+.bz-hint.on{opacity:1}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -7312,7 +7318,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V43';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V45';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -7327,7 +7333,7 @@ window.__OSFB=function(){return {screen:osScreen()}};
 
 /* ===== Blurt: free-recall sheet (type + Apple Pencil), then compare with Osteon ===== */
 var BZKEY='osteon-blurts',BZDRAFT='osteon-blurt-draft';
-var BZ={open:false,phase:'home',sel:'free',key:'free',text:'',strokes:[],h:1500,tool:'type',color:'#1b1b1f',size:2.4,fin:null,penSeen:false,got:{},undo:[],cur:null,miss:false,ro:false,viewId:null,msg:'',clr:false};
+var BZ={open:false,phase:'home',sel:'free',key:'free',text:'',strokes:[],h:1500,tool:'type',color:'#1b1b1f',size:2.4,fin:false,penSeen:false,got:{},undo:[],cur:null,miss:false,ro:false,viewId:null,msg:'',clr:false};
 function bzLoad(k,d){try{var s=localStorage.getItem(k);return s?JSON.parse(s):d}catch(e){return d}}
 function bzSave(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
 
@@ -7429,12 +7435,20 @@ function bzRedraw(){
   BZ.strokes.forEach(function(s){bzDrawStroke(ctx,s,W,d)});
 }
 function bzPt(e,cv){var r=cv.getBoundingClientRect();return [Math.round((e.clientX-r.left)/r.width*10000),Math.round((e.clientY-r.top)/r.width*10000),Math.round((e.pressure||0.5)*100)]}
-function bzFingerOK(){return BZ.fin===null?!BZ.penSeen:BZ.fin}
-function bzTouchAct(){var cv=bzCv();if(!cv)return;cv.style.touchAction=(BZ.tool==='type'||BZ.ro)?'auto':(bzFingerOK()?'none':'pan-y pinch-zoom');cv.style.pointerEvents=(BZ.tool==='type'||BZ.ro)?'none':'auto'}
+function bzFingerOK(){return BZ.fin===true}
+function bzTouchAct(){
+  var cv=bzCv(),ta=document.getElementById('bzta'),m=document.querySelector('.bz-main');if(!cv)return;
+  var draw=!BZ.ro&&(BZ.tool==='pen'||BZ.tool==='erase');
+  cv.style.touchAction=draw?'none':'auto';cv.style.pointerEvents=draw?'auto':'none';
+  if(ta)ta.style.pointerEvents=(BZ.tool==='scroll'&&!BZ.ro)?'none':'auto';
+  if(m)m.classList.toggle('lock',draw);
+}
+function bzHint(msg){var h=document.getElementById('bzhint');if(!h)return;h.textContent=msg;h.classList.add('on');clearTimeout(bzHint.t);bzHint.t=setTimeout(function(){h.classList.remove('on')},3200)}
 function bzDown(e){
   if(BZ.tool==='type'||BZ.ro)return;
   if(e.pointerType==='pen'){BZ.penSeen=true;bzTouchAct()}
-  if(e.pointerType==='touch'&&!bzFingerOK())return;
+  if(e.pointerType==='touch'&&!bzFingerOK()){if(!BZ.penSeen)bzHint('Pencil only, so your hand can rest on the screen. Tap \u201cPencil only\u201d above to draw with a finger.');return}
+  if(e.pointerType==='touch'&&e.width>34&&e.height>34)return;
   if(e.pointerType==='mouse'&&e.button!==0)return;
   e.preventDefault();var cv=bzCv();try{cv.setPointerCapture(e.pointerId)}catch(x){}
   BZ.undo.push(BZ.strokes.slice());if(BZ.undo.length>60)BZ.undo.shift();
@@ -7495,11 +7509,12 @@ function bzToolsHTML(){
   var o='<div class="bz-tools"><div class="bz-seg">'
    +'<button data-bz-tool="type" class="'+(t==='type'?'on':'')+'" data-bz="tool" data-v="type">Type</button>'
    +'<button data-bz-tool="pen" class="'+(t==='pen'?'on':'')+'" data-bz="tool" data-v="pen">Pen</button>'
-   +'<button data-bz-tool="erase" class="'+(t==='erase'?'on':'')+'" data-bz="tool" data-v="erase">Erase</button></div>'
+   +'<button data-bz-tool="erase" class="'+(t==='erase'?'on':'')+'" data-bz="tool" data-v="erase">Erase</button>'
+   +'<button data-bz-tool="scroll" class="'+(t==='scroll'?'on':'')+'" data-bz="tool" data-v="scroll">Scroll</button></div>'
    +'<span class="bz-cols">'+cols.map(function(c){return '<button class="bz-col'+(BZ.color===c?' on':'')+'" data-bz="col" data-v="'+c+'" style="background:'+c+'" aria-label="Colour"></button>'}).join('')+'</span>'
    +'<span class="bz-sz">'+[1.6,2.6,4.5].map(function(s){return '<button class="bz-s'+(BZ.size===s?' on':'')+'" data-bz="size" data-v="'+s+'" aria-label="Thickness"><i style="height:'+Math.round(s+1)+'px"></i></button>'}).join('')+'</span>'
    +'<button class="chip" data-bz="undo">Undo</button>'
-   +'<button class="chip" data-bz="fin" title="Let a finger draw too">'+(bzFingerOK()?'Finger draws: on':'Pencil only')+'</button>'
+   +'<button class="chip" data-bz="fin" title="Pencil only keeps your resting hand from drawing. Tap to let a finger draw too.">'+(bzFingerOK()?'Finger draws':'Pencil only')+'</button>'
    +'<button class="chip" data-bz="page">Add page</button>'
    +'<button class="chip" data-bz="clear">'+(BZ.clr?'Tap again to clear':'Clear')+'</button></div>';
   return o;
@@ -7522,7 +7537,7 @@ function bzWorkHTML(){
   else right='<button class="btn small" data-bz="check">'+(P.pts&&P.pts.length?'Check my answer':'Done')+'</button>';
   o+=bzTopHTML(P.title,right);
   if(!BZ.ro)o+=bzToolsHTML();
-  o+='<div class="bz-main'+(chk?' split':'')+'"><div class="bz-pane"><div class="bz-wrap"><div class="bz-sheet" id="bzsheet" style="height:'+BZ.h+'px"><textarea id="bzta" class="bz-ta" '+(BZ.ro?'readonly ':'')+'placeholder="'+(chk?'Add what you missed here, ideally in red.':'Write or draw everything you can remember about '+blE(P.title)+'. No peeking.')+'" spellcheck="true" autocapitalize="sentences"></textarea><canvas id="bzcv" class="bz-cv"></canvas></div></div></div>';
+  o+='<div class="bz-hint" id="bzhint" role="status"></div><div class="bz-main'+(chk?' split':'')+'"><div class="bz-pane"><div class="bz-wrap"><div class="bz-sheet" id="bzsheet" style="height:'+BZ.h+'px"><textarea id="bzta" class="bz-ta" '+(BZ.ro?'readonly ':'')+'placeholder="'+(chk?'Add what you missed here, ideally in red.':'Write or draw everything you can remember about '+blE(P.title)+'. No peeking.')+'" spellcheck="true" autocapitalize="sentences"></textarea><canvas id="bzcv" class="bz-cv"></canvas></div></div></div>';
   if(chk)o+='<div class="bz-pane">'+bzCheckHTML()+'</div>';
   return o+'</div>';
 }
@@ -7565,7 +7580,7 @@ document.addEventListener('click',function(e){
   else if(a==='start'){var s=document.getElementById('bzsel');bzStart(s?s.value:BZ.sel,false)}
   else if(a==='resume'){var d=bzLoad(BZDRAFT,null);if(d){BZ.key=d.key;BZ.text=d.text||'';BZ.strokes=d.strokes||[];BZ.h=d.h||1500;BZ.got=d.got||{};bzStart(d.key,true);BZ.got=d.got||{};if(d.phase==='check'){BZ.phase='check';bzRender()}}}
   else if(a==='tool'){BZ.tool=v;BZ.clr=false;document.querySelectorAll('[data-bz-tool]').forEach(function(b){b.classList.toggle('on',b.dataset.bzTool===v)});bzTouchAct();if(v==='type'){var ta=document.getElementById('bzta');if(ta)ta.focus()}}
-  else if(a==='col'){BZ.color=v;if(BZ.tool==='type'||BZ.tool==='erase'){BZ.tool='pen';bzRenderTools()}else bzRenderTools()}
+  else if(a==='col'){BZ.color=v;if(BZ.tool!=='pen'){BZ.tool='pen';bzTouchAct()}bzRenderTools()}
   else if(a==='size'){BZ.size=parseFloat(v);bzRenderTools()}
   else if(a==='undo'){if(BZ.undo.length){BZ.strokes=BZ.undo.pop();bzRedraw();bzDraftSoon()}}
   else if(a==='fin'){BZ.fin=!bzFingerOK();bzTouchAct();bzRenderTools()}
@@ -7587,7 +7602,7 @@ document.addEventListener('change',function(e){if(e.target&&e.target.id==='bzsel
 /* floating button, available on every screen */
 (function(){
   var b=document.createElement('button');b.id='bzfab';b.className='bz-fab';b.setAttribute('data-bz','open');b.setAttribute('aria-label','Open Blurt, the active recall sheet');
-  b.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span>Blurt</span>';
+  b.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5l5 5L9 20l-5.5 1L4.5 15.5z"/><path d="M12.5 6.5l5 5"/><path d="M13 21c1.2-1.2 2.3-1.2 3.5 0s2.3 1.2 3.5 0" stroke-width="1.4" opacity=".7"/></svg><span>Blurt</span>';
   document.body.appendChild(b);
 })();
 window.__BZ={BZ:BZ,bzPts:bzPts,bzTopics:bzTopics};
