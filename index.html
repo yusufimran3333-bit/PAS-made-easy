@@ -453,6 +453,46 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .osi-top{display:flex;justify-content:space-between;align-items:center}.osi-dots{display:flex;gap:6px}.osi-dots i{width:8px;height:8px;border-radius:50%;background:var(--line,rgba(255,255,255,.25))}.osi-dots i.on{background:var(--accent,#4FC3CB)}
 .osi-bt{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
 .hub-disc{margin:6px auto 0;max-width:520px;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.5}
+.bz-fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(max(22px,env(safe-area-inset-bottom,0px)) + 16px);z-index:66;display:flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 12px;border-radius:22px;border:1px solid var(--line,rgba(255,255,255,.2));background:var(--accent,#3DE0D0);color:#06232a;font:700 14px system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer;-webkit-tap-highlight-color:transparent}
+body.bz-on .bz-fab{display:none}
+.bz{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;overflow:hidden}
+.bz[hidden]{display:none}
+.bz-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:max(10px,env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.bz-tt{display:flex;align-items:center;gap:10px;min-width:0}.bz-tt b{font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bz-logo{font:700 11px system-ui;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:3px 7px}
+.bz-tr{display:flex;gap:8px;align-items:center}
+.bz-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:16px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px;align-items:center}
+.bz-card{width:min(640px,100%);background:var(--surface,rgba(255,255,255,.05));border:1px solid var(--line);border-radius:18px;padding:18px}
+.bz-card h2{margin:0 0 6px;font-size:24px}.bz-card h3{margin:0 0 10px;font-size:16px}.bz-card p{margin:0 0 12px;line-height:1.55;color:var(--muted)}
+.bz-msg{color:var(--accent)!important;font-weight:600}
+.bz-lab{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:6px 0}
+.bz-sel{width:100%;font-size:16px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.bz-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.bz-hist{display:flex;flex-direction:column;gap:8px}.bz-h{display:flex;justify-content:space-between;gap:10px;text-align:left;padding:12px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer}.bz-h span{color:var(--muted);font-size:13px;white-space:nowrap}
+.bz-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px max(14px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.bz-seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}.bz-seg button{border:0;background:transparent;color:var(--ink);font:600 14px system-ui;padding:9px 14px;cursor:pointer}.bz-seg button.on{background:var(--accent);color:#06232a}
+.bz-cols,.bz-sz{display:flex;gap:6px;align-items:center}
+.bz-col{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}.bz-col.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--bg) inset}
+.bz-s{width:34px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}.bz-s i{display:block;width:18px;border-radius:3px;background:var(--ink)}.bz-s.on{border-color:var(--accent)}
+.bz-main{flex:1;min-height:0;display:flex;flex-direction:column}
+.bz-pane{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch}
+.bz-main.split .bz-pane:first-child{flex:1.2;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.bz-main.split{flex-direction:row}.bz-main.split .bz-pane:first-child{border-bottom:0;border-right:1px solid var(--line)}.bz-main.split .bz-pane{flex:1}}
+.bz-wrap{padding:12px max(12px,env(safe-area-inset-left,0px));display:flex;justify-content:center}
+.bz-sheet{position:relative;width:min(900px,100%);background:#fbf9f3;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.25);overflow:hidden;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,rgba(80,110,160,.18) 31px,rgba(80,110,160,.18) 32px);background-position:0 18px}
+.bz-ta,.bz-cv{position:absolute;left:0;top:0}
+.bz-ta{width:100%;height:100%;border:0;outline:0;resize:none;background:transparent;color:#1b1b1f;font:18px/32px system-ui,-apple-system,sans-serif;padding:18px 20px 0;box-sizing:border-box;-webkit-text-size-adjust:100%}
+.bz-ta::placeholder{color:#8c8c95}
+.bz-cv{z-index:2}
+.bz-ref{padding:14px max(14px,env(safe-area-inset-right,0px)) 40px}
+.bz-rh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.bz-ref h3{margin:0;font-size:18px}.bz-score{font-weight:700;color:var(--accent)}
+.bz-help{color:var(--muted);font-size:14px;line-height:1.5;margin:6px 0 10px}.bz-rt{margin-bottom:10px}
+.bz-pts{display:flex;flex-direction:column;gap:8px}
+.bz-pt{display:flex;gap:12px;align-items:flex-start;text-align:left;padding:12px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;line-height:1.45;cursor:pointer}
+.bz-pt[hidden]{display:none}
+.bz-ck{flex:none;width:22px;height:22px;border-radius:7px;border:2px solid var(--line);margin-top:1px;display:flex;align-items:center;justify-content:center}
+.bz-pt.on{border-color:var(--accent);background:rgba(61,224,208,.08)}.bz-pt.on .bz-ck{background:var(--accent);border-color:var(--accent)}.bz-pt.on .bz-ck::after{content:"";width:6px;height:11px;border:solid #06232a;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.bz-ptx b{display:block;font-size:13px;color:var(--muted);margin-bottom:2px}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -7158,7 +7198,7 @@ function blStudyItem(l){
 }
 
 /* ---- Backup and restore ---- */
-function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY]}
+function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT]}
 function bkCode(){
   var d={};bkKeys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)d[k]=v}catch(e){}});
   var s=JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d});
@@ -7272,7 +7312,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V42';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V43';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -7284,6 +7324,273 @@ function osFeedback(){
 }
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-os="fb"]');if(t){e.preventDefault();osFeedback()}});
 window.__OSFB=function(){return {screen:osScreen()}};
+
+/* ===== Blurt: free-recall sheet (type + Apple Pencil), then compare with Osteon ===== */
+var BZKEY='osteon-blurts',BZDRAFT='osteon-blurt-draft';
+var BZ={open:false,phase:'home',sel:'free',key:'free',text:'',strokes:[],h:1500,tool:'type',color:'#1b1b1f',size:2.4,fin:null,penSeen:false,got:{},undo:[],cur:null,miss:false,ro:false,viewId:null,msg:'',clr:false};
+function bzLoad(k,d){try{var s=localStorage.getItem(k);return s?JSON.parse(s):d}catch(e){return d}}
+function bzSave(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+
+/* ---------- topics and their reference points ---------- */
+function bzTopics(){
+  var G=[];
+  G.push(['Free blurt (no checklist)',[['free','Anything I choose']]]);
+  G.push(['Joints',JL_J.map(function(j){return ['j:'+j.id,j.n]})]);
+  G.push(['Joint types',[['all:jt','All joint types']].concat(JL_TYPES.map(function(t){return ['jt:'+t.id,t.n]}))]);
+  G.push(['Cartilage',[['all:ct','All cartilage types']].concat(CL_TYPES.map(function(t){return ['ct:'+t.id,t.n]}))]);
+  G.push(['Bones and landmarks',BLORDER.map(function(id){return ['b:'+id,BLB[id].name]})]);
+  G.push(['Bone tissue',BT_SEC.map(function(s){return ['bt:'+s.id,s.n]})]);
+  G.push(['Blood cells',[['all:bc','All blood cells']].concat(MI_BLOOD.map(function(c){return ['bc:'+c.id,c.short||c.n]}))]);
+  G.push(['Epithelia',[['all:ep','All epithelia']].concat(MI_EPI.map(function(t){return ['ep:'+t.id,t.n]}))]);
+  G.push(['Connective tissue',MI_CT_TYPES.map(function(t){return ['cn:'+t.id,t.n]})]);
+  G.push(['Muscle tissue',MI_MU.map(function(t){return ['mu:'+t.id,t.n]})]);
+  G.push(['Muscles',ML_M.map(function(m){return ['m:'+m.id,m.n]})]);
+  return G;
+}
+function bzFind(a,id){for(var i=0;i<a.length;i++)if(a[i].id===id)return a[i];return null}
+function bzPts1(k){
+  var p=k.split(':'),t=p[0],id=p[1],o,r=[];
+  if(t==='j'){o=bzFind(JL_J,id);if(!o)return null;
+    r.push(['Class',o.cls+', '+o.tl+', '+o.axes]);
+    if(o.bl&&o.bl.length)r.push(['Bones',o.bl.map(function(b){return b[1]}).join(', ')]);
+    if(o.surf)r.push(['Articular surfaces',o.surf]);
+    (o.lig||[]).forEach(function(l){r.push([l[0],l[1]])});
+    (o.mov||[]).forEach(function(m){r.push(['Movement: '+m[0],m[1]])});
+    if(o.stab)r.push(['Stability',o.stab]);
+    (o.clin||[]).forEach(function(c){r.push(['Clinical: '+c[0],c[1]])});
+    return {title:o.n,pts:r}}
+  if(t==='jt'){o=bzFind(JL_TYPES,id);if(!o)return null;
+    r.push(['Movement',o.move]);r.push(['Axes',o.axes]);r.push(['Examples',o.ex.join(', ')]);return {title:o.n,pts:r}}
+  if(t==='ct'){o=bzFind(CL_TYPES,id);if(!o)return null;
+    r.push(['Collagen',o.coll]);r.push(['Perichondrium',o.peri]);r.push(['Looks like',o.look]);r.push(['Function',o.fn]);
+    (o.feat||[]).forEach(function(f){r.push(['Feature',f])});r.push(['Examples',o.ex.join(', ')]);return {title:o.n,pts:r}}
+  if(t==='b'){o=BLB[id];if(!o)return null;
+    (o.lm||[]).forEach(function(l){if(!l.grp)r.push([l.n,(l.t&&l.t[0])||l.la||''])});return {title:o.name,pts:r}}
+  if(t==='bt'){o=bzFind(BT_SEC,id);if(!o)return null;o.pts.forEach(function(x){r.push([x[0],x[1]])});return {title:o.n,pts:r}}
+  if(t==='bc'){o=bzFind(MI_BLOOD,id);if(!o)return null;
+    r.push(['Share of leukocytes',o.pct]);r.push(['Size',o.size]);r.push(['Nucleus',o.nuc]);r.push(['Cytoplasm',o.cyt]);r.push(['Function',o.fn]);return {title:o.short||o.n,pts:r}}
+  if(t==='ep'){o=bzFind(MI_EPI,id);if(!o)return null;
+    r.push(['Looks like',o.look]);r.push(['Where',o.where]);r.push(['Function',o.fn]);return {title:o.n,pts:r}}
+  if(t==='cn'){o=bzFind(MI_CT_TYPES,id);if(!o)return null;
+    r.push(['Looks like',o.look]);r.push(['Where',o.where]);r.push(['Key points',o.pts]);return {title:o.n,pts:r}}
+  if(t==='mu'){o=bzFind(MI_MU,id);if(!o)return null;
+    r.push(['Where',o.where]);r.push(['Control',o.ctl]);r.push(['Striation',o.str]);r.push(['Nuclei',o.nuc]);r.push(['Cell',o.cell]);r.push(['Other',o.other]);return {title:o.n,pts:r}}
+  if(t==='m'){o=bzFind(ML_M,id);if(!o)return null;
+    r.push(['Origin',o.o]);r.push(['Insertion',o.i]);r.push(['Nerve',o.nv]);r.push(['Action',o.a]);r.push(['Blood supply',o.ar]);return {title:o.n,pts:r}}
+  return null;
+}
+function bzPts(k){
+  if(k==='free')return {title:'Free blurt',pts:[]};
+  if(k.indexOf('all:')===0){
+    var w=k.slice(4),src={jt:[JL_TYPES,'jt','Joint types'],ct:[CL_TYPES,'ct','Cartilage types'],bc:[MI_BLOOD,'bc','Blood cells'],ep:[MI_EPI,'ep','Epithelia']}[w],pts=[];
+    if(!src)return null;
+    src[0].forEach(function(o){var b=bzPts1(src[1]+':'+o.id);if(b)b.pts.forEach(function(x){pts.push([b.title+': '+x[0],x[1]])})});
+    return {title:src[2],pts:pts}}
+  return bzPts1(k);
+}
+function bzCtx(){
+  try{
+    var vis=function(id){var e=document.getElementById(id);return e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0};
+    if(vis('bl')&&BL.bone)return 'b:'+BL.bone;
+    if(vis('jl')&&JL.j)return 'j:'+JL.j;
+  }catch(e){}
+  return null;
+}
+
+/* ---------- storage ---------- */
+function bzPack(s){return {c:s.c,s:s.s,t:s.t,p:s.p}}
+function bzDraftSave(){bzSave(BZDRAFT,{key:BZ.key,text:BZ.text,strokes:BZ.strokes,h:BZ.h,phase:BZ.phase==='check'?'check':'write',got:BZ.got,when:Date.now()})}
+var bzT=null;function bzDraftSoon(){clearTimeout(bzT);bzT=setTimeout(bzDraftSave,500)}
+
+/* ---------- canvas ---------- */
+function bzCv(){return document.getElementById('bzcv')}
+function bzSize(){
+  var cv=bzCv(),sh=document.getElementById('bzsheet');if(!cv||!sh)return;
+  var w=sh.clientWidth,h=BZ.h,d=Math.min(window.devicePixelRatio||1,2);
+  if(!w)return;
+  if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px'}
+  bzRedraw();
+}
+function bzSeg(ctx,s,a,b,W,d){
+  var pr=(a[2]+b[2])/200||0.5;
+  ctx.lineWidth=Math.max(0.8,s.s*(0.45+pr*1.1))*d;
+  ctx.beginPath();ctx.moveTo(a[0]/10000*W*d,a[1]/10000*W*d);ctx.lineTo(b[0]/10000*W*d,b[1]/10000*W*d);ctx.stroke();
+}
+function bzPoints(s){var P=[];for(var i=0;i<s.p.length;i+=3)P.push([s.p[i],s.p[i+1],s.p[i+2]]);return P}
+function bzDrawStroke(ctx,s,W,d){
+  var P=bzPoints(s);ctx.strokeStyle=s.c;ctx.fillStyle=s.c;ctx.lineCap='round';ctx.lineJoin='round';
+  if(P.length===1){ctx.beginPath();ctx.arc(P[0][0]/10000*W*d,P[0][1]/10000*W*d,Math.max(.8,s.s*.9)*d,0,6.3);ctx.fill();return}
+  for(var i=1;i<P.length;i++)bzSeg(ctx,s,P[i-1],P[i],W,d);
+}
+function bzRedraw(){
+  var cv=bzCv(),sh=document.getElementById('bzsheet');if(!cv||!sh)return;
+  var W=sh.clientWidth,d=cv.width/Math.max(1,W),ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
+  BZ.strokes.forEach(function(s){bzDrawStroke(ctx,s,W,d)});
+}
+function bzPt(e,cv){var r=cv.getBoundingClientRect();return [Math.round((e.clientX-r.left)/r.width*10000),Math.round((e.clientY-r.top)/r.width*10000),Math.round((e.pressure||0.5)*100)]}
+function bzFingerOK(){return BZ.fin===null?!BZ.penSeen:BZ.fin}
+function bzTouchAct(){var cv=bzCv();if(!cv)return;cv.style.touchAction=(BZ.tool==='type'||BZ.ro)?'auto':(bzFingerOK()?'none':'pan-y pinch-zoom');cv.style.pointerEvents=(BZ.tool==='type'||BZ.ro)?'none':'auto'}
+function bzDown(e){
+  if(BZ.tool==='type'||BZ.ro)return;
+  if(e.pointerType==='pen'){BZ.penSeen=true;bzTouchAct()}
+  if(e.pointerType==='touch'&&!bzFingerOK())return;
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  e.preventDefault();var cv=bzCv();try{cv.setPointerCapture(e.pointerId)}catch(x){}
+  BZ.undo.push(BZ.strokes.slice());if(BZ.undo.length>60)BZ.undo.shift();
+  if(BZ.tool==='erase'){BZ.cur={erase:true,id:e.pointerId};bzErase(e);return}
+  var p=bzPt(e,cv);BZ.cur={id:e.pointerId,s:{c:BZ.color,s:BZ.size,t:'p',p:p.slice()}};
+  var ctx=cv.getContext('2d'),W=document.getElementById('bzsheet').clientWidth,d=cv.width/W;
+  BZ.strokes.push(BZ.cur.s);bzDrawStroke(ctx,BZ.cur.s,W,d);
+}
+function bzErase(e){
+  var cv=bzCv(),W=cv.getBoundingClientRect().width,x=(e.clientX-cv.getBoundingClientRect().left),y=(e.clientY-cv.getBoundingClientRect().top),r=16,hit=false;
+  BZ.strokes=BZ.strokes.filter(function(s){
+    for(var i=0;i<s.p.length;i+=3){var dx=s.p[i]/10000*W-x,dy=s.p[i+1]/10000*W-y;if(dx*dx+dy*dy<r*r){hit=true;return false}}return true});
+  if(hit)bzRedraw();
+}
+function bzMove(e){
+  var c=BZ.cur;if(!c||c.id!==e.pointerId)return;e.preventDefault();
+  if(c.erase){bzErase(e);return}
+  var cv=bzCv(),ev=(e.getCoalescedEvents&&e.getCoalescedEvents())||[];if(!ev.length)ev=[e];
+  var ctx=cv.getContext('2d'),W=document.getElementById('bzsheet').clientWidth,d=cv.width/W,s=c.s;
+  ctx.strokeStyle=s.c;ctx.lineCap='round';ctx.lineJoin='round';
+  ev.forEach(function(x){var q=bzPt(x,cv),n=s.p.length,a=[s.p[n-3],s.p[n-2],s.p[n-1]];s.p.push(q[0],q[1],q[2]);bzSeg(ctx,s,a,q,W,d)});
+}
+function bzUp(e){
+  var c=BZ.cur;if(!c||c.id!==e.pointerId)return;BZ.cur=null;
+  if(c.erase){if(BZ.undo.length&&BZ.undo[BZ.undo.length-1].length===BZ.strokes.length)BZ.undo.pop()}
+  bzDraftSoon();
+}
+
+/* ---------- screens ---------- */
+function bzEl(){var e=document.getElementById('bz');if(!e){e=document.createElement('div');e.id='bz';e.className='bz';e.hidden=true;e.setAttribute('role','dialog');e.setAttribute('aria-label','Blurt');document.body.appendChild(e)}return e}
+function bzOpen(){
+  BZ.open=true;var e=bzEl();e.hidden=false;document.body.classList.add('bz-on');
+  var ctx=bzCtx();if(ctx&&bzPts(ctx))BZ.sel=ctx;
+  BZ.phase='home';BZ.ro=false;bzRender();
+}
+function bzClose(){
+  if(BZ.phase==='write'||(BZ.phase==='check'&&!BZ.ro)){bzSyncText();bzDraftSave()}
+  BZ.open=false;bzEl().hidden=true;document.body.classList.remove('bz-on');
+}
+function bzSyncText(){var t=document.getElementById('bzta');if(t&&!BZ.ro)BZ.text=t.value}
+function bzDateStr(t){var d=new Date(t);return d.toLocaleDateString(undefined,{day:'numeric',month:'short'})}
+function bzTopHTML(title,right){return '<div class="bz-top"><div class="bz-tt"><span class="bz-logo">Blurt</span><b>'+blE(title)+'</b></div><div class="bz-tr">'+right+'<button class="btn ghost small" data-bz="close">Close</button></div></div>'}
+function bzHomeHTML(){
+  var d=bzLoad(BZDRAFT,null),H=bzLoad(BZKEY,[]),o='';
+  o+=bzTopHTML('Active recall','');
+  o+='<div class="bz-body"><div class="bz-card"><h2>Blurt, then check</h2><p>Pick a topic, write or draw everything you can remember without looking, then Osteon shows what you missed. Missed points go into your review queue.</p>';
+  if(BZ.msg){o+='<p class="bz-msg">'+blE(BZ.msg)+'</p>'}
+  o+='<label class="bz-lab" for="bzsel">Topic</label><select id="bzsel" class="bz-sel">';
+  bzTopics().forEach(function(g){o+='<optgroup label="'+blE(g[0])+'">'+g[1].map(function(x){return '<option value="'+blE(x[0])+'"'+(x[0]===BZ.sel?' selected':'')+'>'+blE(x[1])+'</option>'}).join('')+'</optgroup>'});
+  o+='</select><div class="bz-acts"><button class="btn" data-bz="start">Start blurting</button>';
+  if(d&&(d.text||(d.strokes&&d.strokes.length))){var dp=bzPts(d.key);o+='<button class="btn ghost" data-bz="resume">Continue draft: '+blE(dp?dp.title:'Blurt')+'</button>'}
+  o+='</div></div>';
+  if(H.length){o+='<div class="bz-card"><h3>Your recent blurts</h3><div class="bz-hist">'+H.map(function(h){return '<button class="bz-h" data-bz="view" data-id="'+blE(h.id)+'"><b>'+blE(h.title)+'</b><span>'+bzDateStr(h.date)+' · '+h.got.length+' of '+h.total+(h.total?'':' (free)')+'</span></button>'}).join('')+'</div></div>'}
+  o+='</div>';return o;
+}
+function bzToolsHTML(){
+  var t=BZ.tool,cols=['#1b1b1f','#1d5fd1','#1f8f4e','#d12c2c'];
+  var o='<div class="bz-tools"><div class="bz-seg">'
+   +'<button data-bz-tool="type" class="'+(t==='type'?'on':'')+'" data-bz="tool" data-v="type">Type</button>'
+   +'<button data-bz-tool="pen" class="'+(t==='pen'?'on':'')+'" data-bz="tool" data-v="pen">Pen</button>'
+   +'<button data-bz-tool="erase" class="'+(t==='erase'?'on':'')+'" data-bz="tool" data-v="erase">Erase</button></div>'
+   +'<span class="bz-cols">'+cols.map(function(c){return '<button class="bz-col'+(BZ.color===c?' on':'')+'" data-bz="col" data-v="'+c+'" style="background:'+c+'" aria-label="Colour"></button>'}).join('')+'</span>'
+   +'<span class="bz-sz">'+[1.6,2.6,4.5].map(function(s){return '<button class="bz-s'+(BZ.size===s?' on':'')+'" data-bz="size" data-v="'+s+'" aria-label="Thickness"><i style="height:'+Math.round(s+1)+'px"></i></button>'}).join('')+'</span>'
+   +'<button class="chip" data-bz="undo">Undo</button>'
+   +'<button class="chip" data-bz="fin" title="Let a finger draw too">'+(bzFingerOK()?'Finger draws: on':'Pencil only')+'</button>'
+   +'<button class="chip" data-bz="page">Add page</button>'
+   +'<button class="chip" data-bz="clear">'+(BZ.clr?'Tap again to clear':'Clear')+'</button></div>';
+  return o;
+}
+function bzCheckHTML(){
+  var P=bzPts(BZ.key)||{title:'',pts:[]},o='';
+  if(!P.pts.length){return '<div class="bz-ref"><h3>Free blurt</h3><p>No checklist for this one. Use Check to compare against Osteon yourself: search any topic from Home, then come back and add what you missed in red.</p></div>'}
+  var n=Object.keys(BZ.got).filter(function(k){return BZ.got[k]}).length;
+  o+='<div class="bz-ref"><div class="bz-rh"><h3>What you remembered</h3><span class="bz-score" id="bzscore">'+n+' of '+P.pts.length+'</span></div>';
+  o+='<p class="bz-help">'+(BZ.ro?'Your saved result.':'Tap each point you already had on your sheet. Add what you missed on the sheet in red, then tap Finish.')+'</p>';
+  o+='<div class="bz-rt"><button class="chip'+(BZ.miss?' on':'')+'" data-bz="miss">'+(BZ.miss?'Showing missed only':'Show missed only')+'</button></div><div class="bz-pts" id="bzpts">';
+  P.pts.forEach(function(x,i){var g=!!BZ.got[i];o+='<button class="bz-pt'+(g?' on':'')+'" data-bz="pt" data-i="'+i+'"'+(BZ.miss&&g?' hidden':'')+'><span class="bz-ck"></span><span class="bz-ptx"><b>'+blE(x[0])+'</b> '+blE(x[1])+'</span></button>'});
+  return o+'</div></div>';
+}
+function bzWorkHTML(){
+  var P=bzPts(BZ.key)||{title:'Blurt'},chk=BZ.phase==='check',o='';
+  var right='';
+  if(BZ.ro)right='<button class="btn ghost small" data-bz="again">Blurt this again</button><button class="btn ghost small" data-bz="del">Delete</button>';
+  else if(chk)right='<button class="btn small" data-bz="finish">Finish</button>';
+  else right='<button class="btn small" data-bz="check">'+(P.pts&&P.pts.length?'Check my answer':'Done')+'</button>';
+  o+=bzTopHTML(P.title,right);
+  if(!BZ.ro)o+=bzToolsHTML();
+  o+='<div class="bz-main'+(chk?' split':'')+'"><div class="bz-pane"><div class="bz-wrap"><div class="bz-sheet" id="bzsheet" style="height:'+BZ.h+'px"><textarea id="bzta" class="bz-ta" '+(BZ.ro?'readonly ':'')+'placeholder="'+(chk?'Add what you missed here, ideally in red.':'Write or draw everything you can remember about '+blE(P.title)+'. No peeking.')+'" spellcheck="true" autocapitalize="sentences"></textarea><canvas id="bzcv" class="bz-cv"></canvas></div></div></div>';
+  if(chk)o+='<div class="bz-pane">'+bzCheckHTML()+'</div>';
+  return o+'</div>';
+}
+function bzRender(){
+  var e=bzEl(),ph=BZ.phase;
+  if(ph==='home'){e.innerHTML=bzHomeHTML();return}
+  e.innerHTML=bzWorkHTML();
+  var ta=document.getElementById('bzta');ta.value=BZ.text;
+  ta.addEventListener('input',function(){BZ.text=ta.value;bzDraftSoon()});
+  var cv=bzCv();
+  cv.addEventListener('pointerdown',bzDown);cv.addEventListener('pointermove',bzMove);cv.addEventListener('pointerup',bzUp);cv.addEventListener('pointercancel',bzUp);
+  try{new ResizeObserver(function(){bzSize()}).observe(document.getElementById('bzsheet'))}catch(x){}
+  bzTouchAct();bzSize();
+}
+function bzStart(key,keep){
+  BZ.key=key;BZ.sel=key;BZ.phase='write';BZ.ro=false;BZ.got={};BZ.miss=false;BZ.clr=false;BZ.undo=[];BZ.msg='';
+  if(!keep){BZ.text='';BZ.strokes=[];BZ.h=Math.max(1500,Math.round(window.innerHeight*1.5))}
+  BZ.tool='type';BZ.color='#1b1b1f';bzRender();
+}
+function bzFinish(){
+  bzSyncText();
+  var P=bzPts(BZ.key)||{title:'Blurt',pts:[]},got=[],miss=0;
+  P.pts.forEach(function(x,i){
+    var item={q:'Blurt: '+P.title+'. Recall: '+x[0],a:x[1],w:[],why:'',self:1};
+    if(BZ.got[i]){got.push(i);srsGrade('bz',item,true)}else{miss++;srsGrade('bz',item,false)}
+  });
+  var H=bzLoad(BZKEY,[]);
+  H.unshift({id:'b'+Date.now(),key:BZ.key,title:P.title,date:Date.now(),text:BZ.text,strokes:BZ.strokes,h:BZ.h,got:got,total:P.pts.length});
+  H=H.slice(0,20);
+  while(H.length&&!bzSave(BZKEY,H)){H.pop()}
+  try{localStorage.removeItem(BZDRAFT)}catch(e){}
+  BZ.msg=P.pts.length?('Saved. You remembered '+got.length+' of '+P.pts.length+'. '+miss+' missed point'+(miss===1?'':'s')+' added to your review queue.'):'Saved.';
+  BZ.text='';BZ.strokes=[];BZ.got={};BZ.phase='home';bzRender();
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-bz]');if(!t)return;var a=t.dataset.bz,v=t.dataset.v;
+  if(a==='open'){bzOpen();return}
+  if(!BZ.open)return;
+  if(a==='close')bzClose();
+  else if(a==='start'){var s=document.getElementById('bzsel');bzStart(s?s.value:BZ.sel,false)}
+  else if(a==='resume'){var d=bzLoad(BZDRAFT,null);if(d){BZ.key=d.key;BZ.text=d.text||'';BZ.strokes=d.strokes||[];BZ.h=d.h||1500;BZ.got=d.got||{};bzStart(d.key,true);BZ.got=d.got||{};if(d.phase==='check'){BZ.phase='check';bzRender()}}}
+  else if(a==='tool'){BZ.tool=v;BZ.clr=false;document.querySelectorAll('[data-bz-tool]').forEach(function(b){b.classList.toggle('on',b.dataset.bzTool===v)});bzTouchAct();if(v==='type'){var ta=document.getElementById('bzta');if(ta)ta.focus()}}
+  else if(a==='col'){BZ.color=v;if(BZ.tool==='type'||BZ.tool==='erase'){BZ.tool='pen';bzRenderTools()}else bzRenderTools()}
+  else if(a==='size'){BZ.size=parseFloat(v);bzRenderTools()}
+  else if(a==='undo'){if(BZ.undo.length){BZ.strokes=BZ.undo.pop();bzRedraw();bzDraftSoon()}}
+  else if(a==='fin'){BZ.fin=!bzFingerOK();bzTouchAct();bzRenderTools()}
+  else if(a==='page'){if(BZ.h<4200){BZ.h+=900;document.getElementById('bzsheet').style.height=BZ.h+'px';bzSize();bzDraftSoon()}}
+  else if(a==='clear'){if(!BZ.clr){BZ.clr=true;bzRenderTools();setTimeout(function(){if(BZ.clr){BZ.clr=false;bzRenderTools()}},2500)}else{BZ.clr=false;BZ.undo.push(BZ.strokes.slice());BZ.strokes=[];BZ.text='';var ta2=document.getElementById('bzta');if(ta2)ta2.value='';bzRedraw();bzRenderTools();bzDraftSoon()}}
+  else if(a==='check'){bzSyncText();BZ.phase='check';BZ.tool=BZ.tool==='type'?'type':BZ.tool;BZ.color='#d12c2c';var keep=BZ.strokes,tx=BZ.text;bzRender();bzDraftSave()}
+  else if(a==='pt'){var i=t.dataset.i;BZ.got[i]=!BZ.got[i];t.classList.toggle('on',!!BZ.got[i]);if(BZ.miss&&BZ.got[i])t.hidden=true;var P=bzPts(BZ.key),n=Object.keys(BZ.got).filter(function(k){return BZ.got[k]}).length,sc=document.getElementById('bzscore');if(sc)sc.textContent=n+' of '+P.pts.length;bzDraftSoon()}
+  else if(a==='miss'){BZ.miss=!BZ.miss;t.classList.toggle('on',BZ.miss);t.textContent=BZ.miss?'Showing missed only':'Show missed only';document.querySelectorAll('#bzpts .bz-pt').forEach(function(b){b.hidden=BZ.miss&&b.classList.contains('on')})}
+  else if(a==='finish')bzFinish();
+  else if(a==='view'){var H=bzLoad(BZKEY,[]),h=H.filter(function(x){return x.id===t.dataset.id})[0];if(h){BZ.key=h.key;BZ.text=h.text||'';BZ.strokes=h.strokes||[];BZ.h=h.h||1500;BZ.got={};(h.got||[]).forEach(function(i){BZ.got[i]=true});BZ.phase='check';BZ.ro=true;BZ.viewId=h.id;BZ.tool='type';BZ.miss=false;bzRender()}}
+  else if(a==='again'){bzStart(BZ.key,false)}
+  else if(a==='del'){var H2=bzLoad(BZKEY,[]).filter(function(x){return x.id!==BZ.viewId});bzSave(BZKEY,H2);BZ.ro=false;BZ.phase='home';BZ.msg='Deleted.';bzRender()}
+});
+function bzRenderTools(){
+  var el=document.querySelector('.bz-tools');if(!el)return;
+  var tmp=document.createElement('div');tmp.innerHTML=bzToolsHTML();el.replaceWith(tmp.firstChild);bzTouchAct();
+}
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='bzsel')BZ.sel=e.target.value});
+/* floating button, available on every screen */
+(function(){
+  var b=document.createElement('button');b.id='bzfab';b.className='bz-fab';b.setAttribute('data-bz','open');b.setAttribute('aria-label','Open Blurt, the active recall sheet');
+  b.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span>Blurt</span>';
+  document.body.appendChild(b);
+})();
+window.__BZ={BZ:BZ,bzPts:bzPts,bzTopics:bzTopics};
 
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
