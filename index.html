@@ -7229,7 +7229,7 @@ var OSSL=[
  ['Home','Search anything from the bar at the top: a bone, a landmark, a muscle, a cell. The tiles open each lab. “Continue where you left off” takes you straight back to where you stopped.','Add Osteon to your Home Screen from your browser’s share menu to use it like an app.'],
  ['The review queue','When you get a question wrong, it comes back soon. When you get it right, it comes back after longer and longer gaps. That is spaced repetition. A few minutes a day beats one long session.','Open Home and tap the review queue when it shows something due.'],
  ['Learn by recalling','Switch on “Recall first” on a topic. It hides the answer, you write what you remember, then you reveal it and mark how you did. In the Bone lab, Study mode shows every landmark. Tap one, say its name in your head, then reveal it.','Trying to remember first, even when you get it wrong, is what makes it stick.'],
- ['Your progress','Your progress is saved on this device only. To move it to another device, use “Back up or restore progress” at the bottom of Home.','Found a bug or something wrong? Use the email at the bottom of Home. Thank you for testing.']
+ ['Your progress','Your progress is saved on this device only. To move it to another device, use “Back up or restore progress” at the bottom of Home.','Found a mistake or something confusing? Tap \u201cSend feedback or report an error\u201d at the bottom of Home. It opens an email with your screen and device already filled in. Thank you for testing.']
 ];
 var OSI=0;
 function osIntroHTML(){
@@ -7270,6 +7270,20 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 
 /* ---- usage log (powers the progress map later). Stays on this device. ---- */
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
+
+/* ---- feedback: opens a pre-filled email with screen and device info ---- */
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V42';
+function osScreen(){
+  var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
+  ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
+  return w;
+}
+function osFeedback(){
+  var body='Hi Yusuf,\n\nWhat I found (what is wrong, or what would help):\n\n\n\n----- details, please keep -----\nApp: '+OSVER+'\nScreen: '+osScreen()+'\nDevice: '+navigator.userAgent+'\nScreen size: '+innerWidth+'x'+innerHeight+'\n';
+  location.href='mailto:'+OSMAIL+'?subject='+encodeURIComponent('Osteon feedback')+'&body='+encodeURIComponent(body);
+}
+document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-os="fb"]');if(t){e.preventDefault();osFeedback()}});
+window.__OSFB=function(){return {screen:osScreen()}};
 
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
@@ -7464,7 +7478,7 @@ function hubHome(){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
-  o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
+  o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-os="fb">Send feedback or report an error</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
   o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div></footer>';
   return o;
 }
