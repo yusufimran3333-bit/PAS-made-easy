@@ -182,6 +182,33 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .v3hint{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 62px);margin:0;max-width:260px;text-align:right;font-size:12px;color:#7F8DA1;pointer-events:none}
 @media(max-width:700px){.v3hint{display:none}.v3title{font-size:20px}.v3b{padding:7px 11px;font-size:13px}}
 @media(max-width:560px){.v3title{display:none}.v3top,.v3chips,.v3bar{flex-wrap:nowrap;gap:6px}.v3b{padding:6px 9px;font-size:12.5px;min-height:38px}.v3b.sq{width:38px;font-size:18px}.v3chips{top:calc(max(12px,env(safe-area-inset-top,0px)) + 48px)}.v3bar{width:calc(100% - 24px)}}
+.v3lay{position:absolute;top:calc(max(12px,env(safe-area-inset-top,0px)) + 54px);right:max(12px,env(safe-area-inset-right,0px));width:238px;max-height:calc(100% - 150px);overflow:auto;background:rgba(16,23,32,.93);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:10px 10px 12px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:3;touch-action:pan-y}
+.v3lay[hidden]{display:none}
+.ly-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font:400 22px/1 var(--f-display)}
+.ly-h b{font-weight:400}
+.ly-pre{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.ly-pre .v3b{min-height:32px;padding:4px 9px;font-size:12px}
+.ly-row{display:flex;align-items:center;gap:6px;margin:3px 0}
+.ly-eye{flex:1;display:flex;align-items:center;gap:9px;min-height:40px;padding:4px 10px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.04);color:#93A0B3;font-weight:600;font-size:13.5px;text-align:left}
+.ly-row.on .ly-eye{background:rgba(79,195,203,.18);border-color:#4FC3CB;color:#E6EBF2}
+.ly-dot{width:12px;height:12px;border-radius:50%;flex:none;opacity:.45}
+.ly-row.on .ly-dot{opacity:1}
+.ly-op{width:50px;min-height:40px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.04);color:#C5CEDB;font-size:12px;font-weight:600}
+.ly-act{margin-top:8px}.ly-act .v3b{width:100%;border-radius:12px}
+.ly-note{margin:8px 2px 0;font-size:11px;color:#7F8DA1;line-height:1.35}
+.v3qz{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 56px);width:min(460px,calc(100% - 24px));background:rgba(18,25,34,.94);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 14px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:3}
+.v3qz[hidden]{display:none}
+.v3qz h3{font:400 22px/1.1 var(--f-display);margin:0 0 8px}
+.v3qz .eyebrow{margin:0 0 2px;color:#93A0B3}
+.v3opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.v3o{min-height:44px;padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.05);color:#E6EBF2;font-weight:600;font-size:13.5px;text-align:left}
+.v3o.ok{background:rgba(70,180,110,.28);border-color:#46b46e}
+.v3o.bad{background:rgba(220,80,70,.28);border-color:#dc5046}
+.v3why{margin:8px 0 0;font-size:13px;color:#C5CEDB}
+.v3qa{display:flex;gap:8px;margin-top:10px}
+.v3side{font-size:15px;color:#93A0B3}
+.v3sch{font-size:11.5px;color:#7F8DA1;margin:6px 0 0}
+@media(max-width:700px){.v3lay{width:min(260px,calc(100% - 24px))}.v3opts{grid-template-columns:1fr}}
 .bl{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .bl[hidden]{display:none}
 .bl-top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -499,6 +526,52 @@ body.bz-on .bz-fab{display:none}
 .bz-cv{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .bz-hint{position:absolute;left:50%;top:max(120px,18vh);transform:translateX(-50%);z-index:5;max-width:min(420px,90vw);background:#131B2B;color:#fff;border-radius:12px;padding:10px 14px;font:600 13.5px/1.4 system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s}
 .bz-hint.on{opacity:1}
+.bm-card{display:flex;gap:16px;align-items:center;text-align:left;width:100%;margin-bottom:12px;color:var(--ink);cursor:pointer}
+.bm-mini{flex:none;width:92px}
+.bm-mini .bm-fig{width:100%;height:auto;display:block;max-height:190px}
+.bm-ct{min-width:0}
+.bm-go{margin-top:4px;color:var(--accent)}
+.bm-fig{display:block;margin:0 auto;width:100%;height:auto;max-height:74vh;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.bm-fig .bm-r{cursor:pointer;--bmc:var(--bone);--bml:var(--bone-line)}
+.bm-fig .bm-r.g{--bmc:#34c07a;--bml:#17703f}
+.bm-fig .bm-r.a{--bmc:#f2b53a;--bml:#8a5d03}
+.bm-fig .bm-r.r{--bmc:#ee5a52;--bml:#962019}
+.bm-fig .bm-r.n{--bmc:color-mix(in srgb,var(--bone) 85%,transparent);--bml:var(--bone-line)}
+.bm-fig .s{--fill:var(--bmc)!important;--line:var(--bml)!important;cursor:pointer}
+.bm-fig .bm-r.tent .f{stroke-dasharray:3 2}
+.bm-fig .bm-hit{fill:transparent;stroke:none;pointer-events:all}
+.bm-fig .bm-ab{fill:var(--bmc);fill-opacity:.38;stroke:var(--bml);stroke-width:1.4;stroke-dasharray:4 3}
+.bm-fig .bm-r.n .bm-ab{fill-opacity:.12}
+.bm-fig .bm-r.sel .f,.bm-fig .bm-r.sel .i{filter:drop-shadow(0 0 3px #fff)}
+.bm-fig .bm-r.sel .bm-ab{stroke:#fff;stroke-width:2.2;stroke-dasharray:none}
+.bm-fig.mini{pointer-events:none}
+.bm-fig.mini .sil{opacity:.55}
+.bm-legend{display:flex;flex-wrap:wrap;gap:12px;margin:8px 2px 12px;font-size:12.5px;color:var(--muted)}
+.bm-legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+.bm-legend .g i,.bm-chip.g i,.bm-st.g i{background:#34c07a}
+.bm-legend .a i,.bm-chip.a i,.bm-st.a i{background:#f2b53a}
+.bm-legend .r i,.bm-chip.r i,.bm-st.r i{background:#ee5a52}
+.bm-legend .n i,.bm-chip.n i,.bm-st.n i{background:transparent;border:1.5px dashed var(--muted)}
+.bm-wrap{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.bm-wrap{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start}}
+.bm-figcard{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0) 60%),var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 6px}
+.bm-side{display:grid;gap:12px;min-width:0}
+.bm-det h2,.bm-det .bm-st{font:400 26px/1.1 var(--f-display);display:flex;align-items:center;gap:10px;margin:2px 0 4px}
+.bm-st i{width:14px;height:14px;border-radius:5px;display:inline-block;flex:none}
+.bm-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+.bm-nums div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center}
+.bm-nums b{display:block;font-size:20px}
+.bm-nums span{font-size:11px;color:var(--muted)}
+.bm-miss{margin:4px 0 10px;padding-left:18px;font-size:14px}
+.bm-miss li{margin:3px 0}
+.bm-chips{display:flex;flex-wrap:wrap;gap:8px}
+.bm-chip{display:flex;align-items:center;gap:8px;min-height:42px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-weight:600;font-size:13.5px}
+.bm-chip i{width:12px;height:12px;border-radius:4px;flex:none}
+.bm-chip.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.bm-due{background:var(--accent);color:var(--accent-ink);border-radius:999px;font-size:11px;padding:1px 7px}
+.bm-note{font-size:12.5px;margin:14px 2px 0}
+.bm-det .row-opts{margin:12px 0 2px}
+.bm-det .eyebrow{margin:14px 0 6px}
 /* ===== premium dark skin + home hub ===== */
 body{background:radial-gradient(900px 520px at 12% -8%,rgba(61,224,208,.11),transparent 62%),radial-gradient(800px 520px at 105% 4%,rgba(98,120,255,.12),transparent 58%),var(--bg);background-attachment:fixed;background-repeat:no-repeat}
 :root[data-theme="light"] body{background:var(--bg)}
@@ -639,6 +712,7 @@ h1,h2{letter-spacing:-.015em}
     <button class="v3b" data-v3="close">&larr; Back</button>
     <span class="v3title">3D skeleton</span>
     <span class="v3sp"></span>
+    <button class="v3b" id="v3laybtn" data-v3="laytoggle">Layers</button>
     <button class="v3b" data-v3="auto" aria-pressed="false">Auto-spin</button>
     <button class="v3b" data-v3="reset">Reset</button>
     <button class="v3b" data-v3="full">Full screen</button>
@@ -658,6 +732,8 @@ h1,h2{letter-spacing:-.015em}
     <button class="v3b sq" data-v3="out" aria-label="Zoom out">&minus;</button>
     <button class="v3b sq" data-v3="in" aria-label="Zoom in">+</button>
   </div>
+  <aside id="v3lay" class="v3lay" hidden></aside>
+  <div id="v3qz" class="v3qz" hidden></div>
   <div id="v3card" class="v3card" hidden></div>
   <p class="v3hint">Drag to rotate · pinch or scroll to zoom · two fingers to pan · tap a structure · double-tap to zoom onto it</p>
 </div>
@@ -1849,8 +1925,624 @@ var JOINTS3=[
   ['j-knee',22,134,0,9.5,1],['j-ankle',19.4,28,-2,7.5,1]
 ];
 
+/* ---------- 3D layers: shared geometry helpers (original, procedural, schematic) ---------- */
+var LX=[],LXB={};
+var LC={mu:[0xb8473c,.78],te:[0xd8cdb2,.7],ar:[0xd8263a,.55],ve:[0x3a63b5,.55],hrt:[0xa83a3f,.7],hrt2:[0x8f3f5e,.7],hrtb:[0x4a6fb5,.55],
+  lung:[0xe3a3a6,.85],bron:[0xdfe6ea,.7],liv:[0x8a3d2c,.8],gb:[0x5f8a3a,.6],sto:[0xe0a38c,.8],spl:[0x6b3a58,.8],pan:[0xe4c58b,.8],
+  kid:[0x92403a,.75],adr:[0xe2b650,.8],blad:[0xe6bb9c,.75],si:[0xe9a99d,.75],li:[0xcb966d,.8],oes:[0xcc8a82,.8],dia:[0xa85a4a,.8],
+  brn:[0xe8c8c3,.85],cord:[0xf2e8c4,.7],thy:[0xc9805f,.8],lar:[0xb8c6cd,.75]};
+LC.cbl=[0xd9aea6,.85];
+function lxNoise(x,y,z){return G3.noise(x,y,z)}
+var LXT=(function(){
+  var T=THREE,PI=Math.PI,V=G3.V;
+  var TY=[505,490,470,450,430,410,390,370,350,330,310,290,270,260];
+  var TA=[32,46,54,56,55,52,48,47,60,62,63,63,60,52];
+  var TF=[34,42,50,52,51,48,44,42,42,42,42,40,38,34];
+  var TB=[-42,-54,-58,-60,-60,-58,-54,-52,-50,-48,-50,-56,-58,-52];
+  function itp(arr,y){
+    if(y>=TY[0])return arr[0];if(y<=TY[TY.length-1])return arr[arr.length-1];
+    for(var i=0;i<TY.length-1;i++){if(y<=TY[i]&&y>=TY[i+1]){var u=(TY[i]-y)/(TY[i]-TY[i+1]);return arr[i]+(arr[i+1]-arr[i])*u}}
+    return arr[0];
+  }
+  function env(y){return [itp(TA,y),itp(TF,y),itp(TB,y)]}
+  function tsurf(y,phi,off){
+    var e=env(y),a=e[0]+off,zf=e[1]+off,zb=e[2]-off,c=Math.cos(phi),s=Math.sin(phi);
+    var sx=(s<0?-1:1)*Math.pow(Math.abs(s),.8),cz=(c<0?-1:1)*Math.pow(Math.abs(c),.8);
+    return [a*sx,y,cz*(c>=0?zf:-zb)];
+  }
+  function pushOut(p,off){
+    var e=env(p[1]),a=e[0]+off,z=p[2],b=z>=0?e[1]+off:-(e[2]-off);
+    if(a<=1||b<=1)return p;
+    var rho=Math.sqrt(Math.pow(p[0]/a,2)+Math.pow(z/b,2));
+    if(rho<1&&rho>0.001){return [p[0]/rho,p[1],z/rho]}
+    return p;
+  }
+  function grid(P){
+    var nu=P.length-1,nv=P[0].length-1,pos=[],idx=[],uv=[];
+    for(var i=0;i<=nu;i++)for(var j=0;j<=nv;j++){var p=P[i][j];pos.push(p[0],p[1],p[2]);uv.push(i/nu*6,j/nv*6)}
+    for(i=0;i<nu;i++)for(j=0;j<nv;j++){var a=i*(nv+1)+j,b=a+nv+1;idx.push(a,b,a+1,b,b+1,a+1)}
+    var g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();return g;
+  }
+  function bump(u,v,k){return Math.pow(Math.sin(PI*u),k||.6)*Math.pow(Math.sin(PI*v),k||.6)}
+  /* a patch that follows the torso envelope. rows=[[y,phi0,phi1],...] top to bottom */
+  function tpatch(rows,o){
+    o=o||{};var nr=o.nr||16,nc=o.nc||12,P=[];
+    var ys=rows.map(function(r){return r[0]}),p0=rows.map(function(r){return r[1]}),p1=rows.map(function(r){return r[2]});
+    function samp(arr,t){var f=t*(arr.length-1),i=Math.min(arr.length-2,Math.floor(f)),u=f-i;var m=u*u*(3-2*u);return arr[i]+(arr[i+1]-arr[i])*(o.lin?u:m)}
+    for(var i=0;i<=nr;i++){
+      var t=i/nr,y=samp(ys,t),a=samp(p0,t),b=samp(p1,t),row=[];
+      for(var j=0;j<=nc;j++){var u=j/nc,phi=a+(b-a)*u;row.push(tsurf(y,phi,(o.off||0)+(o.h||0)*bump(u,t,o.k)))}
+      P.push(row);
+    }
+    return grid(P);
+  }
+  function curve(pts){var vp=pts.map(function(p){return p.isVector3?p:V(p)});return vp.length===2?new T.LineCurve3(vp[0],vp[1]):new T.CatmullRomCurve3(vp,false,'centripetal')}
+  /* a fan of fibres from an origin line M to an insertion line A (both lists of points) */
+  function fan(M,A,o){
+    o=o||{};var nr=o.nr||16,nc=o.nc||10,cm=curve(M),P=[];
+    var ca=A.length>1?curve(A):null,a0=A[0];
+    for(var i=0;i<=nr;i++){
+      var t=i/nr,m=cm.getPointAt(t),a=ca?ca.getPointAt(t):V(a0),row=[];
+      for(var j=0;j<=nc;j++){
+        var u=j/nc,ue=o.ease?u*u*(3-2*u):u;
+        var p=[m.x+(a.x-m.x)*ue,m.y+(a.y-m.y)*ue,m.z+(a.z-m.z)*ue];
+        var bl=(o.h||0)*bump(u,t,o.k||.7);
+        if(bl){var rr=Math.sqrt(p[0]*p[0]+(p[2]-(o.zc||0))*(p[2]-(o.zc||0)))||1;p=[p[0]+(p[0]/rr)*bl*(o.nx===undefined?1:o.nx),p[1],p[2]+((p[2]-(o.zc||0))/rr)*bl]}
+        if(o.push!==undefined)p=pushOut(p,o.push);
+        row.push(p);
+      }
+      P.push(row);
+    }
+    return grid(P);
+  }
+  /* elliptical tube with a controllable orientation: width along tangent x hint */
+  function tube2(pts,prof,ew,eh,hint,o){
+    o=o||{};var cv=curve(pts),len=cv.getLength(),ns=Math.max(4,Math.ceil(len/(o.step||3))),nr=o.nr||10;
+    if(typeof prof==='number'){var rr=prof;prof=function(){return rr}}
+    var h0=hint?V(hint):new T.Vector3(0,0,1),pos=[],uv=[],idx=[];
+    for(var i=0;i<=ns;i++){
+      var t=i/ns,p=cv.getPointAt(t),tg=cv.getTangentAt(t),hh=typeof hint==='function'?V(hint(p,t)):h0;
+      var B=new T.Vector3().crossVectors(tg,hh);if(B.lengthSq()<1e-6)B.set(1,0,0);B.normalize();
+      var N=new T.Vector3().crossVectors(B,tg).normalize(),r=prof(t);
+      for(var j=0;j<=nr;j++){
+        var a=j/nr*PI*2,c=Math.cos(a)*ew*r,s=Math.sin(a)*eh*r;
+        pos.push(p.x+B.x*c+N.x*s,p.y+B.y*c+N.y*s,p.z+B.z*c+N.z*s);uv.push(j/nr*2,t*len/10);
+      }
+    }
+    for(i=0;i<ns;i++)for(var j2=0;j2<nr;j2++){var a1=i*(nr+1)+j2,b1=a1+nr+1;idx.push(a1,b1,a1+1,b1,b1+1,a1+1)}
+    [[0,-1,0],[1,1,ns]].forEach(function(e){
+      var t=e[0],sg=e[1],row=e[2],p=cv.getPointAt(t),tg=cv.getTangentAt(t),r=prof(t),ci=pos.length/3;
+      pos.push(p.x+tg.x*sg*r*.6,p.y+tg.y*sg*r*.6,p.z+tg.z*sg*r*.6);uv.push(0,0);
+      for(var j=0;j<nr;j++)idx.push(ci,row*(nr+1)+j,row*(nr+1)+j+1);
+    });
+    var g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();return g;
+  }
+  function bell(t,sk){return .2+.8*Math.pow(Math.sin(PI*Math.pow(t,sk||1)),.7)}
+  function mir(p,s){return [s*p[0],p[1],p[2]]}
+  return {env:env,tsurf:tsurf,pushOut:pushOut,grid:grid,tpatch:tpatch,fan:fan,tube2:tube2,curve:curve,bell:bell,mir:mir,bump:bump};
+})();
+
+/* ---------- 3D layers: muscles (schematic, original geometry) ---------- */
+function lxReg(base,sys,n,o){
+  o=o||{};
+  var sides=o.bi?[['l',1,'left'],['r',-1,'right']]:[['',1,'']];
+  return sides.map(function(sd){
+    var id=base+(sd[0]?'.'+sd[0]:'');
+    var e={id:id,base:base,sys:sys,n:n,side:sd[2],ml:o.ml||null,note:o.note||'',cl:o.cl||'',reg:o.reg||'',sg:sd[1]};
+    LX.push(e);LXB[id]=e;return e;
+  });
+}
+function lxSlug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function buildMuscles3D(add){
+  var X=LXT,PI=Math.PI;
+  function hm(s,h){return [s*h[0],h[1],h[2]]}
+  function mp(s,a){return a.map(function(p){return [s*p[0],p[1],p[2]]})}
+  /* a muscle belly with optional tendons at either end; returns [kind,geo] pairs */
+  function bel(pts,r,o){
+    o=o||{};var cv=X.curve(pts),t0=o.t0||0,t1=o.t1||0,out=[],i,bp=[],N=8;
+    for(i=0;i<=N;i++)bp.push(cv.getPointAt(t0+(1-t0-t1)*i/N).toArray());
+    var hint=o.hint||[0,0,1];
+    out.push(['mu',X.tube2(bp,function(t){return r*X.bell(t,o.sk)},o.ew||1,o.eh||.82,hint,{nr:10})]);
+    function tend(a,b,rev){
+      var tp=[];for(var k=0;k<=3;k++)tp.push(cv.getPointAt(a+(b-a)*k/3).toArray());
+      out.push(['te',X.tube2(tp,function(t){var u=rev?1-t:t;return (o.tr||1.1)*(1-.45*u)},o.tw||1.25,.55,hint,{nr:8})]);
+    }
+    if(t0>.01)tend(0,t0,false);
+    if(t1>.01)tend(1-t1,1,true);
+    return out;
+  }
+  function el(c,r,o){return G3.ellg(c,r,o||{amp:.06,w:18,h:12})}
+  var MU=[];
+  function M(name,bi,f,o){MU.push({n:name,bi:bi,f:f,o:o||{}})}
+
+  /* ---- head and neck ---- */
+  M('Masseter',1,function(s){return [['mu',el([s*26.5,552,6],[3.4,10,6.5],{amp:.05,rz:s*-.1})]]});
+  M('Temporalis',1,function(s){
+    var o=[['mu',el([s*27.4,584,2],[2.6,15,15],{amp:.04})]];
+    o.push(['te',X.tube2(mp(s,[[26,572,6],[24,566,9]]),1.4,1,.5,hm(s,[1,0,0]))]);return o;
+  });
+  M('Sternocleidomastoid',1,function(s){
+    return bel(mp(s,[[23,549,-8],[20,532,2],[14,514,14],[10,500,22],[5,490,27]]),3.7,{ew:1.1,eh:.8,hint:hm(s,[1,0,.4]),t0:.06,t1:.06,sk:1})
+      .concat(bel(mp(s,[[21,540,-2],[20,520,10],[18,508,18],[14,501,24]]),2.2,{ew:1.1,eh:.8,hint:hm(s,[1,0,.4]),t0:0,t1:.04}));
+  });
+  M('Scalenus anterior',1,function(s){return bel(mp(s,[[11,521,-8],[16,512,2],[22,503,10],[27,498,14]]),2.2,{hint:hm(s,[1,0,0]),t0:.05,t1:.08})});
+  M('Levator scapulae',1,function(s){return bel(mp(s,[[11,541,-14],[13,525,-28],[15,509,-36],[18,498,-40]]),2.6,{hint:hm(s,[0,0,1]),t0:.05,t1:.05})});
+
+  /* ---- back ---- */
+  M('Trapezius',1,function(s){
+    var Mo=mp(s,[[1,552,-45],[1,528,-53],[1,504,-58],[1,478,-61],[1,452,-62],[1,424,-62],[1,396,-60]]);
+    var Ao=mp(s,[[44,504,16],[54,506,0],[48,500,-18],[34,497,-36],[20,492,-44],[16,480,-46],[14,470,-46]]);
+    return [['mu',X.fan(Mo,Ao,{h:4.5,nr:22,nc:10,k:.5,zc:0,push:-4.5})]];
+  });
+  M('Latissimus dorsi',1,function(s){
+    var Mo=mp(s,[[2,440,-62],[2,420,-62],[3,402,-60],[4,384,-58],[9,368,-56],[22,354,-52],[40,354,-40]]);
+    var Ao=mp(s,[[62,466,-4],[62,464,-4],[61,463,-3],[60,462,-1],[60,461,0],[60,461,1],[60,461,2]]);
+    return [['mu',X.fan(Mo,Ao,{h:3,nr:22,nc:12,k:.5,zc:0,push:-3.5})]];
+  });
+  M('Rhomboid minor',1,function(s){
+    return [['mu',X.fan(mp(s,[[1,505,-60],[1,494,-62]]),mp(s,[[17,495,-44],[16,489,-44]]),{h:2.2,nr:6,nc:6,zc:0,push:-4})]];
+  });
+  M('Rhomboid major',1,function(s){
+    return [['mu',X.fan(mp(s,[[1,486,-62],[1,468,-62]]),mp(s,[[16,483,-44],[15,462,-44]]),{h:2.6,nr:8,nc:6,zc:0,push:-4})]];
+  });
+  M('Erector spinae',1,function(s){
+    var out=bel(mp(s,[[10,306,-46],[12,336,-52],[13,372,-58],[12,408,-62],[11,444,-63],[10,480,-62],[10,508,-58]]),5.4,{ew:1.6,eh:.9,hint:hm(s,[0,0,-1]),sk:1});
+    out=out.concat(bel(mp(s,[[22,330,-44],[26,360,-48],[30,392,-50],[34,424,-48],[36,452,-44],[34,476,-40]]),3.2,{ew:1.6,eh:.8,hint:hm(s,[0,0,-1])}));
+    return out;
+  });
+  M('Quadratus lumborum',1,function(s){return bel(mp(s,[[28,350,-42],[26,366,-46],[24,384,-48],[22,398,-48]]),3.6,{ew:1.7,eh:.6,hint:hm(s,[0,0,-1]),t0:.05,t1:.05})});
+
+  /* ---- chest and abdomen ---- */
+  M('Pectoralis major',1,function(s){
+    var Mo=mp(s,[[44,500,22],[30,502,26],[14,498,38],[7,486,44],[7,472,48],[8,458,50],[12,446,50]]);
+    var Ao=mp(s,[[64,472,12],[64,471,12],[64,470,12],[64,469,12],[64,468,12],[64,467,11],[64,466,11]]);
+    return [['mu',X.fan(Mo,Ao,{h:3.5,nr:22,nc:12,k:.5,zc:0,push:-5.5})]];
+  });
+  M('Pectoralis minor',1,function(s){
+    return [['mu',X.fan(mp(s,[[24,462,40],[28,452,38],[32,442,33]]),mp(s,[[47,485,17],[47,485,17],[47,485,17]]),{h:1.4,nr:8,nc:6,zc:0,push:-9})]];
+  });
+  M('Serratus anterior',1,function(s){
+    var rows=[[486,1.35,2.2],[472,1.15,2.3],[458,1.1,2.35],[444,1.1,1.95],[430,1.15,1.65]];
+    return [['mu',X.tpatch(rows.map(function(r){return [r[0],s*r[1],s*r[2]]}),{off:-7,h:2.4,nr:14,nc:10})]];
+  });
+  /* rectus abdominis in segments with tendinous intersections */
+  M('Rectus abdominis',1,function(s){
+    var segs=[[447,424],[424,400],[400,376],[376,268]],out=[];
+    segs.forEach(function(sg,k){
+      var y0=sg[0],y1=sg[1],n=7,pts=[];
+      for(var i=0;i<=n;i++){
+        var y=y0+(y1-y0)*i/n,e=X.env(y),w=k<3?15:(14-(y<330?.04*(330-y):0)),xc=k<3?11:10,ph=Math.asin(Math.min(.9,xc/e[0]));
+        var q=X.tsurf(y,s*ph,-5);pts.push(q);
+      }
+      var wd=k<3?9:7;
+      out.push(['mu',X.tube2(pts,function(t){return (.35+.65*Math.pow(Math.sin(PI*Math.min(1,Math.max(0,t))),.45))},wd,2.6,hm(s,[.4,0,1]),{nr:10,step:2.5})]);
+      if(k<3){var q1=X.tsurf(y1,s*Math.asin(Math.min(.9,11/X.env(y1)[0])),-3.2);
+        out.push(['te',X.tube2([[q1[0]-s*9,q1[1],q1[2]],[q1[0]+s*9,q1[1],q1[2]]],1,1.1,1,[0,0,1],{nr:6,step:3})])}
+    });
+    return out;
+  });
+  M('External oblique',1,function(s){
+    var rows=[[452,1.30,1.58],[436,.95,1.66],[418,.62,1.70],[400,.55,1.72],[382,.55,1.72],[366,.55,1.68],[352,.62,1.55],[338,.8,1.35],[322,.95,1.18],[304,.92,1.02]];
+    return [['mu',X.tpatch(rows.map(function(r){return [r[0],s*r[1],s*r[2]]}),{off:-4.4,h:1.8,nr:26,nc:12,k:.4})]];
+  });
+  M('Internal oblique',1,function(s){
+    var rows=[[430,.7,1.5],[414,.5,1.58],[398,.45,1.6],[382,.45,1.6],[366,.5,1.55],[352,.58,1.45],[338,.7,1.25],[322,.8,1.0]];
+    return [['mu',X.tpatch(rows.map(function(r){return [r[0],s*r[1],s*r[2]]}),{off:-7,h:1.6,nr:22,nc:12,k:.4})]];
+  });
+  M('Transversus abdominis',1,function(s){
+    var rows=[[428,.55,1.45],[412,.42,1.5],[396,.4,1.52],[380,.4,1.5],[364,.45,1.45],[350,.55,1.3],[336,.65,1.1]];
+    return [['mu',X.tpatch(rows.map(function(r){return [r[0],s*r[1],s*r[2]]}),{off:-9.5,h:1.4,nr:20,nc:12,k:.4})]];
+  });
+  M('Psoas major',1,function(s){return bel(mp(s,[[12,392,-6],[15,368,-1],[20,342,6],[28,316,16],[35,292,18],[39,272,6]]),5,{ew:1,eh:.95,hint:hm(s,[0,0,1]),t1:.14,sk:.85})});
+  M('Iliacus',1,function(s){return [['mu',X.fan(mp(s,[[52,350,-6],[57,336,-12],[53,318,-22]]),mp(s,[[41,274,6]]),{h:3,nr:12,nc:8,zc:0})]]});
+
+  /* ---- shoulder ---- */
+  M('Deltoid',1,function(s){
+    var out=[];
+    out=out.concat(bel(mp(s,[[42,502,22],[54,490,16],[64,470,10],[68,452,6]]),6.5,{ew:1.3,eh:.8,hint:hm(s,[1,0,.5]),t1:.1,sk:.8}));
+    out=out.concat(bel(mp(s,[[56,506,2],[66,494,0],[72,474,0],[71,454,2]]),9,{ew:1.3,eh:.85,hint:hm(s,[1,0,0]),t1:.1,sk:.8}));
+    out=out.concat(bel(mp(s,[[30,498,-38],[48,496,-26],[64,478,-8],[69,456,-2]]),6.8,{ew:1.3,eh:.8,hint:hm(s,[1,0,-.5]),t1:.1,sk:.8}));
+    return out;
+  });
+  M('Supraspinatus',1,function(s){return bel(mp(s,[[22,496,-40],[38,502,-38],[52,500,-20],[63,494,-4]]),4.8,{ew:1.3,eh:.8,hint:hm(s,[0,1,-.4]),t1:.2})});
+  M('Infraspinatus',1,function(s){return [['mu',X.fan(mp(s,[[19,486,-44],[19,470,-45],[21,455,-45],[28,446,-44]]),mp(s,[[63,486,-6]]),{h:2.4,nr:12,nc:8,zc:0})]]});
+  M('Teres minor',1,function(s){return bel(mp(s,[[42,458,-40],[52,470,-30],[62,484,-10]]),3.2,{hint:hm(s,[0,0,-1]),t1:.14})});
+  M('Teres major',1,function(s){return bel(mp(s,[[34,442,-40],[48,450,-28],[58,456,-14],[66,462,4]]),4.4,{hint:hm(s,[0,0,-1]),t1:.14})});
+  M('Subscapularis',1,function(s){return [['mu',X.fan(mp(s,[[21,490,-32],[19,470,-32],[21,452,-32],[31,441,-32]]),mp(s,[[61,484,10]]),{h:1.4,nr:12,nc:8,zc:0})]]});
+  M('Coracobrachialis',1,function(s){return bel(mp(s,[[47,486,17],[56,468,12],[64,448,8]]),2.6,{hint:hm(s,[0,0,1]),t0:.08,t1:.08})});
+
+  /* ---- arm ---- */
+  M('Biceps brachii',1,function(s){
+    var out=bel(mp(s,[[47,486,18],[58,470,15],[67,444,14],[73,414,12],[77,392,8],[82,378,5]]),5.6,{hint:hm(s,[1,0,.4]),t0:.08,t1:.2,sk:1.05});
+    out=out.concat(bel(mp(s,[[60,490,5],[63,472,12],[68,448,14],[73,420,12]]),4.2,{hint:hm(s,[1,0,.4]),t0:.1,t1:.05}));
+    return out;
+  });
+  M('Brachialis',1,function(s){return bel(mp(s,[[66,444,8],[72,420,10],[77,398,8],[80,384,4]]),4.6,{ew:1.3,eh:.7,hint:hm(s,[1,0,.4]),t1:.1})});
+  M('Triceps brachii',1,function(s){
+    var out=bel(mp(s,[[56,478,-8],[63,456,-14],[70,428,-15],[75,400,-12],[78,384,-9]]),6.3,{hint:hm(s,[1,0,-.5]),t0:.04,t1:.18,sk:.9});
+    out=out.concat(bel(mp(s,[[66,468,-4],[72,444,-12],[77,414,-12],[78,392,-10]]),4.8,{hint:hm(s,[1,0,-.5]),t0:.05,t1:.1}));
+    return out;
+  });
+
+  /* ---- forearm ---- */
+  M('Pronator teres',1,function(s){return bel(mp(s,[[69,386,2],[76,370,9],[84,346,11],[91,324,8]]),3.5,{hint:hm(s,[0,0,1]),t1:.12})});
+  M('Flexor carpi radialis',1,function(s){return bel(mp(s,[[71,382,3],[79,352,11],[87,322,11],[94,298,10],[99,284,10]]),3.2,{hint:hm(s,[0,0,1]),t1:.36,sk:.9})});
+  M('Palmaris longus',1,function(s){return bel(mp(s,[[72,382,3],[80,352,13],[90,322,13],[96,298,12],[100,270,11]]),2.1,{hint:hm(s,[0,0,1]),t1:.55,sk:.9})});
+  M('Flexor carpi ulnaris',1,function(s){return bel(mp(s,[[70,386,0],[74,360,3],[82,332,5],[90,306,7],[94,288,6]]),3.3,{hint:hm(s,[0,0,1]),t1:.3})});
+  M('Flexor digitorum superficialis',1,function(s){return bel(mp(s,[[73,380,2],[81,352,7],[89,322,8],[96,298,9],[103,268,9]]),4.1,{hint:hm(s,[0,0,1]),t1:.42,tw:1.35})});
+  M('Brachioradialis',1,function(s){return bel(mp(s,[[70,424,8],[76,398,12],[82,372,12],[91,336,8],[99,296,4]]),3.7,{hint:hm(s,[1,0,.4]),t1:.5,sk:.5})});
+  M('Extensor carpi radialis longus',1,function(s){return bel(mp(s,[[72,412,8],[80,384,9],[92,350,4],[101,318,2],[106,296,0]]),2.8,{hint:hm(s,[1,0,0]),t1:.42,sk:.7})});
+  M('Extensor carpi radialis brevis',1,function(s){return bel(mp(s,[[76,388,3],[88,360,0],[98,328,-2],[104,298,-2]]),2.8,{hint:hm(s,[1,0,-.2]),t1:.4,sk:.8})});
+  M('Extensor digitorum',1,function(s){return bel(mp(s,[[77,386,-3],[85,352,-6],[93,322,-8],[99,298,-7],[106,270,-6]]),3.4,{hint:hm(s,[0,0,-1]),t1:.42,tw:1.35})});
+  M('Extensor carpi ulnaris',1,function(s){return bel(mp(s,[[79,384,-5],[85,352,-8],[91,322,-9],[95,298,-8],[97,287,-6]]),2.4,{hint:hm(s,[0,0,-1]),t1:.34})});
+
+  /* ---- hip and thigh ---- */
+  M('Gluteus maximus',1,function(s){
+    var Mo=mp(s,[[4,316,-44],[9,302,-54],[16,288,-58],[20,272,-54],[16,256,-44]]);
+    var Ao=mp(s,[[52,270,-8],[52,268,-8],[51,266,-7],[50,264,-6],[48,262,-4]]);
+    return [['mu',X.fan(Mo,Ao,{h:5,nr:16,nc:12,k:.55,zc:0,push:-3})]];
+  });
+  M('Gluteus medius',1,function(s){
+    return [['mu',X.fan(mp(s,[[62,350,-12],[64,336,-26],[50,322,-36],[30,322,-40]]),mp(s,[[55,274,0]]),{h:3,nr:14,nc:10,zc:0,push:-2})]];
+  });
+  M('Gluteus minimus',1,function(s){return [['mu',X.fan(mp(s,[[53,330,-8],[55,316,-20],[45,306,-28]]),mp(s,[[55,278,6]]),{h:2,nr:10,nc:8,zc:0})]]});
+  M('Piriformis',1,function(s){return bel(mp(s,[[7,318,-30],[24,297,-30],[44,278,-16],[52,271,-4]]),3,{hint:hm(s,[0,1,0]),t1:.14})});
+  M('Tensor fasciae latae',1,function(s){
+    var out=bel(mp(s,[[51,338,27],[54,316,22],[56,296,14]]),3.2,{ew:1.2,eh:.8,hint:hm(s,[1,0,0]),t1:.1});
+    out.push(['te',X.tube2(mp(s,[[56,296,14],[54,250,6],[47,196,2],[38,150,2],[33,124,6]]),function(t){return 1.6-.4*t},3.2,.4,hm(s,[1,0,0]),{nr:8,step:4})]);
+    return out;
+  });
+  M('Pectineus',1,function(s){return bel(mp(s,[[22,268,32],[30,260,22],[38,252,10]]),4,{hint:hm(s,[0,0,1]),t0:.05,t1:.05})});
+  M('Adductor longus',1,function(s){return bel(mp(s,[[14,262,33],[23,238,22],[29,208,12],[31,190,6]]),4.3,{hint:hm(s,[0,0,1]),t0:.05,t1:.08})});
+  M('Adductor brevis',1,function(s){return bel(mp(s,[[18,258,28],[28,246,12],[38,236,2]]),3.3,{hint:hm(s,[0,0,1]),t0:.04,t1:.04})});
+  M('Adductor magnus',1,function(s){return [['mu',X.fan(mp(s,[[14,258,26],[22,256,6],[32,250,-14]]),mp(s,[[36,238,-4],[31,196,-6],[20,150,-2]]),{h:3,nr:12,nc:10,zc:0})]]});
+  M('Gracilis',1,function(s){return bel(mp(s,[[12,262,29],[11,232,14],[10,194,8],[12,152,0],[16,124,0]]),2.4,{ew:1.7,eh:.6,hint:hm(s,[0,0,1]),t0:.04,t1:.18,sk:.8})});
+  M('Sartorius',1,function(s){return bel(mp(s,[[50,337,28],[40,304,36],[30,258,28],[22,208,19],[14,164,8],[14,140,0],[17,118,2]]),2.9,{ew:1.6,eh:.55,hint:hm(s,[0,0,1]),t0:.02,t1:.05,sk:.9})});
+  M('Rectus femoris',1,function(s){return bel(mp(s,[[44,318,30],[38,290,33],[33,248,28],[28,200,22],[25,162,16],[23,148,12]]),5.6,{hint:hm(s,[0,0,1]),t0:.05,t1:.16,sk:.85})});
+  M('Vastus lateralis',1,function(s){return bel(mp(s,[[52,262,4],[49,232,12],[43,196,14],[35,166,14],[29,150,12]]),8,{ew:1,eh:.7,hint:hm(s,[1,0,.2]),t0:.04,t1:.1,sk:.85})});
+  M('Vastus medialis',1,function(s){return bel(mp(s,[[30,254,8],[26,226,13],[21,192,15],[18,166,13],[19,150,12]]),6.3,{ew:1,eh:.8,hint:hm(s,[1,0,.2]),t0:.04,t1:.06,sk:1.35})});
+  M('Vastus intermedius',1,function(s){return bel(mp(s,[[37,250,10],[32,210,11],[28,172,11],[26,152,10]]),5.2,{hint:hm(s,[0,0,1]),t0:.04,t1:.1})});
+  M('Biceps femoris',1,function(s){
+    var out=bel(mp(s,[[35,250,-15],[37,226,-20],[35,192,-19],[31,154,-14],[31,128,-6]]),6.3,{hint:hm(s,[1,0,-1]),t0:.03,t1:.12,sk:.9});
+    out=out.concat(bel(mp(s,[[35,202,-10],[33,170,-12],[31,140,-8]]),3.2,{hint:hm(s,[1,0,-1]),t1:.1}));
+    return out;
+  });
+  M('Semitendinosus',1,function(s){return bel(mp(s,[[30,250,-15],[25,222,-19],[21,184,-17],[18,152,-12],[16,126,-5],[17,114,0]]),4.8,{hint:hm(s,[0,0,-1]),t0:.03,t1:.3,sk:.7})});
+  M('Semimembranosus',1,function(s){return bel(mp(s,[[26,250,-15],[22,218,-17],[19,182,-14],[17,152,-8],[18,128,-6]]),5,{hint:hm(s,[0,0,-1]),t0:.15,t1:.12,sk:1.1})});
+
+  /* ---- leg ---- */
+  M('Tibialis anterior',1,function(s){return bel(mp(s,[[30,126,8],[27,98,13],[24,64,14],[22,34,13],[18,18,24],[14,10,32]]),4,{hint:hm(s,[0,0,1]),t1:.42,sk:.55})});
+  M('Extensor digitorum longus',1,function(s){return bel(mp(s,[[33,124,7],[31,94,11],[28,62,12],[25,34,13],[23,18,28],[22,10,48]]),3.3,{hint:hm(s,[0,0,1]),t1:.42,sk:.55})});
+  M('Fibularis longus',1,function(s){return bel(mp(s,[[35,122,0],[35,98,1],[34,68,0],[32,36,-5],[29,22,-3],[22,9,10],[14,8,28]]),3.5,{hint:hm(s,[1,0,0]),t1:.4,sk:.55})});
+  M('Fibularis brevis',1,function(s){return bel(mp(s,[[34,92,2],[33,62,0],[32,32,-5],[33,19,-3],[32,10,16],[30,7,34]]),2.6,{hint:hm(s,[1,0,0]),t1:.45,sk:.55})});
+  M('Gastrocnemius',1,function(s){
+    var out=bel(mp(s,[[24,136,-11],[22,112,-16],[20,86,-14],[19,62,-11]]),6.2,{hint:hm(s,[0,0,-1]),t0:.02,t1:.04,sk:.95});
+    out=out.concat(bel(mp(s,[[31,136,-11],[31,112,-16],[26,86,-14],[21,63,-11]]),5.6,{hint:hm(s,[0,0,-1]),t0:.02,t1:.04,sk:.95}));
+    out.push(['te',X.tube2(mp(s,[[20,64,-11],[19,38,-11],[18,16,-17],[18,8,-22]]),function(t){return 2.6-.7*t},1.6,.9,hm(s,[0,0,-1]),{nr:9,step:3})]);
+    return out;
+  });
+  M('Soleus',1,function(s){return bel(mp(s,[[31,108,-6],[26,84,-10],[22,58,-10],[20,38,-10]]),5.6,{ew:1.25,eh:.8,hint:hm(s,[0,0,-1]),t0:.02,t1:.1,sk:.85})});
+
+  MU.forEach(function(m){
+    var base='mu-'+lxSlug(m.n),ents=lxReg(base,'mu',m.n,{bi:m.bi,ml:m.n});
+    ents.forEach(function(e){m.f(e.sg).forEach(function(kg){add(e.id,'mu',kg[0],kg[1])})});
+  });
+}
+
+/* ---------- 3D layers: arteries and veins (schematic centre-lines) ---------- */
+function buildVessels3D(add){
+  var TU=G3.vtube;
+  function mp(s,a){return a.map(function(p){return [s*p[0],p[1],p[2]]})}
+  function tube(pts,r0,r1,kind,id,sys){add(id,sys,kind,TU(pts,function(t){return r0+(r1-r0)*t},{nr:8,step:3}))}
+  var D=[];
+  function A(base,n,bi,paths,r0,r1,note,cl,reg,kind,sys){D.push({base:base,n:n,bi:bi,paths:paths,r0:r0,r1:r1,note:note,cl:cl,reg:reg,kind:kind||'ar',sys:sys||'ar'})}
+  /* ----- arteries ----- */
+  A('ar-aorta','Aorta',0,function(){return [
+    [[0,466,9],[-1,478,10],[-1,488,8],[1,496,3],[5,498,-3],[9,492,-8],[9,480,-8],[9,466,-7]],
+    [[9,466,-7],[8,450,-7],[6,425,-6],[4,402,-3],[2,392,0],[2,372,3],[1,356,3]]]},4.3,3.0,
+    'Leaves the left ventricle. The ascending aorta gives the coronary arteries; the arch gives the brachiocephalic trunk, left common carotid and left subclavian; it then descends through the thorax and abdomen and bifurcates at L4.',
+    'the largest artery, leaving the left ventricle and bifurcating at L4','thorax');
+  A('ar-brachiocephalic','Brachiocephalic trunk',0,function(){return [[[-1,495,2],[-5,500,3],[-9,506,4],[-11,509,4]]]},2.4,2.2,
+    'The first branch of the aortic arch, on the right only. It divides behind the right sternoclavicular joint into the right common carotid and right subclavian arteries.',
+    'the first branch of the aortic arch, which divides into the right common carotid and right subclavian','thorax');
+  A('ar-ccarotid','Common carotid artery',1,function(s){
+    var st=s>0?[[3,497,1],[4,502,3],[6,510,4]]:[[-11,509,4],[-9,511,5],[-8,514,4]];
+    return [st.concat([[s*7.5,524,4],[s*8.5,529,4]])]},2.1,1.9,
+    'The left arises from the aortic arch and the right from the brachiocephalic trunk. Each divides at about the level of the upper border of the thyroid cartilage (C4) into the internal and external carotid arteries.',
+    'it divides at about C4 into the internal and external carotid arteries','neck');
+  A('ar-icarotid','Internal carotid artery',1,function(s){return [mp(s,[[8.5,529,4],[10,540,1],[12,550,-4],[14,555,-6],[10,558,0],[5,558,4]])]},1.8,1.1,
+    'Ascends in the neck without branching, enters the skull through the carotid canal and supplies the brain and the orbit.',
+    'it has no branches in the neck and enters the skull through the carotid canal','head');
+  A('ar-ecarotid','External carotid artery',1,function(s){return [mp(s,[[8.5,529,4],[13,538,9],[18,548,12],[23,558,12],[26,568,8]]),mp(s,[[18,548,12],[20,540,18],[17,534,24]])]},1.5,.9,
+    'Supplies the face, scalp, neck and jaw. Its terminal branches are the maxillary and superficial temporal arteries.',
+    'its terminal branches are the maxillary and superficial temporal arteries','neck');
+  A('ar-vertebral','Vertebral artery',1,function(s){return [mp(s,[[17,506,-3],[11,508,-14],[9,522,-18],[9,536,-17],[7,546,-14],[3,553,-9],[0,556,-6]])]},1.2,1.1,
+    'A branch of the subclavian artery. It ascends through the transverse foramina of C6 to C1 and enters the skull through the foramen magnum; the two vertebral arteries join to form the basilar artery.',
+    'it runs through the transverse foramina of C6 to C1 and joins its partner to form the basilar artery','neck');
+  A('ar-circlewillis','Circle of Willis (schematic)',0,function(){return [[[-4,556,-3],[4,556,-3],[6,557,4],[2,558,10],[-2,558,10],[-6,557,4],[-4,556,-3]],
+    [[2,558,10],[2,559,18],[2,562,26]],[[-2,558,10],[-2,559,18],[-2,562,26]],[[0,556,-6],[0,555,-3]]]},.8,.8,
+    'An anastomosis at the base of the brain that links the internal carotid and vertebrobasilar systems. Drawn schematically here.',
+    'an anastomotic ring at the base of the brain joining the carotid and vertebrobasilar supply','head');
+  A('ar-subclavian','Subclavian artery',1,function(s){
+    var st=s>0?[[6,494,-5],[16,502,0],[28,505,6],[38,503,8]]:[[-11,509,4],[-18,507,4],[-28,505,6],[-38,503,8]];
+    return [st]},2.1,2.0,
+    'Arises from the brachiocephalic trunk on the right and the aortic arch on the left. It becomes the axillary artery at the lateral border of the first rib.',
+    'it becomes the axillary artery at the lateral border of the first rib','neck');
+  A('ar-axillary','Axillary artery',1,function(s){return [mp(s,[[38,503,8],[48,494,8],[56,484,6],[61,477,3]])]},1.9,1.8,
+    'Runs from the lateral border of the first rib to the inferior border of teres major, where it becomes the brachial artery.',
+    'it runs from the first rib to the inferior border of teres major','shoulder');
+  A('ar-brachial','Brachial artery',1,function(s){return [mp(s,[[61,477,3],[66,458,2],[71,430,2],[75,404,3],[78,388,5],[80,380,6]])]},1.7,1.5,
+    'Runs down the medial side of the arm and divides into the radial and ulnar arteries in the cubital fossa. It is the usual artery for blood pressure measurement.',
+    'it divides into the radial and ulnar arteries in the cubital fossa','arm');
+  A('ar-radial','Radial artery',1,function(s){return [mp(s,[[80,380,7],[85,352,10],[91,320,10],[98,293,10],[103,274,10]])]},1.2,.9,
+    'Runs down the lateral forearm. Its pulse is felt at the wrist lateral to flexor carpi radialis. It forms the deep palmar arch.',
+    'its pulse is felt at the wrist lateral to flexor carpi radialis','forearm');
+  A('ar-ulnar','Ulnar artery',1,function(s){return [mp(s,[[80,380,5],[81,356,5],[87,328,6],[93,302,7],[97,288,8]]),mp(s,[[97,288,8],[102,272,10],[107,262,10],[112,258,9]])]},1.3,.9,
+    'Runs down the medial forearm, gives off the common interosseous artery, and mainly forms the superficial palmar arch.',
+    'it mainly forms the superficial palmar arch','forearm');
+  A('ar-commoniliac','Common iliac artery',1,function(s){return [mp(s,[[0,353,3],[8,344,1],[17,332,-4],[22,326,-6]])]},2.3,2.1,
+    'The aorta bifurcates at L4 into the two common iliac arteries. Each divides at the pelvic brim, in front of the sacroiliac joint, into the internal and external iliac arteries.',
+    'it divides at the pelvic brim into the internal and external iliac arteries','pelvis');
+  A('ar-internaliliac','Internal iliac artery',1,function(s){return [mp(s,[[22,326,-6],[22,316,-14],[21,304,-22],[20,294,-26]]),mp(s,[[22,316,-14],[16,306,-8],[10,296,2]])]},1.5,.9,
+    'Supplies the pelvic organs, the gluteal region and the perineum.',
+    'it supplies the pelvic organs, the buttock and the perineum','pelvis');
+  A('ar-externaliliac','External iliac artery',1,function(s){return [mp(s,[[22,326,-6],[28,318,8],[33,306,22],[33,299,30]])]},1.9,1.7,
+    'Runs along the pelvic brim and becomes the femoral artery as it passes under the inguinal ligament.',
+    'it becomes the femoral artery under the inguinal ligament','pelvis');
+  A('ar-femoral','Femoral artery',1,function(s){return [mp(s,[[33,299,30],[31,270,28],[28,238,22],[26,208,16],[24,192,10]])]},1.8,1.5,
+    'Enters the thigh at the midpoint of the inguinal ligament, passes through the adductor hiatus and becomes the popliteal artery. The profunda femoris is its main branch.',
+    'it enters the thigh at the mid-inguinal point and passes through the adductor hiatus','thigh');
+  A('ar-profunda','Profunda femoris',1,function(s){return [mp(s,[[32,288,28],[37,268,18],[41,242,6],[40,214,-6],[37,190,-10]])]},1.4,.9,
+    'The main supply to the thigh muscles. It arises laterally from the femoral artery just below the inguinal ligament.',
+    'it is the main supply to the thigh muscles and arises just below the inguinal ligament','thigh');
+  A('ar-popliteal','Popliteal artery',1,function(s){return [mp(s,[[24,192,10],[22,170,-2],[21,148,-11],[21,132,-14],[21,122,-13]])]},1.5,1.4,
+    'The continuation of the femoral artery behind the knee. It divides into the anterior and posterior tibial arteries at the lower border of popliteus.',
+    'it runs behind the knee and divides into the anterior and posterior tibial arteries','leg');
+  A('ar-atibial','Anterior tibial artery',1,function(s){return [mp(s,[[21,122,-13],[24,110,-4],[28,98,6],[26,64,10],[23,38,11],[21,24,13],[21,18,24],[20,14,40],[18,13,55]])]},1.2,.7,
+    'Passes through the interosseous membrane into the anterior compartment and continues onto the dorsum of the foot as the dorsalis pedis artery.',
+    'it continues onto the dorsum of the foot as the dorsalis pedis artery','leg');
+  A('ar-ptibial','Posterior tibial artery',1,function(s){return [mp(s,[[21,122,-13],[19,100,-12],[16,70,-10],[14,40,-10],[14,24,-8],[16,12,2],[18,8,18]])]},1.3,.9,
+    'Runs in the posterior compartment and passes behind the medial malleolus, where its pulse can be felt, before dividing into the medial and lateral plantar arteries.',
+    'its pulse is felt behind the medial malleolus','leg');
+  A('ar-coeliac','Coeliac trunk',0,function(){return [[[2,392,1],[2,390,8],[2,388,14]],[[2,388,14],[10,387,10],[22,391,2],[34,400,-8],[38,404,-11]],[[2,388,14],[-6,387,14],[-14,391,14],[-20,396,14]],[[2,392,6],[7,402,8],[10,407,7]]]},1.5,1.0,
+    'Arises from the aorta at T12 and divides into the left gastric, splenic and common hepatic arteries. It supplies the foregut.',
+    'it arises at T12 and divides into the left gastric, splenic and common hepatic arteries','abdomen');
+  A('ar-sma','Superior mesenteric artery',0,function(){return [[[2,382,2],[3,376,8],[4,366,14],[6,350,18],[10,334,15]],[[4,366,14],[14,360,12],[24,352,10]],[[5,356,17],[14,344,14],[22,336,12]],[[6,346,18],[-4,338,16],[-16,330,12],[-24,324,10]]]},1.5,.8,
+    'Arises from the aorta at L1 and supplies the midgut: from the duodenum to the proximal two thirds of the transverse colon.',
+    'it arises at L1 and supplies the midgut','abdomen');
+  A('ar-ima','Inferior mesenteric artery',0,function(){return [[[1,362,3],[7,352,6],[14,338,3],[17,322,-4],[16,314,-8]],[[10,346,5],[22,344,2],[32,340,0]]]},1.1,.7,
+    'Arises from the aorta at L3 and supplies the hindgut: the distal third of the transverse colon down to the upper rectum.',
+    'it arises at L3 and supplies the hindgut','abdomen');
+  A('ar-renal','Renal artery',1,function(s){var o=s>0?0:-3;return [mp(s,[[1,373,2],[10,374+o,-6],[18,374+o,-12],[22,372+o,-16]])]},1.4,1.1,
+    'Arises from the aorta at about L1 to L2, just below the superior mesenteric artery. The right is longer because the aorta lies to the left of the midline.',
+    'it arises just below the superior mesenteric artery and the right is the longer one','abdomen');
+  A('ar-lad','Left anterior descending artery',0,function(){return [[[3,472,15],[8,466,22],[14,456,24],[19,447,22]]]},1.0,.7,
+    'A branch of the left coronary artery running in the anterior interventricular groove. It supplies the anterior left ventricle and most of the interventricular septum.',
+    'it runs in the anterior interventricular groove','thorax');
+  A('ar-rca','Right coronary artery',0,function(){return [[[-3,471,12],[-9,468,16],[-15,462,15],[-15,452,11],[-8,445,15],[-1,445,20]]]},1.0,.8,
+    'Arises from the right aortic sinus and runs in the right atrioventricular groove. It usually supplies the right atrium, right ventricle, and the SA and AV nodes.',
+    'it arises from the right aortic sinus and runs in the right atrioventricular groove','thorax');
+  A('ar-circumflex','Circumflex artery',0,function(){return [[[4,470,9],[10,470,4],[16,463,-1],[20,453,0],[19,446,6]]]},.9,.7,
+    'A branch of the left coronary artery running in the left atrioventricular groove. It supplies the left atrium and the lateral and posterior left ventricle.',
+    'it runs in the left atrioventricular groove','thorax');
+  /* ----- veins ----- */
+  A('ve-svc','Superior vena cava',0,function(){return [[[-7,500,6],[-7,488,8],[-7,474,9],[-8,462,10]]]},3.3,3.4,
+    'Formed behind the first right costal cartilage by the union of the two brachiocephalic veins. It drains the head, neck, upper limbs and thoracic wall into the right atrium.',
+    'it is formed by the two brachiocephalic veins and drains into the right atrium','thorax','ve','ve');
+  A('ve-brachioceph','Brachiocephalic vein',1,function(s){return [s>0?[[24,504,9],[14,503,10],[4,501,9],[-6,500,6]]:[[-24,504,9],[-15,503,8],[-7,500,6]]]},2.2,2.4,
+    'Formed by the union of the internal jugular and subclavian veins. The left is longer and crosses in front of the branches of the aortic arch to join the right and form the superior vena cava.',
+    'it is formed by the internal jugular and subclavian veins and the left one is longer','thorax','ve','ve');
+  A('ve-ijv','Internal jugular vein',1,function(s){return [mp(s,[[11,553,-4],[13,538,0],[14,522,3],[16,508,7],[20,504,9]])]},2.2,2.6,
+    'Drains the brain and neck. It runs in the carotid sheath lateral to the carotid arteries and joins the subclavian vein to form the brachiocephalic vein.',
+    'it runs in the carotid sheath and drains the brain and neck','neck','ve','ve');
+  A('ve-axillary','Axillary and brachial veins',1,function(s){return [mp(s,[[38,501,10],[48,492,10],[57,482,8],[63,472,5],[68,450,4],[73,420,4],[78,394,7],[81,382,8]])]},1.7,1.2,
+    'The brachial veins (usually paired) accompany the brachial artery and unite to form the axillary vein, which becomes the subclavian vein at the lateral border of the first rib.',
+    'the paired vessels that accompany the brachial artery','arm','ve','ve');
+  A('ve-ivc','Inferior vena cava',0,function(){return [[[-6,442,10],[-8,430,2],[-8,414,0],[-7,396,1],[-6,376,4],[-3,358,5],[0,347,6]]]},3.6,3.9,
+    'Formed by the union of the common iliac veins at L5. It ascends on the right of the aorta, passes through the diaphragm at T8 and enters the right atrium.',
+    'it is formed at L5 and passes through the diaphragm at T8','abdomen','ve','ve');
+  A('ve-commoniliac','Common iliac vein',1,function(s){return [mp(s,[[0,347,6],[8,340,3],[17,331,-2],[22,326,-4]])]},2.6,2.4,
+    'The external and internal iliac veins unite to form the common iliac vein. The two common iliac veins join at L5 to form the inferior vena cava.',
+    'two of these join at L5 to form the inferior vena cava','pelvis','ve','ve');
+  A('ve-femoral','Femoral vein',1,function(s){return [mp(s,[[22,326,-4],[28,316,8],[31,304,20],[30,290,28],[28,262,24],[25,230,18],[22,196,12],[21,182,6]])]},2.4,1.9,
+    'Lies medial to the femoral artery in the femoral triangle (from lateral to medial: nerve, artery, vein). It is the continuation of the popliteal vein.',
+    'it lies medial to the femoral artery in the femoral triangle','thigh','ve','ve');
+  A('ve-portal','Hepatic portal vein',0,function(){return [[[-1,380,10],[-6,388,12],[-12,396,14],[-16,402,14]]]},2.3,2.5,
+    'Formed behind the neck of the pancreas by the superior mesenteric and splenic veins. It carries blood from the gut to the liver.',
+    'it carries blood from the gut to the liver','abdomen','ve','ve');
+  /* pulmonary circulation (heart and great vessels) */
+  A('hv-pulmtrunk','Pulmonary trunk',0,function(){return [[[-1,466,22],[1,474,18],[4,482,12],[7,486,6]]]},3.2,3.0,
+    'Carries deoxygenated blood from the right ventricle. It divides under the aortic arch into the right and left pulmonary arteries.',
+    'it carries deoxygenated blood from the right ventricle and divides into two','thorax','hrtb','hrt');
+  A('hv-pulmartery','Pulmonary artery',1,function(s){return [s>0?[[7,486,6],[16,483,0],[24,479,-4],[30,476,-4]]:[[7,486,6],[-2,484,0],[-14,481,-3],[-26,478,-4],[-31,476,-4]]]},2.5,2.0,
+    'The right and left pulmonary arteries carry deoxygenated blood from the pulmonary trunk to the lungs.',
+    'it carries deoxygenated blood to a lung','thorax','hrtb','hrt');
+  A('hv-pulmvein','Pulmonary veins',1,function(s){return [mp(s,[[30,474,-6],[22,472,-4],[12,471,0],[7,470,2]]),mp(s,[[30,462,-6],[22,466,-4],[12,468,0],[7,469,2]])]},1.6,1.9,
+    'Four pulmonary veins (two from each lung) carry oxygenated blood to the left atrium. They are the only veins that carry oxygenated blood.',
+    'it carries oxygenated blood from a lung to the left atrium','thorax','ar','hrt');
+
+  D.forEach(function(d){
+    var ents=lxReg(d.base,d.sys,d.n,{bi:d.bi,note:d.note,cl:d.cl,reg:d.reg});
+    ents.forEach(function(e){d.paths(e.sg).forEach(function(p,i){tube(p,i?d.r1:d.r0,i?d.r1*.6:d.r1,d.kind,e.id,d.sys)})});
+  });
+}
+
+/* ---------- 3D layers: organ systems (schematic shapes) ---------- */
+function buildOrgans3D(add){
+  var X=LXT,E=function(c,r,o){return G3.ellg(c,r,o||{amp:.05,w:22,h:16})},TU=G3.vtube,PI=Math.PI;
+  function mp(s,a){return a.map(function(p){return [s*p[0],p[1],p[2]]})}
+  function tube(pts,prof,nr,step){return TU(pts,prof,{nr:nr||9,step:step||3})}
+  function rippled(r,amp,n){return function(t){return r*(1+amp*Math.cos(t*n*PI*2))}}
+  function org(base,sys,n,note,cl,reg,bi,parts,extra){
+    var ents=lxReg(base,sys,n,{bi:bi,note:note,cl:cl,reg:reg});
+    ents.forEach(function(e){parts(e.sg).forEach(function(kg){add(e.id,sys,kg[0],kg[1])})});
+    return ents;
+  }
+  /* ===== heart ===== */
+  org('hrt-heart','hrt','Heart','Lies in the middle mediastinum behind the body of the sternum, with its apex pointing down and to the left at about the fifth intercostal space in the midclavicular line. Four chambers: right atrium, right ventricle, left atrium and left ventricle.',
+    'a four-chambered organ behind the sternum with its apex in the left fifth intercostal space','thorax',0,function(){return [
+    ['hrt',E([10,458,11],[12.5,19,10],{rz:.55,amp:.03,w:26,h:18})],
+    ['hrt2',E([-3,461,19],[10.5,15.5,7.5],{rz:.3,amp:.03,w:24,h:16})],
+    ['hrt2',E([-11.5,465,9],[7,11,7],{amp:.04})],
+    ['hrt',E([5,471,2.5],[10,6,5],{amp:.04})],
+    ['hrt2',E([-6,476,18],[3.5,5,3.2],{amp:.05,rz:.6})],
+    ['hrt',E([11,476,14],[3.8,4.6,3],{amp:.05,rz:-.6})]]});
+  /* ===== lungs and airway ===== */
+  var LUNG=function(s){
+    if(s<0)return [['lung',E([-27,477,-1],[14.5,29,23],{amp:.045,w:28,h:20,rz:.06})],['lung',E([-31,449,13],[11.5,11,11],{amp:.045,w:22,h:14})],['lung',E([-28,446,-11],[16,23,19],{amp:.045,w:26,h:18})]];
+    return [['lung',E([28,477,-1],[12.5,30,23],{amp:.045,w:28,h:20,rz:-.06})],['lung',E([33,449,11],[9.5,11,10],{amp:.045,w:22,h:14})],['lung',E([28,446,-11],[14,23,19],{amp:.045,w:26,h:18})]];
+  };
+  org('rsp-lung','resp','Lung','The right lung has three lobes (upper, middle and lower) separated by the oblique and horizontal fissures. The left lung has two lobes (upper and lower) separated by the oblique fissure, with a cardiac notch and the lingula. Each lung has an apex above the first rib and a base on the diaphragm.',
+    'the right one has three lobes and the left has two with a cardiac notch','thorax',1,function(s){return LUNG(s)});
+  /* airway: larynx, trachea with cartilage rings, main bronchi and a branching bronchial tree */
+  org('rsp-larynx','resp','Larynx (schematic)','Sits at about C3 to C6 and houses the vocal cords. Its cartilages include the thyroid, cricoid and epiglottis, and it is suspended from the hyoid bone.',
+    'the voice box, with thyroid and cricoid cartilages, suspended from the hyoid','neck',0,function(){return [
+    ['lar',E([0,523,6],[5.6,4.8,4.6],{amp:.03,w:20,h:14})],['lar',E([0,516,4.5],[4.2,2.4,3.8],{amp:.03})]]});
+  org('rsp-trachea','resp','Trachea','Begins at the lower border of the cricoid cartilage (C6) and ends at the carina, at about the level of the sternal angle (T4 to T5), where it divides into the right and left main bronchi. It is held open by C-shaped rings of hyaline cartilage.',
+    'a tube held open by C-shaped cartilage rings that divides at the carina','neck',0,function(){return [
+    ['bron',tube([[0,511,3],[0,500,2],[0,490,1],[0,479,-1]],rippled(3.4,.1,13),12,1.4)]]});
+  /* bronchial tree */
+  function branchTree(start,dir,len,r,depth,seed,out){
+    var end=[start[0]+dir[0]*len,start[1]+dir[1]*len,start[2]+dir[2]*len];
+    out.push(tube([start,end],function(t){return r*(1-.18*t)},7,len));
+    if(depth<=0)return;
+    for(var k=0;k<2;k++){
+      var a=(k?1:-1)*(0.45+0.3*G3.noise(seed*3.1+k,depth*1.7,1)),b=(G3.noise(seed*1.3,depth*2.9+k,7)-.5)*1.4;
+      var nx=dir[0]*Math.cos(a)-dir[2]*Math.sin(a),nz=dir[0]*Math.sin(a)+dir[2]*Math.cos(a),ny=dir[1]+b*.4;
+      var m=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
+      branchTree(end,[nx/m,ny/m,nz/m],len*.74,r*.74,depth-1,seed*2.3+k*5.7+depth,out);
+    }
+  }
+  org('rsp-bronchi','resp','Bronchial tree','The trachea divides into the right and left main bronchi, which divide into lobar (secondary) bronchi (three on the right, two on the left) and then segmental bronchi. The right main bronchus is wider, shorter and more vertical, so inhaled foreign bodies lodge there more often. Branching pattern drawn schematically.',
+    'the right main bronchus is wider, shorter and more vertical than the left','thorax',0,function(){
+      var out=[],o=[];
+      o.push(['bron',tube([[0,479,-1],[-5,476,-3],[-11,472,-5],[-15,468,-6]],function(t){return 2.5-.4*t},9,2)]);
+      o.push(['bron',tube([[0,479,-1],[6,476,-3],[13,471,-5],[21,466,-6]],function(t){return 2.2-.4*t},9,2)]);
+      var R=[[[-15,468,-6],[-.5,.75,-.3],9,1.8],[[-15,468,-6],[-.8,-.1,.5],8,1.5],[[-15,468,-6],[-.35,-.7,-.4],12,1.7]],
+          L=[[[21,466,-6],[.55,.8,-.2],10,1.6],[[21,466,-6],[.4,-.65,-.45],14,1.6]];
+      R.concat(L).forEach(function(b,i){branchTree(b[0],b[1],b[2],b[3],3,i+1,out)});
+      out.forEach(function(g){o.push(['bron',g])});
+      return o;
+    });
+  /* ===== diaphragm (listed as a muscle) ===== */
+  (function(){
+    var ents=lxReg('mu-diaphragm','mu','Diaphragm',{ml:'Diaphragm'});
+    var nr=18,nc=28,P=[];
+    for(var i=0;i<=nr;i++){
+      var rho=i/nr,row=[];
+      for(var j=0;j<=nc;j++){
+        var th=j/nc*PI*2,c=Math.cos(th),s=Math.sin(th);
+        var zf=c>=0?c*37:c*34,x=s*46*rho,z=zf*rho+(c>=0?0:0)-2*0;
+        // edge height falls from the xiphoid (front) to the back; domes rise inside
+        var ye=398+(c>0?(c*40):(c*-10))*Math.max(0,1)-(c<0?Math.abs(c)*8:0);
+        var dome=Math.pow(Math.max(0,1-rho*rho),.75);
+        var peak=(x<0?446:438)-(Math.abs(x)<7?3:0);
+        var y=ye+(peak-ye)*dome;
+        row.push([x,y,z-2]);
+      }
+      P.push(row);
+    }
+    var g=X.grid(P),g2=X.grid(P.map(function(r){return r.map(function(p){return [p[0],p[1]-1.6,p[2]]})}));
+    ents.forEach(function(e){add(e.id,'mu','dia',g);add(e.id,'mu','dia',g2)});
+    // central tendon
+    var P2=[];for(i=0;i<=8;i++){var rr=i/8*.42,row2=[];for(var j2=0;j2<=nc;j2++){var th2=j2/nc*PI*2,c2=Math.cos(th2),s2=Math.sin(th2),x2=s2*46*rr*1.1,z2=(c2>=0?c2*37:c2*34)*rr*.9+4;
+      var dm=Math.pow(Math.max(0,1-(rr/ .95)*(rr/.95)),.75);var pk=(x2<0?446:438);var ye2=398+(c2>0?c2*40:0)*0;row2.push([x2,ye2+(pk-ye2)*Math.pow(Math.max(0,1-Math.pow(rr/ .95,2)),.75)+.9,z2-2])}P2.push(row2)}
+    ents.forEach(function(e){add(e.id,'mu','te',X.grid(P2))});
+  })();
+  /* ===== digestive ===== */
+  org('dig-oesophagus','dig','Oesophagus','A muscular tube about 25 cm long that runs from the pharynx (C6) behind the trachea and heart, passes through the diaphragm at T10 and joins the stomach at the cardia. The upper third is skeletal muscle, the lower third smooth muscle.',
+    'a muscular tube that passes through the diaphragm at T10','thorax',0,function(){return [
+    ['oes',tube([[0,516,-4],[0,500,-7],[0,485,-8],[1,470,-8],[3,455,-7],[5,438,-3],[8,420,2],[11,409,6]],function(t){return 2.8+.4*Math.sin(t*PI)},10,2.5)]]});
+  org('dig-stomach','dig','Stomach','Lies in the left upper quadrant. Its parts are the cardia, fundus, body and pylorus, with the lesser and greater curvatures. Rugae line the mucosa. The pylorus lies near the transpyloric plane (L1).',
+    'a J-shaped organ with a fundus, body and pylorus, and greater and lesser curvatures','abdomen',0,function(){return [
+    ['sto',tube([[11,409,6],[18,424,4],[28,418,3],[31,402,9],[27,386,19],[15,373,23],[3,372,21],[-6,380,17],[-9,384,15]],function(t){return t<.5?10.5+3*Math.sin(t*PI*1.1):10.5*(1-.55*(t-.5)*2)+2.2},16,2.5)],
+    ['sto',E([24,426,3],[10,7,8],{amp:.04})]]});
+  org('dig-duodenum','dig','Duodenum','The first and shortest part of the small intestine (about 25 cm). It forms a C-shaped loop around the head of the pancreas and receives bile and pancreatic juice at the major duodenal papilla.',
+    'a C-shaped loop around the head of the pancreas','abdomen',0,function(){return [
+    ['si',tube([[-9,384,15],[-16,384,9],[-21,376,3],[-20,364,0],[-13,356,0],[-4,354,2],[5,358,1],[6,370,0]],function(t){return 3.6},9,2.5)]]});
+  org('dig-liver','dig','Liver','The largest solid organ, in the right hypochondrium under the diaphragm. It has right and left lobes, with the caudate and quadrate lobes on its visceral surface. It receives blood from the hepatic artery and portal vein.',
+    'the largest solid organ, in the right hypochondrium','abdomen',0,function(){return [
+    ['liv',E([-24,418,8],[24,21,21],{amp:.035,w:30,h:22,rz:.1})],
+    ['liv',E([-1,413,16],[15,9.5,13],{amp:.035,w:22,h:16,rz:-.25})],
+    ['liv',E([-9,414,-7],[5,7,4],{amp:.03})]]});
+  org('dig-gallbladder','dig','Gallbladder','Stores and concentrates bile on the underside of the liver. Its fundus projects at the tip of the right ninth costal cartilage. The cystic duct joins the common hepatic duct to form the common bile duct.',
+    'it stores bile and its fundus lies at the tip of the right ninth costal cartilage','abdomen',0,function(){return [
+    ['gb',E([-25,393,21],[3.6,8,3.6],{amp:.03,rz:.15})],
+    ['gb',tube([[-22,398,18],[-15,399,15],[-10,396,13],[-9,388,12],[-10,380,8],[-12,372,5]],function(){return .9},7,2)]]});
+  org('dig-spleen','dig','Spleen','Lies in the left upper quadrant behind the stomach, under ribs 9 to 11. It is the largest lymphoid organ and filters blood. A palpable spleen is enlarged.',
+    'it lies under ribs 9 to 11 and filters blood','abdomen',0,function(){return [
+    ['spl',E([39,405,-13],[6,13,9],{amp:.04,rz:.35,rx:.1})]]});
+  org('dig-pancreas','dig','Pancreas','Lies retroperitoneally across L1 to L2 behind the stomach. It has a head (in the duodenal C-loop), neck, body and tail that reaches the splenic hilum. It has exocrine (digestive enzyme) and endocrine (islets of Langerhans) functions.',
+    'a retroperitoneal gland with head, neck, body and tail, with exocrine and endocrine parts','abdomen',0,function(){return [
+    ['pan',E([-13,372,4],[7,8.5,5.5],{amp:.05})],
+    ['pan',tube([[-8,378,6],[-1,382,8],[10,385,4],[22,390,-1],[33,398,-8],[38,404,-11]],function(t){return 4.6-1.5*t},10,2.5)]]});
+  /* small intestine: a folded tube that fills the central abdomen */
+  org('dig-smallint','dig','Jejunum and ileum','Together about 3 to 5 m long in life. The jejunum (upper left) has prominent circular folds and the ileum (lower right) has Peyer patches; both are suspended on the mesentery and absorb most nutrients. Coiling is schematic.',
+    'the coiled part of the small intestine suspended on the mesentery','abdomen',0,function(){
+      var pts=[[5,356,0]],rows=9,y0=350,dy=5.2,i,k;
+      for(i=0;i<rows;i++){
+        var y=y0-i*dy,dir=i%2?1:-1,xs=[-26,-12,2,16,28];if(dir<0)xs=xs.slice().reverse();
+        xs.forEach(function(x,kk){var z=11+5*Math.sin(kk*1.7+i)+ (G3.noise(i,kk,3)-.5)*4;pts.push([x*(i<3?.9:1),y+2.2*Math.sin(kk*1.3+i*.7),z])});
+      }
+      pts.push([-22,318,9],[-25,322,10]);
+      return [['si',tube(pts,function(t){return 2.7},9,2.2)]];
+    });
+  org('dig-largeint','dig','Large intestine','Caecum, ascending, transverse, descending and sigmoid colon, then rectum and anal canal. The colon has taeniae coli, haustra and appendices epiploicae; the ascending and descending parts are retroperitoneal.',
+    'it has taeniae coli, haustra and appendices epiploicae','abdomen',0,function(){return [
+    ['li',E([-30,316,8],[7,8,7],{amp:.04})],
+    ['li',tube([[-30,322,6],[-33,340,4],[-34,356,0],[-31,368,0],[-33,372,2]],rippled(5,.1,9),11,2)],
+    ['li',tube([[-33,372,2],[-26,364,14],[-12,356,22],[4,354,24],[18,362,18],[30,380,6],[36,388,-4]],rippled(4.6,.1,13),11,2)],
+    ['li',tube([[36,388,-4],[36,376,-6],[35,356,-4],[34,338,2],[33,324,8],[28,312,14],[16,306,14],[6,304,4],[2,310,-8],[1,318,-14]],rippled(4.2,.08,16),11,2)],
+    ['li',tube([[1,318,-14],[0,302,-24],[0,286,-29],[0,274,-27],[0,262,-24]],function(t){return 3.8+1.2*Math.sin(t*PI*.8)},10,2.5)],
+    ['li',tube([[-30,308,8],[-26,300,12],[-22,296,8]],function(t){return .9},6,2)]]});
+  /* ===== urinary ===== */
+  org('uri-kidney','uri','Kidney','Retroperitoneal, either side of the vertebral column from about T12 to L3, with the right usually slightly lower because of the liver. Each has a cortex, medulla and renal pelvis, and the hilum transmits the renal vessels and ureter.',
+    'a retroperitoneal organ with a cortex, medulla and renal pelvis','abdomen',1,function(s){
+      var x=s>0?26:-26,y=s>0?377:371;
+      return [['kid',E([x,y,-21],[8,18.5,10.5],{amp:.025,w:26,h:18,rz:s*.16})],
+              ['kid',tube([[s*18,y-1,-19],[s*15,y-6,-17],[s*15,y-12,-15]],function(t){return 2.4-1*t},8,2)]];
+    });
+  org('uri-adrenal','end','Adrenal gland','Sits on the upper pole of each kidney. The cortex makes corticosteroids (aldosterone, cortisol) and androgens; the medulla makes adrenaline and noradrenaline.',
+    'it sits on the upper pole of the kidney, with a cortex and a medulla','abdomen',1,function(s){
+      var x=s>0?22:-21,y=s>0?397:392;return [['adr',E([x,y,-21],[6,3.4,3.2],{amp:.05,rz:s*.4})]]});
+  org('uri-ureter','uri','Ureter','About 25 cm long. It runs down on psoas major, crosses the pelvic brim at the bifurcation of the common iliac artery, and enters the bladder. Three constrictions: pelvicureteric junction, pelvic brim, and vesicoureteric junction.',
+    'it crosses the pelvic brim at the bifurcation of the common iliac artery','abdomen',1,function(s){return [
+    ['bron',tube(mp(s,[[15,359,-15],[16,346,-13],[19,334,-10],[24,330,-7],[24,318,-12],[20,302,-8],[14,290,0],[9,282,8],[6,278,14]]),function(){return 1.25},7,2)]]});
+  org('uri-bladder','uri','Bladder','Lies behind the pubic symphysis when empty and rises into the abdomen as it fills. The trigone, a smooth triangle on the posterior wall, is bounded by the two ureteric orifices and the internal urethral orifice.',
+    'it lies behind the pubic symphysis and has a smooth triangular trigone','pelvis',0,function(){return [
+    ['blad',E([0,279,15],[11,9.5,10],{amp:.03,w:22,h:16,rx:-.15})],
+    ['blad',tube([[0,271,17],[0,264,22],[0,258,27]],function(){return 1.8},8,2)]]});
+  /* ===== endocrine ===== */
+  org('end-thyroid','end','Thyroid gland','Two lobes joined by an isthmus lying over the upper tracheal rings, at about C5 to T1. It makes thyroxine (T4), tri-iodothyronine (T3) and calcitonin.',
+    'a gland of two lobes and an isthmus in front of the trachea','neck',0,function(){return [
+    ['thy',E([6.5,506,4],[3.3,7,3],{amp:.04,rz:.1})],['thy',E([-6.5,506,4],[3.3,7,3],{amp:.04,rz:-.1})],['thy',E([0,502,5],[4,1.8,1.8],{amp:.03})]]});
+  /* ===== nervous ===== */
+  function brain(c,r,o){
+    var g=E(c,r,{amp:0,w:48,h:34}),pos=g.attributes.position;
+    for(var i=0;i<pos.count;i++){
+      var x=pos.getX(i),y=pos.getY(i),z=pos.getZ(i),k=G3.noise(x*.42,y*.42,z*.42)*.6+G3.noise(x*.9+9,y*.9,z*.9)*.4,d=(k-.5)*(o.g||2.4);
+      var dx=x-c[0],dy=y-c[1],dz=z-c[2],l=Math.sqrt(dx*dx+dy*dy+dz*dz)||1;
+      pos.setXYZ(i,x+dx/l*d,y+dy/l*d,z+dz/l*d);
+    }
+    g.computeVertexNormals();return g;
+  }
+  org('ner-brain','ner','Brain','Cerebrum (two hemispheres divided by the longitudinal fissure, with frontal, parietal, temporal and occipital lobes), cerebellum and brainstem (midbrain, pons, medulla). Surface folding is schematic.',
+    'it has a cerebrum, cerebellum and brainstem','head',0,function(){return [
+    ['brn',brain([12.5,589,-2],[14.5,18.5,30],{g:2.6})],['brn',brain([-12.5,589,-2],[14.5,18.5,30],{g:2.6})],
+    ['cbl',brain([0,568,-30],[19,7.5,11],{g:1.5})],
+    ['cord',tube([[0,578,-12],[0,562,-13],[0,550,-12],[0,540,-14]],function(t){return 5.2-1.8*t},10,2)]]});
+  org('ner-cord','ner','Spinal cord','Runs down the vertebral canal from the foramen magnum and ends at the conus medullaris at about L1 to L2 in adults; below that the lumbar and sacral nerve roots form the cauda equina.',
+    'it ends at the conus medullaris at L1 to L2, below which is the cauda equina','spine',0,function(){return [
+    ['cord',tube([[0,540,-14],[0,525,-20],[0,505,-27],[0,480,-34],[0,450,-37],[0,420,-36],[0,396,-33],[0,384,-31]],function(t){return 3.3+.6*Math.sin(t*PI*3)*0+.0},9,3)],
+    ['cord',tube([[0,384,-31],[0,372,-30],[0,356,-30]],function(t){return 1.2-.6*t},6,3)],
+    ['cord',tube([[0,384,-31],[3,370,-30],[4,350,-29]],function(){return .6},5,3)],
+    ['cord',tube([[0,384,-31],[-3,370,-30],[-4,350,-29]],function(){return .6},5,3)]]});
+}
+
+function buildLayers3D(add){buildMuscles3D(add);buildVessels3D(add);buildOrgans3D(add)}
+
 /* ---------- 3D skeleton: viewer ---------- */
-var V3={built:false,open:false,sel:null,names:true,layers:{bone:true,joint:true},onlyCov:false,auto:false,raf:0,need:true,tw:null};
+var V3={built:false,open:false,sel:null,names:true,layers:{bone:true,joint:true},op:{},lbuilt:false,onlyCov:false,auto:false,raf:0,need:true,tw:null};
 var V3C={bone:0xd9cdb0,c:0xd4e1e6,t:0xf5f1e6,d:0x2b261e,joint:0xf1cc62,tint:0x59c2c6};
 function v3Noise(){
   var c=document.createElement('canvas');c.width=c.height=128;
@@ -1871,7 +2563,7 @@ function v3Build(){
   V3.groups={};V3.meshes=[];V3.mats={};
   var root=V3.root=new T.Group();V3.scene.add(root);
   Object.keys(parts).forEach(function(id){
-    var grp=new T.Group();grp.userData.id=id;V3.groups[id]=grp;V3.mats[id]=[];
+    var grp=new T.Group();grp.userData.id=id;grp.userData.layer='bone';V3.groups[id]=grp;V3.mats[id]=[];
     Object.keys(parts[id]).forEach(function(kind){
       var geo=G3.merge(parts[id][kind]);
       var mat=new T.MeshStandardMaterial({color:kind==='b'?V3C.bone:V3C[kind],roughness:kind==='d'?1:.82,metalness:0,side:T.DoubleSide,bumpMap:kind==='b'||kind==='c'?bump:null,bumpScale:.3});
@@ -1881,7 +2573,7 @@ function v3Build(){
     root.add(grp);
   });
   JOINTS3.forEach(function(j){
-    var grp=new T.Group();grp.userData.id=j[0];grp.userData.joint=true;V3.groups[j[0]]=grp;V3.mats[j[0]]=[];
+    var grp=new T.Group();grp.userData.id=j[0];grp.userData.joint=true;grp.userData.layer='joint';V3.groups[j[0]]=grp;V3.mats[j[0]]=[];
     var mat=new T.MeshStandardMaterial({color:V3C.joint,roughness:.5,transparent:true,opacity:.42,depthWrite:false});mat.userData.kind='joint';
     V3.mats[j[0]].push(mat);
     (j[5]?[1,-1]:[1]).forEach(function(s){
@@ -1908,6 +2600,37 @@ function v3Build(){
   V3.rc=new T.Raycaster();
   V3.built=true;
 }
+function v3FibreTex(){
+  var c=document.createElement('canvas');c.width=c.height=128;
+  var x=c.getContext('2d'),im=x.createImageData(128,128);
+  for(var i=0;i<128*128;i++){
+    var px=i%128,py=(i/128)|0;
+    var n=.62+.38*(G3.noise(px/2.4,py/46,3)*.65+G3.noise(px/.9,py/20,9)*.35)+(Math.random()-.5)*.06;
+    n=Math.max(0,Math.min(1,n))*255;im.data[i*4]=im.data[i*4+1]=im.data[i*4+2]=n;im.data[i*4+3]=255;
+  }
+  x.putImageData(im,0,0);
+  var t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;return t;
+}
+function v3BuildLayers(){
+  var T=THREE,parts={},fib=v3FibreTex(),org=v3Noise();
+  buildLayers3D(function(id,sys,kind,geo){var p=parts[id]=parts[id]||{sys:sys,k:{}};(p.k[kind]=p.k[kind]||[]).push(geo)});
+  Object.keys(parts).forEach(function(id){
+    var P=parts[id],grp=new T.Group();grp.userData.id=id;grp.userData.layer=P.sys;grp.visible=false;V3.groups[id]=grp;V3.mats[id]=[];
+    Object.keys(P.k).forEach(function(kind){
+      var geo=G3.merge(P.k[kind]);
+      if(kind==='lung'||kind==='liv'||kind==='kid'||kind==='spl'){
+        var ps=geo.attributes.position,cols=new Float32Array(ps.count*3),c1=new T.Color(LC[kind][0]),c2=new T.Color(kind==='lung'?0xb88a92:0x000000).lerp(c1,kind==='lung'?0:.78);
+        for(var vi=0;vi<ps.count;vi++){var nz=G3.noise(ps.getX(vi)*.16,ps.getY(vi)*.16,ps.getZ(vi)*.16)*.7+G3.noise(ps.getX(vi)*.5,ps.getY(vi)*.5,ps.getZ(vi)*.5)*.3,cc=c1.clone().lerp(c2,Math.min(1,nz*1.1));cols[vi*3]=cc.r;cols[vi*3+1]=cc.g;cols[vi*3+2]=cc.b}
+        geo.setAttribute('color',new T.BufferAttribute(cols,3));
+      }
+      var fibre=kind==='mu'||kind==='te'||kind==='dia';
+      var mat=new T.MeshStandardMaterial({color:LC[kind][0],roughness:fibre?.7:.55,metalness:0,side:T.DoubleSide,map:fibre?fib:null,bumpMap:fibre?fib:org,bumpScale:fibre?.5:.18,vertexColors:!!geo.attributes.color});mat.userData.kind=kind;mat.userData.vc=!!geo.attributes.color;
+      var hv=Math.sin(id.length*12.9898+id.charCodeAt(id.length-1)*78.233+id.charCodeAt(3)*37.719)*43758.5453;mat.userData.v=(hv-Math.floor(hv))*2-1;
+      var mesh=new T.Mesh(geo,mat);mesh.userData.id=id;grp.add(mesh);V3.meshes.push(mesh);V3.mats[id].push(mat);
+    });
+    V3.root.add(grp);
+  });
+}
 function v3Cam(){
   var c=V3.cam,t=V3.target,ce=Math.cos(V3.el);
   c.position.set(t.x+V3.dist*Math.sin(V3.az)*ce,t.y+V3.dist*Math.sin(V3.el),t.z+V3.dist*Math.cos(V3.az)*ce);
@@ -1924,24 +2647,34 @@ function v3Resize(){
 }
 function v3Paint(){
   if(!V3.built)return;
+  var qf=V3Q.on&&V3Q.ans===null;
   Object.keys(V3.groups).forEach(function(id){
-    var cov=st.covered.has(id),sel=V3.sel===id,joint=V3.groups[id].userData.joint;
-    V3.groups[id].visible=joint?V3.layers.joint:V3.layers.bone;
+    var grp=V3.groups[id],ly=grp.userData.layer||'bone',sel=V3.sel===id,lx=ly!=='bone'&&ly!=='joint',cov=!lx&&st.covered.has(id);
+    var on=!!V3.layers[ly];grp.visible=on;if(!on)return;
+    var lop=V3.op[ly]!=null?V3.op[ly]:1;
     V3.mats[id].forEach(function(m){
-      var k=m.userData.kind,base=k==='joint'?V3C.joint:k==='b'?V3C.bone:V3C[k];
-      m.color.setHex(base);
+      var k=m.userData.kind,base=lx?LC[k][0]:(k==='joint'?V3C.joint:k==='b'?V3C.bone:V3C[k]);
+      m.color.setHex(m.userData.vc?0xffffff:base);
+      if(lx&&k==='mu'&&m.userData.v)m.color.lerp(new THREE.Color(m.userData.v>0?0xe27c6c:0x7d2c26),Math.abs(m.userData.v)*.4);
       if(cov&&k!=='d'&&k!=='joint'&&k!=='t')m.color.lerp(new THREE.Color(V3C.tint),.38);
       if(m.emissive){m.emissive.setHex(sel?0xe8542b:0x000000);m.emissiveIntensity=sel?.65:0}
-      var fade=V3.onlyCov&&!cov&&!sel;
-      var baseOp=k==='joint'?.42:1;
-      m.transparent=fade||k==='joint';m.opacity=fade?.14:(sel&&k==='joint'?.9:baseOp);m.depthWrite=!(fade||k==='joint');
+      var fade=!lx&&V3.onlyCov&&!cov&&!sel;
+      var o=lx?(LC[k][1]>=.99?1:1)*lop:(k==='joint'?.42*lop:lop);
+      if(fade)o=Math.min(o,.14);
+      if(qf&&!sel)o*=.3;
+      if(sel&&!qf)o=Math.max(o,k==='joint'?.9:.96);
+      if(sel&&qf)o=1;
+      m.transparent=o<.999;m.opacity=o;m.depthWrite=o>=.999;
       m.needsUpdate=false;
     });
   });
+  v3Sync();
   V3.need=true;
 }
 function v3Card(){
   var el=$('#v3card'),it=V3.sel&&byId[V3.sel];
+  if(V3Q.on){el.hidden=true;return}
+  if(!it&&V3.sel&&LXB[V3.sel]){v3LxCard(LXB[V3.sel]);return}
   if(!it){el.hidden=true;return}
   el.hidden=false;
   var cov=st.covered.has(it.id),f=it.f||{};
@@ -2061,13 +2794,13 @@ function v3Wire(){
       case 'out':v3Zoom(1.38);break;
       case 'auto':V3.auto=!V3.auto;b.classList.toggle('on',V3.auto);b.setAttribute('aria-pressed',V3.auto);V3.last=performance.now();break;
       case 'bone':case 'joint':
-        var o=a==='bone'?'joint':'bone';if(V3.layers[a]&&!V3.layers[o])break;
-        V3.layers[a]=!V3.layers[a];b.classList.toggle('on',V3.layers[a]);v3Paint();break;
+        V3.layers[a]=!V3.layers[a];if(!v3AnyOn())V3.layers[a]=true;v3Paint();break;
       case 'cov':V3.onlyCov=!V3.onlyCov;b.classList.toggle('on',V3.onlyCov);v3Paint();break;
       case 'names':V3.names=!V3.names;b.classList.toggle('on',V3.names);v3Card();break;
       case 'reveal':V3.names=true;$('#v3names').classList.add('on');v3Card();break;
       case 'clear':v3Select(null);break;
       case 'full':v3Full();break;
+      default:v3LayAct(a,b);
     }
     V3.need=true;
   });
@@ -2095,6 +2828,7 @@ function v3Open(){
         V3.r=new THREE.WebGLRenderer({canvas:$('#v3c'),antialias:true,alpha:true});
         v3Wire();
       }
+      if(!document.getElementById('v3lay').innerHTML)document.getElementById('v3lay').innerHTML=v3LayHTML();
       v3Resize();V3.az=0;V3.el=.1;V3.dist=V3.fitDist;V3.target.set(0,325,0);
       v3Paint();v3Card();$('#v3msg').hidden=true;V3.need=true;V3.last=performance.now();v3Loop();
     }catch(err){
@@ -2107,6 +2841,153 @@ function v3Close(){
   try{var d=document;if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d)}catch(x){}
   render();
 }
+
+/* ---------- 3D layers: sidebar, presets, cards and quiz ---------- */
+var V3LAYS=[['bone','Skeleton','#d9cdb0'],['joint','Joints','#f1cc62'],['mu','Muscles','#b8473c'],['ar','Arteries','#d8263a'],['ve','Veins','#3a63b5'],
+  ['hrt','Heart','#a83a3f'],['resp','Respiratory','#e3a3a6'],['dig','Digestive','#e0a38c'],['uri','Urinary','#92403a'],['end','Endocrine','#e2b650'],['ner','Nervous','#e8c8c3']];
+var V3SYSN={mu:'Muscular system',ar:'Arterial system',ve:'Venous system',hrt:'Heart and great vessels',resp:'Respiratory system',dig:'Digestive system',uri:'Urinary system',end:'Endocrine system',ner:'Nervous system'};
+var V3PRE=[
+  ['Bones only',{bone:1,joint:1}],
+  ['Bones + muscles',{bone:1,mu:1}],
+  ['Muscles only',{mu:1}],
+  ['Bones + arteries',{bone:1,ar:1}],
+  ['Circulation',{bone:.3,ar:1,ve:1,hrt:1}],
+  ['Thorax',{bone:.3,hrt:1,resp:1}],
+  ['Abdomen and pelvis',{bone:.3,dig:1,uri:1,end:1}],
+  ['Nervous system',{bone:.3,ner:1}],
+  ['All organs',{bone:.25,hrt:1,resp:1,dig:1,uri:1,end:1,ner:1}]
+];
+var V3Q={on:false,tgt:null,opts:null,ans:null,n:0,score:0,item:null};
+function v3LayHTML(){
+  var h='<div class="ly-h"><b>Layers</b><button class="v3b sq" data-v3="laytoggle" aria-label="Close layers">&times;</button></div><div class="ly-pre">';
+  V3PRE.forEach(function(p,i){h+='<button class="v3b" data-v3="pre" data-i="'+i+'">'+p[0]+'</button>'});
+  h+='</div><div class="ly-list">';
+  V3LAYS.forEach(function(l){
+    h+='<div class="ly-row" data-lay="'+l[0]+'"><button class="ly-eye" data-v3="lay" data-k="'+l[0]+'" aria-pressed="false"><span class="ly-dot" style="background:'+l[2]+'"></span><span class="ly-n">'+l[1]+'</span></button><button class="ly-op" data-v3="lop" data-k="'+l[0]+'" aria-label="Opacity">100%</button></div>';
+  });
+  h+='</div><div class="ly-act"><button class="v3b" data-v3="quiz">Quiz me on visible layers</button></div><p class="ly-note">Schematic drawings made for revision: positions and sizes are approximate, not a scan or a licensed model.</p>';
+  return h;
+}
+function v3Sync(){
+  var el=document.getElementById('v3lay');if(!el)return;
+  V3LAYS.forEach(function(l){
+    var r=el.querySelector('[data-lay="'+l[0]+'"]');if(!r)return;
+    var on=!!V3.layers[l[0]],op=V3.op&&V3.op[l[0]]!=null?V3.op[l[0]]:1;
+    r.classList.toggle('on',on);r.querySelector('.ly-eye').setAttribute('aria-pressed',on);
+    r.querySelector('.ly-op').textContent=Math.round(op*100)+'%';
+  });
+  ['bone','joint'].forEach(function(k){var b=document.querySelector('.v3chips [data-v3="'+k+'"]');if(b)b.classList.toggle('on',!!V3.layers[k])});
+}
+function v3AnyOn(){return V3LAYS.some(function(l){return V3.layers[l[0]]})}
+function v3NeedsLayers(map){return Object.keys(map).some(function(k){return k!=='bone'&&k!=='joint'&&map[k]})}
+function v3EnsureLayers(then){
+  if(V3.lbuilt){then();return}
+  var m=document.getElementById('v3msg');m.hidden=false;m.textContent='Building the anatomy layers…';
+  setTimeout(function(){
+    try{v3BuildLayers();V3.lbuilt=true;m.hidden=true;then()}
+    catch(err){m.textContent='The layers could not be built on this device ('+(err&&err.message||'error')+').';console.error(err)}
+  },30);
+}
+function v3SetLayers(map){
+  var go=function(){
+    V3LAYS.forEach(function(l){V3.layers[l[0]]=!!map[l[0]];V3.op[l[0]]=map[l[0]]&&map[l[0]]<1?map[l[0]]:1});
+    v3Sync();v3Paint();
+  };
+  if(v3NeedsLayers(map))v3EnsureLayers(go);else go();
+}
+function v3LayAct(a,b){
+  switch(a){
+    case 'laytoggle':{var p=document.getElementById('v3lay');p.hidden=!p.hidden;document.getElementById('v3laybtn').classList.toggle('on',!p.hidden);break}
+    case 'lay':{
+      var k=b.dataset.k,want=!V3.layers[k];
+      var apply=function(){V3.layers[k]=want;if(!v3AnyOn())V3.layers[k]=true;v3Sync();v3Paint()};
+      if(want&&k!=='bone'&&k!=='joint')v3EnsureLayers(apply);else apply();
+      break}
+    case 'lop':{var k2=b.dataset.k,cur=V3.op[k2]!=null?V3.op[k2]:1,seq=[1,.6,.3],i=seq.indexOf(cur);i=i<0?0:(i+1)%seq.length;V3.op[k2]=seq[i];v3Sync();v3Paint();break}
+    case 'pre':v3SetLayers(V3PRE[parseInt(b.dataset.i,10)][1]);break;
+    case 'mlab':v3Close();if(typeof mlOpen==='function')mlOpen();break;
+    case 'quiz':v3QStart();break;
+    case 'qzpick':v3QPick(parseInt(b.dataset.i,10));break;
+    case 'qznext':v3QNext();break;
+    case 'qzstop':v3QStop();break;
+  }
+}
+/* ----- structure card for the new layers ----- */
+function v3LxCard(e){
+  var el=document.getElementById('v3card');el.hidden=false;
+  var head=V3.names?'<h3>'+blE(e.n)+(e.side?' <span class="v3side">('+e.side+')</span>':'')+'</h3><p class="eyebrow">'+V3SYSN[e.sys]+'</p>':'<h3>What is this structure?</h3><p class="eyebrow">Name it yourself, then reveal</p>';
+  var body='';
+  if(!V3.names){body='<button class="btn small" data-v3="reveal">Reveal</button>'}
+  else{
+    var ml=e.ml&&typeof ML_M!=='undefined'?ML_M.filter(function(m){return m.n===e.ml})[0]:null;
+    if(ml){
+      body='<p><b>Origin:</b> '+blE(ml.o)+'</p><p><b>Insertion:</b> '+blE(ml.i)+'</p><p><b>Nerve:</b> '+blE(ml.nv)+'</p><p><b>Action:</b> '+blE(ml.a)+'</p>'+
+        '<button class="btn small ghost" data-v3="mlab">Open the Muscle lab</button>';
+    }else body='<p>'+blE(e.note)+'</p>';
+    body+='<p class="v3sch">Schematic drawing, not to scale.</p>';
+  }
+  el.innerHTML='<button class="v3x" data-v3="clear" aria-label="Dismiss">×</button>'+head+body;
+}
+/* ----- quiz ----- */
+function v3QShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function v3Lc(s){return s.charAt(0).toLowerCase()+s.slice(1)}
+function v3QItem(e){
+  var ml=e.ml&&typeof ML_M!=='undefined'?ML_M.filter(function(m){return m.n===e.ml})[0]:null;
+  if(ml){
+    var w=[],seen={};seen[ml.i]=1;
+    v3QShuf(ML_M).forEach(function(x){if(w.length<3&&!seen[x.i]){seen[x.i]=1;w.push(x.i)}});
+    return {q:'Where does '+v3Lc(ml.n)+' insert?',a:ml.i,w:w,why:ml.n+' inserts on the '+v3Lc(ml.i)+'.'};
+  }
+  var same=[],sn={};sn[e.n]=1;
+  v3QShuf(LX.filter(function(x){return x.sys===e.sys})).forEach(function(x){if(same.length<3&&!sn[x.n]){sn[x.n]=1;same.push(x.n)}});
+  v3QShuf(LX).forEach(function(x){if(same.length<3&&!sn[x.n]){sn[x.n]=1;same.push(x.n)}});
+  return {q:'Name the structure: '+e.cl+'.',a:e.n,w:same,why:e.n+': '+e.note};
+}
+function v3QStart(){
+  var pool=LX.filter(function(e){return V3.layers[e.sys]});
+  var m=document.getElementById('v3msg');
+  if(!pool.length){m.hidden=false;m.textContent='Turn on a muscle, vessel or organ layer first, then start the quiz.';setTimeout(function(){m.hidden=true},2200);return}
+  V3Q.on=true;V3Q.n=0;V3Q.score=0;v3QNext();
+  document.getElementById('v3lay').hidden=true;document.getElementById('v3laybtn').classList.remove('on');
+}
+function v3QNext(){
+  var pool=LX.filter(function(e){return V3.layers[e.sys]});
+  if(!pool.length){v3QStop();return}
+  var e=pool[Math.floor(Math.random()*pool.length)];
+  var names=[e.n],sn={};sn[e.n]=1;
+  v3QShuf(LX.filter(function(x){return x.sys===e.sys})).forEach(function(x){if(names.length<4&&!sn[x.n]){sn[x.n]=1;names.push(x.n)}});
+  v3QShuf(LX).forEach(function(x){if(names.length<4&&!sn[x.n]){sn[x.n]=1;names.push(x.n)}});
+  V3Q.tgt=e;V3Q.opts=v3QShuf(names);V3Q.ans=null;V3Q.item=v3QItem(e);
+  V3.sel=e.id;document.getElementById('v3card').hidden=true;
+  var g=V3.groups[e.id];
+  if(g){var bx=new THREE.Box3().setFromObject(g),c=bx.getCenter(new THREE.Vector3());v3Tween({tx:c.x*.5,ty:c.y,tz:c.z*.5},500)}
+  v3Paint();v3QRender();
+}
+function v3QPick(i){
+  if(V3Q.ans!==null)return;
+  V3Q.ans=i;var ok=V3Q.opts[i]===V3Q.tgt.n;V3Q.n++;if(ok)V3Q.score++;
+  if(typeof srsGrade==='function')srsGrade('v3',V3Q.item,ok);
+  v3Paint();v3QRender();
+}
+function v3QStop(){
+  V3Q.on=false;V3.sel=null;var q=document.getElementById('v3qz');q.hidden=true;q.innerHTML='';v3Paint();v3Card();
+}
+function v3QRender(){
+  var q=document.getElementById('v3qz');q.hidden=false;
+  var e=V3Q.tgt,h='<p class="eyebrow">Quiz · '+V3Q.score+' / '+V3Q.n+'</p><h3>What is the highlighted structure?</h3><div class="v3opts">';
+  V3Q.opts.forEach(function(o,i){
+    var c='v3o';if(V3Q.ans!==null){if(o===e.n)c+=' ok';else if(i===V3Q.ans)c+=' bad'}
+    h+='<button class="'+c+'" data-v3="qzpick" data-i="'+i+'"'+(V3Q.ans!==null?' disabled':'')+'>'+blE(o)+'</button>';
+  });
+  h+='</div>';
+  if(V3Q.ans!==null){
+    h+='<p class="v3why">'+(V3Q.opts[V3Q.ans]===e.n?'Correct. ':'It is the '+v3Lc(e.n)+(e.side?' ('+e.side+')':'')+'. ')+blE(V3Q.item.why)+'</p>';
+    if(V3Q.opts[V3Q.ans]!==e.n)h+='<p class="v3why muted">Added to your review queue.</p>';
+  }
+  h+='<div class="v3qa">'+(V3Q.ans!==null?'<button class="v3b on" data-v3="qznext">Next</button>':'')+'<button class="v3b" data-v3="qzstop">Stop quiz</button></div>';
+  q.innerHTML=h;
+}
+window.__V3={V3:V3,open:function(){v3Open()},set:function(m){v3SetLayers(m)},tween:function(t){v3Tween(t,10)},LX:LX,LXB:LXB,quiz:function(){v3QStart()},Q:V3Q};
 
 /* ===== Bone lab: bone types + numbered landmark explorer ===== */
 var BLP=['#e0483e','#3f8fd9','#f0a21a','#2fa56b','#8e5bd0','#e0689f','#1fb2b8','#9aa31f','#d9702a','#5b6fd6','#2a8f5a','#c24a8a','#6a9a2f','#b5543a'];
@@ -7318,7 +8199,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V46';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V47';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -7607,6 +8488,156 @@ document.addEventListener('change',function(e){if(e.target&&e.target.id==='bzsel
 })();
 window.__BZ={BZ:BZ,bzPts:bzPts,bzTopics:bzTopics};
 
+/* ===== Body map: the skeleton lit by how well each region is going ===== */
+var BM_REG=[['head','Head','Skull, face and jaw'],['neck','Neck','Cervical spine, hyoid, neck muscles and vessels'],['thorax','Chest','Ribs, sternum, heart and lungs'],['spine','Spine','Thoracic and lumbar vertebrae, discs, back muscles'],
+  ['shoulder','Shoulder','Clavicle, scapula, shoulder muscles'],['arm','Upper arm','Humerus, elbow, arm muscles'],['forearm','Forearm','Radius, ulna, forearm muscles'],['hand','Hand and wrist','Carpals, metacarpals, phalanges'],
+  ['abdomen','Abdomen','Abdominal wall and organs'],['pelvis','Pelvis and hip','Hip bone, sacrum, hip joint, gluteal region'],['thigh','Thigh and knee','Femur, patella, knee, thigh muscles'],['leg','Lower leg','Tibia, fibula, leg muscles'],['foot','Foot and ankle','Tarsals, metatarsals, ankle']];
+var BM_BONES={cranium:'head',zygomatic:'head',maxilla:'head',nasal:'head',mandible:'head',hyoid:'neck',cervical:'neck',atlas:'neck',axis:'neck',c7:'neck',thoracic:'spine',lumbar:'spine',sacrum:'pelvis',coccyx:'pelvis',
+  'ribs-true':'thorax','ribs-false':'thorax','ribs-floating':'thorax',manubrium:'thorax','sternum-body':'thorax',xiphoid:'thorax',scapula:'shoulder',clavicle:'shoulder',humerus:'arm',radius:'forearm',ulna:'forearm',
+  carpals:'hand',metacarpals:'hand','phalanges-hand':'hand',ilium:'pelvis',ischium:'pelvis',pubis:'pelvis',femur:'thigh',patella:'thigh',tibia:'leg',fibula:'leg',tarsals:'foot',metatarsals:'foot','phalanges-foot':'foot'};
+var BM_MLR={face:'head',neck:'neck',back:'spine',thorax:'thorax',abd:'abdomen',shoulder:'shoulder',arm:'arm',fant:'forearm',fpost:'forearm',hand:'hand',glut:'pelvis',thigh:'thigh',leg:'leg'};
+/* wording that places a question on the body (best effort, matched from the question text) */
+var BM_RX=[
+ ['head',/\b(skull|cranium|cranial|mandib\w*|maxill\w*|zygomat\w*|temporal bone|occipital|frontal bone|parietal|sphenoid|ethmoid|nasal (?:bone|septal|cavity)|lacrimal|vomer|palatine|concha|ossicle\w*|malleus|incus|stapes|temporomandibular|tmj|masseter|temporalis|pterygoid|buccinator|orbicularis|frontalis|suture\w*|fontanelle\w*|brain|cerebr\w*|cerebell\w*|circle of willis|tooth|teeth|gomphosis|face|facial|mastication|jaw|ear|nose|orbit\w*)\b/g],
+ ['neck',/\b(atlas|axis|cervical|hyoid|sternocleidomastoid|scalen\w*|larynx|laryng\w*|epiglott\w*|thyroid|cricoid|digastric|carotid|jugular|neck|vertebral artery|levator scapulae|dens|odontoid)\b/g],
+ ['thorax',/\b(ribs?|sternum|sternal|manubri\w*|xiphoid|costal|costochondral|intercostal\w*|thorac\w*(?! vert| spin)|diaphragm|heart|lungs?|pleura\w*|bronch\w*|trachea\w*|oesophag\w*|esophag\w*|mediastin\w*|aorta|aortic|pulmonary|coronary|cardiac|atri\w+|ventric\w+|breast|sternocostal)\b/g],
+ ['spine',/\b(vertebra\w*|vertebrae|spinal|spine|spinous|intervertebral|discs?|facet|zygapophys\w*|lamina|pedicle|lumbar|erector spinae|cauda equina|thoracolumbar|nucleus pulposus|annulus fibrosus|kyphosis|lordosis|scoliosis)\b/g],
+ ['shoulder',/\b(clavic\w*|scapul\w*|acromi\w*|glenohumeral|glenoid|shoulder|sternoclavicular|deltoid|supraspinatus|infraspinatus|teres|subscapularis|rotator cuff|trapezius|latissimus|rhomboid\w*|serratus anterior|axilla\w*|coracoid|brachial plexus|pectoral\w*)\b/g],
+ ['arm',/\b(humer\w*|biceps brachii|triceps|brachialis|brachial|elbow|cubital|olecranon|epicondyl\w*|arm)\b/g],
+ ['forearm',/\b(radius|radial|ulna|ulnar|forearm|pronat\w*|supinat\w*|brachioradialis|radioulnar|flexor carpi|extensor carpi|palmaris|flexor digitorum|extensor digitorum|median nerve|carpal tunnel|colles|monteggia|galeazzi)\b/g],
+ ['hand',/\b(carp\w*|scaphoid|lunate|triquetr\w*|pisiform|trapezium|trapezoid|capitate|hamate|metacarp\w*|phalan\w*|thumb|fingers?|hand|palm\w*|wrist|thenar|hypothenar|pollicis|interphalangeal|digit\w*)\b/g],
+ ['abdomen',/\b(abdom\w*|stomach|gastr\w*|liver|hepatic|spleen|splenic|pancrea\w*|gall\w*|bile|duoden\w*|jejun\w*|ileum|ileal|colon|colic|intestin\w*|bowel|caecum|cecum|appendix|kidney|renal|adrenal|ureter\w*|(?:external|internal) oblique|transversus|rectus abdominis|quadratus lumborum|inguinal|mesenter\w*|coeliac|celiac|portal|peritone\w*|omentum|linea alba|hernia)\b/g],
+ ['pelvis',/\b(pelvi\w*|hip bone|ilium|iliac|ischi\w*|pubi\w*|sacrum|sacral|sacro\w*|coccy\w*|symphysis|acetabul\w*|bladder|gluteal|glute\w*|piriformis|obturator|iliacus|psoas|hip|perineum|perineal|urethra\w*|rectum|rectal|sciatic)\b/g],
+ ['thigh',/\b(femur|femoral|femoris|patella\w*|knee|quadriceps|vastus|sartorius|gracilis|adductor\w*|hamstring\w*|semitendinosus|semimembranosus|pectineus|tensor fasciae latae|iliotibial|thigh|popliteal fossa|cruciate|menisc\w*|trochanter\w*)\b/g],
+ ['leg',/\b(tibia\w*|fibula\w*|gastrocnemius|soleus|popliteus|calf|achilles|plantaris|peroneal|fibularis|tibialis|tibiofibular|shin|leg|syndesmos\w*)\b/g],
+ ['foot',/\b(tars\w*|talus|talar|calcane\w*|navicular|cuboid|cuneiform\w*|metatars\w*|toes?|foot|feet|plantar|subtalar|ankle|talocrural|hallux|malleolus|malleoli|metatarsophalangeal)\b/g]
+];
+var BM_NAMES=null;
+function bmNames(){
+  if(BM_NAMES)return BM_NAMES;
+  var L=[];
+  try{ML_M.forEach(function(m){if(BM_MLR[m.r])L.push([m.n.toLowerCase(),BM_MLR[m.r]])})}catch(e){}
+  try{LX.forEach(function(e){if(e.reg&&e.sys!=='mu')L.push([e.n.toLowerCase().replace(/ \(schematic\)/,''),e.reg==='shoulder'||e.reg==='arm'||e.reg==='head'||e.reg==='neck'||e.reg==='thorax'||e.reg==='forearm'||e.reg==='abdomen'||e.reg==='pelvis'||e.reg==='thigh'||e.reg==='leg'||e.reg==='spine'?e.reg:'thorax'])})}catch(e){}
+  L=L.filter(function(x){return x[0].length>4});
+  L.sort(function(a,b){return b[0].length-a[0].length});
+  return BM_NAMES=L;
+}
+function bmReg(q,a){
+  q=(q||'').toLowerCase();a=(a||'').toLowerCase();
+  var N=bmNames(),i;
+  for(i=0;i<N.length;i++){var ix=q.indexOf(N[i][0]);if(ix>-1&&!/\w/.test(q.charAt(ix-1)||' ')&&!/\w/.test(q.charAt(ix+N[i][0].length)||' ')&&N[i][0]!=='diaphragm')return N[i][1]}
+  var best=null,bs=0,bx=1e9;
+  BM_RX.forEach(function(r){
+    var s=0,first=1e9,m;
+    r[1].lastIndex=0;while((m=r[1].exec(q))){s+=2;if(m.index<first)first=m.index}
+    r[1].lastIndex=0;while((m=r[1].exec(a))){s+=1;if(q.length+m.index<first)first=q.length+m.index}
+    if(s>bs||(s===bs&&s>0&&first<bx)){best=r[0];bs=s;bx=first}
+  });
+  return bs>0?best:null;
+}
+var BM_SEL=null;
+function bmStats(){
+  var L=[];try{L=JSON.parse(localStorage.getItem('osteon-log')||'[]')}catch(e){}
+  var now=Date.now(),t=hubDay(),R={},A={},other=0,total=0;
+  BM_REG.forEach(function(r){R[r[0]]={k:r[0],n:0,ok:0,wn:0,wok:0,last:0,d7:0,miss:{},mt:{},due:0,srs:0}});
+  Object.keys(SRS).forEach(function(k){A[SRS[k].q]=SRS[k].a});
+  L.forEach(function(e){
+    total++;var g=bmReg(e.q,A[e.q]);if(!g){other++;return}
+    var r=R[g],w=Math.pow(.5,(now-e.t)/(30*864e5));
+    r.n++;r.wn+=w;if(e.ok){r.ok++;r.wok+=w}else{r.miss[e.q]=(r.miss[e.q]||0)+1;r.mt[e.q]=e.t}
+    if(e.t>r.last)r.last=e.t;if(now-e.t<7*864e5)r.d7++;
+  });
+  Object.keys(SRS).forEach(function(k){var s=SRS[k],g=bmReg(s.q,s.a);if(!g)return;R[g].srs++;if(s.d<=t)R[g].due++});
+  BM_REG.forEach(function(r){
+    var x=R[r[0]];x.acc=x.wn?x.wok/x.wn:null;
+    if(!x.n&&!x.srs)x.s='n';else if(!x.n)x.s='r';else x.s=x.acc>=.8?'g':x.acc>=.6?'a':'r';
+    x.tent=x.n<4;
+  });
+  return {R:R,other:other,total:total};
+}
+var BM_SL={g:'Strong',a:'Getting there',r:'Needs work',n:'Not started'};
+function bmSvg(mini,S){
+  var parts=ITEMS.filter(function(it){return it.cat==='bone'&&BM_BONES[it.id]&&it.v&&it.v.front}).map(function(it,i){
+    return {z:it.v.front.z||0,i:i,r:BM_BONES[it.id],h:itemSvg(it,'front')}});
+  parts.sort(function(a,b){return a.z-b.z||a.i-b.i});
+  function cls(r){var x=S.R[r];return 'bm-r '+x.s+(x.tent&&x.s!=='n'?' tent':'')+(BM_SEL===r&&!mini?' sel':'')}
+  var o='<svg class="bm-fig'+(mini?' mini':'')+'" viewBox="0 0 300 655" role="img" aria-label="Skeleton coloured by how well each body region is going"><defs><linearGradient id="bsh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient></defs>'+SIL;
+  o+='<g class="'+cls('abdomen')+'" data-bm="reg" data-r="abdomen"><path class="bm-ab" d="M110 214Q106 252 114 292Q150 306 186 292Q194 252 190 214Q150 224 110 214Z"/></g>';
+  parts.forEach(function(p){o+='<g class="'+cls(p.r)+'" data-bm="reg" data-r="'+p.r+'">'+p.h+'</g>'});
+  return o+'</svg>';
+}
+function bmAfter(){
+  var svg=document.querySelector('.bm-fig:not(.mini)');if(!svg||svg.dataset.hit)return;svg.dataset.hit='1';
+  var boxes={};
+  svg.querySelectorAll('.bm-r').forEach(function(g){
+    var r=g.dataset.r,item=g.querySelector('.s');if(!item)return;
+    var subs=item.children,list=[];
+    for(var i=0;i<subs.length;i++)if(subs[i].tagName==='g')list.push(subs[i]);
+    if(!list.length)list=[item];
+    list.forEach(function(sg){
+      try{var b=sg.getBBox();if(b.width<1||b.height<1)return;
+        var rc=document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rc.setAttribute('x',b.x-6);rc.setAttribute('y',b.y-6);rc.setAttribute('width',b.width+12);rc.setAttribute('height',b.height+12);rc.setAttribute('class','bm-hit');
+        var tf=sg.getAttribute('transform');if(tf)rc.setAttribute('transform',tf);
+        g.insertBefore(rc,g.firstChild)}catch(e){}
+    });
+  });
+}
+function bmSummary(S){
+  var c={g:0,a:0,r:0,n:0};BM_REG.forEach(function(r){c[S.R[r[0]].s]++});return c;
+}
+/* Home card */
+function bmCard(){
+  var S=bmStats(),c=bmSummary(S),started=c.g+c.a+c.r>0;
+  var line=started?(c.g+' strong · '+c.a+' getting there · '+c.r+' need work'):'Answer a few questions in any lab and your skeleton will start to light up by region.';
+  return '<button class="hub-card bm-card" data-bm="open"><div class="bm-mini">'+bmSvg(true,S)+'</div><div class="bm-ct"><p class="eyebrow">Body map</p><div class="hub-cn">How is each region going?</div><p class="muted">'+line+'</p><p class="muted bm-go">Open the map &rarr;</p></div></button>';
+}
+function bmDetail(S){
+  var r=BM_SEL;if(!r)return '<div class="hub-card bm-det"><p class="eyebrow">Tap a region</p><p class="muted">Tap a part of the skeleton, or pick a region below, to see how it is going and what to review.</p></div>';
+  var x=S.R[r],meta=BM_REG.filter(function(z){return z[0]===r})[0];
+  var h='<div class="hub-card bm-det"><p class="eyebrow">'+meta[1]+'</p><div class="bm-st '+x.s+'"><i></i>'+BM_SL[x.s]+(x.tent&&x.s!=='n'?' (early days)':'')+'</div><p class="muted">'+meta[2]+'</p>';
+  if(x.s==='n'){
+    h+='<p>No answers tied to this region yet. Quiz yourself in one of the labs and it will start to colour in.</p>';
+  }else{
+    var days=x.last?Math.max(0,Math.round((Date.now()-x.last)/864e5)):null;
+    h+='<div class="bm-nums"><div><b>'+(x.acc===null?'–':Math.round(x.acc*100)+'%')+'</b><span>recent accuracy</span></div><div><b>'+x.n+'</b><span>answers</span></div><div><b>'+x.due+'</b><span>due now</span></div><div><b>'+(days===null?'–':days===0?'today':days+'d')+'</b><span>last practised</span></div></div>';
+    var miss=Object.keys(x.miss).sort(function(a,b){return x.miss[b]-x.miss[a]||x.mt[b]-x.mt[a]}).slice(0,4);
+    if(miss.length){h+='<p class="eyebrow">Most missed</p><ul class="bm-miss">';miss.forEach(function(q){h+='<li>'+blE(q)+(x.miss[q]>1?' <span class="muted">(missed '+x.miss[q]+'×)</span>':'')+'</li>'});h+='</ul>'}
+  }
+  h+='<div class="row-opts">';
+  if(x.due)h+='<button class="btn" data-bm="rev" data-all="0">Review '+x.due+' due here</button>';
+  if(x.srs&&x.srs>x.due)h+='<button class="btn ghost" data-bm="rev" data-all="1">Review all '+x.srs+' missed here</button>';
+  h+='</div><p class="eyebrow">Practise this region</p><div class="row-opts">';
+  var labs={head:['bl','ml'],neck:['bl','ml'],thorax:['bl','ml'],spine:['bl','jl'],shoulder:['bl','jl','ml'],arm:['bl','jl','ml'],forearm:['bl','ml'],hand:['bl','jl'],abdomen:['ml'],pelvis:['bl','jl','ml'],thigh:['bl','jl','ml'],leg:['bl','ml'],foot:['bl','jl']}[r]||['bl'];
+  var ln={bl:'Bone lab',jl:'Joint lab',ml:'Muscle lab'};
+  labs.forEach(function(l){h+='<button class="btn ghost small" data-hub="lab" data-lab="'+l+'">'+ln[l]+'</button>'});
+  h+='<button class="btn ghost small" data-bm="v3">3D layers</button></div></div>';
+  return h;
+}
+function bmHTML(){
+  var S=bmStats(),h='<div class="hub-top"><button class="btn ghost small" data-hub="home">&larr; Home</button><span class="hub-pill">Body map</span></div>';
+  h+='<div class="bm-legend"><span class="g"><i></i>Strong (80%+)</span><span class="a"><i></i>Getting there</span><span class="r"><i></i>Needs work (under 60%)</span><span class="n"><i></i>Not started</span></div>';
+  h+='<div class="bm-wrap"><div class="bm-figcard">'+bmSvg(false,S)+'</div><div class="bm-side">'+bmDetail(S)+'<div class="bm-chips">';
+  BM_REG.forEach(function(r){var x=S.R[r[0]];h+='<button class="bm-chip '+x.s+(BM_SEL===r[0]?' sel':'')+'" data-bm="reg" data-r="'+r[0]+'"><i></i>'+r[1]+(x.due?'<span class="bm-due">'+x.due+'</span>':'')+'</button>'});
+  h+='</div></div></div>';
+  h+='<p class="muted bm-note">Colour is your recent accuracy in this region (answers from the last month count most). Regions are matched from the wording of each question, so general questions, like histology or joint classes, are not on the map'+(S.other?' ('+S.other+' of your '+S.total+' logged answers)':'')+'.</p>';
+  return h;
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-bm]');if(!t||!document.getElementById('hub').contains(t))return;
+  var a=t.dataset.bm;
+  if(a==='open'){HUB.view='map';hubRender();document.getElementById('hub').scrollTop=0}
+  else if(a==='reg'){BM_SEL=t.dataset.r;hubRender();setTimeout(bmAfter,0)}
+  else if(a==='rev'){
+    var all=t.dataset.all==='1',tt=hubDay();
+    var list=srsList().filter(function(r){return bmReg(r.q,r.a)===BM_SEL&&(all||r.d<=tt)}).sort(function(a,b){return a.b-b.b||a.d-b.d}).slice(0,15);
+    if(!list.length)return;
+    HUB.rv={list:list,i:0,score:0,ans:null,opts:null,done:false};hubRvOpts();HUB.view='review';hubRender();document.getElementById('hub').scrollTop=0;
+  }
+  else if(a==='v3'){if(typeof v3Open==='function')v3Open()}
+});
+window.__BM={bmReg:bmReg,bmStats:bmStats,BM_REG:BM_REG};
+
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
 var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
@@ -7795,6 +8826,7 @@ function hubHome(){
     o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
     if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
     o+='</div>';
+    o+=bmCard();
     o+='<div class="hub-tiles">';
     [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations'],['mi','Microanatomy lab','Blood, epithelia, connective tissue, muscle',MI_QA.length+' questions']].forEach(function(t){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
@@ -7807,7 +8839,8 @@ function hubHome(){
 function hubRender(){
   var b=document.getElementById('hubbody');if(!b)return;
   var keep=document.activeElement&&document.activeElement.id==='hubq';
-  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():(HUB.view==='backup'?bkHTML():hubHome());
+  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():(HUB.view==='backup'?bkHTML():(HUB.view==='map'?bmHTML():hubHome()));
+  if(HUB.view==='map')bmAfter();
   if(keep){var i=document.getElementById('hubq');if(i){i.focus();try{i.setSelectionRange(i.value.length,i.value.length)}catch(e){}}}
 }
 function hubOpen(){hubSaveLast();HUB.open=true;HUB.view='home';HUB.q='';var h=document.getElementById('hub');h.hidden=false;document.body.style.overflow='hidden';hubRender();h.scrollTop=0}
