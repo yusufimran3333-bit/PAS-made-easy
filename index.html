@@ -209,6 +209,20 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .v3side{font-size:15px;color:#93A0B3}
 .v3sch{font-size:11.5px;color:#7F8DA1;margin:6px 0 0}
 @media(max-width:700px){.v3lay{width:min(260px,calc(100% - 24px))}.v3opts{grid-template-columns:1fr}}
+.ly-tier{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.ly-tier span{flex:0 0 100%;font-size:11px;color:#93A0B3;text-transform:uppercase;letter-spacing:.06em}
+.ly-tier .v3b{flex:1;min-width:0;padding:6px 8px;font-size:12.5px;border-radius:10px}
+.ly-lnk{border:0;background:none;color:#8fb7d9;font:inherit;text-decoration:underline;text-underline-offset:2px;padding:6px 2px;min-height:32px;cursor:pointer}
+.v3att{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px!important;color:#93A0B3!important}
+.v3att{gap:4px 14px!important}.v3att i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px}
+.v3att i.o{background:#2fbf71}.v3att i.e{background:#ff9a2e}
+.rmcr{position:fixed;inset:0;z-index:300;background:rgba(8,12,18,.62);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.rmcr-card{position:relative;max-width:520px;max-height:86vh;overflow:auto;background:#161e29;color:#E6EBF2;border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:20px 22px;font-size:14px;line-height:1.5}
+.rmcr-card h2{font:400 26px/1.1 var(--f-display);margin:0 30px 10px 0}
+.rmcr-card p{margin:0 0 10px;color:#C5CEDB}.rmcr-card ul{margin:0 0 10px;padding-left:18px;color:#C5CEDB}.rmcr-card li{margin-bottom:6px}
+.rmcr-card a{color:#8fb7d9}.rmcr-s{font-size:12.5px;color:#93A0B3!important}
+.rmcr-x{position:absolute;top:8px;right:10px;border:0;background:none;color:#C5CEDB;font-size:26px;line-height:1;padding:6px 10px;min-height:40px}
+.hub-cr{border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:2px;opacity:.8;padding:4px 2px;cursor:pointer}
 .bl{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .bl[hidden]{display:none}
 .bl-top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -1602,6 +1616,28 @@ $('#figwrap').addEventListener('click',function(e){
   renderPanel();paint();
 });
 
+/* ---------- real anatomy meshes: pack reader (Z-Anatomy / BodyParts3D / NIH 3D, CC BY-SA, adapted) ---------- */
+var RM={site:true,ready:false,failed:false,S:366,Y0:0.009,H:{},cbs:null};
+function rmDecode64(s){var b=atob(s),n=b.length,u=new Uint8Array(n);for(var i=0;i<n;i++)u[i]=b.charCodeAt(i);return u.buffer}
+function rmParse(buf){
+  var dv=new DataView(buf),hl=dv.getUint32(4,true),hdr=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,8,hl))),base=8+hl;
+  hdr.nodes.forEach(function(n){
+    var o=base+n.o,nv=n.nv,ni=n.ni;
+    n.q=new Uint16Array(buf,o,nv*3);o+=nv*6;
+    if(n.w){n.ix=new Uint32Array(buf.slice(o,o+ni*4));o+=ni*4}else{n.ix=new Uint16Array(buf,o,ni);o+=ni*2}
+    o+=(4-((nv*6+ni*(n.w?4:2))%4))%4;
+    n.tf=n.t?new Uint8Array(buf,o,nv):null;
+  });
+  return hdr;
+}
+function rmGeo(n){
+  var T=THREE,bb=n.bb,S=RM.S,nv=n.nv,pos=new Float32Array(nv*3),q=n.q;
+  var sx=(bb[3]-bb[0])/65535*S,sy=(bb[4]-bb[1])/65535*S,sz=(bb[5]-bb[2])/65535*S,ox=bb[0]*S,oy=(bb[1]-RM.Y0)*S,oz=bb[2]*S;
+  for(var i=0;i<nv;i++){pos[i*3]=ox+q[i*3]*sx;pos[i*3+1]=oy+q[i*3+1]*sy;pos[i*3+2]=oz+q[i*3+2]*sz}
+  var g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(pos,3));g.setIndex(new T.BufferAttribute(n.ix,1));g.computeVertexNormals();
+  return g;
+}
+
 /* ---------- 3D skeleton: geometry ---------- */
 var G3=(function(){
   var T=THREE;
@@ -2650,7 +2686,7 @@ function v3Paint(){
   var qf=V3Q.on&&V3Q.ans===null;
   Object.keys(V3.groups).forEach(function(id){
     var grp=V3.groups[id],ly=grp.userData.layer||'bone',sel=V3.sel===id,lx=ly!=='bone'&&ly!=='joint',cov=!lx&&st.covered.has(id);
-    var on=!!V3.layers[ly];grp.visible=on;if(!on)return;
+    var on=!!V3.layers[ly];if(on&&grp.userData.dp!=null&&!RM.tiers[grp.userData.dp])on=false;grp.visible=on;if(!on)return;
     var lop=V3.op[ly]!=null?V3.op[ly]:1;
     V3.mats[id].forEach(function(m){
       var k=m.userData.kind,base=lx?LC[k][0]:(k==='joint'?V3C.joint:k==='b'?V3C.bone:V3C[k]);
@@ -2668,7 +2704,7 @@ function v3Paint(){
       m.needsUpdate=false;
     });
   });
-  v3Sync();
+  v3Sync();if(RM.on)rmAttSync();
   V3.need=true;
 }
 function v3Card(){
@@ -2821,7 +2857,7 @@ function v3Open(){
   var el=$('#v3');
   el.hidden=false;document.body.style.overflow='hidden';V3.open=true;
   $('#v3msg').hidden=false;$('#v3msg').textContent='Building the skeleton…';
-  setTimeout(function(){
+  var go=function(){
     try{
       if(!V3.built){
         v3Build();
@@ -2834,6 +2870,14 @@ function v3Open(){
     }catch(err){
       $('#v3msg').hidden=false;$('#v3msg').textContent='The 3D view could not start on this device ('+(err&&err.message||'WebGL unavailable')+').';
     }
+  };
+  setTimeout(function(){
+    rmProbe(function(){
+      if(!RM.on){go();return}
+      try{if(!V3.built){v3Build();V3.r=new THREE.WebGLRenderer({canvas:$('#v3c'),antialias:true,alpha:true});v3Wire()}}catch(err){go();return}
+      $('#v3msg').textContent='Loading the skeleton…';
+      rmBones(function(){go()});
+    });
   },40);
 }
 function v3Close(){
@@ -2865,7 +2909,13 @@ function v3LayHTML(){
   V3LAYS.forEach(function(l){
     h+='<div class="ly-row" data-lay="'+l[0]+'"><button class="ly-eye" data-v3="lay" data-k="'+l[0]+'" aria-pressed="false"><span class="ly-dot" style="background:'+l[2]+'"></span><span class="ly-n">'+l[1]+'</span></button><button class="ly-op" data-v3="lop" data-k="'+l[0]+'" aria-label="Opacity">100%</button></div>';
   });
-  h+='</div><div class="ly-act"><button class="v3b" data-v3="quiz">Quiz me on visible layers</button></div><p class="ly-note">Schematic drawings made for revision: positions and sizes are approximate, not a scan or a licensed model.</p>';
+  h+='</div>';
+  if(RM.on){
+    h+='<div class="ly-tier"><span>Muscle depth</span><button class="v3b" data-v3="tier" data-i="0" aria-pressed="true">Surface</button><button class="v3b" data-v3="tier" data-i="1" aria-pressed="true">Middle</button><button class="v3b" data-v3="tier" data-i="2" aria-pressed="true">Deep</button></div>'+
+      '<div class="ly-tier"><span>Attachments</span><button class="v3b" data-v3="attall" aria-pressed="false">Show on all muscles</button></div>';
+  }
+  h+='<div class="ly-act"><button class="v3b" data-v3="quiz">Quiz me on visible layers</button></div>';
+  h+=RM.on?'<p class="ly-note">Real open anatomy models (adult male). Positions are true to the model, but bodies vary. <button class="ly-lnk" data-v3="credits">Model credits</button></p>':'<p class="ly-note">Schematic drawings made for revision: positions and sizes are approximate, not a scan or a licensed model.</p>';
   return h;
 }
 function v3Sync(){
@@ -2876,11 +2926,16 @@ function v3Sync(){
     r.classList.toggle('on',on);r.querySelector('.ly-eye').setAttribute('aria-pressed',on);
     r.querySelector('.ly-op').textContent=Math.round(op*100)+'%';
   });
+  if(RM.on){
+    el.querySelectorAll('[data-v3="tier"]').forEach(function(b){var on=!!RM.tiers[+b.dataset.i];b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+    var aa=el.querySelector('[data-v3="attall"]');if(aa){aa.classList.toggle('on',RM.att.all);aa.setAttribute('aria-pressed',RM.att.all)}
+  }
   ['bone','joint'].forEach(function(k){var b=document.querySelector('.v3chips [data-v3="'+k+'"]');if(b)b.classList.toggle('on',!!V3.layers[k])});
 }
 function v3AnyOn(){return V3LAYS.some(function(l){return V3.layers[l[0]]})}
 function v3NeedsLayers(map){return Object.keys(map).some(function(k){return k!=='bone'&&k!=='joint'&&map[k]})}
-function v3EnsureLayers(then){
+function v3EnsureLayers(then,keys){
+  if(RM.on){rmEnsure(keys||Object.keys(RM.PACKOF),then);return}
   if(V3.lbuilt){then();return}
   var m=document.getElementById('v3msg');m.hidden=false;m.textContent='Building the anatomy layers…';
   setTimeout(function(){
@@ -2893,7 +2948,7 @@ function v3SetLayers(map){
     V3LAYS.forEach(function(l){V3.layers[l[0]]=!!map[l[0]];V3.op[l[0]]=map[l[0]]&&map[l[0]]<1?map[l[0]]:1});
     v3Sync();v3Paint();
   };
-  if(v3NeedsLayers(map))v3EnsureLayers(go);else go();
+  if(v3NeedsLayers(map))v3EnsureLayers(go,Object.keys(map).filter(function(k){return map[k]}));else go();
 }
 function v3LayAct(a,b){
   switch(a){
@@ -2901,11 +2956,15 @@ function v3LayAct(a,b){
     case 'lay':{
       var k=b.dataset.k,want=!V3.layers[k];
       var apply=function(){V3.layers[k]=want;if(!v3AnyOn())V3.layers[k]=true;v3Sync();v3Paint()};
-      if(want&&k!=='bone'&&k!=='joint')v3EnsureLayers(apply);else apply();
+      if(want&&k!=='bone'&&k!=='joint')v3EnsureLayers(apply,[k]);else apply();
       break}
     case 'lop':{var k2=b.dataset.k,cur=V3.op[k2]!=null?V3.op[k2]:1,seq=[1,.6,.3],i=seq.indexOf(cur);i=i<0?0:(i+1)%seq.length;V3.op[k2]=seq[i];v3Sync();v3Paint();break}
     case 'pre':v3SetLayers(V3PRE[parseInt(b.dataset.i,10)][1]);break;
     case 'mlab':v3Close();if(typeof mlOpen==='function')mlOpen();break;
+    case 'tier':{var ti=+b.dataset.i;RM.tiers[ti]=RM.tiers[ti]?0:1;if(!RM.tiers[0]&&!RM.tiers[1]&&!RM.tiers[2])RM.tiers[ti]=1;v3Paint();break}
+    case 'att':rmAttToggle();break;
+    case 'attall':rmAttAll();break;
+    case 'credits':rmCredits();break;
     case 'quiz':v3QStart();break;
     case 'qzpick':v3QPick(parseInt(b.dataset.i,10));break;
     case 'qznext':v3QNext();break;
@@ -2923,8 +2982,9 @@ function v3LxCard(e){
     if(ml){
       body='<p><b>Origin:</b> '+blE(ml.o)+'</p><p><b>Insertion:</b> '+blE(ml.i)+'</p><p><b>Nerve:</b> '+blE(ml.nv)+'</p><p><b>Action:</b> '+blE(ml.a)+'</p>'+
         '<button class="btn small ghost" data-v3="mlab">Open the Muscle lab</button>';
-    }else body='<p>'+blE(e.note)+'</p>';
-    body+='<p class="v3sch">Schematic drawing, not to scale.</p>';
+    }else body=e.note?'<p>'+blE(e.note)+'</p>':'<p class="muted">'+(e.sys==='mu'?'No origin and insertion card for this one yet.':'Name only for now.')+'</p>';
+    if(RM.on&&e.sys==='mu'&&e.gk&&(RM.attIdx?rmAttHas(e.gk):true))body+='<button class="btn small ghost" data-v3="att">'+(RM.att.on?'Hide attachments':'Show attachments')+'</button>'+(RM.att.on?'<p class="v3att"><span><i class="o"></i>origin</span><span><i class="e"></i>insertion</span><span>approximate, from the 3D model</span></p>':'');
+    body+='<p class="v3sch">'+(RM.on?'Drawn from a real model (adult male). Bodies vary.':'Schematic drawing, not to scale.')+'</p>';
   }
   el.innerHTML='<button class="v3x" data-v3="clear" aria-label="Dismiss">×</button>'+head+body;
 }
@@ -2941,17 +3001,18 @@ function v3QItem(e){
   var same=[],sn={};sn[e.n]=1;
   v3QShuf(LX.filter(function(x){return x.sys===e.sys})).forEach(function(x){if(same.length<3&&!sn[x.n]){sn[x.n]=1;same.push(x.n)}});
   v3QShuf(LX).forEach(function(x){if(same.length<3&&!sn[x.n]){sn[x.n]=1;same.push(x.n)}});
-  return {q:'Name the structure: '+e.cl+'.',a:e.n,w:same,why:e.n+': '+e.note};
+  return {q:e.cl?'Name the structure: '+e.cl+'.':'Name the highlighted structure.',a:e.n,w:same,why:e.note?e.n+': '+e.note:e.n+'.'};
 }
+function v3QVis(e){return V3.layers[e.sys]&&(e.dp==null||!RM.on||RM.tiers[e.dp])}
 function v3QStart(){
-  var pool=LX.filter(function(e){return V3.layers[e.sys]});
+  var pool=LX.filter(v3QVis);
   var m=document.getElementById('v3msg');
   if(!pool.length){m.hidden=false;m.textContent='Turn on a muscle, vessel or organ layer first, then start the quiz.';setTimeout(function(){m.hidden=true},2200);return}
   V3Q.on=true;V3Q.n=0;V3Q.score=0;v3QNext();
   document.getElementById('v3lay').hidden=true;document.getElementById('v3laybtn').classList.remove('on');
 }
 function v3QNext(){
-  var pool=LX.filter(function(e){return V3.layers[e.sys]});
+  var pool=LX.filter(v3QVis);
   if(!pool.length){v3QStop();return}
   var e=pool[Math.floor(Math.random()*pool.length)];
   var names=[e.n],sn={};sn[e.n]=1;
@@ -2987,7 +3048,224 @@ function v3QRender(){
   h+='<div class="v3qa">'+(V3Q.ans!==null?'<button class="v3b on" data-v3="qznext">Next</button>':'')+'<button class="v3b" data-v3="qzstop">Stop quiz</button></div>';
   q.innerHTML=h;
 }
-window.__V3={V3:V3,open:function(){v3Open()},set:function(m){v3SetLayers(m)},tween:function(t){v3Tween(t,10)},LX:LX,LXB:LXB,quiz:function(){v3QStart()},Q:V3Q};
+window.__V3={sel:function(id){v3Select(id)},RM:RM,V3:V3,open:function(){v3Open()},set:function(m){v3SetLayers(m)},tween:function(t){v3Tween(t,10)},LX:LX,LXB:LXB,quiz:function(){v3QStart()},Q:V3Q};
+
+/* ---------- real anatomy models: loader, builders, attachments, credits ---------- */
+RM.base='models/';RM.on=false;RM.probed=false;RM.built={};RM.loading={};RM.att={on:false,all:false,groups:{}};
+RM.tiers=[1,1,1];
+RM.PACKOF={mu:'muscles',lig:'ligs',ar:'vasc',ve:'vasc',hrt:'vasc',resp:'org',dig:'org',uri:'org',end:'org',lym:'org',ner:'nerv'};
+LC.rm=[0xffffff,1];LC.lig=[0xe3dcc4,1];LC.lym=[0x6fbf9a,1];LC.nerve=[0xf0d86a,1];LC.cart=[0xcfe0e6,1];
+var RMK={'hrt-la':'hrt','hrt-lv':'hrt','hrt-valves':'hrt2','hrt-papillary':'hrt','hrt-ra':'hrtb','hrt-rv':'hrtb','hrt-cardiacveins':'hrtb','hv-pulmtrunk':'hrtb','hv-pulmartery':'hrtb','hv-pulmvein':'hrt2',
+ 'rsp-trachea':'bron','rsp-bronchi':'bron','rsp-llung':'lung','rsp-rlung':'lung','rsp-epiglottis':'lar',
+ 'dig-liver':'liv','dig-gallbladder':'gb','dig-stomach':'sto','dig-spleen':'spl','dig-pancreas':'pan','dig-oesophagus':'oes','dig-duodenum':'si','dig-smallint':'si','dig-tongue':'oes','dig-salivary':'pan',
+ 'dig-caecum':'li','dig-ascending':'li','dig-transverse':'li','dig-descending':'li','dig-sigmoid':'li',
+ 'uri-kidney':'kid','uri-pelvis':'blad','uri-ureter':'blad','uri-bladder':'blad','uri-urethra':'blad','uri-adrenal':'adr','end-thyroid':'thy','end-parathyroid':'thy','end-pituitary':'brn','end-pineal':'brn',
+ 'lym-thymus':'lym','lym-tonsil':'lym','ner-cord':'cord'};
+function rmKind(g,sys){
+  if(RMK[g])return RMK[g];
+  if(sys==='ar'||sys==='ve')return sys;
+  if(sys==='ner')return /^ner-(frontal|parietal|temporal|occipital|insula|cingulate|thalamus|hypothalamus|basalganglia|hippocampus|amygdala|callosum)$/.test(g)?'brn':/^ner-(cerebellum|brainstem|ventricles)$/.test(g)?'cbl':'nerve';
+  return 'rm';
+}
+function rmSlug(s){return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function rmHash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return ((h>>>0)%1000)/1000}
+function rmLoad(name,cb){
+  if(RM.H[name]){cb(true);return}
+  if(RM.loading[name]){RM.loading[name].push(cb);return}
+  RM.loading[name]=[cb];
+  var done=function(ok){var l=RM.loading[name];delete RM.loading[name];l.forEach(function(f){f(ok)})};
+  fetch(RM.base+name+'.bin').then(function(r){if(!r.ok)throw new Error(r.status);return r.arrayBuffer()}).then(function(b){RM.H[name]=rmParse(b);done(true)}).catch(function(e){console.warn('model pack failed',name,e);done(false)});
+}
+/* merge nodes of one structure into a single geometry; col(node,vertexIndex,out) optional */
+function rmMerge(nodes,colFn){
+  var T=THREE,S=RM.S,nv=0,ni=0,i,k;
+  nodes.forEach(function(n){nv+=n.nv;ni+=n.ni});
+  var pos=new Float32Array(nv*3),idx=new Uint32Array(ni),col=colFn?new Float32Array(nv*3):null,vo=0,io=0;
+  nodes.forEach(function(n){
+    var bb=n.bb,q=n.q,sx=(bb[3]-bb[0])/65535*S,sy=(bb[4]-bb[1])/65535*S,sz=(bb[5]-bb[2])/65535*S,ox=bb[0]*S,oy=(bb[1]-RM.Y0)*S,oz=bb[2]*S;
+    for(i=0;i<n.nv;i++){var p=(vo+i)*3;pos[p]=ox+q[i*3]*sx;pos[p+1]=oy+q[i*3+1]*sy;pos[p+2]=oz+q[i*3+2]*sz}
+    for(k=0;k<n.ni;k++)idx[io+k]=n.ix[k]+vo;
+    if(colFn)colFn(n,col,vo);
+    vo+=n.nv;io+=n.ni;
+  });
+  var g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(pos,3));g.setIndex(new T.BufferAttribute(idx,1));
+  if(col)g.setAttribute('color',new T.BufferAttribute(col,3));
+  g.computeVertexNormals();g.computeBoundingSphere();
+  return g;
+}
+function rmAddGroup(id,layer,kind,geo,vc,extra){
+  var T=THREE,grp=new T.Group();grp.userData.id=id;grp.userData.layer=layer;grp.visible=false;
+  if(extra)for(var k in extra)grp.userData[k]=extra[k];
+  var mat=new T.MeshStandardMaterial({color:0xffffff,roughness:layer==='mu'?.62:.55,metalness:0,side:T.DoubleSide,vertexColors:!!vc});
+  mat.userData.kind=kind;mat.userData.vc=!!vc;
+  var mesh=new T.Mesh(geo,mat);mesh.userData.id=id;grp.add(mesh);
+  V3.groups[id]=grp;V3.mats[id]=[mat];V3.meshes.push(mesh);V3.root.add(grp);
+  return grp;
+}
+/* ----- skeleton upgrade ----- */
+var RMB={cranium:1};
+function rmBones(cb){
+  if(RM.built.skel){cb(true);return}
+  rmLoad('skel',function(ok){
+    if(!ok){cb(false);return}
+    var H=RM.H.skel,by={};
+    H.nodes.forEach(function(n){(by[n.g]=by[n.g]||[]).push(n)});
+    // drop the procedural bones and their joint markers
+    Object.keys(V3.groups).forEach(function(id){
+      var g=V3.groups[id];if(g.userData.layer!=='bone')return;
+      g.children.slice().forEach(function(m){var i=V3.meshes.indexOf(m);if(i>=0)V3.meshes.splice(i,1);m.geometry.dispose()});
+      V3.root.remove(g);delete V3.groups[id];delete V3.mats[id];
+    });
+    Object.keys(by).forEach(function(id){
+      var kind=id==='costal'?'c':id==='teeth'?'t':'b';
+      var grp=rmAddGroup(id,'bone',kind,rmMerge(by[id]),false);grp.visible=true;
+      if(!byId[id]){
+        var nm={costal:'Costal cartilage',lacrimal:'Lacrimal bone',palatine:'Palatine bone',concha:'Inferior nasal concha',vomer:'Vomer',teeth:'Teeth',sesamoids:'Sesamoid bones'}[id]||id;
+        var nt={costal:'Hyaline cartilage joining the true ribs to the sternum, and the false ribs to the cartilage above.',lacrimal:'A small bone in the medial wall of the orbit, forming part of the nasolacrimal groove.',palatine:'Forms the posterior hard palate and part of the nasal cavity and orbit floor.',concha:'A thin scroll of bone on the lateral nasal wall that increases mucosal surface area.',vomer:'Forms the inferior part of the nasal septum.',teeth:'Thirty-two permanent teeth: incisors, canines, premolars and molars.',sesamoids:'Bones within tendons: the patella is the largest; others sit at the thumb and big toe.'}[id]||'';
+        LXB[id]={id:id,base:id,sys:'bone',n:nm,side:'',ml:null,note:nt,cl:'',reg:''};
+      }
+    });
+    // real joint positions
+    var J=H.extra&&H.extra.joints||[];
+    Object.keys(V3.groups).forEach(function(id){
+      var g=V3.groups[id];if(!g.userData.joint)return;
+      var js=J.filter(function(j){return j.id===id});if(!js.length)return;
+      var sph=g.children.slice();
+      sph.forEach(function(m,ix){
+        var j=js.length===1?js[0]:(js.filter(function(q){return q.s===(ix===0?'l':'r')})[0]||js[0]);
+        m.position.set(j.p[0]*RM.S,(j.p[1]-RM.Y0)*RM.S,j.p[2]*RM.S);
+        var r=j.r*RM.S*1.15,base=m.geometry.parameters.radius;m.scale.setScalar(r/base);
+      });
+    });
+    RM.built.skel=true;V3.need=true;cb(true);
+  });
+}
+/* ----- generic structure packs ----- */
+function rmSideName(s){return s==='l'?'left':s==='r'?'right':''}
+function rmBuildPack(pk,cb){
+  if(RM.built[pk]){cb(true);return}
+  rmLoad(pk,function(ok){
+    if(!ok){cb(false);return}
+    var H=RM.H[pk],groups={},order=[];
+    var sn={};(RM.structs||[]).forEach(function(s){sn[s.id]=s});
+    H.nodes.forEach(function(n){
+      var key,layer,gid,ent;
+      if(pk==='muscles'){layer='mu';gid='mu:'+rmSlug(n.gk);key=gid+'|'+n.s}
+      else if(pk==='ligs'){layer='lig';gid='lig:'+rmSlug(n.nm);key=gid+'|'+n.s}
+      else{layer=n.sy;gid=n.g;key=gid+'|'+n.s}
+      if(!groups[key]){groups[key]={gid:gid,layer:layer,s:n.s,nodes:[],nm:pk==='muscles'?n.gk:pk==='ligs'?n.nm:(sn[gid]||{}).n||n.nm,ml:null,dp:9,g:n.g};order.push(key)}
+      var G=groups[key];G.nodes.push(n);if(n.ml&&!G.ml)G.ml=n.ml;if(n.dp!=null&&n.dp<G.dp)G.dp=n.dp;
+    });
+    order.forEach(function(key){
+      var G=groups[key],side=(G.s==='l'||G.s==='r')?G.s:'',id=G.gid+(side?'.'+side:'');
+      var kind=pk==='muscles'?'rm':pk==='ligs'?'lig':rmKind(G.g,G.layer);
+      var colFn=null,vc=false;
+      if(pk==='muscles'){
+        vc=true;
+        colFn=function(n,col,vo){
+          var h=rmHash(n.id||n.nm),base=new THREE.Color(0xb8473c).lerp(new THREE.Color(h>.5?0xe27c6c:0x7d2c26),Math.abs(h-.5)*.55),ten=new THREE.Color(0xe0d6bb),sh=[1,.9,.8][n.dp==null?0:n.dp],c=new THREE.Color();
+          for(var i=0;i<n.nv;i++){
+            var f=n.tf?n.tf[i]/255:0;c.copy(base).multiplyScalar(sh).lerp(ten,f);
+            col[(vo+i)*3]=c.r;col[(vo+i)*3+1]=c.g;col[(vo+i)*3+2]=c.b;
+          }
+        };
+      }
+      var grp=rmAddGroup(id,G.layer,kind,rmMerge(G.nodes,colFn),vc,{dp:G.dp===9?null:G.dp});
+      var st0=sn[G.g]||{};
+      var e={id:id,base:G.gid,sys:G.layer,n:G.nm,side:rmSideName(G.s),ml:G.ml,note:pk==='muscles'||pk==='ligs'?'':(st0.note||''),cl:pk==='muscles'||pk==='ligs'?'':(st0.cl||''),reg:'',dp:G.dp===9?null:G.dp,gk:pk==='muscles'?G.nodes[0].gk:null};
+      LX.push(e);LXB[id]=e;
+    });
+    RM.built[pk]=true;cb(true);
+  });
+}
+function rmEnsure(keys,then){
+  var need=[];keys.forEach(function(k){var p=RM.PACKOF[k];if(p&&need.indexOf(p)<0&&!RM.built[p==='muscles'?'muscles':p])need.push(p)});
+  var fail=false;
+  (function next(){
+    if(!need.length){if(fail){var m=document.getElementById('v3msg');m.hidden=false;m.textContent='These models could not be loaded. Check your connection and try again.';setTimeout(function(){m.hidden=true},3000);return}then();return}
+    var pk=need.shift();
+    var m=document.getElementById('v3msg');m.hidden=false;m.textContent='Loading anatomy models…';
+    setTimeout(function(){rmBuildPack(pk,function(ok){if(!ok)fail=true;m.hidden=true;next()})},20);
+  })();
+}
+/* ----- attachments (origin / insertion footprints) ----- */
+var RMAL={'Quadriceps femoris':['Rectus femoris','Vastus lateralis','Vastus medialis','Vastus intermedius'],'Triceps surae':['Gastrocnemius','Soleus'],'Iliopsoas':['Psoas major','Iliacus'],'Levator ani':['Iliococcygeus','Pubococcygeus'],
+ 'Plantar interossei':['First plantar interosseous','Second plantar interosseous','Third plantar interosseous']};
+function rmAttLoad(cb){rmLoad('ins',function(ok){
+  if(!ok){cb(false);return}
+  if(!RM.attIdx){
+    RM.attIdx={};
+    RM.H.ins.nodes.forEach(function(n){
+      var tg=RMAL[n.gk]||[n.gk];
+      tg.forEach(function(t){(RM.attIdx[t]=RM.attIdx[t]||[]).push(n)});
+    });
+    RM.attGrp=new THREE.Group();RM.attGrp.visible=true;V3.root.add(RM.attGrp);
+  }
+  cb(true);
+})}
+function rmAttMeshes(gk,sd){
+  var A=RM.att.groups,key=gk+'|'+(sd||'');
+  if(A[key])return A[key];
+  var ns=(RM.attIdx[gk]||[]).filter(function(n){return !sd||n.s===sd||n.s==='m'}),T=THREE,out=[];
+  [['o',0x2fbf71],['e',0xff9a2e]].forEach(function(t){
+    var list=ns.filter(function(n){return n.k===t[0]});if(!list.length)return;
+    var geo=rmMerge(list);
+    var mat=new T.MeshStandardMaterial({color:t[1],emissive:t[1],emissiveIntensity:.5,roughness:.5,side:T.DoubleSide,polygonOffset:true,polygonOffsetFactor:-4,polygonOffsetUnits:-4,transparent:true,opacity:.92,depthWrite:false});
+    var m=new T.Mesh(geo,mat);m.renderOrder=6;m.visible=false;m.userData.k=t[0];RM.attGrp.add(m);out.push(m);
+  });
+  A[key]=out;return out;
+}
+function rmAttSync(){
+  if(!RM.on||!RM.attGrp)return;
+  var sel=V3.sel&&LXB[V3.sel],gk=sel&&sel.sys==='mu'?sel.gk:null,g;
+  for(g in RM.att.groups)RM.att.groups[g].forEach(function(m){m.visible=false});
+  if(RM.att.on&&gk){rmAttMeshes(gk,sel.side==='left'?'l':sel.side==='right'?'r':'').forEach(function(m){m.visible=true})}
+  if(RM.att.all){
+    LX.forEach(function(e){if(e.sys==='mu'&&V3.layers.mu&&(e.dp==null||RM.tiers[e.dp]))rmAttMeshes(e.gk,e.side==='left'?'l':e.side==='right'?'r':'').forEach(function(m){m.visible=true})});
+  }
+  V3.need=true;
+}
+function rmAttToggle(){
+  RM.att.on=!RM.att.on;
+  if(RM.att.on||RM.att.all)rmAttLoad(function(){rmAttSync();v3Card();v3Sync()});else{rmAttSync();v3Sync()}
+}
+function rmAttAll(){
+  RM.att.all=!RM.att.all;
+  if(RM.att.all){var go=function(){rmAttLoad(function(){rmAttSync();v3Sync()})};if(!V3.layers.mu){v3SetLayers({bone:1,mu:1});setTimeout(go,50)}else go()}
+  else{rmAttSync();v3Sync()}
+}
+function rmAttHas(gk){return RM.attIdx&&RM.attIdx[gk]&&RM.attIdx[gk].length}
+/* ----- probe and register ----- */
+function rmProbe(cb){
+  if(RM.probed){cb();return}
+  RM.probed=true;
+  if(!RM.site||location.protocol==='file:'||!window.fetch||window.__NORM){cb();return}
+  fetch(RM.base+'structs.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('x');return r.json()}).then(function(j){
+    RM.structs=j;RM.on=true;
+    V3LAYS.splice(2,0,['lig','Ligaments','#c9d3a6']);V3LAYS.splice(V3LAYS.length-1,0,['lym','Lymphatic','#6fbf9a']);
+    V3SYSN.lig='Ligaments and cartilage';V3SYSN.lym='Lymphatic system';V3SYSN.bone='Skeleton';
+    V3PRE.splice(1,0,['Bones + ligaments',{bone:1,joint:1,lig:1}]);
+    LX.length=0;Object.keys(LXB).forEach(function(k){delete LXB[k]});
+    cb();
+  }).catch(function(){cb()});
+}
+/* ----- credits ----- */
+function rmCredits(){
+  if(document.getElementById('rmcr'))return;
+  var d=document.createElement('div');d.id='rmcr';d.className='rmcr';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Model credits');
+  d.innerHTML='<div class="rmcr-card"><button class="rmcr-x" aria-label="Close">&times;</button><h2>Model credits</h2>'+
+  '<p>The 3D anatomy in Osteon is built on open models made by other people. Thank you to everyone who made them and shared them freely.</p>'+
+  '<ul><li><b>Z-Anatomy</b> &ndash; the libre 3D atlas of anatomy (Gauthier Kervyn, Marcin Zielinski), CC BY-SA 4.0. <a href="https://github.com/Z-Anatomy/Models-of-human-anatomy" target="_blank" rel="noopener">Source</a></li>'+
+  '<li><b>BodyParts3D</b> &ndash; The Database Center for Life Science, CC BY-SA 2.1 Japan. <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html" target="_blank" rel="noopener">Source</a></li>'+
+  '<li><b>NIH 3D</b> &ndash; &lsquo;Human Skeleton&rsquo; series by My Segmenter, CC BY 4.0.</li>'+
+  '<li>Some bones also come from Sketchfab models by <b>ebauer4</b> (Elon University) and the <b>University of South Florida</b>, CC BY 4.0.</li></ul>'+
+  '<p class="rmcr-s">The models were simplified, merged, recoloured and grouped for this app, and the muscle depth layers and origin and insertion highlights were computed from them. They are shared under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, and the full notices are in <a href="models/CREDITS.txt" target="_blank" rel="noopener">this credits file</a>. The names, origins, insertions, nerves and actions shown on cards are written and checked separately. The source body is a single adult male model, so expect normal variation in real people.</p></div>';
+  document.body.appendChild(d);
+  var close=function(){if(d.parentNode)d.parentNode.removeChild(d)};
+  d.addEventListener('click',function(e){if(e.target===d||e.target.className==='rmcr-x')close()});
+  document.addEventListener('keydown',function h(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',h)}});
+}
+window.rmCredits=rmCredits;
 
 /* ===== Bone lab: bone types + numbered landmark explorer ===== */
 var BLP=['#e0483e','#3f8fd9','#f0a21a','#2fa56b','#8e5bd0','#e0689f','#1fb2b8','#9aa31f','#d9702a','#5b6fd6','#2a8f5a','#c24a8a','#6a9a2f','#b5543a'];
@@ -8199,7 +8477,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V47';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V48';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -8833,7 +9111,7 @@ function hubHome(){
     o+='</div></div>';
   }
   o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-os="fb">Send feedback or report an error</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
-  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div></footer>';
+  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div>'+(RM.site?'<div class="cr-s">3D anatomy from open models (Z-Anatomy, BodyParts3D and others) &middot; <button class="hub-cr" onclick="rmCredits()">Credits</button></div>':'')+'</footer>';
   return o;
 }
 function hubRender(){

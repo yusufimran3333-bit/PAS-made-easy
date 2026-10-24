@@ -1,5 +1,5 @@
-/* Osteon service worker. Version: 20261023-153959 */
-var VER="20261023-153959",CACHE="anatomy-drill-"+VER;
+/* Osteon service worker. Version: 20261024-183027 */
+var VER="20261024-183027",CACHE="anatomy-drill-"+VER,MODELS="osteon-models-1";
 var CORE=["./","index.html","manifest.webmanifest","icon-192.png","icon-512.png","icon-180.png","icon-maskable-512.png","favicon.png"];
 self.addEventListener("install",function(e){e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(CORE)}).then(function(){return self.skipWaiting()}))});
 self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==CACHE&&k.indexOf("anatomy-drill-")===0}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
@@ -12,6 +12,14 @@ self.addEventListener("fetch",function(e){
   }
   if(u.hostname==="fonts.googleapis.com"||u.hostname==="fonts.gstatic.com"){
     e.respondWith(caches.open(CACHE).then(function(c){return c.match(r).then(function(m){var f=fetch(r).then(function(res){c.put(r,res.clone());return res}).catch(function(){return m});return m||f})}));
+    return;
+  }
+  if(u.origin===location.origin&&u.pathname.indexOf("/models/")>=0){
+    if(/\.bin$/.test(u.pathname)){
+      e.respondWith(caches.open(MODELS).then(function(c){return c.match(r).then(function(m){return m||fetch(r).then(function(res){if(res.ok)c.put(r,res.clone());return res})})}));
+    }else{
+      e.respondWith(fetch(r).then(function(res){var cp=res.clone();caches.open(MODELS).then(function(c){c.put(r,cp)});return res}).catch(function(){return caches.open(MODELS).then(function(c){return c.match(r)})}));
+    }
     return;
   }
   if(u.origin===location.origin){

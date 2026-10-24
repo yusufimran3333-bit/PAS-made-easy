@@ -1,0 +1,14 @@
+OSTEON: 3D MODEL CREDITS AND LICENCE NOTICES
+
+The 3D anatomy models in Osteon are adapted from the open models below. They were simplified, merged, recoloured and grouped for this app, and the origin and insertion highlights and muscle depth layers were computed from them. The adapted model files in this folder (the .bin files) are shared under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+
+- Z-Anatomy, the libre 3D atlas of anatomy (Gauthier Kervyn, Marcin Zielinski). CC BY-SA 4.0. Models modified. https://github.com/Z-Anatomy/Models-of-human-anatomy
+- BodyParts3D, (c) The Database Center for Life Science. Licensed under CC BY-SA 2.1 Japan. Models modified. https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html (Z-Anatomy is itself derived from BodyParts3D.)
+- NIH 3D (3d.nih.gov), 'Human Skeleton' series by My Segmenter. CC BY 4.0. Meshes registered and modified.
+- Sketchfab models by ebauer4 (Elon University) and usf-idex-access3d (University of South Florida). CC BY 4.0. Meshes registered and modified.
+
+Not affiliated with, or endorsed by, any of the creators above.
+
+The names, origins, insertions, nerve supplies and actions shown on Osteon's cards are written and checked separately, and are not part of these models. The source body is a single adult male model.
+
+Osteon is an unofficial student-made revision tool. (c) 2026 Yusuf Butt. The application code and written content are not covered by the licence above.
