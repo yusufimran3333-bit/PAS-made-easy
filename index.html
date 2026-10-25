@@ -682,7 +682,6 @@ h1,h2{letter-spacing:-.015em}
 .hub-rv .bl-opts{margin-bottom:12px}
 .hub-rv .fb{margin-bottom:12px}
 @media(prefers-reduced-motion:reduce){.hub-bg,.hub-card.glow,.hub-in>*,.app>header,.app>.grid{animation:none}}
-.hub-weak{list-style:none;margin:0;padding:0}.hub-weak li{padding:10px 0;border-top:1px solid color-mix(in srgb,currentColor 14%,transparent)}.hub-weak li:first-child{border-top:0}.hub-weak b{display:block;font-weight:500;margin-bottom:3px}.hub-weak .muted{font-size:12.5px}
 </style>
 
 <div class="app">
@@ -8666,7 +8665,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V51';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V52';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -9235,31 +9234,6 @@ function hubGo(g){
 }
 
 
-/* ---------- weak spots: your most-missed questions, ranked ---------- */
-var HUBSRC={bl:'Bone lab',bt:'Bone tissue',bz:'Blurt',cl:'Cartilage lab',jl:'Joint lab',mi:'Microanatomy lab',ml:'Muscle lab',rc:'Recall',v3:'3D viewer'};
-function hubWeak(){
-  var st={};
-  try{JSON.parse(localStorage.getItem(OSLOG)||'[]').forEach(function(e){var o=st[e.s+':'+e.q]||(st[e.s+':'+e.q]={a:0,ok:0});o.a++;o.ok+=e.ok})}catch(e){}
-  return Object.keys(SRS).map(function(k){var r=SRS[k],s=st[k]||{a:0,ok:0};return {r:r,a:s.a,ok:s.ok,miss:Math.max(s.a-s.ok,r.n||1)}})
-    .filter(function(x){return x.r.b<4})
-    .sort(function(a,b){return b.miss-a.miss||a.r.b-b.r.b||(a.ok/(a.a||1))-(b.ok/(b.a||1))});
-}
-function hubWeakHTML(){
-  var w=hubWeak(),h='<div class="hub-top"><button class="btn ghost small" data-hub="home">&larr; Home</button><span class="hub-pill">Weak spots</span></div>';
-  if(!w.length)return h+'<div class="hub-card"><p class="eyebrow">Nothing here yet</p><p class="muted">Questions you miss in the quizzes show up here, ranked by how often you get them wrong. Ones you have mastered drop off the list.</p></div>';
-  h+='<div class="hub-card"><p class="eyebrow">Your top '+Math.min(w.length,25)+' of '+w.length+'</p><p class="muted">Most-missed first. Drill the top 15 any time, even if they are not due yet.</p><div class="row-opts"><button class="btn" data-hub="weakdrill">Drill the top '+Math.min(w.length,15)+'</button></div></div>';
-  h+='<div class="hub-card"><ul class="hub-weak">';
-  w.slice(0,25).forEach(function(x){
-    h+='<li><b>'+blE(x.r.q)+'</b><span class="muted">'+blE(HUBSRC[x.r.s]||'Quiz')+' &middot; missed '+x.miss+(x.miss===1?' time':' times')+(x.a?' &middot; right '+x.ok+' of '+x.a:'')+'</span></li>'});
-  return h+'</ul></div>';
-}
-function hubStartWeak(){
-  var l=hubWeak().slice(0,15).map(function(x){return x.r});
-  if(!l.length)return;
-  HUB.rv={list:l,i:0,score:0,ans:null,opts:null,done:false};
-  hubRvOpts();HUB.view='review';hubRender();
-}
-
 /* ---------- review session ---------- */
 function hubStartReview(){
   var due=srsDue().sort(function(a,b){return a.b-b.b||a.d-b.d}).slice(0,15);
@@ -9316,7 +9290,7 @@ function hubHome(){
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
     o+='<div id="hubmain"'+(HUB.q.trim()?' hidden':'')+'><div class="hub-two">';
-    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+((s.due||s.total)?'<div class="row-opts">'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+(s.total?'<button class="btn ghost small" data-hub="weak">Weak spots ('+hubWeak().length+')</button>':'')+'</div>':'')+'</div>';
+    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
     if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
     o+='</div>';
     o+=bmCard();
@@ -9332,7 +9306,7 @@ function hubHome(){
 function hubRender(){
   var b=document.getElementById('hubbody');if(!b)return;
   var keep=document.activeElement&&document.activeElement.id==='hubq';
-  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():(HUB.view==='backup'?bkHTML():(HUB.view==='weak'?hubWeakHTML():(HUB.view==='map'?bmHTML():hubHome())));
+  b.innerHTML=HUB.view==='review'&&HUB.rv?hubRvHTML():(HUB.view==='backup'?bkHTML():(HUB.view==='map'?bmHTML():hubHome()));
   if(HUB.view==='map')bmAfter();
   if(keep){var i=document.getElementById('hubq');if(i){i.focus();try{i.setSelectionRange(i.value.length,i.value.length)}catch(e){}}}
 }
@@ -9345,8 +9319,6 @@ document.addEventListener('click',function(e){
   else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else if(l==='ml')mlOpen();else if(l==='mi')miOpen();else clOpen()}
   else if(a==='cont')hubResume(hubLast());
   else if(a==='review')hubStartReview();
-  else if(a==='weak'){HUB.view='weak';hubRender();document.getElementById('hub').scrollTop=0}
-  else if(a==='weakdrill')hubStartWeak();
   else if(a==='rvpick')hubRvPick(parseInt(t.dataset.i,10));
   else if(a==='rvrev'){HUB.rv.rev=true;hubRender()}
   else if(a==='rvgrade'){var R2=HUB.rv,r2=R2.list[R2.i],g=t.dataset.g;if(R2.ans===null){R2.ans=0;
