@@ -4,7 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B1722">
-<meta name="description" content="Osteon: anatomy and microanatomy revision. Unofficial student-made tool.">
+<meta name="description" content="Osteon: anatomy and microanatomy revision with a 3D skeleton, muscles, nerves and vessels. Free for KCL 2031. Made by Yusuf Butt.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Osteon">
+<meta property="og:title" content="Osteon: anatomy revision">
+<meta property="og:description" content="3D anatomy, origins and insertions, quizzes and spaced review. Free for KCL 2031. Made by Yusuf Butt.">
+<meta property="og:url" content="https://yusufimran3333-bit.github.io/PAS-made-easy/">
+<meta property="og:image" content="https://yusufimran3333-bit.github.io/PAS-made-easy/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Osteon: anatomy revision">
+<meta name="twitter:description" content="3D anatomy, origins and insertions, quizzes and spaced review. Free for KCL 2031. Made by Yusuf Butt.">
+<meta name="twitter:image" content="https://yusufimran3333-bit.github.io/PAS-made-easy/og.png">
 <meta name="author" content="Yusuf Butt">
 <meta name="copyright" content="(c) 2026 Yusuf Butt">
 <link rel="manifest" href="manifest.webmanifest">
@@ -236,6 +248,10 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .v3fb{position:absolute;left:50%;top:104px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);padding:8px 10px 8px 14px;border-radius:14px;background:rgba(40,28,10,.92);color:#f4e3bf;border:1px solid rgba(244,200,120,.4);font-size:13px;line-height:1.35}
 .v3fb button{border:1px solid rgba(244,227,191,.45);background:none;color:inherit;border-radius:999px;font:inherit;font-size:12.5px;padding:6px 12px;min-height:34px;cursor:pointer;white-space:nowrap}
 .v3fb button[data-fb="x"]{border:0;font-size:20px;padding:4px 8px}
+.ab .ab-h{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:16px 0 4px;font-weight:600}
+.ab-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 6px}
+.ab-a{font-size:12.5px;color:#93A0B3;word-break:break-all}
+.ab-s{margin-top:16px!important}
 .bl{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .bl[hidden]{display:none}
 .bl-top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -3277,6 +3293,7 @@ function rmProbe(cb){
   RM.probed=true;
   if(!RM.site||location.protocol==='file:'||!window.fetch||window.__NORM){cb();return}
   fetch(RM.base+'structs.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('x');return r.json()}).then(function(j){
+    j.forEach(function(s){if(s.note)s.note=osWM(s.note)});
     RM.structs=j;RM.on=true;
     V3LAYS.splice(2,0,['lig','Ligaments','#c9d3a6']);V3LAYS.splice(V3LAYS.length-1,0,['lym','Lymphatic','#6fbf9a']);
     V3SYSN.lig='Ligaments and cartilage';V3SYSN.lym='Lymphatic system';V3SYSN.bone='Skeleton';
@@ -8651,6 +8668,34 @@ function mnOverlay(keep){
 }
 window.mnOverlay=mnOverlay;
 
+/* ===== About card: who made it and where to reach them. Quiet by design. ===== */
+function abMail(){return 'yusufimran3333'+String.fromCharCode(64)+'gmail.com'}
+function abOpen(){
+  if(document.getElementById('abov'))return;
+  var d=document.createElement('div');d.id='abov';d.className='rmcr';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','About Osteon');
+  d.innerHTML='<div class="rmcr-card ab"><button class="rmcr-x" data-ab="x" aria-label="Close">&times;</button><h2>About</h2>'+
+  '<p>Osteon is a free anatomy revision app. I’m Yusuf, a medical student at King’s (MBBS, 2031), and I built it to revise my own course. I’m glad it’s useful to you.</p>'+
+  '<h3 class="ab-h">Feedback and bugs</h3>'+
+  '<p>Spotted a mistake, hit a bug, or wish it did something it doesn’t? I read all of it, and it helps everyone.</p>'+
+  '<div class="ab-row"><button class="mn-b" data-os="fb">Send feedback</button><span class="ab-a">automations.by.yusuf@gmail.com</span></div>'+
+  '<h3 class="ab-h">Anything else</h3>'+
+  '<p>Questions, collaborations or projects you have in mind.</p>'+
+  '<div class="ab-row"><button class="mn-b" data-ab="mail">Get in touch</button><span class="ab-a" id="abm"></span></div>'+
+  '<p class="rmcr-s ab-s">&copy; 2026 Yusuf Butt. All rights reserved. Unofficial and not endorsed by King’s College London.'+(RM.site?' <button class="hub-cr" data-ab="cr">Model credits</button>':'')+'</p></div>';
+  document.body.appendChild(d);
+  var m=document.getElementById('abm');if(m)m.textContent=abMail();
+  var close=function(){if(d.parentNode)d.parentNode.removeChild(d)};
+  d.addEventListener('click',function(e){
+    if(e.target===d){close();return}
+    var b=e.target.closest&&e.target.closest('[data-ab]');if(!b)return;
+    if(b.dataset.ab==='x')close();
+    else if(b.dataset.ab==='mail'){location.href='mailto:'+abMail()+'?subject='+encodeURIComponent('Osteon')}
+    else if(b.dataset.ab==='cr'){close();rmCredits()}
+  });
+  document.addEventListener('keydown',function h(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',h)}});
+}
+window.abOpen=abOpen;
+
 /* ===== Osteon: first-launch intro, credit guard, usage log ===== */
 var OSKEY='osteon-intro-v1',OSLOG='osteon-log';
 var OSTXT='Osteon · © 2026 Yusuf Butt';
@@ -8661,6 +8706,7 @@ function osWM(s){return (typeof s==='string'&&s.length>40&&s.indexOf(OSM)<0)?s+O
     MI_BLOOD.forEach(function(c){c.fn=osWM(c.fn);c.tip=osWM(c.tip)});
     [BT_SEC,MI_CT_SEC,MI_MU_SEC,MI_ST_SEC].forEach(function(L){L.forEach(function(s){s[1].forEach(function(p){p[1]=osWM(p[1])})})});
     MI_QA.forEach(function(q){q.why=osWM(q.why)});BT_QA.forEach(function(q){q.why=osWM(q.why)});
+    ML_M.forEach(function(m){m.note=osWM(m.note)});ML_QA.forEach(function(q){q.why=osWM(q.why)});Object.keys(ML_HOOK).forEach(function(k){ML_HOOK[k]=osWM(ML_HOOK[k])});
   }catch(e){}
 })();
 var OSSL=[
@@ -8713,7 +8759,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V55';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V56';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -9348,7 +9394,7 @@ function hubHome(){
     o+='</div></div>';
   }
   o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-os="fb">Send feedback or report an error</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
-  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div><div class="cr-s"><button class="hub-cr" onclick="mnOverlay()">My mnemonics</button></div>'+(RM.site?'<div class="cr-s">3D anatomy from open models (Z-Anatomy, BodyParts3D and others) &middot; <button class="hub-cr" onclick="rmCredits()">Credits</button></div>':'')+'</footer>';
+  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div><div class="cr-s"><button class="hub-cr" onclick="abOpen()">About</button> &middot; <button class="hub-cr" onclick="mnOverlay()">My mnemonics</button></div>'+(RM.site?'<div class="cr-s">3D anatomy from open models (Z-Anatomy, BodyParts3D and others) &middot; <button class="hub-cr" onclick="rmCredits()">Credits</button></div>':'')+'</footer>';
   return o;
 }
 function hubRender(){
