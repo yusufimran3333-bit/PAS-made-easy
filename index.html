@@ -233,6 +233,9 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .mn-row{margin:0 0 10px}
 .ml-cl{margin:10px 0 0;padding:9px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent,#2dd4bf) 10%,transparent);font-size:13.5px;line-height:1.45;text-align:left}
 .ml-cl b{color:var(--accent,#2dd4bf)}
+.v3fb{position:absolute;left:50%;top:104px;transform:translateX(-50%);z-index:12;display:flex;align-items:center;gap:8px;max-width:min(92vw,520px);padding:8px 10px 8px 14px;border-radius:14px;background:rgba(40,28,10,.92);color:#f4e3bf;border:1px solid rgba(244,200,120,.4);font-size:13px;line-height:1.35}
+.v3fb button{border:1px solid rgba(244,227,191,.45);background:none;color:inherit;border-radius:999px;font:inherit;font-size:12.5px;padding:6px 12px;min-height:34px;cursor:pointer;white-space:nowrap}
+.v3fb button[data-fb="x"]{border:0;font-size:20px;padding:4px 8px}
 .bl{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .bl[hidden]{display:none}
 .bl-top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -2886,7 +2889,7 @@ function v3Open(){
       if(!RM.on){go();return}
       try{if(!V3.built){v3Build();V3.r=new THREE.WebGLRenderer({canvas:$('#v3c'),antialias:true,alpha:true});v3Wire()}}catch(err){go();return}
       $('#v3msg').textContent='Loading the skeleton…';
-      rmBones(function(){go()});
+      rmBones(function(ok){if(!ok)rmFallbackNote();go()});
     });
   },40);
 }
@@ -3081,12 +3084,33 @@ function rmKind(g,sys){
 }
 function rmSlug(s){return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function rmHash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return ((h>>>0)%1000)/1000}
+/* read a response with a percentage readout in the loading message */
+function rmRead(r,name){
+  var tot=parseInt(r.headers.get('content-length')||'0',10);
+  if(!r.body||!r.body.getReader||!tot)return r.arrayBuffer();
+  var rd=r.body.getReader(),parts=[],got=0,last=-1;
+  return (function pump(){return rd.read().then(function(x){
+    if(x.done){var out=new Uint8Array(got),o=0;parts.forEach(function(p){out.set(p,o);o+=p.length});return out.buffer}
+    parts.push(x.value);got+=x.value.length;
+    var pc=Math.min(99,Math.floor(got/tot*100));
+    if(pc!==last){last=pc;var m=document.getElementById('v3msg');if(m&&!m.hidden&&/^Loading/.test(m.textContent))m.textContent=m.textContent.replace(/ \d+%$/,'')+' '+pc+'%'}
+    return pump()})})();
+}
+/* shown when the real models could not be loaded and the simplified drawing is in use */
+function rmFallbackNote(){
+  if(!RM.site||location.protocol==='file:'||window.__NORM)return;
+  if(document.getElementById('v3fb'))return;
+  var d=document.createElement('div');d.id='v3fb';d.className='v3fb';d.setAttribute('role','status');
+  d.innerHTML='<span>Showing a simplified drawing because the 3D models did not load.</span><button type="button" data-fb="retry">Try again</button><button type="button" data-fb="x" aria-label="Dismiss">&times;</button>';
+  d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-fb]');if(!b)return;if(b.dataset.fb==='retry')location.reload();else d.parentNode.removeChild(d)});
+  var host=document.getElementById('v3');(host||document.body).appendChild(d);
+}
 function rmLoad(name,cb){
   if(RM.H[name]){cb(true);return}
   if(RM.loading[name]){RM.loading[name].push(cb);return}
   RM.loading[name]=[cb];
   var done=function(ok){var l=RM.loading[name];delete RM.loading[name];l.forEach(function(f){f(ok)})};
-  fetch(RM.base+name+'.bin').then(function(r){if(!r.ok)throw new Error(r.status);return r.arrayBuffer()}).then(function(b){RM.H[name]=rmParse(b);done(true)}).catch(function(e){console.warn('model pack failed',name,e);done(false)});
+  fetch(RM.base+name+'.bin').then(function(r){if(!r.ok)throw new Error(r.status);return rmRead(r,name)}).then(function(b){RM.H[name]=rmParse(b);done(true)}).catch(function(e){console.warn('model pack failed',name,e);done(false)});
 }
 /* merge nodes of one structure into a single geometry; col(node,vertexIndex,out) optional */
 function rmMerge(nodes,colFn){
@@ -3259,7 +3283,7 @@ function rmProbe(cb){
     V3PRE.splice(1,0,['Bones + ligaments',{bone:1,joint:1,lig:1}]);
     LX.length=0;Object.keys(LXB).forEach(function(k){delete LXB[k]});
     cb();
-  }).catch(function(){cb()});
+  }).catch(function(){rmFallbackNote();cb()});
 }
 /* ----- credits ----- */
 function rmCredits(){
@@ -3278,6 +3302,7 @@ function rmCredits(){
   document.addEventListener('keydown',function h(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',h)}});
 }
 window.rmCredits=rmCredits;
+window.rmFallbackNote=rmFallbackNote;
 
 /* ===== Bone lab: bone types + numbered landmark explorer ===== */
 var BLP=['#e0483e','#3f8fd9','#f0a21a','#2fa56b','#8e5bd0','#e0689f','#1fb2b8','#9aa31f','#d9702a','#5b6fd6','#2a8f5a','#c24a8a','#6a9a2f','#b5543a'];
@@ -8643,6 +8668,8 @@ var OSSL=[
  ['Home','Search anything from the bar at the top: a bone, a landmark, a muscle, a cell. The tiles open each lab. “Continue where you left off” takes you straight back to where you stopped.','Add Osteon to your Home Screen from your browser’s share menu to use it like an app.'],
  ['The review queue','When you get a question wrong, it comes back soon. When you get it right, it comes back after longer and longer gaps. That is spaced repetition. A few minutes a day beats one long session.','Open Home and tap the review queue when it shows something due.'],
  ['Learn by recalling','Switch on “Recall first” on a topic. It hides the answer, you write what you remember, then you reveal it and mark how you did. In the Bone lab, Study mode shows every landmark. Tap one, say its name in your head, then reveal it.','Trying to remember first, even when you get it wrong, is what makes it stick.'],
+ ['The 3D viewer','Open it from the Skeleton and muscles tile. Tap any structure to see its card. Use Layers to switch on muscles (surface, middle and deep), ligaments, vessels, nerves and organs. On a muscle, tap Show attachments to see where it starts (green) and ends (orange). There is a quiz inside the viewer too.','If it ever looks blocky or simplified, the full models did not load. Tap Try again, or check your connection.'],
+ ['Muscle lab extras','Tap a muscle for its origin, insertion, nerve and action. Some have an In practice box with a clinical link worth knowing. Every muscle has a space for your own mnemonic, and “My mnemonics” at the top of the Muscle lab and bottom of Home lists them all.','Your own mnemonics are saved on this device and included in your backup.'],
  ['Your progress','Your progress is saved on this device only. To move it to another device, use “Back up or restore progress” at the bottom of Home.','Found a mistake or something confusing? Tap \u201cSend feedback or report an error\u201d at the bottom of Home. It opens an email with your screen and device already filled in. Thank you for testing.']
 ];
 var OSI=0;
@@ -8686,7 +8713,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V54';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V55';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
