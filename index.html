@@ -8666,7 +8666,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V50';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V51';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -9316,7 +9316,7 @@ function hubHome(){
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
     o+='<div id="hubmain"'+(HUB.q.trim()?' hidden':'')+'><div class="hub-two">';
-    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
+    o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+((s.due||s.total)?'<div class="row-opts">'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+(s.total?'<button class="btn ghost small" data-hub="weak">Weak spots ('+hubWeak().length+')</button>':'')+'</div>':'')+'</div>';
     if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
     o+='</div>';
     o+=bmCard();
@@ -9325,7 +9325,7 @@ function hubHome(){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
-  o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-os="fb">Send feedback or report an error</button> <button class="btn ghost small" data-hub="weak">My weak spots</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
+  o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-os="fb">Send feedback or report an error</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
   o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div><div class="cr-s"><button class="hub-cr" onclick="mnOverlay()">My mnemonics</button></div>'+(RM.site?'<div class="cr-s">3D anatomy from open models (Z-Anatomy, BodyParts3D and others) &middot; <button class="hub-cr" onclick="rmCredits()">Credits</button></div>':'')+'</footer>';
   return o;
 }
