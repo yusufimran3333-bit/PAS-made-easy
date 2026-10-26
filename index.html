@@ -553,7 +553,10 @@ body.bz-on .bz-fab{display:none}
 .bz-sheet{position:relative;width:min(900px,100%);background:#fbf9f3;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.25);overflow:hidden;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,rgba(80,110,160,.18) 31px,rgba(80,110,160,.18) 32px);background-position:0 18px}
 .bz-ta,.bz-cv{position:absolute;left:0;top:0}
 .bz-ta{width:100%;height:100%;border:0;outline:0;resize:none;background:transparent;color:#1b1b1f;font:18px/32px system-ui,-apple-system,sans-serif;padding:18px 20px 0;box-sizing:border-box;-webkit-text-size-adjust:100%}
-.bz-ta::placeholder{color:#8c8c95}
+.bz-ta{overflow:auto;white-space:pre-wrap;word-break:break-word;-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.bz-ta:empty::before{content:attr(data-ph);color:#8c8c95;pointer-events:none}
+.bz-ta ul,.bz-ta ol{margin:0;padding-left:28px}.bz-ta li{margin:0}.bz-ta div,.bz-ta p{margin:0}
+.bz-fmt{display:flex;gap:4px}.bz-fmt button{min-width:34px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 14px system-ui;padding:0 8px;cursor:pointer}.bz-fmt button:active{background:var(--accent);color:#06232a}.bz-fmt.off{opacity:.45}
 .bz-cv{z-index:2}
 .bz-ref{padding:14px max(14px,env(safe-area-inset-right,0px)) 40px}
 .bz-rh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.bz-ref h3{margin:0;font-size:18px}.bz-score{font-weight:700;color:var(--accent)}
@@ -8759,7 +8762,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V56';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V57';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -8847,7 +8850,45 @@ function bzCtx(){
 /* ---------- storage ---------- */
 function bzPack(s){return {c:s.c,s:s.s,t:s.t,p:s.p}}
 function bzDraftSave(){bzSave(BZDRAFT,{key:BZ.key,text:BZ.text,strokes:BZ.strokes,h:BZ.h,phase:BZ.phase==='check'?'check':'write',got:BZ.got,when:Date.now()})}
-var bzT=null;function bzDraftSoon(){clearTimeout(bzT);bzT=setTimeout(bzDraftSave,500)}
+var bzT=null;/* ---------- rich text: stored as sanitised HTML behind a marker; old plain text still loads ---------- */
+var BZH='<!--h-->';
+function bzOKCol(v){return /^(#[0-9a-f]{3,8}|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\))$/i.test(v)}
+function bzClean(src){
+  var t=document.createElement('div');t.innerHTML=src;
+  var OK={B:1,STRONG:'b',I:1,EM:'i',U:1,UL:1,OL:1,LI:1,BR:1,DIV:1,P:1,SPAN:1,FONT:1};
+  function walk(n){
+    var o='';
+    n.childNodes.forEach(function(c){
+      if(c.nodeType===3){o+=blE(c.nodeValue);return}
+      if(c.nodeType!==1)return;
+      var tg=c.tagName;
+      if(!OK[tg]){o+=walk(c);return}
+      var inner=walk(c);
+      if(tg==='BR'){o+='<br>';return}
+      if(tg==='FONT'||tg==='SPAN'){
+        var col=tg==='FONT'?c.getAttribute('color'):c.style.color;
+        var bold=tg==='SPAN'&&(c.style.fontWeight==='bold'||parseInt(c.style.fontWeight,10)>=600),it=tg==='SPAN'&&c.style.fontStyle==='italic',un=tg==='SPAN'&&/underline/.test(c.style.textDecoration||'');
+        if(bold)inner='<b>'+inner+'</b>';if(it)inner='<i>'+inner+'</i>';if(un)inner='<u>'+inner+'</u>';
+        if(col&&bzOKCol(col.trim()))inner='<span style="color:'+col.trim()+'">'+inner+'</span>';
+        o+=inner;return}
+      var l=(typeof OK[tg]==='string'?OK[tg]:tg.toLowerCase());
+      o+='<'+l+'>'+inner+'</'+l+'>';
+    });
+    return o;
+  }
+  return walk(t);
+}
+function bzToHTML(x){
+  if(!x)return '';
+  if(x.indexOf(BZH)===0)return bzClean(x.slice(BZH.length));
+  return blE(x).replace(/\r?\n/g,'<br>');
+}
+function bzSer(el){
+  var h=bzClean(el.innerHTML);
+  if(!el.textContent.replace(/\s/g,'')&&!/<li>/.test(h))return '';
+  return BZH+h;
+}
+function bzDraftSoon(){clearTimeout(bzT);bzT=setTimeout(bzDraftSave,500)}
 
 /* ---------- canvas ---------- */
 function bzCv(){return document.getElementById('bzcv')}
@@ -8929,7 +8970,7 @@ function bzClose(){
   if(BZ.phase==='write'||(BZ.phase==='check'&&!BZ.ro)){bzSyncText();bzDraftSave()}
   BZ.open=false;bzEl().hidden=true;document.body.classList.remove('bz-on');
 }
-function bzSyncText(){var t=document.getElementById('bzta');if(t&&!BZ.ro)BZ.text=t.value}
+function bzSyncText(){var t=document.getElementById('bzta');if(t&&!BZ.ro)BZ.text=bzSer(t)}
 function bzDateStr(t){var d=new Date(t);return d.toLocaleDateString(undefined,{day:'numeric',month:'short'})}
 function bzTopHTML(title,right){return '<div class="bz-top"><div class="bz-tt"><span class="bz-logo">Blurt</span><b>'+blE(title)+'</b></div><div class="bz-tr">'+right+'<button class="btn ghost small" data-bz="close">Close</button></div></div>'}
 function bzHomeHTML(){
@@ -8953,6 +8994,7 @@ function bzToolsHTML(){
    +'<button data-bz-tool="erase" class="'+(t==='erase'?'on':'')+'" data-bz="tool" data-v="erase">Erase</button>'
    +'<button data-bz-tool="scroll" class="'+(t==='scroll'?'on':'')+'" data-bz="tool" data-v="scroll">Scroll</button></div>'
    +'<span class="bz-cols">'+cols.map(function(c){return '<button class="bz-col'+(BZ.color===c?' on':'')+'" data-bz="col" data-v="'+c+'" style="background:'+c+'" aria-label="Colour"></button>'}).join('')+'</span>'
+   +(BZ.ro?'':'<span class="bz-fmt'+(t==='type'?'':' off')+'"><button data-bz="fmt" data-v="bold" aria-label="Bold"><b>B</b></button><button data-bz="fmt" data-v="italic" aria-label="Italic"><i>I</i></button><button data-bz="fmt" data-v="underline" aria-label="Underline"><u>U</u></button><button data-bz="fmt" data-v="insertUnorderedList" aria-label="Bullet list">&#8226;&#8801;</button><button data-bz="fmt" data-v="insertOrderedList" aria-label="Numbered list">1.&#8801;</button><button data-bz="fmt" data-v="removeFormat" aria-label="Clear formatting">Tx</button></span>')
    +'<span class="bz-sz">'+[1.6,2.6,4.5].map(function(s){return '<button class="bz-s'+(BZ.size===s?' on':'')+'" data-bz="size" data-v="'+s+'" aria-label="Thickness"><i style="height:'+Math.round(s+1)+'px"></i></button>'}).join('')+'</span>'
    +'<button class="chip" data-bz="undo">Undo</button>'
    +'<button class="chip" data-bz="fin" title="Pencil only keeps your resting hand from drawing. Tap to let a finger draw too.">'+(bzFingerOK()?'Finger draws':'Pencil only')+'</button>'
@@ -8978,7 +9020,7 @@ function bzWorkHTML(){
   else right='<button class="btn small" data-bz="check">'+(P.pts&&P.pts.length?'Check my answer':'Done')+'</button>';
   o+=bzTopHTML(P.title,right);
   if(!BZ.ro)o+=bzToolsHTML();
-  o+='<div class="bz-hint" id="bzhint" role="status"></div><div class="bz-main'+(chk?' split':'')+'"><div class="bz-pane"><div class="bz-wrap"><div class="bz-sheet" id="bzsheet" style="height:'+BZ.h+'px"><textarea id="bzta" class="bz-ta" '+(BZ.ro?'readonly ':'')+'placeholder="'+(chk?'Add what you missed here, ideally in red.':'Write or draw everything you can remember about '+blE(P.title)+'. No peeking.')+'" spellcheck="true" autocapitalize="sentences"></textarea><canvas id="bzcv" class="bz-cv"></canvas></div></div></div>';
+  o+='<div class="bz-hint" id="bzhint" role="status"></div><div class="bz-main'+(chk?' split':'')+'"><div class="bz-pane"><div class="bz-wrap"><div class="bz-sheet" id="bzsheet" style="height:'+BZ.h+'px"><div id="bzta" class="bz-ta" role="textbox" aria-multiline="true" contenteditable="'+(BZ.ro?'false':'true')+'" data-ph="'+(chk?'Add what you missed here, ideally in red.':'Write or draw everything you can remember about '+blE(P.title)+'. No peeking.')+'" spellcheck="true" autocapitalize="sentences"></div><canvas id="bzcv" class="bz-cv"></canvas></div></div></div>';
   if(chk)o+='<div class="bz-pane">'+bzCheckHTML()+'</div>';
   return o+'</div>';
 }
@@ -8986,8 +9028,11 @@ function bzRender(){
   var e=bzEl(),ph=BZ.phase;
   if(ph==='home'){e.innerHTML=bzHomeHTML();return}
   e.innerHTML=bzWorkHTML();
-  var ta=document.getElementById('bzta');ta.value=BZ.text;
-  ta.addEventListener('input',function(){BZ.text=ta.value;bzDraftSoon()});
+  var ta=document.getElementById('bzta');ta.innerHTML=bzToHTML(BZ.text);
+  try{document.execCommand('styleWithCSS',false,true);document.execCommand('defaultParagraphSeparator',false,'div')}catch(x){}
+  ta.addEventListener('input',function(){if(!ta.textContent&&!ta.querySelector('li'))ta.innerHTML='';BZ.text=bzSer(ta);bzDraftSoon()});
+  ta.addEventListener('paste',function(e){e.preventDefault();var tx=(e.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,tx)});
+  ta.addEventListener('focus',function(){if(!BZ.ro&&BZ.color!=='#1b1b1f'){var sl=window.getSelection();if(sl&&sl.isCollapsed)try{document.execCommand('foreColor',false,BZ.color)}catch(x){}}});
   var cv=bzCv();
   cv.addEventListener('pointerdown',bzDown);cv.addEventListener('pointermove',bzMove);cv.addEventListener('pointerup',bzUp);cv.addEventListener('pointercancel',bzUp);
   try{new ResizeObserver(function(){bzSize()}).observe(document.getElementById('bzsheet'))}catch(x){}
@@ -9020,13 +9065,15 @@ document.addEventListener('click',function(e){
   if(a==='close')bzClose();
   else if(a==='start'){var s=document.getElementById('bzsel');bzStart(s?s.value:BZ.sel,false)}
   else if(a==='resume'){var d=bzLoad(BZDRAFT,null);if(d){BZ.key=d.key;BZ.text=d.text||'';BZ.strokes=d.strokes||[];BZ.h=d.h||1500;BZ.got=d.got||{};bzStart(d.key,true);BZ.got=d.got||{};if(d.phase==='check'){BZ.phase='check';bzRender()}}}
-  else if(a==='tool'){BZ.tool=v;BZ.clr=false;document.querySelectorAll('[data-bz-tool]').forEach(function(b){b.classList.toggle('on',b.dataset.bzTool===v)});bzTouchAct();if(v==='type'){var ta=document.getElementById('bzta');if(ta)ta.focus()}}
-  else if(a==='col'){BZ.color=v;if(BZ.tool!=='pen'){BZ.tool='pen';bzTouchAct()}bzRenderTools()}
+  else if(a==='tool'){BZ.tool=v;BZ.clr=false;document.querySelectorAll('[data-bz-tool]').forEach(function(b){b.classList.toggle('on',b.dataset.bzTool===v)});bzTouchAct();if(v==='type'){var ta=document.getElementById('bzta');if(ta)ta.focus()}bzRenderTools()}
+  else if(a==='col'){BZ.color=v;if(BZ.tool==='type'){var ed=document.getElementById('bzta');if(ed&&document.activeElement!==ed)ed.focus();try{document.execCommand('foreColor',false,v)}catch(x){}bzSyncText();bzDraftSoon()}else if(BZ.tool!=='pen'){BZ.tool='pen';bzTouchAct()}bzRenderTools()}
+  else if(a==='fmt'){var ed2=document.getElementById('bzta');if(ed2&&!BZ.ro){if(BZ.tool!=='type'){BZ.tool='type';bzTouchAct()}if(document.activeElement!==ed2)ed2.focus();try{document.execCommand(v,false,null)}catch(x){}bzSyncText();bzDraftSoon();bzRenderTools()}}
   else if(a==='size'){BZ.size=parseFloat(v);bzRenderTools()}
+  else if(a==='undo'&&BZ.tool==='type'){try{document.execCommand('undo')}catch(x){}bzSyncText();bzDraftSoon()}
   else if(a==='undo'){if(BZ.undo.length){BZ.strokes=BZ.undo.pop();bzRedraw();bzDraftSoon()}}
   else if(a==='fin'){BZ.fin=!bzFingerOK();bzTouchAct();bzRenderTools()}
   else if(a==='page'){if(BZ.h<4200){BZ.h+=900;document.getElementById('bzsheet').style.height=BZ.h+'px';bzSize();bzDraftSoon()}}
-  else if(a==='clear'){if(!BZ.clr){BZ.clr=true;bzRenderTools();setTimeout(function(){if(BZ.clr){BZ.clr=false;bzRenderTools()}},2500)}else{BZ.clr=false;BZ.undo.push(BZ.strokes.slice());BZ.strokes=[];BZ.text='';var ta2=document.getElementById('bzta');if(ta2)ta2.value='';bzRedraw();bzRenderTools();bzDraftSoon()}}
+  else if(a==='clear'){if(!BZ.clr){BZ.clr=true;bzRenderTools();setTimeout(function(){if(BZ.clr){BZ.clr=false;bzRenderTools()}},2500)}else{BZ.clr=false;BZ.undo.push(BZ.strokes.slice());BZ.strokes=[];BZ.text='';var ta2=document.getElementById('bzta');if(ta2)ta2.innerHTML='';bzRedraw();bzRenderTools();bzDraftSoon()}}
   else if(a==='check'){bzSyncText();BZ.phase='check';BZ.tool=BZ.tool==='type'?'type':BZ.tool;BZ.color='#d12c2c';var keep=BZ.strokes,tx=BZ.text;bzRender();bzDraftSave()}
   else if(a==='pt'){var i=t.dataset.i;BZ.got[i]=!BZ.got[i];t.classList.toggle('on',!!BZ.got[i]);if(BZ.miss&&BZ.got[i])t.hidden=true;var P=bzPts(BZ.key),n=Object.keys(BZ.got).filter(function(k){return BZ.got[k]}).length,sc=document.getElementById('bzscore');if(sc)sc.textContent=n+' of '+P.pts.length;bzDraftSoon()}
   else if(a==='miss'){BZ.miss=!BZ.miss;t.classList.toggle('on',BZ.miss);t.textContent=BZ.miss?'Showing missed only':'Show missed only';document.querySelectorAll('#bzpts .bz-pt').forEach(function(b){b.hidden=BZ.miss&&b.classList.contains('on')})}
@@ -9047,6 +9094,9 @@ document.addEventListener('change',function(e){if(e.target&&e.target.id==='bzsel
   document.body.appendChild(b);
 })();
 window.__BZ={BZ:BZ,bzPts:bzPts,bzTopics:bzTopics};
+
+document.addEventListener('mousedown',function(e){var b=e.target.closest&&e.target.closest('.bz-fmt button,.bz-col,[data-bz=undo]');if(b)e.preventDefault()});
+document.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('.bz-fmt button,.bz-col,[data-bz=undo]');if(b&&document.activeElement&&document.activeElement.id==='bzta')e.preventDefault()});
 
 /* ===== Body map: the skeleton lit by how well each region is going ===== */
 var BM_REG=[['head','Head','Skull, face and jaw'],['neck','Neck','Cervical spine, hyoid, neck muscles and vessels'],['thorax','Chest','Ribs, sternum, heart and lungs'],['spine','Spine','Thoracic and lumbar vertebrae, discs, back muscles'],
