@@ -252,6 +252,17 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .ab-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 6px}
 .ab-a{font-size:12.5px;color:#93A0B3;word-break:break-all}
 .ab-s{margin-top:16px!important}
+.st-ov{max-width:560px}
+.st-nums{display:flex;gap:10px;margin:2px 0 12px}.st-nums div{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 6px;text-align:center}.st-nums b{display:block;font:400 30px/1 var(--f-display);color:#4FC3CB}.st-nums span{font-size:11.5px;color:#93A0B3}
+.st-wkl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.st-ttl{font-size:12.5px;color:#C5CEDB;letter-spacing:.04em}
+.st-ov .st-wk i{border-color:rgba(255,255,255,.25)}.st-ov .st-wk i.on{background:#4FC3CB;border-color:#4FC3CB}
+.st-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 8px;margin-top:6px}
+.st-b{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px}.st-b b{font-size:12.5px;color:#E6EBF2;font-weight:600}.st-b span{font-size:11px;color:#93A0B3;line-height:1.3}
+.st-bd.off{filter:grayscale(1) brightness(.6);opacity:.55}
+.st-b:not(.on) b{color:#93A0B3}
+.st-toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);transform:translate(-50%,20px);opacity:0;z-index:420;display:flex;align-items:center;gap:12px;background:#161e29;color:#E6EBF2;border:1px solid rgba(79,195,203,.45);border-radius:16px;padding:9px 16px 9px 10px;box-shadow:0 12px 34px rgba(0,0,0,.5);pointer-events:none;transition:opacity .3s,transform .3s}
+.st-toast.on{opacity:1;transform:translate(-50%,0)}
+.st-toast span{display:flex;flex-direction:column;font-size:14px;font-weight:600}.st-toast b{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#4FC3CB;font-weight:700}
 .bl{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .bl[hidden]{display:none}
 .bl-top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -706,6 +717,14 @@ h1,h2{letter-spacing:-.015em}
 .hub-rv .bl-opts{margin-bottom:12px}
 .hub-rv .fb{margin-bottom:12px}
 @media(prefers-reduced-motion:reduce){.hub-bg,.hub-card.glow,.hub-in>*,.app>header,.app>.grid{animation:none}}
+.st-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;margin-top:12px;color:inherit;font:inherit}
+.st-card:active{transform:scale(.99)}
+.st-ic{flex:none;width:46px;height:26px}.st-ic svg{width:100%;height:100%;fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.st-mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.st-mid .eyebrow{margin:0}
+.st-line{font-size:15px}.st-line b{font:400 28px/1 var(--f-display);color:var(--accent)}.st-sub{color:var(--muted);font-size:13px}
+.st-rt{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px}.st-bc{font-size:12px;color:var(--muted)}
+.st-wk{display:inline-flex;gap:5px}.st-wk i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--line);display:block}.st-wk i.on{background:var(--accent);border-color:var(--accent)}.st-wk i.td{box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}
+@media(max-width:520px){.st-sub{display:block;margin-top:2px}}
 </style>
 
 <div class="app">
@@ -8554,7 +8573,7 @@ function blStudyItem(l){
 }
 
 /* ---- Backup and restore ---- */
-function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT,MNKEY]}
+function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT,MNKEY,STKEY]}
 function bkCode(){
   var d={};bkKeys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)d[k]=v}catch(e){}});
   var s=JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d});
@@ -8564,7 +8583,7 @@ function bkRestore(code){
   var o;try{o=JSON.parse(decodeURIComponent(escape(atob(code.trim()))))}catch(e){try{o=JSON.parse(code)}catch(e2){return 'That code did not work. Copy the whole thing and try again.'}}
   if(!o||o.app!=='anatomy-drill'||!o.d)return 'That is not an Osteon backup.';
   var n=0;bkKeys().forEach(function(k){if(typeof o.d[k]==='string'){try{localStorage.setItem(k,o.d[k]);n++}catch(e){}}});
-  SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});MN=rcLoad(MNKEY,{});RC.on=!!rcLoad(RCKEY,{}).on;
+  SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});MN=rcLoad(MNKEY,{});ST=stLoad();RC.on=!!rcLoad(RCKEY,{}).on;
   try{document.documentElement.setAttribute('data-theme',localStorage.getItem(THEMEKEY)||'dark')}catch(e){}
   return 'Restored '+n+' sets of progress. Your review queue now has '+srsList().length+' items.';
 }
@@ -8671,6 +8690,133 @@ function mnOverlay(keep){
 }
 window.mnOverlay=mnOverlay;
 
+/* ===== Streaks and badges: stored on this device only ===== */
+var STKEY='osteon-streak-v1';
+function stLoad(){try{var s=JSON.parse(localStorage.getItem(STKEY)||'null');if(s&&s.d)return s}catch(e){}return {d:[],n:0,c:0,bz:0,b:{}}}
+var ST=stLoad();
+function stSave(){try{localStorage.setItem(STKEY,JSON.stringify(ST))}catch(e){}}
+function stToday(){var n=new Date();return Math.floor((n.getTime()-n.getTimezoneOffset()*6e4)/864e5)}
+function stSet(){var o={};ST.d.forEach(function(x){o[x]=1});return o}
+/* a streak counts active days; one missed day in any seven is forgiven */
+function stEnd(set,first,end){
+  var c=0,last=null,d=end;
+  while(d>=first){
+    if(set[d])c++;
+    else{if(last===null||last-d>=7)last=d;else break}
+    d--;
+  }
+  return c;
+}
+function stMetrics(){
+  var set=stSet(),t=stToday(),first=ST.d.length?Math.min.apply(null,ST.d):t;
+  var cur=ST.d.length?stEnd(set,first,set[t]?t:t-1):0;
+  var best=0;ST.d.forEach(function(e){var v=stEnd(set,first,e);if(v>best)best=v});
+  if(cur>best)best=cur;
+  var mast=0;try{mast=srsStats().mastered}catch(e){}
+  return {cur:cur,best:best,days:ST.d.length,n:ST.n,bz:ST.bz,mast:mast,today:!!set[t],set:set,t:t};
+}
+var STTITLES=[[100,'Professor'],[50,'Demonstrator'],[21,'Prosector'],[7,'Dissector'],[1,'Fresher']];
+function stTitle(m){for(var i=0;i<STTITLES.length;i++)if(m.days>=STTITLES[i][0])return STTITLES[i][1];return ''}
+
+/* ---------- badge art: 64 x 64, original line drawings ---------- */
+var STT='#4FC3CB',STA='#F2B66B';
+function stArt(id){
+  var g='fill="none" stroke="'+STT+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"',a='fill="none" stroke="'+STA+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"',o='';
+  switch(id){
+  case 'first':o='<path '+g+' d="M10 35h11l4-11 7 22 5-16 3 5h14"/><circle cx="46" cy="35" r="1.6" fill="'+STA+'"/>';break;
+  case 'syn':o='<path '+g+' d="M12 47l7-6M19 41l-8-3M19 41l3 8"/><circle cx="19" cy="41" r="4.5" '+g.replace('fill="none"','fill="rgba(79,195,203,.2)"')+'/><path '+g+' d="M22 38q8-5 14-9"/><circle cx="37" cy="28" r="2.6" fill="'+STA+'"/><circle cx="41" cy="31" r=".9" fill="'+STA+'"/><circle cx="42" cy="26" r=".9" fill="'+STA+'"/><circle cx="46" cy="23" r="5" '+g.replace('fill="none"','fill="rgba(79,195,203,.2)"')+'/><path '+g+' d="M49 20l6-5M50 24l6 2M44 18l-2-6"/>';break;
+  case 'ost':o='<circle cx="32" cy="32" r="21" '+g+' opacity=".45"/><circle cx="32" cy="32" r="15" '+g+' opacity=".7"/><circle cx="32" cy="32" r="9" '+g+'/><circle cx="32" cy="32" r="3.6" fill="'+STA+'"/><g fill="'+STA+'" opacity=".9"><ellipse cx="32" cy="14.2" rx="1.8" ry="1"/><ellipse cx="49.8" cy="32" rx="1" ry="1.8"/><ellipse cx="32" cy="49.8" rx="1.8" ry="1"/><ellipse cx="14.2" cy="32" rx="1" ry="1.8"/><ellipse cx="44" cy="20" rx="1.4" ry="1"/><ellipse cx="20" cy="44" rx="1.4" ry="1"/></g><path '+g+' d="M32 23v-5M41 32h5M32 41v5M23 32h-5" opacity=".5"/>';break;
+  case 'hel':o='<path '+g+' d="M23 9c22 9 22 17 9 23S10 43 41 55"/><path '+a+' d="M41 9C19 18 19 26 32 32s22 11-9 23"/><path stroke="'+STT+'" stroke-width="1.6" opacity=".6" d="M27 15l11 3M23 22h18M24 42h18M31 49l9-3"/>';break;
+  case 'mito':o='<ellipse cx="32" cy="32" rx="23" ry="14" transform="rotate(-24 32 32)" '+g+'/><ellipse cx="32" cy="32" rx="18.5" ry="10" transform="rotate(-24 32 32)" '+g+' opacity=".4"/><path '+a+' d="M20 38l4-6 3 5 4-9 4 8 3-5 4 6" transform="rotate(-24 32 32)"/>';break;
+  case 'rod':o='<path '+g+' d="M32 8v48"/><path '+a+' d="M32 20c13 3 13 10 0 13s-13 10 0 13c7 2 9 5 6 8"/><circle cx="33" cy="17.5" r="3.4" fill="'+STA+'" stroke="none"/><circle cx="34.3" cy="16.7" r=".8" fill="#0b1118"/><path '+g+' d="M25 9h14"/>';break;
+  case 'ste':o='<path '+g+' d="M20 11v17a12 12 0 0 0 24 0V11M17 11h6M41 11h6"/><path '+g+' d="M32 40v6a9 9 0 0 0 18 0v-6"/><circle cx="50" cy="38" r="4.2" fill="rgba(242,182,107,.25)" stroke="'+STA+'" stroke-width="2.4"/>';break;
+  case 'mic':o='<path '+g+' d="M18 53h28M30 53V47"/><path '+g+' d="M40 47a15 15 0 0 0 0-26"/><path '+a+' d="M25 14l11 22" stroke-width="6"/><path '+g+' d="M22 12l7-3M23 40h14"/><circle cx="46" cy="21" r="1.4" fill="'+STA+'"/>';break;
+  case 'sar':o='<path '+a+' d="M13 14v36M51 14v36" stroke-width="3"/><path '+g+' d="M13 21h17M13 29h17M13 37h17M13 45h17M51 21H34M51 29H34M51 37H34M51 45H34" opacity=".55"/><path '+g+' d="M24 25h16M24 33h16M24 41h16" stroke-width="3.4"/>';break;
+  case 'rbc':o='<ellipse cx="32" cy="33" rx="19" ry="17" fill="rgba(217,107,107,.3)" stroke="#e08a8a" stroke-width="2.4"/><ellipse cx="32" cy="33" rx="9" ry="7" fill="rgba(11,17,24,.55)" stroke="#e08a8a" stroke-width="1.6" opacity=".9"/><path d="M45 18a19 17 0 0 1 3 8" fill="none" stroke="#fff" stroke-width="1.6" opacity=".4" stroke-linecap="round"/>';break;
+  case 'wbc':o='<circle cx="32" cy="32" r="21" fill="rgba(79,195,203,.1)" stroke="'+STT+'" stroke-width="2.4"/><g fill="rgba(155,140,240,.45)" stroke="#a99cf3" stroke-width="2"><circle cx="24" cy="26" r="6"/><circle cx="37" cy="22" r="5.5"/><circle cx="41" cy="35" r="6"/><circle cx="27" cy="40" r="5.5"/></g><path d="M29 25l4-2M39 27l1 3M36 36l-5 3" stroke="#a99cf3" stroke-width="1.6" fill="none"/><g fill="'+STA+'"><circle cx="15" cy="34" r="1"/><circle cx="48" cy="25" r="1"/><circle cx="33" cy="49" r="1"/><circle cx="19" cy="20" r="1"/></g>';break;
+  case 'mye':o='<path '+g+' d="M5 32h54"/><g fill="rgba(242,182,107,.28)" stroke="'+STA+'" stroke-width="2.2"><rect x="9" y="22" width="13" height="20" rx="6"/><rect x="25" y="22" width="13" height="20" rx="6"/><rect x="41" y="22" width="13" height="20" rx="6"/></g><path d="M31 10l-4 8h6l-4 8" fill="none" stroke="'+STT+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';break;
+  case 'tra':o='<path '+g+' d="M10 20l14 6 13-9 17 8M24 26l-4 17 17 4 17-12M37 17l-1 20 18-4M20 43l-8 9M37 47l4 9M54 35l5 6M54 25l2-9"/><g fill="'+STA+'"><circle cx="24" cy="26" r="2.4"/><circle cx="37" cy="17" r="2.4"/><circle cx="20" cy="43" r="2.4"/><circle cx="37" cy="47" r="2.4"/><circle cx="54" cy="35" r="2.4"/><circle cx="36" cy="37" r="2.4"/></g>';break;
+  }
+  return o;
+}
+var STB=[
+ {id:'first',n:'First Pulse',d:'Answer your first question',t:function(m){return m.n>=1},r:'#c58b5a'},
+ {id:'syn',n:'Synapse',d:'3 days in a row',t:function(m){return m.best>=3},r:'#c58b5a'},
+ {id:'ost',n:'Osteon',d:'7 days in a row',t:function(m){return m.best>=7},r:'#b8c4d2'},
+ {id:'hel',n:'Double Helix',d:'14 days in a row',t:function(m){return m.best>=14},r:'#b8c4d2'},
+ {id:'mito',n:'Powerhouse',d:'30 days in a row',t:function(m){return m.best>=30},r:'#e8c36a'},
+ {id:'rod',n:'Rod of Asclepius',d:'60 days in a row',t:function(m){return m.best>=60},r:'#e8c36a'},
+ {id:'ste',n:'Auscultation',d:'100 questions answered',t:function(m){return m.n>=100},r:'#c58b5a'},
+ {id:'mic',n:'Under the Lens',d:'500 questions answered',t:function(m){return m.n>=500},r:'#b8c4d2'},
+ {id:'sar',n:'Sarcomere',d:'2,000 questions answered',t:function(m){return m.n>=2000},r:'#e8c36a'},
+ {id:'rbc',n:'Red Cell',d:'Finish your first Blurt',t:function(m){return m.bz>=1},r:'#c58b5a'},
+ {id:'wbc',n:'White Cell',d:'Finish 10 Blurts',t:function(m){return m.bz>=10},r:'#b8c4d2'},
+ {id:'mye',n:'Myelinated',d:'25 questions mastered',t:function(m){return m.mast>=25},r:'#b8c4d2'},
+ {id:'tra',n:'Trabecular',d:'100 questions mastered',t:function(m){return m.mast>=100},r:'#e8c36a'}
+];
+function stBadge(b,on,sz){
+  var u='stg'+b.id;
+  return '<svg class="st-bd'+(on?'':' off')+'" viewBox="0 0 64 64" width="'+sz+'" height="'+sz+'" aria-hidden="true"><defs><radialGradient id="'+u+'" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#1d2a3a"/><stop offset="1" stop-color="#0b1118"/></radialGradient></defs><circle cx="32" cy="32" r="30" fill="url(#'+u+')" stroke="'+b.r+'" stroke-width="2.2"/><circle cx="32" cy="32" r="27" fill="none" stroke="'+b.r+'" stroke-width=".7" opacity=".55" stroke-dasharray="1.2 2.4"/>'+stArt(b.id)+'</svg>';
+}
+/* ---------- recording ---------- */
+var stQ=[],stTo=null;
+function stCheck(quiet){
+  var m=stMetrics(),fresh=[];
+  STB.forEach(function(b){if(!ST.b[b.id]&&b.t(m)){ST.b[b.id]=m.t;fresh.push(b)}});
+  if(fresh.length){stSave();if(!quiet)fresh.forEach(stToast)}
+  return m;
+}
+function stRecord(ok){
+  var t=stToday();
+  if(ST.d.indexOf(t)<0){ST.d.push(t);if(ST.d.length>900)ST.d=ST.d.slice(-900)}
+  ST.n++;if(ok)ST.c++;
+  stSave();stCheck();
+}
+function stBlurt(){ST.bz++;stSave();stCheck()}
+function stToast(b){
+  stQ.push(b);if(stTo)return;
+  (function next(){
+    var x=stQ.shift();if(!x){stTo=null;return}
+    var e=document.getElementById('sttoast');
+    if(!e){e=document.createElement('div');e.id='sttoast';e.className='st-toast';e.setAttribute('role','status');document.body.appendChild(e)}
+    e.innerHTML=stBadge(x,true,40)+'<span><b>New badge</b>'+blE(x.n)+'</span>';
+    e.classList.add('on');
+    stTo=setTimeout(function(){e.classList.remove('on');stTo=setTimeout(next,350)},3600);
+  })();
+}
+/* ---------- home card and overlay ---------- */
+function stWeek(m){
+  var o='<span class="st-wk" aria-hidden="true">';
+  for(var i=6;i>=0;i--){var d=m.t-i,on=!!m.set[d];o+='<i class="'+(on?'on':'')+(i===0?' td':'')+'"></i>'}
+  return o+'</span>';
+}
+function stCard(){
+  var m=stMetrics(),nb=STB.filter(function(b){return ST.b[b.id]}).length,tt=stTitle(m);
+  var msg=m.cur?(m.today?'Done for today':'Answer one question to keep it going'):'Answer a question to start';
+  return '<button class="hub-card st-card" data-st="open"><span class="st-ic" aria-hidden="true"><svg viewBox="0 0 48 24"><path d="M2 13h10l4-8 6 16 5-12 3 4h16"/></svg></span><span class="st-mid"><span class="eyebrow">Daily streak</span><span class="st-line"><b>'+m.cur+'</b> day'+(m.cur===1?'':'s')+'<span class="st-sub"> &middot; '+msg+'</span></span></span><span class="st-rt">'+stWeek(m)+'<span class="st-bc">'+nb+' of '+STB.length+' badges</span></span></button>';
+}
+function stOverlay(){
+  var m=stCheck(true);
+  var d=document.getElementById('stov');
+  if(!d){
+    d=document.createElement('div');d.id='stov';d.className='rmcr';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Streak and badges');
+    document.body.appendChild(d);
+    d.addEventListener('click',function(e){if(e.target===d||(e.target.closest&&e.target.closest('[data-st="close"]')))d.parentNode.removeChild(d)});
+    document.addEventListener('keydown',function h(e){if(e.key==='Escape'){var o=document.getElementById('stov');if(o)o.parentNode.removeChild(o);document.removeEventListener('keydown',h)}});
+  }
+  var tt=stTitle(m);
+  var h='<div class="rmcr-card st-ov"><button class="rmcr-x" data-st="close" aria-label="Close">&times;</button><h2>Streak and badges</h2>';
+  h+='<div class="st-nums"><div><b>'+m.cur+'</b><span>current streak</span></div><div><b>'+m.best+'</b><span>best streak</span></div><div><b>'+m.days+'</b><span>days revised</span></div></div>';
+  h+='<div class="st-wkl">'+stWeek(m)+(tt?'<span class="st-ttl">'+blE(tt)+'</span>':'')+'</div>';
+  h+='<p class="rmcr-s">Answering any question or finishing a Blurt counts for the day. One missed day in a week will not break your streak. Everything here stays on this device and is included in your backup code.</p>';
+  h+='<div class="st-grid">';
+  STB.forEach(function(b){var on=!!ST.b[b.id];h+='<div class="st-b'+(on?' on':'')+'">'+stBadge(b,on,64)+'<b>'+blE(b.n)+'</b><span>'+blE(b.d)+'</span></div>'});
+  h+='</div></div>';
+  d.innerHTML=h;
+}
+document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-st="open"]');if(t){e.preventDefault();stOverlay()}});
+window.__ST={ST:function(){return ST},m:stMetrics,end:stEnd,rec:stRecord,B:STB};
+
 /* ===== About card: who made it and where to reach them. Quiet by design. ===== */
 function abMail(){return 'yusufimran3333'+String.fromCharCode(64)+'gmail.com'}
 function abOpen(){
@@ -8759,10 +8905,10 @@ setInterval(osGuard,4000);
 try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600 13px system-ui;color:#4FC3CB')}catch(e){}
 
 /* ---- usage log (powers the progress map later). Stays on this device. ---- */
-function osLog(src,q,ok){try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
+function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V57';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V58';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -9055,6 +9201,7 @@ function bzFinish(){
   H=H.slice(0,20);
   while(H.length&&!bzSave(BZKEY,H)){H.pop()}
   try{localStorage.removeItem(BZDRAFT)}catch(e){}
+  try{stBlurt()}catch(e){}
   BZ.msg=P.pts.length?('Saved. You remembered '+got.length+' of '+P.pts.length+'. '+miss+' missed point'+(miss===1?'':'s')+' added to your review queue.'):'Saved.';
   BZ.text='';BZ.strokes=[];BZ.got={};BZ.phase='home';bzRender();
 }
@@ -9429,7 +9576,7 @@ function hubHome(){
   var h=new Date().getHours(),g=h<5?'Still up':h<12?'Good morning':h<18?'Good afternoon':'Good evening';
   var s=srsStats(),last=hubLast(),ll=hubLastLabel(last),th=document.documentElement.getAttribute('data-theme')||'dark';
   var o='<div class="hub-top"><span class="hub-pill">Osteon</span><button class="chip" data-hub="theme" aria-label="Switch theme">'+(th==='dark'?'Light mode':'Dark mode')+'</button></div>';
-  o+='<div class="hub-hero"><div class="hub-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></div><p class="eyebrow">'+g+', Yusuf</p><h1>Osteon</h1><p class="hub-sub">Anatomy and microanatomy. Revise, recall, repeat.</p></div>';
+  o+='<div class="hub-hero"><div class="hub-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></div><p class="eyebrow">'+g+'</p><h1>Osteon</h1><p class="hub-sub">Anatomy and microanatomy. Revise, recall, repeat.</p></div>';
   o+='<div class="hub-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="hubq" type="search" placeholder="Search bones, landmarks, joints, ligaments, muscles" value="'+blE(HUB.q)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search everything"></div>';
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
@@ -9437,6 +9584,7 @@ function hubHome(){
     o+='<div class="hub-card hub-rq'+(s.due?' glow':'')+'"><p class="eyebrow">Review queue</p><div class="hub-big">'+s.due+'</div><p class="muted">'+(s.total?(s.due?'due now':'nothing due right now')+' &middot; '+s.total+' in your queue &middot; '+s.mastered+' mastered':'Questions you miss in the Joint, Cartilage and Muscle lab quizzes land here and come back at spaced intervals.')+'</p>'+(s.due?'<button class="btn" data-hub="review">Start review</button>':'')+'</div>';
     if(ll)o+='<button class="hub-card hub-cont" data-hub="cont"><p class="eyebrow">Continue where you left off</p><div class="hub-cn">'+blE(ll[1])+'</div><p class="muted">'+blE(ll[0])+' &rarr;</p></button>';
     o+='</div>';
+    o+=stCard();
     o+=bmCard();
     o+='<div class="hub-tiles">';
     [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations'],['mi','Microanatomy lab','Blood, epithelia, connective tissue, muscle',MI_QA.length+' questions']].forEach(function(t){
