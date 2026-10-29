@@ -433,6 +433,9 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .jl-dginfo{margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .jl-dginfo p{margin:3px 0 0}
 .jl-dglist{display:grid;gap:6px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));margin-top:6px}
+.jl-modt{background:transparent!important;color:var(--accent)!important;border:1px solid var(--accent)}
+.jl-modn{margin:2px 0 10px;padding:9px 12px;border-left:3px solid var(--accent);background:rgba(79,195,203,.07);border-radius:0 10px 10px 0;font-size:13.5px;line-height:1.5}
+.jl-modn b{color:var(--accent)}
 #cl .seg{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 #cl .seg::-webkit-scrollbar{display:none}
 #cl .seg button{white-space:nowrap;flex:0 0 auto}
@@ -674,9 +677,15 @@ h1,h2{letter-spacing:-.015em}
 .hub-in>*:nth-child(2){animation-delay:.05s}.hub-in>*:nth-child(3){animation-delay:.1s}.hub-in>*:nth-child(4){animation-delay:.14s}.hub-in>*:nth-child(5){animation-delay:.18s}.hub-in>*:nth-child(6){animation-delay:.22s}
 .hub-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
 .hub-pill{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.hub-hero{text-align:center;padding:10px 0 20px}
-.hub-logo{width:76px;height:76px;margin:0 auto 14px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 28%,transparent),rgba(98,120,255,.2));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 0 50px -10px var(--accent),inset 0 1px 0 rgba(255,255,255,.12)}
-.hub-logo svg{width:44px;height:44px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hub-hero{position:relative;text-align:center;padding:34px 0 26px;overflow:hidden}
+.hub-logo{position:relative;z-index:1;width:112px;height:112px;margin:0 auto 14px;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--accent) 35%,transparent));animation:hubBreathe 6s ease-in-out infinite}
+.hub-logo svg{width:100%;height:100%;display:block}
+.hub-rings{position:absolute;left:50%;top:30px;width:112px;height:112px;margin-left:-56px;pointer-events:none}
+.hub-rings i{position:absolute;inset:0;border-radius:46% 54% 50% 50%/52% 48% 54% 46%;border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent);opacity:0;animation:hubRipple 9s ease-out infinite}
+.hub-rings i:nth-child(2){animation-delay:3s}.hub-rings i:nth-child(3){animation-delay:6s}
+@keyframes hubRipple{0%{transform:scale(.9) rotate(0);opacity:.55}100%{transform:scale(5.4) rotate(14deg);opacity:0}}
+@keyframes hubBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@media(prefers-reduced-motion:reduce){.hub-rings i,.hub-logo{animation:none}.hub-rings i{opacity:.12;transform:scale(2.4)}}
 .hub-hero h1{font-size:clamp(40px,8vw,62px);line-height:1;background:linear-gradient(180deg,var(--ink),color-mix(in srgb,var(--ink) 62%,var(--accent)));-webkit-background-clip:text;background-clip:text;color:transparent}
 :root[data-theme="light"] .hub-hero h1{background:none;color:var(--ink)}
 .hub-sub{color:var(--muted);margin:10px 0 0;font-size:15.5px}
@@ -3346,7 +3355,7 @@ window.rmFallbackNote=rmFallbackNote;
 /* ===== Bone lab: bone types + numbered landmark explorer ===== */
 var BLP=['#e0483e','#3f8fd9','#f0a21a','#2fa56b','#8e5bd0','#e0689f','#1fb2b8','#9aa31f','#d9702a','#5b6fd6','#2a8f5a','#c24a8a','#6a9a2f','#b5543a'];
 var BLB={},BLORDER=[];
-var BL={tab:'types',type:'long',bone:'humerus',view:'a',sel:null,names:false,vb:null,base:null,mode:'learn',sd:{out:true,sel:null,rev:false,hint:false,ptr:false,only:false,marks:{},msg:''},qm:{find:true,name:true,rel:true,why:true},q:null,sort:null,sortRes:null,sortSet:null};
+var BL={tab:'types',type:'long',bone:'humerus',view:'a',sel:null,names:false,shade:false,vb:null,base:null,mode:'learn',sd:{out:true,sel:null,rev:false,hint:false,ptr:false,only:false,marks:{},msg:''},qm:{find:true,name:true,rel:true,why:true},q:null,sort:null,sortRes:null,sortSet:null};
 var BLNS='http://www.w3.org/2000/svg';
 function blE(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function bf(n){return Math.round(n*10)/10}
@@ -3409,6 +3418,8 @@ function blSvg(){
     var study=BL.mode==='study'&&BL.sd.out,show=hl||study||(learn&&(!l.lazy||sel));if(!show)return;
     var fo=hl?.92:(study?.4:(sel?.95:(BL.sel?.5:.78))),stc=hl?'var(--hl-line)':'#fff',sw=sel||hl?2.6:1.2;
     if(hl)col='var(--hl)';
+    /* outline mode: keep the bone visible, shade only the selected area */
+    if(learn&&!hl&&!study&&!BL.shade){fo=r.line?(sel?.95:.62):(sel?.42:.12);stc=col;sw=sel?3:1.9}
     if(r.line)h+='<path d="'+r.d+'" fill="none" stroke="'+col+'" stroke-opacity="'+fo+'" stroke-width="'+r.w+'" stroke-linecap="round"/>';
     else if(r.poly)h+='<path d="'+blPolyPath(r.poly,r.smooth)+'" fill="'+col+'" fill-opacity="'+fo+'" stroke="'+stc+'" stroke-width="'+sw+'"/>';
     else h+=blShape({e:r.e},'',' fill="'+col+'" fill-opacity="'+fo+'" stroke="'+stc+'" stroke-width="'+sw+'"');
@@ -3520,7 +3531,7 @@ function blRender(){
   h+='</div><div class="bl-row"><div class="seg">';
   views.forEach(function(v){h+='<button data-bl="view" data-v="'+v[0]+'" class="'+(BL.view===v[0]?'on':'')+'">'+v[1]+'</button>'});
   h+='</div><div class="seg"><button data-bl="mode" data-m="learn" class="'+(BL.mode==='learn'?'on':'')+'">Learn</button><button data-bl="mode" data-m="study" class="'+(BL.mode==='study'?'on':'')+'">Study</button><button data-bl="mode" data-m="test" class="'+(BL.mode==='test'?'on':'')+'">Test</button></div>';
-  if(BL.mode==='learn')h+='<button class="chip'+(BL.names?' on':'')+'" data-bl="names">Show names</button>';
+  if(BL.mode==='learn')h+='<button class="chip'+(BL.names?' on':'')+'" data-bl="names">Show names</button><button class="chip'+(BL.shade?' on':'')+'" data-bl="shade">Shade areas</button>';
   h+='</div><div class="bl-grid'+(BL.mode==='test'?' t':(BL.mode==='study'?' s':''))+'"><section class="card bl-stage"><div class="bl-svgbox" id="blbox"><div class="bl-zoom"><button data-bl="zin" aria-label="Zoom in">+</button><button data-bl="zout" aria-label="Zoom out">&minus;</button><button data-bl="zfit" aria-label="Reset view" style="font-size:13px">Fit</button></div></div><p class="bl-hint">Pinch or scroll to zoom, drag to move'+(BL.mode==='learn'?', tap a number or colour to learn it.':(BL.mode==='study'?', tap a part of the bone.':'.'))+'</p></section><section class="card" id="blpanel"></section></div></div>';
   body.innerHTML=h;
   var ov=document.getElementById('bl');ov.dataset.mode=BL.tab==='lm'?BL.mode:'';if(BL.mode==='test'||BL._top){ov.scrollTop=0;BL._top=false}
@@ -3762,6 +3773,7 @@ function blAct(e){
     case 'sdreset':BL.sd.marks[blBone().id]={};BL.sd.only=false;blPanel();break;
     case 'sdgo':BL.sd.ptr=false;blStudyShow(d.id);break;
     case 'names':BL.names=!BL.names;blRender();break;
+    case 'shade':BL.shade=!BL.shade;blRender();break;
     case 'sel':var l=blBone().lm.filter(function(x){return x.id===d.id})[0];
       if(!l[BL.view]){var f=blViews(blBone()).filter(function(x){return l[x[0]]})[0];if(f){BL.view=f[0];BL.sel=d.id;blRender();break}}
       BL.sel=BL.sel===d.id?null:d.id;blPaint();blPanel();break;
@@ -6475,13 +6487,13 @@ var JL_CLASSES={
 var JL_TYPES=[
  {id:'plane',n:'Plane (gliding)',axes:'Uniaxial',aid:'uni',move:'Flat or nearly flat surfaces slide over each other in one plane. Your KCL lecture groups plane joints as uniaxial; many textbooks call them non-axial because there is no angular movement.',ex:['Acromioclavicular joint','Intercarpal joints','Intertarsal joints','Subtalar joint (functionally)','Facet (zygapophysial) joints of the spine'],tip:'Think of sliding one book over another.',
   btn:[['Slide left',{sx:-40}],['Slide right',{sx:40}],['Slide forwards',{sz:34}],['Slide back',{sz:-34}]],no:[]},
- {id:'hinge',n:'Hinge',axes:'Uniaxial',aid:'uni',move:'Flexion and extension only, in one plane, like a door hinge.',ex:['Elbow (humeroulnar part)','Ankle (talocrural)','Knee (a modified hinge)','Interphalangeal joints of the fingers'],tip:'One axis, one plane: flexion and extension.',
+ {id:'hinge',n:'Hinge',axes:'Uniaxial',aid:'uni',move:'Flexion and extension only, in one plane, like a door hinge.',ex:['Elbow (humeroulnar part)','Ankle (talocrural)','Knee (a modified hinge)','Temporomandibular joint (a modified hinge: hinge plus gliding)','Interphalangeal joints of the fingers'],tip:'One axis, one plane: flexion and extension.',
   btn:[['Flexion',{flex:70}],['Extension',{flex:0}]],no:[['Try abduction','A hinge cannot abduct. It has one axis only.'],['Try rotation','A hinge cannot rotate. It has one axis only.']]},
  {id:'pivot',n:'Pivot',axes:'Uniaxial',aid:'uni',move:'One bone rotates around its long axis within a ring formed by another bone and a ligament.',ex:['Atlantoaxial joint (median)','Proximal radioulnar joint','Distal radioulnar joint'],tip:'Think of a peg turning in a ring: shaking your head \"no\", or turning your palm up and down.',
   btn:[['Rotate one way',{rot:80}],['Rotate the other way',{rot:-80}]],no:[['Try flexion','A pivot cannot flex. It only rotates.']]},
  {id:'cond',n:'Condyloid (ellipsoid)',axes:'Biaxial',aid:'bi',move:'An oval convex surface fits an oval concave surface. Flexion, extension, abduction and adduction (so circumduction too), but no independent rotation.',ex:['Radiocarpal (wrist) joint','Metacarpophalangeal joints','Metatarsophalangeal joints','Atlanto-occipital joint'],tip:'Two axes, so it can move in two planes. It cannot spin.',
   btn:[['Flexion',{flex:60}],['Extension',{flex:-35}],['Abduction',{abd:35}],['Adduction',{abd:-25}],['Circumduction','circ']],no:[['Try rotation','A condyloid joint cannot rotate along the length of the bone.']]},
- {id:'saddle',n:'Saddle',axes:'Biaxial',aid:'bi',move:'Each surface is concave in one direction and convex in the other, like a rider on a saddle. The same movements as a condyloid joint, with a bigger range.',ex:['First carpometacarpal joint (thumb)','Sternoclavicular joint'],tip:'Two interlocking saddles. The thumb joint is why you can oppose your thumb to your fingers.',
+ {id:'saddle',n:'Saddle',axes:'Biaxial',aid:'bi',move:'Each surface is concave in one direction and convex in the other, like a rider on a saddle. The same movements as a condyloid joint, with a bigger range.',ex:['First carpometacarpal joint (thumb)','Sternoclavicular joint (saddle in shape, but moves almost like a ball and socket)'],tip:'Two interlocking saddles. The thumb joint is why you can oppose your thumb to your fingers.',
   btn:[['Flexion',{flex:75}],['Extension',{flex:-50}],['Abduction',{abd:50}],['Adduction',{abd:-30}],['Circumduction','circ'],['Opposition (thumb)','opp']],no:[]},
  {id:'ball',n:'Ball and socket',axes:'Multiaxial',aid:'multi',move:'A rounded head fits into a cup. All movements: flexion, extension, abduction, adduction, medial and lateral rotation and circumduction.',ex:['Shoulder (glenohumeral)','Hip'],tip:'The most mobile type. The deeper the socket (hip), the more stable and the less mobile.',
   btn:[['Flexion',{flex:70}],['Extension',{flex:-35}],['Abduction',{abd:70}],['Adduction',{abd:-30}],['Medial rotation',{rot:70}],['Lateral rotation',{rot:-70}],['Circumduction','circ']],no:[]}
@@ -6522,7 +6534,7 @@ var JL_REG=[['up','Upper limb'],['low','Lower limb'],['axial','Head, neck and sp
 
 var JL_J=[
 /* ---------- upper limb ---------- */
-{id:'sc',n:'Sternoclavicular joint',reg:'up',cls:'Synovial',ty:'saddle',tq:1,tl:'Saddle',axes:'Moves in more than one plane',
+{id:'sc',n:'Sternoclavicular joint',reg:'up',cls:'Synovial',ty:'saddle',tq:1,tl:'Saddle',axes:'Moves in more than one plane',mod:["Saddle that moves like a ball and socket", "The surfaces are saddle-shaped, but the articular disc lets the joint move in almost every direction, so in practice it behaves much more like a ball and socket. Textbooks differ on how they label it."],
  bl:[['clavicle','Clavicle'],['sternum','Sternum']],
  surf:'The medial end of the clavicle meets the manubrium of the sternum. A fibrocartilage articular disc divides the joint into two compartments and gives it a greater range of movement.',
  lig:[['Anterior and posterior sternoclavicular ligaments','Intrinsic ligaments, thickenings of the capsule.'],['Costoclavicular ligament','The main stabiliser. It is the main limit on movement of the joint.'],['Interclavicular ligament','Links the two clavicles across the top of the sternum.']],
@@ -6544,7 +6556,7 @@ var JL_J=[
  mov:[['Flexion','Anterior deltoid, pectoralis major, coracobrachialis'],['Extension','Posterior deltoid, latissimus dorsi, teres major'],['Abduction','Supraspinatus starts it, then deltoid. Trapezius and serratus anterior rotate the scapula to carry the arm above about 90 degrees'],['Adduction','Pectoralis major, latissimus dorsi, teres major'],['Medial rotation','Subscapularis, pectoralis major, latissimus dorsi, teres major, anterior deltoid'],['Lateral rotation','Infraspinatus and teres minor (posterior deltoid helps)'],['Circumduction','A combination of the movements above']],
  stab:'The joint is the most mobile in the body, so it relies mainly on muscles, not ligaments. The rotator cuff (supraspinatus, infraspinatus, teres minor and subscapularis: SITS) pulls the humeral head into the glenoid. The labrum, the ligaments, the coracoacromial arch and the long head of biceps help.',
  clin:[['Anterior dislocation','By far the most common direction. The axillary nerve is at risk: it causes deltoid weakness and loss of sensation over the regimental badge area. In older people, rotator cuff tears are also common after dislocation.'],['Rotator cuff tendinopathy','Overuse of the rotator cuff tendons can lead to bursitis and impingement under the coracoacromial arch.']]},
-{id:'elb',dg:'elb',n:'Elbow joint',reg:'up',cls:'Synovial',ty:'hinge',tq:1,tl:'Hinge',axes:'Uniaxial',
+{id:'elb',dg:'elb',n:'Elbow joint',reg:'up',cls:'Synovial',ty:'hinge',tq:1,tl:'Hinge',axes:'Uniaxial',mod:["Compound hinge", "The humeroulnar part is a true hinge, but it shares one capsule with the humeroradial joint and the proximal radioulnar joint, so the elbow as a whole is a compound joint. It is classed as a hinge because flexion and extension are its main movement."],
  bl:[['humerus','Humerus'],['ulna','Ulna'],['radius','Radius']],
  surf:'Two articulations share one capsule: the trochlea of the humerus with the trochlear notch of the ulna (humeroulnar), and the capitulum of the humerus with the head of the radius (humeroradial). The proximal radioulnar joint shares the same capsule but is described separately.',
  lig:[['Capsule','Strong and fibrous. It is thickened on each side to form the collateral ligaments.'],['Ulnar collateral ligament','From the medial epicondyle to the coronoid process and olecranon.'],['Radial collateral ligament','From the lateral epicondyle. It blends with the annular ligament.'],['Annular ligament','Encircles the head of the radius.'],['Olecranon bursae','Subcutaneous, subtendinous and intratendinous bursae around the olecranon.']],
@@ -6604,7 +6616,7 @@ var JL_J=[
  mov:[['Flexion','Iliopsoas, rectus femoris, sartorius, pectineus'],['Extension','Gluteus maximus, hamstrings'],['Abduction','Gluteus medius and minimus, tensor fasciae latae, piriformis'],['Adduction','Adductors longus, brevis and magnus, gracilis, pectineus'],['Lateral rotation','Gluteus maximus, piriformis, quadratus femoris, obturators and gemelli'],['Medial rotation','Anterior fibres of gluteus medius and minimus, tensor fasciae latae']],
  stab:'Stability comes first, because the joint bears weight. The socket is deep and enclosed by the labrum. The ligaments are strong and spiral, and they tighten in extension.',
  clin:[['Neck of femur fracture','Common in older people with osteoporosis. The blood supply from the circumflex femoral arteries can be disrupted, which can cause avascular necrosis of the femoral head. The medial circumflex femoral artery supplies most of the head.'],['Posterior dislocation','About 90 per cent of dislocations. It follows trauma to a flexed knee (a dashboard injury). The hip is flexed, adducted and internally rotated. The sciatic nerve can be injured, and avascular necrosis is a risk.'],['Developmental dysplasia of the hip','A shallow acetabulum. It is treated early, for example with a Pavlik harness.']]},
-{id:'knee',dg:'knee',n:'Knee joint',reg:'low',cls:'Synovial',ty:'hinge',tq:1,tl:'Hinge (often called a modified hinge)',axes:'Mainly uniaxial, with some rotation',
+{id:'knee',dg:'knee',n:'Knee joint',reg:'low',cls:'Synovial',ty:'hinge',tq:1,tl:'Hinge (often called a modified hinge)',axes:'Mainly uniaxial, with some rotation',mod:["Modified hinge", "Its main movement is flexion and extension like a hinge, but the femoral condyles roll and glide on the tibia, and a small amount of rotation is possible when the knee is flexed, controlled by the menisci and cruciate ligaments. Many sources call it a modified hinge or a bicondylar joint."],
  bl:[['femur','Femur'],['tibia','Tibia'],['patella','Patella']],
  surf:'The medial and lateral femoral condyles meet the tibial condyles (tibiofemoral joint). The patella slides on the front of the femur (patellofemoral joint). All are in one joint cavity. The C-shaped menisci deepen the tibial surface and absorb shock.',
  lig:[['Anterior cruciate ligament (ACL)','From the anterior intercondylar area of the tibia to the lateral femoral condyle. It stops the tibia sliding forwards.'],['Posterior cruciate ligament (PCL)','From the posterior intercondylar area of the tibia to the medial femoral condyle. It stops the tibia sliding backwards.'],['Medial collateral ligament (MCL)','From the medial femoral epicondyle to the medial tibial condyle. It resists valgus force.'],['Lateral collateral ligament (LCL)','From the lateral femoral epicondyle to the head of the fibula. It resists varus force.'],['Patellar ligament','From the patella to the tibial tuberosity. It continues the quadriceps tendon.'],['Medial and lateral menisci','The medial is larger and less curved. The lateral is smaller, more circular and more mobile.'],['Bursae','Suprapatellar (the largest, it communicates with the joint), prepatellar, infrapatellar and semimembranosus.']],
@@ -6638,7 +6650,7 @@ var JL_J=[
  lig:[['Plantar ligament and two collateral ligaments','Support each joint.']],
  mov:[['Flexion, extension, abduction, adduction and circumduction','The condyloid movements.']],stab:'',clin:[]},
 /* ---------- head, neck and spine ---------- */
-{id:'tmj',n:'Temporomandibular joint (TMJ)',reg:'axial',cls:'Synovial',ty:null,tq:0,tl:'Hinge and gliding (ginglymoarthrodial)',axes:'Hinge plus sliding',
+{id:'tmj',n:'Temporomandibular joint (TMJ)',reg:'axial',cls:'Synovial',ty:null,tq:0,tl:'Hinge and gliding (ginglymoarthrodial)',axes:'Hinge plus sliding',mod:["Modified hinge", "The lower compartment is a hinge (rotation) and the upper is a gliding joint (sliding), separated by the disc. That mix of hinge and gliding is why it is described as a modified hinge (ginglymoarthrodial)."],
  bl:[['temporal','Temporal bone'],['skull','Skull (mandible)']],
  surf:'The head of the mandible fits in the mandibular fossa of the temporal bone, with the articular tubercle (eminence) in front. A fibrocartilaginous articular disc (as in your KCL lecture) divides the joint into an upper and a lower compartment. The lower compartment allows rotation (hinge). The upper allows translation (sliding).',
  lig:[['Capsule','A loose envelope attached to the rim of the fossa and articular tubercle above and the neck of the mandible below.'],['Temporomandibular (lateral) ligament','A thickening of the lateral capsule. It limits backwards movement of the mandible.'],['Sphenomandibular and stylomandibular ligaments','Accessory ligaments that are not attached to the joint itself. The stylomandibular ligament limits protrusion, and the sphenomandibular ligament limits excessive opening.']],
@@ -7145,7 +7157,7 @@ function jlJointsHTML(){
 function jlJointPanel(j){
   var reg=JL_REG.filter(function(r){return r[0]===j.reg})[0][1];
   var o=JL.hide?'':' open';
-  var h='<p class="eyebrow">'+jlE(reg)+' · '+jlE(j.cls)+'</p><h2>'+jlE(j.n)+'</h2><div class="jl-tags"><span class="jl-tag t-'+(j.ty||'x')+'">'+jlE(j.tl)+'</span><span class="jl-tag">'+jlE(j.axes)+'</span></div>';
+  var h='<p class="eyebrow">'+jlE(reg)+' · '+jlE(j.cls)+'</p><h2>'+jlE(j.n)+'</h2><div class="jl-tags"><span class="jl-tag t-'+(j.ty||'x')+'">'+jlE(j.tl)+'</span><span class="jl-tag">'+jlE(j.axes)+'</span>'+(j.mod?'<span class="jl-tag jl-modt">Modified</span>':'')+'</div>'+(j.mod?'<div class="jl-modn"><b>'+jlE(j.mod[0])+'.</b> '+jlE(j.mod[1])+'</div>':'');
   var bones=j.bl.filter(function(b){return typeof BLB!=='undefined'&&BLB[b[0]]});
   if(bones.length)h+='<div class="bl-sec"><b>Bones (tap to open in the Bone lab)</b><div class="bl-ex">'+bones.map(function(b){return '<button class="chip" data-jl="bone" data-id="'+b[0]+'">'+jlE(b[1])+'</button>'}).join('')+'</div></div>';
   h+='<div class="bl-row" style="margin:10px 0 4px"><button class="chip'+(JL.hide?' on':'')+'" data-jl="hide" aria-pressed="'+JL.hide+'">Test yourself: hide the details</button></div>';
@@ -8627,6 +8639,32 @@ document.addEventListener('click',function(e){
   else if(t.dataset.ph==='zoom'){}
 });
 
+/* Osteon mark: a cross-section of an osteon (the bone's own building block) */
+function osLogo(u){
+  u=u||'ol';
+  function ring(r,ph,k){
+    var N=36,P=[],i,a,rr;
+    for(i=0;i<N;i++){a=i/N*Math.PI*2;rr=r*(1+k*Math.sin(3*a+ph)+k*.6*Math.sin(5*a+ph*1.7)+k*.3*Math.sin(2*a+ph*.6));P.push([50+rr*1.06*Math.cos(a-.2),50+rr*.95*Math.sin(a-.2)])}
+    var d='M'+P[0][0].toFixed(2)+' '+P[0][1].toFixed(2);
+    for(i=0;i<N;i++){var p0=P[(i-1+N)%N],p1=P[i],p2=P[(i+1)%N],p3=P[(i+2)%N];
+      d+='C'+(p1[0]+(p2[0]-p0[0])/6).toFixed(2)+' '+(p1[1]+(p2[1]-p0[1])/6).toFixed(2)+' '+(p2[0]-(p3[0]-p1[0])/6).toFixed(2)+' '+(p2[1]-(p3[1]-p1[1])/6).toFixed(2)+' '+p2[0].toFixed(2)+' '+p2[1].toFixed(2)}
+    return d+'Z';
+  }
+  var R=[[40.5,.2,.014,5.2,1],[32.6,1.4,.016,4.6,.86],[25,2.6,.018,4.2,.72],[17.8,3.7,.02,3.8,.58]],o='',lac='';
+  R.forEach(function(r,i){o+='<path d="'+ring(r[0],r[1],r[2])+'" stroke-width="'+r[3]+'" opacity="'+r[4]+'"/>'});
+  /* lacunae: small dark lenses set into the bands */
+  [[40.5,35],[40.5,150],[40.5,255],[40.5,320],[32.6,95],[32.6,205],[32.6,300],[25,30],[25,165],[25,250],[17.8,70],[17.8,215]].forEach(function(l){
+    var a=l[1]*Math.PI/180,x=50+l[0]*1.06*Math.cos(a-.2),y=50+l[0]*.95*Math.sin(a-.2),ang=(a-.2)*180/Math.PI+90;
+    lac+='<ellipse cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="2.3" ry="1.05" transform="rotate('+ang.toFixed(0)+' '+x.toFixed(1)+' '+y.toFixed(1)+')"/>'});
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>'
+   +'<linearGradient id="'+u+'g" x1="10%" y1="6%" x2="90%" y2="96%"><stop offset="0" stop-color="#8ae6ea"/><stop offset=".5" stop-color="#4FC3CB"/><stop offset="1" stop-color="#6c7dff"/></linearGradient>'
+   +'<radialGradient id="'+u+'c" cx="36%" cy="32%" r="78%"><stop offset="0" stop-color="#ffe9c2"/><stop offset=".5" stop-color="#F2B66B"/><stop offset="1" stop-color="#d9772e"/></radialGradient>'
+   +'<radialGradient id="'+u+'h" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F2B66B" stop-opacity=".5"/><stop offset="1" stop-color="#F2B66B" stop-opacity="0"/></radialGradient></defs>'
+   +'<g fill="none" stroke="url(#'+u+'g)" stroke-linejoin="round">'+o+'</g>'
+   +'<g fill="#0b1722" opacity=".78">'+lac+'</g>'
+   +'<circle cx="50" cy="50" r="14" fill="url(#'+u+'h)"/><ellipse cx="50" cy="50.2" rx="7.6" ry="7" transform="rotate(-12 50 50)" fill="url(#'+u+'c)"/><circle cx="47.6" cy="47.6" r="1.8" fill="#fff" opacity=".8"/></svg>';
+}
+
 /* ===== Mnemonics: your own (saved on this device, included in backup) plus a few standard ones ===== */
 var MNKEY='osteon-mnemonics-v1',MN=rcLoad(MNKEY,{});
 var MNSTD=[
@@ -8908,7 +8946,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V58';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V59';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -9576,7 +9614,7 @@ function hubHome(){
   var h=new Date().getHours(),g=h<5?'Still up':h<12?'Good morning':h<18?'Good afternoon':'Good evening';
   var s=srsStats(),last=hubLast(),ll=hubLastLabel(last),th=document.documentElement.getAttribute('data-theme')||'dark';
   var o='<div class="hub-top"><span class="hub-pill">Osteon</span><button class="chip" data-hub="theme" aria-label="Switch theme">'+(th==='dark'?'Light mode':'Dark mode')+'</button></div>';
-  o+='<div class="hub-hero"><div class="hub-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M15 17a3.2 3.2 0 1 1 5 2.6l9 9a3.2 3.2 0 1 1 2.6 5 3.2 3.2 0 0 1-5-2.6l-9-9A3.2 3.2 0 0 1 15 17z"/></svg></div><p class="eyebrow">'+g+'</p><h1>Osteon</h1><p class="hub-sub">Anatomy and microanatomy. Revise, recall, repeat.</p></div>';
+  o+='<div class="hub-hero"><div class="hub-rings" aria-hidden="true"><i></i><i></i><i></i></div><div class="hub-logo" aria-hidden="true">'+osLogo('hh')+'</div><p class="eyebrow">'+g+'</p><h1>Osteon</h1><p class="hub-sub">Anatomy and microanatomy. Revise, recall, repeat.</p></div>';
   o+='<div class="hub-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="hubq" type="search" placeholder="Search bones, landmarks, joints, ligaments, muscles" value="'+blE(HUB.q)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search everything"></div>';
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
