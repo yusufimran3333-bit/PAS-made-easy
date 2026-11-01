@@ -837,6 +837,8 @@ h1,h2{letter-spacing:-.015em}
 .hub[hidden]::after{display:none}
 :root[data-theme="light"] .hub-sk{opacity:.95}
 @media(prefers-reduced-motion:reduce){.hub-bg{animation:none}}
+.hub-hb{cursor:pointer}
+.st-card{margin-bottom:12px}
 </style>
 
 <div class="app">
@@ -9496,7 +9498,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V68';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V69';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -10692,9 +10694,10 @@ function skTick(now){
 }
 function skDragWire(){
   var h=document.getElementById('hub');
-  h.addEventListener('pointerdown',function(e){if(!SK.ready||SK.rm||!e.target.closest||!e.target.closest('.hub-hb'))return;SK.drag={x:e.clientX,id:e.pointerId};SK.vel=0;try{e.target.setPointerCapture(e.pointerId)}catch(x){}});
-  h.addEventListener('pointermove',function(e){if(!SK.drag||e.pointerId!==SK.drag.id)return;var dx=e.clientX-SK.drag.x;SK.drag.x=e.clientX;SK.rot+=dx*.011;SK.vel=dx*.011/Math.max(.008,(performance.now()-(SK.dl||performance.now()))/1000)*.5;SK.dl=performance.now();SK.vel=Math.max(-4,Math.min(4,SK.vel))});
-  var up=function(e){if(SK.drag&&e.pointerId===SK.drag.id){SK.drag=null}};
+  h.addEventListener('pointerdown',function(e){if(!SK.ready||!e.target.closest||!e.target.closest('.hub-hb'))return;SK.dn={x:e.clientX,y:e.clientY,t:performance.now(),mv:0};if(SK.rm)return;SK.drag={x:e.clientX,id:e.pointerId};SK.vel=0;try{e.target.setPointerCapture(e.pointerId)}catch(x){}});
+  h.addEventListener('pointermove',function(e){if(SK.dn)SK.dn.mv=Math.max(SK.dn.mv,Math.abs(e.clientX-SK.dn.x)+Math.abs(e.clientY-SK.dn.y));if(!SK.drag||e.pointerId!==SK.drag.id)return;var dx=e.clientX-SK.drag.x;SK.drag.x=e.clientX;SK.rot+=dx*.011;SK.vel=dx*.011/Math.max(.008,(performance.now()-(SK.dl||performance.now()))/1000)*.5;SK.dl=performance.now();SK.vel=Math.max(-4,Math.min(4,SK.vel))});
+  var up=function(e){if(SK.drag&&e.pointerId===SK.drag.id){SK.drag=null}
+    var d=SK.dn;SK.dn=null;if(d&&e.type==='pointerup'&&d.mv<9&&performance.now()-d.t<600&&typeof v3Open==='function')v3Open()};
   h.addEventListener('pointerup',up);h.addEventListener('pointercancel',up);
   h.addEventListener('scroll',skWake,{passive:true});
 }
