@@ -577,6 +577,38 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .fc-tag{display:inline-block;font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-right:4px}
 .fc-done{text-align:center;padding:34px 10px}.fc-done .hub-big{font-size:46px}
 .fc-card .qs{font-size:14px;color:var(--muted);margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line);width:100%;overflow-wrap:anywhere}
+#ex .ex-wrap{max-width:760px;margin:0 auto}
+.ex-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px;font-size:14px;color:var(--muted)}
+.ex-tm{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}.ex-tm.low{color:#e5604f}
+.ex-prog{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin:0 0 14px}.ex-prog i{display:block;height:100%;background:var(--accent)}
+.ex-stem{font-size:19px;line-height:1.45;margin:6px 0 12px;overflow-wrap:anywhere}
+.ex-hint{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.ex-img{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px;margin:0 0 12px;display:flex;justify-content:center}
+.ex-img svg{display:block;width:100%;max-width:440px;height:auto;max-height:50vh}
+.ex-opts{display:grid;gap:8px;margin:0 0 12px}
+.ex-opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:16px/1.4 var(--f-body);min-height:48px;cursor:pointer}
+.ex-opt b{flex:0 0 auto;width:24px;color:var(--muted)}.ex-opt span{min-width:0;overflow-wrap:anywhere}
+.ex-opt:hover{border-color:var(--accent)}
+.ex-opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.ex-opt.ok{border-color:#3fae6a;background:rgba(63,174,106,.16)}.ex-opt.bad{border-color:#e5604f;background:rgba(229,96,79,.14)}
+.ex-opt:disabled{cursor:default;opacity:1}
+.ex-fb{border-left:3px solid var(--accent);padding:2px 0 2px 12px;margin:12px 0;font-size:15px;line-height:1.5}
+.ex-fb b{display:block;margin-bottom:2px}
+.ex-act{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.ex-nav{display:grid;gap:6px;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));margin:8px 0 14px}
+.ex-nav button{min-height:42px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted);font-weight:700}
+.ex-nav button.ans{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.ex-nav button.flag{box-shadow:inset 0 -3px 0 #e8b26a}.ex-nav button.cur{outline:2px solid var(--accent)}
+.ex-chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.ex-big{font:400 54px/1 var(--f-display);margin:4px 0}
+.ex-row{display:grid;grid-template-columns:130px 1fr 54px;gap:10px;align-items:center;margin:6px 0;font-size:14px}
+.ex-row .tr{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.ex-row .tr i{display:block;height:100%;background:var(--accent)}
+.ex-rv{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:14px;margin-bottom:12px}
+.ex-rv .res{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.ex-rv .res.ok{color:#3fae6a}.ex-rv .res.bad{color:#e5604f}
+.ex-rv p{margin:6px 0}
+.ex-note{border-left:3px solid var(--accent);padding-left:10px;color:var(--muted);font-size:14px;margin:12px 0}
+@media(max-width:520px){.ex-row{grid-template-columns:96px 1fr 46px}}
+#ex .ex-wrap{padding-bottom:96px}
 .rc .rc-ta,.rc-ta{width:100%;box-sizing:border-box;background:var(--surface-2,rgba(255,255,255,.05));color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:16px/1.45 var(--f-body,system-ui);resize:vertical}
 .rc-mine{border-left:3px solid var(--accent);padding-left:10px;margin:8px 0;color:var(--muted)}.rc-mine p{margin:2px 0 0;white-space:pre-line}
 .rc-ans{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
@@ -921,6 +953,13 @@ h1,h2{letter-spacing:-.015em}
   </div>
   <div id="fcbody"></div>
   <input type="file" id="fcfile" accept=".json,.txt,.csv,.tsv,text/plain,application/json" hidden>
+</div>
+<div id="ex" class="bl" hidden role="dialog" aria-label="Exam practice">
+  <div class="bl-top">
+    <button class="btn ghost small" data-ex="back">&larr; Back</button>
+    <h2 id="extitle">Exam practice</h2>
+  </div>
+  <div id="exbody"></div>
 </div>
 <div id="hub" class="hub" hidden role="dialog" aria-label="Home"><div class="hub-bg" aria-hidden="true"></div><div class="hub-in" id="hubbody"></div></div>
 
@@ -9086,7 +9125,7 @@ function blStudyItem(l){
 }
 
 /* ---- Backup and restore ---- */
-function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT,MNKEY,STKEY,FCKEY]}
+function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT,MNKEY,STKEY,FCKEY,EXKEY]}
 function bkCode(){
   var d={};bkKeys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)d[k]=v}catch(e){}});
   var s=JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d});
@@ -9096,7 +9135,7 @@ function bkRestore(code){
   var o;try{o=JSON.parse(decodeURIComponent(escape(atob(code.trim()))))}catch(e){try{o=JSON.parse(code)}catch(e2){return 'That code did not work. Copy the whole thing and try again.'}}
   if(!o||o.app!=='anatomy-drill'||!o.d)return 'That is not an Osteon backup.';
   var n=0;bkKeys().forEach(function(k){if(typeof o.d[k]==='string'){try{localStorage.setItem(k,o.d[k]);n++}catch(e){}}});
-  SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});MN=rcLoad(MNKEY,{});ST=stLoad();FCS=fcLoad();RC.on=!!rcLoad(RCKEY,{}).on;
+  SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});MN=rcLoad(MNKEY,{});ST=stLoad();FCS=fcLoad();EXS=exLoad();RC.on=!!rcLoad(RCKEY,{}).on;
   try{document.documentElement.setAttribute('data-theme',localStorage.getItem(THEMEKEY)||'dark')}catch(e){}
   return 'Restored '+n+' sets of progress. Your review queue now has '+srsList().length+' items.';
 }
@@ -9435,10 +9474,10 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V64';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V65';
 function osScreen(){
-  var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',hub:'Home'},w='Home';
-  ['bl','jl','cl','ml','mi','fc'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
+  var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
+  ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
   return w;
 }
 function osFeedback(){
@@ -10151,6 +10190,364 @@ document.addEventListener('keydown',function(e){
 });
 function fcCount(){var n=0;FC_PRE.forEach(function(d){n+=d.cards.length});FCS.decks.forEach(function(d){n+=d.cards.length});return n}
 
+/* ===== Exam practice: hand-written single-best-answer questions =====
+   Written for Osteon. Not copied from any past paper. Format: [topic, stem, correct answer, [4 wrong answers], explanation]
+   Topics: upper, lower, head, axial, joint, musc, micro, bone */
+var EX_TOPICS=[['img','Bone images'],['upper','Upper limb'],['lower','Lower limb'],['head','Head and neck'],['axial','Spine and thorax'],['joint','Joints'],['musc','Muscles and nerves'],['micro','Microanatomy'],['bone','Bone and cartilage']];
+var EX_RAW=[
+/* ---- upper limb ---- */
+['upper','A 22-year-old falls onto her outstretched hand. She has tenderness in the anatomical snuffbox, and the first X-ray looks normal. Which bone is most likely to be fractured?','Scaphoid',['Capitate','Hamate','Lunate','Pisiform'],'The scaphoid forms the floor of the anatomical snuffbox. Fractures can be invisible on the first X-ray. Its blood supply enters at the distal end, so a fracture through the waist can leave the proximal part short of blood and at risk of avascular necrosis.'],
+['upper','After a fall, a man has a dislocated shoulder. Afterwards he has numbness over the lateral upper arm and cannot abduct the arm properly. Which nerve is most likely injured?','Axillary nerve',['Long thoracic nerve','Musculocutaneous nerve','Radial nerve','Suprascapular nerve'],'The axillary nerve winds round the surgical neck of the humerus, just below the shoulder joint, so it is at risk in anterior dislocation. It supplies deltoid and teres minor, and the skin over the lateral upper arm (the regimental badge area).'],
+['upper','A patient has a fracture of the middle of the humeral shaft. He cannot extend his wrist or fingers and his wrist hangs flexed. Which nerve is injured?','Radial nerve',['Axillary nerve','Median nerve','Musculocutaneous nerve','Ulnar nerve'],'The radial nerve runs in the radial groove on the back of the humeral shaft. Damage there paralyses the wrist and finger extensors (wrist drop). Triceps is often spared because its branches leave the nerve higher up.'],
+['upper','A boy fractures his medial epicondyle. Weeks later he has tingling in the little finger and weak finger adduction. Which nerve has been injured?','Ulnar nerve',['Anterior interosseous nerve','Median nerve','Musculocutaneous nerve','Radial nerve'],'The ulnar nerve passes behind the medial epicondyle, in the groove often called the funny bone, so it is vulnerable here. It supplies the little finger and most of the small muscles of the hand, including those that adduct the fingers.'],
+['upper','A newborn is delivered after a difficult shoulder delivery. The arm hangs by the side, medially rotated, with the elbow extended and forearm pronated. Which nerve roots are most likely injured?','C5 and C6',['C6 and C7','C7 and C8','C8 and T1','T1 and T2'],'This is Erb palsy, an injury to the upper trunk of the brachial plexus (C5 and C6). The shoulder muscles and elbow flexors lose their supply, giving the waiter’s tip position.'],
+['upper','Which structure passes superficial to the flexor retinaculum, and not through the carpal tunnel?','Ulnar nerve',['Median nerve','Flexor pollicis longus tendon','Flexor digitorum profundus tendons','Flexor digitorum superficialis tendons'],'The median nerve and nine flexor tendons pass through the carpal tunnel, deep to the flexor retinaculum. The ulnar nerve and artery pass in front of it, which is why the ulnar nerve is not compressed in carpal tunnel syndrome.'],
+['upper','Which muscle is NOT part of the rotator cuff?','Teres major',['Infraspinatus','Subscapularis','Supraspinatus','Teres minor'],'The rotator cuff is supraspinatus, infraspinatus, teres minor and subscapularis (SITS). Teres major adducts and medially rotates the arm but is not part of the cuff.'],
+['upper','When a woman pushes against a wall, the medial border of her scapula lifts away from her chest wall. Which nerve is most likely damaged?','Long thoracic nerve',['Axillary nerve','Dorsal scapular nerve','Suprascapular nerve','Thoracodorsal nerve'],'The long thoracic nerve supplies serratus anterior, which holds the scapula against the chest wall. Paralysis causes a winged scapula.'],
+['upper','After a fracture of the middle third of the clavicle, which muscle mainly pulls the medial fragment upwards?','Sternocleidomastoid',['Deltoid','Latissimus dorsi','Pectoralis major','Subclavius'],'Sternocleidomastoid attaches to the medial clavicle and elevates the medial fragment. The lateral fragment drops because of the weight of the arm and is pulled medially by muscles such as pectoralis major.'],
+['upper','What happens to the bones of the forearm during pronation?','The radius rotates around the ulna so that its lower end crosses in front of it',['The ulna rotates around the radius so that its lower end crosses in front of it','Both bones rotate equally around the central axis of the forearm','The radius and ulna stay parallel while the humerus rotates','The ulna moves laterally while the radius stays still'],'In pronation the radius rotates around a relatively fixed ulna, at the superior and inferior radioulnar joints. The lower end of the radius crosses the ulna, and the palm turns backwards or downwards.'],
+['upper','Opposition of the thumb takes place mainly at which joint?','First carpometacarpal joint',['First metacarpophalangeal joint','Interphalangeal joint of the thumb','Midcarpal joint','Radiocarpal joint'],'The first carpometacarpal joint is a saddle joint between the trapezium and the base of the first metacarpal. Its shape allows the wide range of movement needed for opposition.'],
+['upper','A toddler is lifted by one hand. She then holds her arm still and will not supinate it. The radial head has slipped out of which structure?','Annular ligament',['Interosseous membrane','Radial collateral ligament','Quadrate ligament','Ulnar collateral ligament'],'The annular ligament wraps round the head of the radius and holds it against the ulna. A sudden pull in a young child can pull the head out from under it (pulled elbow).'],
+['upper','A 70-year-old woman falls on her outstretched hand. Her wrist has a dinner-fork deformity with the hand displaced towards the back. Which injury is most likely?','Fracture of the distal radius',['Fracture of the radial head','Fracture of the scaphoid','Fracture of the shaft of the ulna','Supracondylar fracture of the humerus'],'A fracture of the distal radius with dorsal displacement (Colles fracture) is common in older people after a fall on the outstretched hand, especially with osteoporosis.'],
+/* ---- lower limb ---- */
+['lower','A woman’s pelvis drops towards the left when she stands on her right leg only. Which nerve is most likely damaged?','Right superior gluteal nerve',['Left superior gluteal nerve','Right femoral nerve','Right inferior gluteal nerve','Right obturator nerve'],'Gluteus medius and minimus on the standing side stop the pelvis tilting. They are supplied by the superior gluteal nerve. If they are weak, the pelvis drops on the unsupported side (Trendelenburg sign).'],
+['lower','After a blow to the outer side of the knee, a man trips because his foot slaps down. He cannot lift or evert the foot. Which nerve is most likely injured?','Common fibular nerve',['Femoral nerve','Obturator nerve','Superior gluteal nerve','Tibial nerve'],'The common fibular nerve winds round the neck of the fibula, where it lies close to the skin. Damage causes foot drop through loss of dorsiflexion and eversion.'],
+['lower','A 78-year-old woman has a displaced intracapsular fracture of the femoral neck. Damage to which vessel makes avascular necrosis of the femoral head most likely?','Medial circumflex femoral artery',['Inferior gluteal artery','Lateral circumflex femoral artery','Obturator artery','Superior gluteal artery'],'The head of the femur is supplied mainly through vessels that run up the neck, chiefly branches of the medial circumflex femoral artery. A displaced fracture of the neck inside the capsule can cut them.'],
+['lower','A footballer’s knee gives way. With the knee bent, the tibia can be pulled forward on the femur. Which ligament is most likely torn?','Anterior cruciate ligament',['Lateral collateral ligament','Medial collateral ligament','Patellar ligament','Posterior cruciate ligament'],'The anterior cruciate ligament stops the tibia sliding forward on the femur. Excess forward movement is the anterior drawer sign.'],
+['lower','Which ligament is most commonly sprained in an inversion injury of the ankle?','Anterior talofibular ligament',['Calcaneofibular ligament','Deltoid ligament','Long plantar ligament','Posterior talofibular ligament'],'The lateral ligaments are weaker than the medial deltoid ligament. The anterior talofibular ligament is the weakest and is torn most often when the foot is forced into inversion.'],
+['lower','Which ligament of the hip joint is the strongest and limits hyperextension?','Iliofemoral ligament',['Ischiofemoral ligament','Ligament of the head of the femur','Pubofemoral ligament','Transverse acetabular ligament'],'The iliofemoral ligament is a strong Y-shaped band at the front of the joint. It stops the trunk tipping backwards when we stand.'],
+['lower','Which structure attaches to the tibial tuberosity?','Patellar ligament',['Anterior cruciate ligament','Biceps femoris tendon','Iliotibial tract','Pes anserinus'],'The quadriceps tendon attaches to the patella, and the patellar ligament carries the pull on to the tibial tuberosity. The iliotibial tract attaches lower down to the lateral tibial condyle.'],
+['lower','Which bone does the sustentaculum tali of the calcaneus support?','Talus',['Cuboid','Medial cuneiform','Navicular','Tibia'],'The sustentaculum tali is a shelf on the medial side of the calcaneus. It supports the talus, and the tendon of flexor hallucis longus passes beneath it.'],
+['lower','Which feature of the femur gives attachment to gluteus maximus?','Gluteal tuberosity',['Adductor tubercle','Intertrochanteric crest','Lesser trochanter','Linea aspera'],'The deep fibres of gluteus maximus attach to the gluteal tuberosity on the back of the femoral shaft. The superficial fibres go to the iliotibial tract.'],
+/* ---- head and neck ---- */
+['head','A blow to the side of the head tears a vessel beneath the pterion and causes an extradural haematoma. Which vessel is most likely torn?','Anterior branch of the middle meningeal artery',['Middle cerebral artery','Sigmoid sinus','Superficial temporal artery','Superior sagittal sinus'],'The pterion is the weak spot where the frontal, parietal, temporal and sphenoid bones meet. The anterior branch of the middle meningeal artery lies just under it, between the bone and the dura.'],
+['head','Through which foramen does the middle meningeal artery enter the skull?','Foramen spinosum',['Foramen magnum','Foramen ovale','Foramen rotundum','Jugular foramen'],'The middle meningeal artery is a branch of the maxillary artery. It enters the middle cranial fossa through the foramen spinosum in the greater wing of the sphenoid.'],
+['head','After a head injury, a man cannot smell and has clear fluid dripping from his nose. Which bony structure is most likely fractured?','Cribriform plate of the ethmoid',['Optic canal','Palatine bone','Petrous part of the temporal bone','Zygomatic arch'],'The olfactory nerve fibres pass through the cribriform plate to reach the nose. A fracture can tear them, causing loss of smell, and tear the dura, letting cerebrospinal fluid leak out through the nose.'],
+['head','A tennis ball hits the eye and the inferior rectus is trapped, limiting upward gaze. Which bone forms most of the orbital floor and is usually broken in a blowout fracture?','Maxilla',['Ethmoid','Frontal bone','Palatine bone','Zygomatic bone'],'The orbital plate of the maxilla forms most of the floor of the orbit and is thin. In a blowout fracture it breaks downwards into the maxillary sinus.'],
+['head','Which structures pass through the mandibular foramen?','Inferior alveolar nerve and vessels',['Buccal nerve','Facial nerve','Lingual nerve and artery','Mental nerve'],'The inferior alveolar nerve and vessels enter the mandibular foramen on the inner surface of the ramus. They run in the mandibular canal and leave as the mental nerve at the mental foramen.'],
+['head','Which structures pass through the optic canal?','Optic nerve and ophthalmic artery',['Abducens nerve','Mandibular nerve','Maxillary nerve','Oculomotor nerve'],'The optic canal lies in the lesser wing of the sphenoid. The optic nerve and the ophthalmic artery pass through it. The nerves to the eye muscles pass through the superior orbital fissure.'],
+['head','Which vertebra has no vertebral body and no spinous process?','Atlas (C1)',['Axis (C2)','C7','L1','T1'],'The atlas is a ring made of anterior and posterior arches and two lateral masses. The body of the atlas has become the dens of the axis.'],
+['head','Which part of the atlas articulates with the dens of the axis?','Anterior arch',['Lateral mass','Posterior arch','Superior articular facet','Transverse process'],'The dens of the axis fits against a small facet on the back of the anterior arch of the atlas. The transverse ligament of the atlas holds it there.'],
+['head','Which bone of the neck does not articulate directly with any other bone?','Hyoid bone',['Atlas','Mandible','Sphenoid bone','Temporal bone'],'The hyoid is held in place by muscles and ligaments only. It anchors the tongue and the larynx.'],
+['head','Which two bones form the zygomatic arch?','Temporal bone and zygomatic bone',['Maxilla and temporal bone','Maxilla and zygomatic bone','Sphenoid bone and temporal bone','Zygomatic bone and sphenoid bone'],'The arch is made from the temporal process of the zygomatic bone and the zygomatic process of the temporal bone. Masseter arises from its lower border.'],
+/* ---- spine and thorax ---- */
+['axial','Which feature is found on every cervical vertebra but on no thoracic or lumbar vertebra?','Transverse foramen',['Costal facet on the body','Kidney-shaped vertebral body','Mammillary process','Spinous process pointing sharply downwards'],'All cervical vertebrae have a foramen in each transverse process. The vertebral artery passes through those of C1 to C6.'],
+['axial','Which structure lies in the groove in front of the scalene tubercle of the first rib?','Subclavian vein',['Internal thoracic artery','Thoracic duct','Vagus nerve','Subclavian artery'],'The subclavian vein crosses the first rib in front of scalenus anterior, in the groove in front of the scalene tubercle. The subclavian artery lies behind the muscle, in the groove behind the tubercle.'],
+['axial','Which costal cartilage joins the sternum at the sternal angle?','Second',['First','Third','Fourth','Fifth'],'The sternal angle is the joint between the manubrium and body of the sternum. The second costal cartilage attaches there, which makes it a useful place to start counting ribs.'],
+['axial','Which part of a typical rib articulates with the transverse process of the vertebra of the same number?','Tubercle',['Angle','Costal groove','Head','Neck'],'The tubercle has an articular facet for the transverse process of its own vertebra. The head articulates with the vertebral bodies.'],
+['axial','With which vertebral bodies does the head of the seventh rib articulate?','T6 and T7',['T5 and T6','T7 only','T7 and T8','T8 only'],'The head of a typical rib has two facets. They articulate with the demifacets on the body of its own vertebra and on the vertebra above.'],
+['axial','Which vertebra has a large kidney-shaped body, thick transverse processes, and no costal facets or transverse foramina?','Lumbar vertebra',['Atlas','Axis','Thoracic vertebra','Typical cervical vertebra'],'Lumbar vertebrae carry the most weight, so their bodies are large. They lack the facets for ribs seen in the thoracic region and the foramina in the transverse processes seen in the cervical region.'],
+/* ---- joints ---- */
+['joint','Which type of joint is the intervertebral disc joint between two vertebral bodies?','Secondary cartilaginous joint (symphysis)',['Fibrous joint (syndesmosis)','Plane synovial joint','Primary cartilaginous joint (synchondrosis)','Suture'],'The vertebral bodies are joined by a pad of fibrocartilage, the intervertebral disc. Joints of this kind, like the pubic symphysis, allow a small amount of movement.'],
+['joint','Which type of fibrous joint holds a tooth in its socket?','Gomphosis',['Suture','Symphysis','Synchondrosis','Syndesmosis'],'In a gomphosis a peg sits in a socket and is held by the periodontal ligament.'],
+['joint','In a growing child, which type of joint is the epiphyseal growth plate?','Primary cartilaginous joint (synchondrosis)',['Fibrous joint (suture)','Plane synovial joint','Secondary cartilaginous joint (symphysis)','Syndesmosis'],'The growth plate is a layer of hyaline cartilage joining the epiphysis to the metaphysis. It is a temporary primary cartilaginous joint, which ossifies when growth ends.'],
+/* ---- muscles and nerves ---- */
+['musc','Which muscle starts the first 15 degrees of arm abduction?','Supraspinatus',['Deltoid','Infraspinatus','Serratus anterior','Trapezius'],'Supraspinatus starts abduction. Deltoid then takes over, and the scapula rotates with the help of trapezius and serratus anterior.'],
+['musc','Which muscle is the main flexor of the elbow whatever the position of the forearm?','Brachialis',['Biceps brachii','Brachioradialis','Pronator teres','Triceps brachii'],'Brachialis attaches to the ulna, so it flexes the elbow in any position of the forearm. Biceps brachii is also a flexor but works best with the forearm supinated.'],
+['musc','Pain from the diaphragm can be felt at the tip of the shoulder. From which nerve roots does the phrenic nerve arise?','C3, C4 and C5',['C1 and C2','C5 to T1','T1 to T4','T7 to T12'],'The phrenic nerve arises from C3 to C5, the same segments that supply the skin over the shoulder tip, so irritation of the diaphragm is felt there.'],
+['musc','Which muscle is the main abductor of the hip, keeping the pelvis level during walking?','Gluteus medius',['Adductor magnus','Gluteus maximus','Piriformis','Tensor fasciae latae'],'Gluteus medius, helped by gluteus minimus, abducts the hip and holds the pelvis level when the opposite foot is off the ground.'],
+['musc','Which intrinsic muscle of the hand is supplied by the median nerve?','Abductor pollicis brevis',['Abductor digiti minimi','Adductor pollicis','Opponens digiti minimi','Palmar interossei'],'The median nerve supplies the muscles of the thenar eminence (except adductor pollicis) and the first two lumbricals. Most of the other small muscles of the hand are supplied by the ulnar nerve.'],
+/* ---- microanatomy ---- */
+['micro','Which white blood cell has a bilobed nucleus and large red-orange granules?','Eosinophil',['Basophil','Lymphocyte','Monocyte','Neutrophil'],'Eosinophils have a bilobed nucleus and granules that stain with eosin. They increase in parasitic infection and allergy.'],
+['micro','Which white blood cell has coarse deep blue granules that often hide its nucleus?','Basophil',['Eosinophil','Lymphocyte','Monocyte','Neutrophil'],'Basophils are the rarest white cells. Their granules contain histamine and heparin.'],
+['micro','Which is the most abundant white blood cell in normal adult blood?','Neutrophil',['Basophil','Eosinophil','Lymphocyte','Monocyte'],'Neutrophils make up around 50 to 70 percent of circulating white cells. They have a multilobed nucleus.'],
+['micro','Which is the largest white blood cell, with a kidney-shaped nucleus?','Monocyte',['Basophil','Eosinophil','Lymphocyte','Neutrophil'],'Monocytes leave the blood and become macrophages in the tissues.'],
+['micro','Which white blood cell is the smallest, with a large round dark nucleus and a thin rim of cytoplasm?','Small lymphocyte',['Basophil','Eosinophil','Monocyte','Neutrophil'],'A small lymphocyte is only a little bigger than a red cell. The nucleus takes up nearly the whole cell.'],
+['micro','Platelets are fragments of the cytoplasm of which cell?','Megakaryocyte',['Eosinophil','Erythroblast','Lymphocyte','Monocyte'],'Megakaryocytes are large cells in the bone marrow. They shed pieces of cytoplasm, which become platelets.'],
+['micro','Which epithelium lines the urinary bladder?','Transitional epithelium (urothelium)',['Pseudostratified columnar epithelium','Simple columnar epithelium','Simple cuboidal epithelium','Stratified squamous keratinised epithelium'],'Transitional epithelium can stretch and flatten as the bladder fills, and it forms a barrier to urine.'],
+['micro','Which epithelium lines the lumen of the small intestine and has microvilli and goblet cells?','Simple columnar epithelium',['Simple cuboidal epithelium','Simple squamous epithelium','Stratified squamous non-keratinised epithelium','Transitional epithelium'],'Simple columnar cells with a brush border absorb nutrients. Goblet cells secrete mucus.'],
+['micro','Which epithelium lines the oesophagus?','Stratified squamous non-keratinised epithelium',['Pseudostratified columnar epithelium','Simple columnar epithelium','Simple squamous epithelium','Stratified squamous keratinised epithelium'],'The oesophagus is lined by several layers of flat, moist cells, which resist wear from swallowing food.'],
+['micro','Which junction anchors the basal surface of epithelial cells to the basement membrane?','Hemidesmosome',['Adherens junction','Desmosome','Gap junction','Tight junction'],'Hemidesmosomes look like half a desmosome. They link intermediate filaments inside the cell to the basement membrane.'],
+['micro','Which junction forms a seal that stops substances passing between epithelial cells?','Tight junction',['Desmosome','Gap junction','Hemidesmosome','Focal adhesion'],'Tight junctions (zonulae occludentes) form a belt round the apical end of the cell and make the epithelium a barrier.'],
+['micro','Which cell secretes collagen and ground substance in loose connective tissue?','Fibroblast',['Adipocyte','Macrophage','Mast cell','Plasma cell'],'Fibroblasts are the main cells of connective tissue. They make collagen, elastic fibres and ground substance.'],
+['micro','Which cell has a thin rim of cytoplasm and a nucleus pushed to the edge by a single large fat droplet?','White adipocyte',['Fibroblast','Macrophage','Mast cell','Plasma cell'],'In white adipose tissue each cell stores one large lipid droplet. In slides the fat dissolves away, which leaves a signet-ring appearance.'],
+['micro','Which connective tissue forms tendons?','Dense regular connective tissue',['Adipose tissue','Dense irregular connective tissue','Loose connective tissue','Reticular connective tissue'],'Tendons have parallel bundles of collagen, which resist pull in one direction.'],
+['micro','Which type of muscle has intercalated discs?','Cardiac muscle',['Skeletal muscle','Smooth muscle','Cardiac and smooth muscle','Skeletal and cardiac muscle'],'Intercalated discs join cardiac cells end to end. They contain desmosomes and gap junctions, so the cells contract together.'],
+['micro','Which muscle tissue has spindle-shaped cells, each with one central nucleus and no striations?','Smooth muscle',['Cardiac muscle','Skeletal muscle','Skeletal and cardiac muscle','Striated muscle of the tongue'],'Smooth muscle cells have no sarcomeres in rows, so they do not look striped.'],
+['micro','During contraction of a sarcomere, which band stays the same length?','A band',['A band and I band','H zone','I band','Distance between Z discs'],'The A band is the length of the thick filaments, which do not change length. The I band and H zone shrink as the thin filaments slide in.'],
+['micro','Where are the nuclei of a skeletal muscle fibre?','Many, at the edge of the fibre',['Many, in the centre of the fibre','One, at the edge of the fibre','One, in the centre of the fibre','None'],'Skeletal muscle fibres are multinucleate. The nuclei lie just under the cell membrane.'],
+['micro','Which stain is used to show glycogen and mucin as a magenta colour?','Periodic acid–Schiff (PAS)',['Haematoxylin and eosin','Orcein','Silver stain','Van Gieson'],'PAS stains carbohydrate-rich material such as glycogen, mucin and basement membranes magenta.'],
+['micro','On a slide stained with haematoxylin and eosin, why do nuclei stain blue-purple?','Haematoxylin is a basic dye and binds acidic nucleic acids',['Eosin is a basic dye and binds proteins','Eosin is an acidic dye and binds DNA','Haematoxylin is an acidic dye and binds collagen','Haematoxylin binds lipids'],'Haematoxylin acts as a basic dye and binds acidic structures such as DNA and RNA. Eosin is an acidic dye that stains proteins in the cytoplasm and matrix pink.'],
+/* ---- bone and cartilage ---- */
+['bone','Which cell resorbs bone?','Osteoclast',['Chondroblast','Osteoblast','Osteocyte','Osteoprogenitor cell'],'Osteoclasts are large, multinucleated cells that come from the monocyte lineage. They dissolve bone matrix.'],
+['bone','Which cell secretes osteoid?','Osteoblast',['Chondrocyte','Osteoclast','Osteocyte','Fibroblast'],'Osteoblasts lay down the unmineralised matrix, which is mostly type I collagen. It then becomes mineralised.'],
+['bone','Which cells lie in lacunae and connect to each other through canaliculi?','Osteocytes',['Osteoblasts','Osteoclasts','Chondrocytes','Osteoprogenitor cells'],'Osteocytes are mature bone cells trapped in the matrix. Their processes run in canaliculi and link them to each other and to blood vessels.'],
+['bone','Which canals run at right angles to the long axis of the bone and link adjacent osteons and the periosteum?','Volkmann’s canals',['Canaliculi','Haversian canals','Lacunae','Resorption cavities'],'Haversian canals run along the length of the bone. Volkmann’s canals cross them and connect them with each other and with the surface.'],
+['bone','Which fibres anchor the periosteum to the underlying bone?','Sharpey’s fibres',['Elastic fibres','Fibres of the interosseous membrane','Reticular fibres','Type II collagen fibres'],'Sharpey’s fibres are bundles of collagen that run from the periosteum into the bone matrix.'],
+['bone','Which of these bones forms mainly by intramembranous ossification?','Parietal bone',['Femur','Humerus','Tibia','Vertebral body'],'Flat bones of the skull vault form directly from mesenchyme. Most other bones form by endochondral ossification, from a cartilage model.'],
+['bone','In the epiphyseal growth plate, which zone contains stacked columns of dividing chondrocytes?','Proliferative zone',['Calcified zone','Hypertrophic zone','Reserve (resting) zone','Zone of ossification'],'In the proliferative zone the chondrocytes divide and line up in columns. This is where the growth in the length of the bone comes from.'],
+['bone','Which type of cartilage has bundles of type I collagen and is found in the menisci of the knee?','Fibrocartilage',['Articular hyaline cartilage','Elastic cartilage','Hyaline cartilage with perichondrium','Costal cartilage'],'Fibrocartilage is tough and resists compression and shear. It is found in menisci, intervertebral discs and the pubic symphysis.'],
+['bone','How do the chondrocytes in articular cartilage receive nutrients?','By diffusion, mainly from the synovial fluid',['From blood vessels inside the cartilage','From the perichondrium on the surface','From the nerves that supply the joint','Through canaliculi from osteocytes'],'Articular cartilage has no blood vessels and no perichondrium. Nutrients diffuse in from the synovial fluid, helped by movement of the joint.'],
+['bone','Which type of cartilage contains a dense network of elastic fibres and is found in the external ear?','Elastic cartilage',['Articular cartilage','Costal cartilage','Fibrocartilage','Hyaline cartilage of the trachea'],'Elastic cartilage is yellowish and springy. The elastic fibres stain with orcein or Verhoeff stain.']
+];
+
+/* ===== Exam practice: single-best-answer papers, with image questions from the bone lab ===== */
+var EXKEY='anatomy-drill-exam';
+function exLoad(){try{var s=JSON.parse(localStorage.getItem(EXKEY)||'null');if(s&&Array.isArray(s.h))return s}catch(e){}return {h:[]}}
+var EXS=exLoad();
+function exSave(){try{localStorage.setItem(EXKEY,JSON.stringify(EXS))}catch(e){}}
+var EX={v:'home',topics:{},n:20,mode:'exam',timed:false,p:null,nav:false,rf:'all',msg:'',iv:null};
+EX_TOPICS.forEach(function(t){EX.topics[t[0]]=true});
+function exTopicName(k){var t=EX_TOPICS.filter(function(x){return x[0]===k})[0];return t?t[1]:k}
+function exCl(s){if(s==null)return '';if(Array.isArray(s))s=s.join(' ');var ent={'&amp;':'&','&nbsp;':' ','&rsquo;':'’','&middot;':'·','&rarr;':'→','&lt;':'<','&gt;':'>','&quot;':'"'};return String(s).replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/&[a-z#0-9]+;/gi,function(m){return ent[m.toLowerCase()]||m}).replace(/\s+/g,' ').trim()}
+function exLc(s){s=exCl(s);return s.length>1&&s.charAt(1)===s.charAt(1).toLowerCase()?s.charAt(0).toLowerCase()+s.slice(1):s}
+function exTyp(j){var t=JL_TYPES.filter(function(x){return x.id===j.ty})[0];return t?exCl(t.n):exCl(j.tl)}
+function exPick(a){return a[Math.floor(Math.random()*a.length)]}
+function exDot(s){s=exCl(s);return s&&!/[.!?)]$/.test(s)?s+'.':s}
+function exOverlay(){return document.getElementById('ex')}
+function exOpen(){var o=exOverlay();o.hidden=false;document.body.style.overflow='hidden';EX.v=(EX.p&&!EX.p.fin)?'q':(EX.p&&EX.p.fin&&EX.v==='res'?'res':'home');if(EX.v==='q'&&EX.p&&EX.p.secs)exTimer();exRender();o.scrollTop=0}
+function exClose(){exOverlay().hidden=true;document.body.style.overflow=''}
+
+/* ---------- image rendering (reuses the bone lab renderer) ---------- */
+function exSvg(im){
+  var sv={bone:BL.bone,view:BL.view,vb:BL.vb,base:BL.base,q:BL.q,mode:BL.mode,sel:BL.sel},s='';
+  try{
+    BL.bone=im.b;BL.view=im.v;BL.mode='test';BL.sel=null;BL.q={phase:'run',cur:{hl:im.l}};
+    var b=BLB[im.b],bx=blBounds(b),p=Math.max(bx[2],bx[3])*.04;
+    BL.vb=[bx[0]-p,bx[1]-p,bx[2]+2*p,bx[3]+2*p];s=blSvg();
+  }catch(e){s=''}
+  for(var k in sv)BL[k]=sv[k];
+  return s.replace('id="blsvg"','class="ex-svg"');
+}
+
+/* ---------- generators (built fresh from the lab data each time) ---------- */
+function exBox(r){
+  if(r.poly){var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(var i=0;i<r.poly.length;i+=2){x0=Math.min(x0,r.poly[i]);x1=Math.max(x1,r.poly[i]);y0=Math.min(y0,r.poly[i+1]);y1=Math.max(y1,r.poly[i+1])}return [x0,y0,x1,y1]}
+  if(r.e){var m=Math.max(r.e[2],r.e[3]);return [r.e[0]-m,r.e[1]-m,r.e[0]+m,r.e[1]+m]}
+  var pad=(r.w||12)*2,c=r.m||[0,0];return [c[0]-pad,c[1]-pad,c[0]+pad,c[1]+pad];
+}
+function exIn(b,c){return c[0]>=b[0]&&c[0]<=b[2]&&c[1]>=b[1]&&c[1]<=b[3]}
+function exOverlap(a,x,v){
+  if(!a[v]||!x[v])return false;
+  try{var ra=blReg(a,v),rx=blReg(x,v);if(!ra||!rx)return false;var ba=exBox(ra),bx=exBox(rx);return exIn(ba,rx.m)||exIn(bx,ra.m)}catch(e){return false}
+}
+function exGenImg(){
+  var ids=BLORDER.filter(function(i){return i!=='longgen'});
+  for(var t=0;t<60;t++){
+    var id=exPick(ids),b=BLB[id];
+    var vs=blViews(b).filter(function(v){return b.img&&b.img[v[0]]});if(!vs.length)continue;
+    var vw=exPick(vs),v=vw[0];
+    var leaves=b.lm.filter(function(l){return !l.grp&&l.t});
+    var cands=blItems(b,v).filter(function(l){return !l.grp&&l.t&&leaves.filter(function(x){return exCl(x.n)===exCl(l.n)}).length===1});
+    if(!cands.length)continue;
+    var l=exPick(cands);
+    var others=leaves.filter(function(x){return x.id!==l.id&&exCl(x.n)!==exCl(l.n)&&x.num.indexOf(l.num+'.')!==0&&l.num.indexOf(x.num+'.')!==0&&!exOverlap(l,x,v)});
+    others=fcShuf(others).sort(function(a,c){return (c[v]?1:0)-(a[v]?1:0)+(Math.random()-.5)*1.2});
+    var seen={};seen[exCl(l.n)]=1;var wr=[];
+    others.forEach(function(x){var n=exCl(x.n);if(wr.length<4&&!seen[n]){seen[n]=1;wr.push(n)}});
+    if(wr.length<4)continue;
+    var c=exCl(l.n),opts=fcShuf([c].concat(wr));
+    return {t:'img',s:'In this image of the '+exLc(b.name)+' ('+vw[1].toLowerCase()+' view), which structure is highlighted?',o:opts,a:opts.indexOf(c),c:c,w:wr,
+      e:'It is the '+c.toLowerCase()+'. '+exDot(l.t[0])+(l.why?' '+exDot(l.why):''),img:{b:id,v:v,l:l.id},go:['bl',id,l.id]};
+  }
+  return null;
+}
+function exMus(){return ML_M.filter(function(m){return m.ng&&m.ng.length===1&&m.nv&&!/sometimes|variab|also|\bmay\b/i.test(m.nv)})}
+function exGenNerve(){
+  var all=exMus();
+  for(var t=0;t<40;t++){
+    var m=exPick(all),g=m.ng[0],c=exCl(m.nv);
+    var seen={};seen[g]=1;var wr=[];
+    fcShuf(all.filter(function(x){return exCl(x.nv)!==c&&!mlConf(g,x.ng[0])})).sort(function(a,z){return (MLRG[z.r]===MLRG[m.r]?1:0)-(MLRG[a.r]===MLRG[m.r]?1:0)}).forEach(function(x){var k=x.ng[0];if(wr.length<4&&!seen[k]){seen[k]=1;wr.push(exCl(x.nv))}});
+    if(wr.length<4)continue;
+    var opts=fcShuf([c].concat(wr));
+    return {t:'musc',s:'Which nerve supplies the '+exLc(m.n)+'?',o:opts,a:opts.indexOf(c),c:c,w:wr,e:exCl(m.n)+': '+exDot(m.nv)+(m.a?' Action: '+exDot(m.a):'')};
+  }
+  return null;
+}
+function exGenMuscleOf(){
+  var all=exMus(),keys=Object.keys(MLNN).filter(function(k){return all.some(function(m){return m.ng[0]===k})});
+  for(var t=0;t<40;t++){
+    var g=exPick(keys),m=exPick(all.filter(function(x){return x.ng[0]===g}));
+    var seen={},wr=[];seen[g]=1;
+    fcShuf(all).sort(function(a,z){return (MLRG[z.r]===MLRG[m.r]?1:0)-(MLRG[a.r]===MLRG[m.r]?1:0)}).forEach(function(x){var k=x.ng[0];if(wr.length<4&&!seen[k]&&!mlConf(g,k)){seen[k]=1;wr.push(exCl(x.n))}});
+    if(wr.length<4)continue;
+    var c=exCl(m.n),opts=fcShuf([c].concat(wr));
+    return {t:'musc',s:'Which of these muscles is supplied by the '+exCl(MLNN[g])+'?',o:opts,a:opts.indexOf(c),c:c,w:wr,e:c+' is supplied by the '+exCl(MLNN[g])+'.'+(m.a?' Action: '+exDot(m.a):'')};
+  }
+  return null;
+}
+function exSyn(){return JL_J.filter(function(j){return j.cls==='Synovial'&&!j.mod&&j.tq&&j.ty})}
+function exJFirst(j){return exDot((exCl(j.surf).match(/^[^.]+\./)||[''])[0])}
+function exGenJointA(){
+  var ok=exSyn(),types=[];ok.forEach(function(j){if(types.indexOf(j.ty)<0)types.push(j.ty)});if(types.length<5)return null;
+  var j=exPick(ok),c=exTyp(j),wr=fcShuf(types.filter(function(x){return x!==j.ty})).slice(0,4).map(function(id){return exTyp(ok.filter(function(x){return x.ty===id})[0])}),opts=fcShuf([c].concat(wr));
+  return {t:'joint',s:'Which type of synovial joint is this? '+exCl(j.n)+'.',o:opts,a:opts.indexOf(c),c:c,w:wr,e:exCl(j.n)+': '+c.toLowerCase()+'. '+exJFirst(j)};
+}
+function exGenJointB(){
+  var ok=exSyn(),j=exPick(ok),wr=[],seen={};seen[j.ty]=1;
+  fcShuf(ok).forEach(function(x){if(wr.length<4&&!seen[x.ty]){seen[x.ty]=1;wr.push(exCl(x.n))}});
+  if(wr.length<4)return null;
+  var c=exCl(j.n),opts=fcShuf([c].concat(wr));
+  return {t:'joint',s:'Which of these is a '+exTyp(j).toLowerCase()+' joint?',o:opts,a:opts.indexOf(c),c:c,w:wr,e:c+': '+exTyp(j).toLowerCase()+'. '+exJFirst(j)};
+}
+function exFromRaw(r,i){var opts=fcShuf([r[2]].concat(r[3]));return {t:r[0],s:r[1],o:opts,a:opts.indexOf(r[2]),c:r[2],w:r[3],e:r[4],id:'h'+i}}
+
+/* ---------- build a paper ---------- */
+function exBuild(){
+  var sel=EX_TOPICS.map(function(t){return t[0]}).filter(function(k){return EX.topics[k]});if(!sel.length)return null;
+  var raw={};EX_RAW.forEach(function(r,i){(raw[r[0]]=raw[r[0]]||[]).push(i)});
+  var pools={};sel.forEach(function(k){pools[k]=fcShuf(raw[k]||[])});
+  var gens={img:[exGenImg],musc:[exGenNerve,exGenMuscleOf],joint:[exGenJointA,exGenJointB]};
+  var qs=[],seen={},guard=0,k=0,miss=0;
+  while(qs.length<EX.n&&guard++<EX.n*40&&miss<sel.length*3){
+    var t=sel[k++%sel.length],q=null,hand=pools[t].length?pools[t].pop():null;
+    if(t==='img')q=exGenImg();
+    else if(gens[t]&&(hand===null||Math.random()<.5)){q=exPick(gens[t])();if(q&&hand!==null)pools[t].push(hand)}
+    else if(hand!==null)q=exFromRaw(EX_RAW[hand],hand);
+    if(!q){miss++;continue}
+    var key=q.s+'|'+q.c;if(seen[key]){miss++;continue}
+    seen[key]=1;miss=0;q.pick=-1;q.flag=false;qs.push(q);
+  }
+  return qs.length?fcShuf(qs):null;
+}
+function exStart(){
+  var qs=exBuild();if(!qs){EX.msg='Choose at least one topic.';exRender();return}
+  EX.p={qs:qs,i:0,t0:Date.now(),secs:EX.timed?Math.round(qs.length*90):0,fin:false,asked:EX.n};
+  EX.v='q';EX.nav=false;EX.rf='all';EX.msg='';
+  if(EX.p.secs)exTimer();
+  exRender();exOverlay().scrollTop=0;
+}
+function exLeft(){var p=EX.p;return p&&p.secs?Math.max(0,p.secs-Math.round((Date.now()-p.t0)/1000)):0}
+function exFmt(s){return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2)}
+function exTimer(){
+  if(EX.iv)clearInterval(EX.iv);
+  EX.iv=setInterval(function(){
+    var p=EX.p;if(!p||p.fin||!p.secs){clearInterval(EX.iv);EX.iv=null;return}
+    var l=exLeft(),e=document.getElementById('extm');
+    if(e){e.textContent=exFmt(l);e.className='ex-tm'+(l<60?' low':'')}
+    if(l<=0){exFinish(true)}
+  },1000);
+}
+/* ---------- recording ---------- */
+function exRecord(q){
+  if(q.rec||q.pick<0)return;q.rec=1;var ok=q.pick===q.a;
+  if(typeof osLog==='function')osLog('ex',q.s,ok);
+  if(!q.img&&typeof srsGrade==='function')srsGrade('ex',{q:q.s,a:q.c,w:q.w,why:q.e},ok);
+}
+function exFinish(auto){
+  var p=EX.p;if(!p||p.fin)return;
+  p.fin=true;if(EX.iv){clearInterval(EX.iv);EX.iv=null}
+  p.took=Math.min(Math.round((Date.now()-p.t0)/1000),p.secs||1e9);
+  var by={},c=0;
+  p.qs.forEach(function(q){exRecord(q);var ok=q.pick===q.a;if(ok)c++;var b=by[q.t]||(by[q.t]=[0,0]);b[1]++;if(ok)b[0]++});
+  p.by=by;p.score=c;
+  EXS.h.push({t:Date.now(),n:p.qs.length,c:c,m:EX.mode,by:by});if(EXS.h.length>40)EXS.h=EXS.h.slice(-40);exSave();
+  EX.v='res';EX.msg=auto?'Time is up. Your paper was submitted.':'';exRender();exOverlay().scrollTop=0;
+}
+/* ---------- views ---------- */
+function exHomeHTML(){
+  var h='<div class="ex-wrap"><p class="sub">Single-best-answer questions in the style of a written exam: read the stem, pick the one best option. The questions are written for Osteon, not copied from any past paper. Image questions use the bone lab.</p>';
+  if(EX.msg)h+='<p class="ex-note">'+blE(EX.msg)+'</p>';
+  if(EX.p&&!EX.p.fin)h+='<div class="ex-act"><button class="btn" data-ex="resume">Resume your paper ('+EX.p.qs.filter(function(q){return q.pick>=0}).length+' of '+EX.p.qs.length+' answered)</button></div>';
+  h+='<p class="eyebrow" style="margin-top:16px">Topics</p><div class="ex-chips">';
+  h+='<button class="chip" data-ex="alltop">'+(EX_TOPICS.every(function(t){return EX.topics[t[0]]})?'Clear all':'Select all')+'</button>';
+  EX_TOPICS.forEach(function(t){h+='<button class="chip'+(EX.topics[t[0]]?' on':'')+'" data-ex="top" data-k="'+t[0]+'">'+blE(t[1])+'</button>'});
+  h+='</div><p class="eyebrow">Length</p><div class="ex-chips">';
+  [10,20,40].forEach(function(n){h+='<button class="chip'+(EX.n===n?' on':'')+'" data-ex="len" data-n="'+n+'">'+n+' questions</button>'});
+  h+='</div><p class="eyebrow">Mode</p><div class="ex-chips"><button class="chip'+(EX.mode==='exam'?' on':'')+'" data-ex="mode" data-m="exam">Exam: answers at the end</button><button class="chip'+(EX.mode==='prac'?' on':'')+'" data-ex="mode" data-m="prac">Practice: feedback after each</button><button class="chip'+(EX.timed?' on':'')+'" data-ex="timed">Timed (90 seconds each)</button></div>';
+  h+='<div class="ex-act"><button class="btn" data-ex="start">Start paper</button></div>';
+  h+='<p class="ex-note">These questions are new. If you think an answer is wrong, please tell me so it can be fixed: <button class="chip" data-os="fb">Report a mistake</button></p>';
+  var H=EXS.h.slice(-4).reverse();
+  if(H.length){h+='<p class="eyebrow" style="margin-top:20px">Recent papers</p>';H.forEach(function(x){var d=new Date(x.t);h+='<p class="muted" style="margin:3px 0">'+d.toLocaleDateString(undefined,{day:'numeric',month:'short'})+' &middot; '+x.c+' of '+x.n+' ('+Math.round(x.c/x.n*100)+'%) &middot; '+(x.m==='exam'?'exam':'practice')+'</p>'})}
+  return h+'</div>';
+}
+function exQHTML(){
+  var p=EX.p,q=p.qs[p.i],prac=EX.mode==='prac',shown=prac&&q.pick>=0,L='ABCDE';
+  var h='<div class="ex-wrap"><div class="ex-bar"><span>Question '+(p.i+1)+' of '+p.qs.length+(prac?' &middot; '+blE(exTopicName(q.t)):'')+'</span>'+(p.secs?'<span id="extm" class="ex-tm">'+exFmt(exLeft())+'</span>':'')+'<button class="chip" data-ex="nav">'+(EX.nav?'Hide list':'Question list')+'</button></div>';
+  h+='<div class="ex-prog"><i style="width:'+Math.round(p.qs.filter(function(x){return x.pick>=0}).length/p.qs.length*100)+'%"></i></div>';
+  if(EX.nav){h+='<div class="ex-nav">'+p.qs.map(function(x,i){return '<button data-ex="goto" data-i="'+i+'" class="'+(x.pick>=0?'ans ':'')+(x.flag?'flag ':'')+(i===p.i?'cur':'')+'">'+(i+1)+'</button>'}).join('')+'</div>'}
+  h+='<p class="ex-stem">'+blE(q.s)+'</p>';
+  if(q.img)h+='<div class="ex-img">'+exSvg(q.img)+'</div>';
+  h+='<p class="ex-hint">Select the most appropriate option.</p><div class="ex-opts">';
+  q.o.forEach(function(o,i){var c='ex-opt';if(shown){if(i===q.a)c+=' ok';else if(i===q.pick)c+=' bad'}else if(i===q.pick)c+=' sel';h+='<button class="'+c+'" data-ex="pick" data-i="'+i+'"'+(shown?' disabled':'')+'><b>'+L[i]+'</b><span>'+blE(o)+'</span></button>'});
+  h+='</div>';
+  if(shown)h+='<div class="ex-fb"><b>'+(q.pick===q.a?'Correct.':'Not quite. The answer is '+L[q.a]+'.')+'</b>'+blE(q.e)+'</div>';
+  h+='<div class="ex-act">';
+  if(p.i>0)h+='<button class="btn ghost" data-ex="prev">Previous</button>';
+  if(!prac)h+='<button class="btn ghost" data-ex="flag">'+(q.flag?'Unflag':'Flag for review')+'</button>';
+  h+=p.i+1<p.qs.length?'<button class="btn" data-ex="next">Next</button>':'<button class="btn" data-ex="finish">Finish paper</button>';
+  if(p.i+1<p.qs.length)h+='<button class="btn ghost" data-ex="finish">Finish paper</button>';
+  return h+'</div></div>';
+}
+function exResHTML(){
+  var p=EX.p,pct=Math.round(p.score/p.qs.length*100),h='<div class="ex-wrap">';
+  if(EX.msg)h+='<p class="ex-note">'+blE(EX.msg)+'</p>';
+  h+='<p class="eyebrow">Paper complete</p><div class="ex-big">'+p.score+' out of '+p.qs.length+'</div><p class="muted">'+pct+'% &middot; '+exFmt(p.took)+' taken</p>';
+  h+='<p class="eyebrow" style="margin-top:18px">By topic</p>';
+  Object.keys(p.by).forEach(function(k){var b=p.by[k],pc=Math.round(b[0]/b[1]*100);h+='<div class="ex-row"><span>'+blE(exTopicName(k))+'</span><span class="tr"><i style="width:'+pc+'%"></i></span><span>'+b[0]+'/'+b[1]+'</span></div>'});
+  var miss=p.qs.filter(function(q){return q.pick!==q.a}).length;
+  h+='<div class="ex-act" style="margin-top:18px"><button class="btn" data-ex="review" data-f="all">Review answers</button>'+(miss?'<button class="btn ghost" data-ex="review" data-f="miss">Review the '+miss+' you missed</button><button class="btn ghost" data-ex="flash">Turn misses into flashcards</button>':'')+'<button class="btn ghost" data-ex="home">New paper</button></div>';
+  if(miss)h+='<p class="ex-note">Text questions you missed also join your review queue on the home screen, so they come back at spaced intervals.</p>';
+  return h+'</div>';
+}
+function exRevHTML(){
+  var p=EX.p,L='ABCDE',h='<div class="ex-wrap"><div class="ex-act" style="margin-top:0"><button class="chip'+(EX.rf==='all'?' on':'')+'" data-ex="review" data-f="all">All</button><button class="chip'+(EX.rf==='miss'?' on':'')+'" data-ex="review" data-f="miss">Missed</button><button class="chip" data-ex="results">Back to results</button></div>';
+  p.qs.forEach(function(q,i){
+    var ok=q.pick===q.a;if(EX.rf==='miss'&&ok)return;
+    h+='<div class="ex-rv"><span class="res '+(ok?'ok':'bad')+'">'+(ok?'Correct':(q.pick<0?'Not answered':'Incorrect'))+' &middot; Question '+(i+1)+'</span><p class="ex-stem" style="font-size:17px">'+blE(q.s)+'</p>'+(q.img?'<div class="ex-img">'+exSvg(q.img)+'</div>':'');
+    h+='<p><b>Correct answer:</b> '+L[q.a]+'. '+blE(q.c)+'</p>';
+    if(!ok&&q.pick>=0)h+='<p><b>You chose:</b> '+L[q.pick]+'. '+blE(q.o[q.pick])+'</p>';
+    h+='<p class="muted">'+blE(q.e)+'</p></div>';
+  });
+  return h+'</div>';
+}
+function exRender(){
+  var b=document.getElementById('exbody'),t=document.getElementById('extitle');if(!b)return;
+  if(EX.v==='home'){t.textContent='Exam practice';b.innerHTML=exHomeHTML()}
+  else if(EX.v==='q'){t.textContent=EX.mode==='prac'?'Practice':'Paper';b.innerHTML=exQHTML()}
+  else if(EX.v==='res'){t.textContent='Results';b.innerHTML=exResHTML()}
+  else{t.textContent='Review';b.innerHTML=exRevHTML()}
+}
+function exFlash(){
+  var miss=EX.p.qs.filter(function(q){return q.pick!==q.a});if(!miss.length)return;
+  var d=FCS.decks.filter(function(x){return x.n==='Missed exam questions'})[0];
+  if(!d){d={id:fcId('d'),n:'Missed exam questions',cards:[]};FCS.decks.push(d)}
+  var have={};d.cards.forEach(function(c){have[c.f]=1});var n=0;
+  miss.forEach(function(q){
+    var f,b,go=null;
+    if(q.img){var bn=BLB[q.img.b],l=bn.lm.filter(function(x){return x.id===q.img.l})[0];f=exCl(bn.name)+': '+exCl(l.n)+'. Where is it, and what attaches or articulates here?';b=exCl(l.t)+(l.why?'\n\nWhy: '+exDot(l.why):'');go=['bl',q.img.b,q.img.l]}
+    else{f=q.s;b=q.c+'\n\n'+q.e}
+    if(have[f])return;have[f]=1;var c={id:fcId('c'),f:f,b:b,t:'exam-miss '+q.t};if(go)c.go=go;d.cards.push(c);n++;
+  });
+  fcSave();EX.msg=n?'Added '+n+' card'+(n===1?'':'s')+' to the deck "Missed exam questions" in Flashcards.':'Those are already in your Missed exam questions deck.';
+  exRender();
+}
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-ex]');if(!t||!exOverlay().contains(t))return;
+  var a=t.dataset.ex,p=EX.p;
+  if(a==='back'){if(EX.v==='rev'){EX.v='res';exRender()}else if(EX.v==='res'){EX.v='home';exRender()}else exClose()}
+  else if(a==='home'){EX.v='home';EX.msg='';exRender()}
+  else if(a==='top'){EX.topics[t.dataset.k]=!EX.topics[t.dataset.k];exRender()}
+  else if(a==='alltop'){var all=EX_TOPICS.every(function(x){return EX.topics[x[0]]});EX_TOPICS.forEach(function(x){EX.topics[x[0]]=!all});exRender()}
+  else if(a==='len'){EX.n=parseInt(t.dataset.n,10);exRender()}
+  else if(a==='mode'){EX.mode=t.dataset.m;exRender()}
+  else if(a==='timed'){EX.timed=!EX.timed;exRender()}
+  else if(a==='start')exStart();
+  else if(a==='resume'){EX.v='q';if(p&&p.secs)exTimer();exRender()}
+  else if(a==='nav'){EX.nav=!EX.nav;exRender()}
+  else if(a==='goto'){p.i=parseInt(t.dataset.i,10);EX.nav=false;exRender();exOverlay().scrollTop=0}
+  else if(a==='pick'&&p&&!p.fin){var q=p.qs[p.i],i=parseInt(t.dataset.i,10);
+    if(EX.mode==='prac'){if(q.pick>=0)return;q.pick=i;exRecord(q)}else q.pick=(q.pick===i?-1:i);
+    exRender()}
+  else if(a==='flag'){p.qs[p.i].flag=!p.qs[p.i].flag;exRender()}
+  else if(a==='next'){p.i=Math.min(p.qs.length-1,p.i+1);exRender();exOverlay().scrollTop=0}
+  else if(a==='prev'){p.i=Math.max(0,p.i-1);exRender();exOverlay().scrollTop=0}
+  else if(a==='finish'){var un=p.qs.filter(function(x){return x.pick<0}).length;if(un&&!confirm('You have '+un+' unanswered question'+(un===1?'':'s')+'. Finish anyway?'))return;exFinish(false)}
+  else if(a==='results'){EX.v='res';exRender()}
+  else if(a==='review'){EX.v='rev';EX.rf=t.dataset.f||'all';exRender();exOverlay().scrollTop=0}
+  else if(a==='flash')exFlash();
+});
+document.addEventListener('keydown',function(e){
+  var o=exOverlay();if(!o||o.hidden)return;
+  if(e.key==='Escape'){exClose();return}
+  if(EX.v==='q'&&EX.p&&!EX.p.fin){var k='abcde'.indexOf(e.key.toLowerCase());
+    if(e.key.length===1&&k>-1){var q=EX.p.qs[EX.p.i];if(EX.mode==='prac'){if(q.pick<0){q.pick=k;exRecord(q)}}else q.pick=k;exRender()}
+    else if(e.key==='ArrowRight'&&EX.p.i+1<EX.p.qs.length){EX.p.i++;exRender()}
+    else if(e.key==='ArrowLeft'&&EX.p.i>0){EX.p.i--;exRender()}}
+});
+
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';
 var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
@@ -10326,6 +10723,7 @@ var HUBICON={
  jl:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 6v12M24 30v12M6 24h12M30 24h12"/></svg>',
  mi:'<svg viewBox="0 0 48 48"><circle cx="22" cy="22" r="9"/><path d="M29 29l10 10"/><circle cx="22" cy="22" r="3"/></svg>',
  cl:'<svg viewBox="0 0 48 48"><path d="M8 30c4-12 10-18 16-18s12 6 16 18"/><path d="M12 36c3-7 7-11 12-11s9 4 12 11"/></svg>',
+ ex:'<svg viewBox="0 0 48 48"><rect x="11" y="8" width="26" height="32" rx="3"/><path d="M17 17h14M17 24h14M17 31h8"/><path d="M31 29l3 3 5-6"/></svg>',
  fc:'<svg viewBox="0 0 48 48"><rect x="12" y="15" width="26" height="20" rx="3"/><path d="M16 10h24a3 3 0 0 1 3 3v20"/><path d="M18 23h14M18 28h9"/></svg>',
  ml:'<svg viewBox="0 0 48 48"><path d="M10 34c0-10 8-20 20-22 4 8 2 18-6 24-4 3-10 3-14-2z"/><path d="M18 30c4-4 8-8 11-14"/></svg>'
 };
@@ -10344,7 +10742,7 @@ function hubHome(){
     o+=stCard();
     o+=bmCard();
     o+='<div class="hub-tiles">';
-    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations'],['mi','Microanatomy lab','Blood, epithelia, connective tissue, muscle',MI_QA.length+' questions'],['fc','Flashcards','Make your own or use premade decks, send to Anki',(fcCount()?fcCount()+' cards':'Start a deck')]].forEach(function(t){
+    [['main','Skeleton and muscles','Tap the figure, 2D and 3D, with quizzes',ITEMS.length+' structures'],['bl','Bone lab','Types, landmarks and tests',BLORDER.length+' bones'],['jl','Joint lab','Classes, types, ligaments, movements',JL_J.length+' joints'],['ml','Muscle lab','Origins, nerves, actions, injuries',ML_M.length+' muscles'],['cl','Cartilage lab','Types, zones, clinical',CL_LOC.length+' locations'],['mi','Microanatomy lab','Blood, epithelia, connective tissue, muscle',MI_QA.length+' questions'],['ex','Exam practice','Timed single-best-answer papers with image questions',EX_RAW.length+'+ questions'],['fc','Flashcards','Make your own or use premade decks, send to Anki',(fcCount()?fcCount()+' cards':'Start a deck')]].forEach(function(t){
       o+='<button class="hub-tile" data-hub="lab" data-lab="'+t[0]+'"><span class="hub-ic">'+HUBICON[t[0]]+'</span><b>'+t[1]+'</b><span class="muted">'+t[2]+'</span><span class="hub-cnt">'+t[3]+'</span></button>'});
     o+='</div></div>';
   }
@@ -10365,7 +10763,7 @@ document.addEventListener('click',function(e){
   var t=e.target.closest&&e.target.closest('[data-hub]');if(!t||!document.getElementById('hub').contains(t))return;
   var a=t.dataset.hub;
   if(a==='go'){hubGo(HUB.res[parseInt(t.dataset.i,10)].go)}
-  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else if(l==='ml')mlOpen();else if(l==='mi')miOpen();else if(l==='fc')fcOpen();else clOpen()}
+  else if(a==='lab'){var l=t.dataset.lab;if(l==='main')hubClose();else if(l==='bl')blOpen();else if(l==='jl')jlOpen();else if(l==='ml')mlOpen();else if(l==='mi')miOpen();else if(l==='fc')fcOpen();else if(l==='ex')exOpen();else clOpen()}
   else if(a==='cont')hubResume(hubLast());
   else if(a==='review')hubStartReview();
   else if(a==='rvpick')hubRvPick(parseInt(t.dataset.i,10));
