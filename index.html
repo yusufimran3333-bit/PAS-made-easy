@@ -286,6 +286,7 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .st-toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);transform:translate(-50%,20px);opacity:0;z-index:420;display:flex;align-items:center;gap:12px;background:#161e29;color:#E6EBF2;border:1px solid rgba(79,195,203,.45);border-radius:16px;padding:9px 16px 9px 10px;box-shadow:0 12px 34px rgba(0,0,0,.5);pointer-events:none;transition:opacity .3s,transform .3s}
 .st-toast.on{opacity:1;transform:translate(-50%,0)}
 .st-toast span{display:flex;flex-direction:column;font-size:14px;font-weight:600}.st-toast b{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#4FC3CB;font-weight:700}
+.rmcr-card .cr-h{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#93A0B3;margin:16px 0 4px;font-weight:600}.rmcr-card .cr-h:first-of-type{margin-top:6px}
 .bl{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);overflow:auto;-webkit-overflow-scrolling:touch;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .bl[hidden]{display:none}
 .bl-top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:max(12px,env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -3684,14 +3685,23 @@ function rmProbe(cb){
 /* ----- credits ----- */
 function rmCredits(){
   if(document.getElementById('rmcr'))return;
-  var d=document.createElement('div');d.id='rmcr';d.className='rmcr';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Model credits');
-  d.innerHTML='<div class="rmcr-card"><button class="rmcr-x" aria-label="Close">&times;</button><h2>Model credits</h2>'+
-  '<p>The 3D anatomy in Osteon is built on open models made by other people. Thank you to everyone who made them and shared them freely.</p>'+
-  '<ul><li><b>Z-Anatomy</b> &ndash; the libre 3D atlas of anatomy (Gauthier Kervyn, Marcin Zielinski), CC BY-SA 4.0. <a href="https://github.com/Z-Anatomy/Models-of-human-anatomy" target="_blank" rel="noopener">Source</a></li>'+
-  '<li><b>BodyParts3D</b> &ndash; The Database Center for Life Science, CC BY-SA 2.1 Japan. <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html" target="_blank" rel="noopener">Source</a></li>'+
-  '<li><b>NIH 3D</b> &ndash; &lsquo;Human Skeleton&rsquo; series by My Segmenter, CC BY 4.0.</li>'+
-  '<li>Some bones also come from Sketchfab models by <b>ebauer4</b> (Elon University) and the <b>University of South Florida</b>, CC BY 4.0.</li></ul>'+
-  '<p class="rmcr-s">The models were simplified, merged, recoloured and grouped for this app, and the muscle depth layers and origin and insertion highlights were computed from them. They are shared under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, and the full notices are in <a href="models/CREDITS.txt" target="_blank" rel="noopener">this credits file</a>. The names, origins, insertions, nerves and actions shown on cards are written and checked separately. The source body is a single adult male model, so expect normal variation in real people.</p></div>';
+  var d=document.createElement('div');d.id='rmcr';d.className='rmcr';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Credits and sources');
+  var h='<div class="rmcr-card"><button class="rmcr-x" aria-label="Close">&times;</button><h2>Credits and sources</h2>';
+  h+='<h3 class="cr-h">Thanks</h3><p>Big thanks to <b>Jassem A.</b> of the 2030 cohort for reviewing the information and for his suggestions for improving Osteon.</p>';
+  h+='<h3 class="cr-h">Bone drawings</h3><p>The bone lab drawings are plates from three public-domain atlases. They were cleaned up for this app (the original labels removed) and the highlighted landmarks were added on top. Digitised copies are from the Internet Archive.</p>'+
+  '<ul><li><b>Henry Gray</b>, <i>Anatomy of the Human Body</i>, 20th edition, edited by Warren H. Lewis (Lea &amp; Febiger, 1918).</li>'+
+  '<li><b>Carl Toldt</b>, <i>An Atlas of Human Anatomy for Students and Physicians</i>, osteology section, translated by M. Eden Paul (Rebman Company, New York).</li>'+
+  '<li><b>Werner Spalteholz</b>, <i>Hand-Atlas of Human Anatomy</i>, volume 1: bones, joints, ligaments, edited and translated by Lewellys F. Barker (J. B. Lippincott).</li></ul>';
+  if(RM.site){
+    h+='<h3 class="cr-h">3D models</h3><p>The 3D anatomy is built on open models made by other people. Thank you to everyone who made them and shared them freely.</p>'+
+    '<ul><li><b>Z-Anatomy</b> &ndash; the libre 3D atlas of anatomy (Gauthier Kervyn, Marcin Zielinski), CC BY-SA 4.0. <a href="https://github.com/Z-Anatomy/Models-of-human-anatomy" target="_blank" rel="noopener">Source</a></li>'+
+    '<li><b>BodyParts3D</b> &ndash; The Database Center for Life Science, CC BY-SA 2.1 Japan. <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html" target="_blank" rel="noopener">Source</a></li>'+
+    '<li><b>NIH 3D</b> &ndash; &lsquo;Human Skeleton&rsquo; series by My Segmenter, CC BY 4.0.</li>'+
+    '<li>Some bones also come from Sketchfab models by <b>ebauer4</b> (Elon University) and the <b>University of South Florida</b>, CC BY 4.0.</li></ul>'+
+    '<p class="rmcr-s">The models were simplified, merged, recoloured and grouped for this app, and the muscle depth layers and origin and insertion highlights were computed from them. They are shared under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, and the full notices are in <a href="models/CREDITS.txt" target="_blank" rel="noopener">this credits file</a>. The source body is a single adult male model, so expect normal variation in real people.</p>';
+  }
+  h+='<h3 class="cr-h">How Osteon was made</h3><p>Osteon was built with the help of AI (Claude, by Anthropic). A fellow student has reviewed the content, but it can still contain mistakes, so check anything important against your lecture notes, and tell me if you spot an error.</p></div>';
+  d.innerHTML=h;
   document.body.appendChild(d);
   var close=function(){if(d.parentNode)d.parentNode.removeChild(d)};
   d.addEventListener('click',function(e){if(e.target===d||e.target.className==='rmcr-x')close()});
@@ -9396,7 +9406,7 @@ function abOpen(){
   '<h3 class="ab-h">Anything else</h3>'+
   '<p>Questions, collaborations or projects you have in mind.</p>'+
   '<div class="ab-row"><button class="mn-b" data-ab="mail">Get in touch</button><span class="ab-a" id="abm"></span></div>'+
-  '<p class="rmcr-s ab-s">&copy; 2026 Yusuf Butt. All rights reserved. Unofficial and not endorsed by King’s College London.'+(RM.site?' <button class="hub-cr" data-ab="cr">Model credits</button>':'')+'</p></div>';
+  '<p class="rmcr-s ab-s">&copy; 2026 Yusuf Butt. All rights reserved. Unofficial and not endorsed by King’s College London.'+' <button class="hub-cr" data-ab="cr">Credits and sources</button>'+'</p></div>';
   document.body.appendChild(d);
   var m=document.getElementById('abm');if(m)m.textContent=abMail();
   var close=function(){if(d.parentNode)d.parentNode.removeChild(d)};
@@ -9474,7 +9484,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V65';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V66';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -10747,7 +10757,7 @@ function hubHome(){
     o+='</div></div>';
   }
   o+='<div class="hub-bkrow"><button class="btn ghost small" data-os="open">How to use Osteon</button> <button class="btn ghost small" data-os="fb">Send feedback or report an error</button> <button class="btn ghost small" data-hub="backup">Back up or restore progress</button></div><p class="hub-disc">Free for KCL 2031. Osteon is an unofficial student-made revision tool, not endorsed by King\u2019s College London. Always check it against your lecture notes.</p>';
-  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div><div class="cr-s"><button class="hub-cr" onclick="abOpen()">About</button> &middot; <button class="hub-cr" onclick="mnOverlay()">My mnemonics</button></div>'+(RM.site?'<div class="cr-s">3D anatomy from open models (Z-Anatomy, BodyParts3D and others) &middot; <button class="hub-cr" onclick="rmCredits()">Credits</button></div>':'')+'</footer>';
+  o+='<footer class="credit"><div>Created by <b>Yusuf Butt</b></div><div>Cohort of 2031 &middot; King&rsquo;s College London</div><div class="cr-s">Feedback, suggestions or bugs, email:</div><div><a href="mailto:automations.by.yusuf@gmail.com">automations.by.yusuf@gmail.com</a></div><div class="cr-s">&copy; 2026 Yusuf Butt. All rights reserved.</div><div class="cr-s"><button class="hub-cr" onclick="abOpen()">About</button> &middot; <button class="hub-cr" onclick="mnOverlay()">My mnemonics</button></div>'+'<div class="cr-s">Bone drawings from public-domain atlases'+(RM.site?', 3D from open models':'')+' &middot; <button class="hub-cr" onclick="rmCredits()">Credits and sources</button></div>'+'</footer>';
   return o;
 }
 function hubRender(){
