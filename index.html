@@ -830,9 +830,11 @@ h1,h2{letter-spacing:-.015em}
 .hub-sk{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .hub.sk-on .hub-hb img{opacity:0!important}
 .hub-hb{touch-action:pan-y;-webkit-user-select:none;user-select:none;cursor:grab}
-.sk-on .hub-hero{min-height:360px}
-.sk-on .hub-hb{min-height:340px}
-@media(max-width:560px){.sk-on .hub-hero{min-height:290px}.sk-on .hub-hb{min-height:270px}}
+.hub.sk-on .hub-hero{min-height:500px;padding-bottom:34px}
+.hub.sk-on .hub-hb{min-height:470px}
+@media(max-width:560px){.hub.sk-on .hub-hero{min-height:400px;padding-bottom:26px}.hub.sk-on .hub-hb{min-height:370px}}
+.hub::after{content:'';position:fixed;left:0;right:0;bottom:0;height:calc(max(3px,env(safe-area-inset-bottom,0px)) + 19px);background:var(--bg);z-index:94;pointer-events:none}
+.hub[hidden]::after{display:none}
 :root[data-theme="light"] .hub-sk{opacity:.95}
 @media(prefers-reduced-motion:reduce){.hub-bg{animation:none}}
 </style>
@@ -9494,7 +9496,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V67';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V68';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -10681,9 +10683,9 @@ function skTick(now){
   }
   SK.pivot.rotation.y=SK.rot;
   // framing: fit skeleton to the hero box, centred on it
-  var W=innerWidth,Hh=innerHeight,fov=SK.cam.fov*Math.PI/180,k=1.12;
+  var W=innerWidth,Hh=innerHeight,fov=SK.cam.fov*Math.PI/180,k=1.0;
   var dist=SK.H0/(k*rc.height/Hh)/(2*Math.tan(fov/2));
-  SK.cam.position.set(0,SK.H0*.5+SK.H0*.04,dist);SK.cam.lookAt(0,SK.H0*.5,0);
+  SK.cam.position.set(0,SK.H0*.5,dist);SK.cam.lookAt(0,SK.H0*.5,0);
   SK.cam.setViewOffset(W,Hh,W/2-(rc.left+rc.width/2),Hh/2-(rc.top+rc.height/2),W,Hh);
   SK.r.render(SK.sc,SK.cam);
   requestAnimationFrame(skTick);
