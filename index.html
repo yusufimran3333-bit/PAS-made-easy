@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0B1722">
+<meta name="theme-color" content="#05070A">
 <meta name="description" content="Osteon: anatomy and microanatomy revision with a 3D skeleton, muscles, nerves and vessels. Free for KCL 2031. Made by Yusuf Butt.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Osteon">
@@ -839,6 +839,10 @@ h1,h2{letter-spacing:-.015em}
 @media(prefers-reduced-motion:reduce){.hub-bg{animation:none}}
 .hub-hb{cursor:pointer}
 .st-card{margin-bottom:12px}
+.hub-empty,.hub-rn,.hub-rs{overflow-wrap:anywhere;word-break:break-word}
+/* leave room under the floating Blurt button and the credit line, so the last item can always scroll clear */
+.bl,.hub{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
+body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
 </style>
 
 <div class="app">
@@ -3877,7 +3881,7 @@ function blTap(e){
 }
 function blFocus(id){var b=blBone(),l=b.lm.filter(function(x){return x.id===id})[0];if(!l)return;
   var v=BL.view;if(!l[v]){var ok=blViews(b).filter(function(vw){return l[vw[0]]})[0];if(ok){v=ok[0];BL.view=v}}
-  var r=blReg(l,v),b0=BL.base,m=r.m,mx=blFlip(b,v)?b.w-m[0]:m[0];var w=b0[2]/3;var ar=b0[3]/b0[2];
+  if(!l[v])return;var r=blReg(l,v);if(!r||!r.m||!BL.base)return;var b0=BL.base,m=r.m,mx=blFlip(b,v)?b.w-m[0]:m[0];var w=b0[2]/3;var ar=b0[3]/b0[2];
   BL.vb=[mx-w/2,m[1]-w*ar/2,w,w*ar];blClamp();blPaint()}
 
 var BLIMG={"scapula":{"a":"blimg/scapula_a.webp?v=8b719a8a","p":"blimg/scapula_p.webp?v=14e256e7","l":"blimg/scapula_l.webp?v=44181a3a"},"humerus":{"a":"blimg/humerus_a.webp?v=60b9adb8","p":"blimg/humerus_p.webp?v=f26bfcf4"},"talus":{"s":"blimg/talus_s.webp?v=ed9d4b8e","i":"blimg/talus_i.webp?v=9d8c5672"},"calcaneus":{"l":"blimg/calcaneus_l.webp?v=7202368d","m":"blimg/calcaneus_m.webp?v=109c51d8"},"clavicle":{"s":"blimg/clavicle_s.webp?v=10839efe","i":"blimg/clavicle_i.webp?v=1b44064f"},"patella":{"a":"blimg/patella_a.webp?v=895dbe31","p":"blimg/patella_p.webp?v=d05563e6"},"femur":{"a":"blimg/femur_a.webp?v=909a8f2e","p":"blimg/femur_p.webp?v=7d84c744"},"tibia":{"a":"blimg/tibia_a.webp?v=6b452f06","p":"blimg/tibia_p.webp?v=c70fa736"},"fibula":{"a":"blimg/fibula_a.webp?v=6425ea78","p":"blimg/fibula_p.webp?v=544392dd"},"hip":{"l":"blimg/hip_l.webp?v=b217084e","m":"blimg/hip_m.webp?v=940d1efc"},"ulna":{"a":"blimg/ulna_a.webp?v=53080160","p":"blimg/ulna_p.webp?v=313d2739"},"radius":{"a":"blimg/radius_a.webp?v=4deb2c37","p":"blimg/radius_p.webp?v=f87fbee1"},"thoracic":{"s":"blimg/thoracic_s.webp?v=aa8adddc","l":"blimg/thoracic_l.webp?v=d7e1cd81"},"cervical":{"s":"blimg/cervical_s.webp?v=6e9b8011","l":"blimg/cervical_l.webp?v=c6979886"},"atlas":{"s":"blimg/atlas_s.webp?v=ea2ce76c"},"axis":{"l":"blimg/axis_l.webp?v=dd46d365","a":"blimg/axis_a.webp?v=c6e56dda"},"lumbar":{"s":"blimg/lumbar_s.webp?v=ce5355fa","l":"blimg/lumbar_l.webp?v=118e31a9"},"sacrum":{"a":"blimg/sacrum_a.webp?v=f94d9a56","l":"blimg/sacrum_l.webp?v=04ac068c","p":"blimg/sacrum_p.webp?v=5af67e71"},"sternum":{"p":"blimg/sternum_p.webp?v=e050e402","a":"blimg/sternum_a.webp?v=9d995899"},"rib":{"a":"blimg/rib_a.webp?v=8e6e96f1","p":"blimg/rib_p.webp?v=520439af"},"concha":{"m":"blimg/concha_m.webp?v=3911ae39","l":"blimg/concha_l.webp?v=57cc428c"},"lacrimal":{"o":"blimg/lacrimal_o.webp?v=8b88187a"},"nasal":{"a":"blimg/nasal_a.webp?v=79d29f5c","p":"blimg/nasal_p.webp?v=2bf19fc5"},"vomer":{"l":"blimg/vomer_l.webp?v=23bc531c"},"zygomatic":{"a":"blimg/zygomatic_a.webp?v=b331fab2","m":"blimg/zygomatic_m.webp?v=96bdfd46"},"palatine":{"m":"blimg/palatine_m.webp?v=951bc337","l":"blimg/palatine_l.webp?v=b8c7d8ac"},"ethmoid":{"s":"blimg/ethmoid_s.webp?v=5a9869ef","l":"blimg/ethmoid_l.webp?v=c55b2832"},"hyoid":{"a":"blimg/hyoid_a.webp?v=78dd9cd9"},"sphenoid":{"a":"blimg/sphenoid_a.webp?v=14c44709","s":"blimg/sphenoid_s.webp?v=3e1690e1"},"temporal":{"l":"blimg/temporal_l.webp?v=b3d50fd1","i":"blimg/temporal_i.webp?v=617caeab","k":"blimg/temporal_k.webp?v=60ceb63a"},"metacarpal":{"p":"blimg/metacarpal_p.webp?v=9a3b944b","a":"blimg/metacarpal_a.webp?v=09066cf2"},"phalanx":{"p":"blimg/phalanx_p.webp?v=179fc07c","a":"blimg/phalanx_a.webp?v=af43e426"},"dphalanx":{"p":"blimg/dphalanx_p.webp?v=0409327d"},"scaphoid":{"p":"blimg/scaphoid_p.webp?v=f01428ea","a":"blimg/scaphoid_a.webp?v=9d7a4766"},"rib1":{"s":"blimg/rib1_s.webp?v=62fd5193"},"rib2":{"s":"blimg/rib2_s.webp?v=9c43e068"},"coccyx":{"a":"blimg/coccyx_a.webp?v=1d78fe55","p":"blimg/coccyx_p.webp?v=8c947930"},"rib1112":{"p":"blimg/rib1112_p.webp?v=6244661f"},"skull":{"a":"blimg/skull_a.webp?v=2002e560","l":"blimg/skull_l.webp?v=2e7b3abb","i":"blimg/skull_i.webp?v=91059391","f":"blimg/skull_f.webp?v=0650090a","s":"blimg/skull_s.webp?v=fe36430a"},"malleus":{"a":"blimg/malleus_a.webp?v=b251c928"},"incus":{"a":"blimg/incus_a.webp?v=e14b7c20"},"stapes":{"a":"blimg/stapes_a.webp?v=8dfb9444"},"lunate":{"r":"blimg/lunate_r.webp?v=e257fa91","u":"blimg/lunate_u.webp?v=0102e120"},"triquetrum":{"r":"blimg/triquetrum_r.webp?v=317031eb","a":"blimg/triquetrum_a.webp?v=a5039872"},"pisiform":{"a":"blimg/pisiform_a.webp?v=9e2bb961","p":"blimg/pisiform_p.webp?v=52ce5a2d"},"trapezium":{"d":"blimg/trapezium_d.webp?v=008414e2","u":"blimg/trapezium_u.webp?v=110b15d0"},"trapezoid":{"u":"blimg/trapezoid_u.webp?v=68bc49e1","r":"blimg/trapezoid_r.webp?v=f32ba552"},"capitate":{"r":"blimg/capitate_r.webp?v=6f94c6bb","u":"blimg/capitate_u.webp?v=21188af9"},"hamate":{"d":"blimg/hamate_d.webp?v=8acec47b","x":"blimg/hamate_x.webp?v=16da680f"},"toephalanx":{"p":"blimg/toephalanx_p.webp?v=eb916bc2"},"navicular":{"a":"blimg/navicular_a.webp?v=e1779329"},"cuboid":{"l":"blimg/cuboid_l.webp?v=29dfca96","a":"blimg/cuboid_a.webp?v=82581a74"},"metatarsal":{"p":"blimg/metatarsal_p.webp?v=0e52d01f"},"frontal":{"a":"blimg/frontal_a.webp?v=c1101a84","k":"blimg/frontal_k.webp?v=423d86ff"},"parietal":{"l":"blimg/parietal_l.webp?v=1789c19f","k":"blimg/parietal_k.webp?v=0984a363"},"occipital":{"p":"blimg/occipital_p.webp?v=d42cd28e","k":"blimg/occipital_k.webp?v=f13b99f9","i":"blimg/occipital_i.webp?v=c834daa9"},"maxilla":{"l":"blimg/maxilla_l.webp?v=9121f6ab","m":"blimg/maxilla_m.webp?v=ad841043"},"mandible":{"l":"blimg/mandible_l.webp?v=4e95f2d9","a":"blimg/mandible_a.webp?v=33eac75a","p":"blimg/mandible_p.webp?v=5fefc3a1"},"metacarpal1":{"p":"blimg/metacarpal1_p.webp?v=f4eadfa4","l":"blimg/metacarpal1_l.webp?v=0ecac8a6"},"metatarsal1":{"m":"blimg/metatarsal1_m.webp?v=09406002","l":"blimg/metatarsal1_l.webp?v=5afa2072"},"medcun":{"p":"blimg/medcun_p.webp?v=2758e083"},"intcun":{"p":"blimg/intcun_p.webp?v=e57b4d4a"},"latcun":{"p":"blimg/latcun_p.webp?v=ef8ec18c"},"metatarsal5":{"m":"blimg/metatarsal5_m.webp?v=42d2b2e7","l":"blimg/metatarsal5_l.webp?v=504c96fb"}};
@@ -3898,6 +3902,8 @@ function blUniq(b,l,text,kind){var mine=blToks(text);if(!mine.length)return fals
   var others=blLeaves(b).filter(function(x){return x.id!==l.id});
   return mine.some(function(w){var stem=w.slice(0,Math.max(6,w.length-2));return !others.some(function(o){return blToks(kind==='why'?(o.why||''):(o.t||[]).join(' ')).some(function(x){return x.indexOf(stem)===0})})})}
 function blLeaves(b){return b.lm.filter(function(l){return !l.grp})}
+/* leaves that can actually be shown on a drawing (quiz and study pools) */
+function blQLeaves(b){var vs=blViews(b).map(function(v){return v[0]});var all=blLeaves(b);if(!vs.length)return all;return all.filter(function(l){return vs.some(function(v){return l[v]})})}
 function blGo(){return document.getElementById('blbody')}
 function blTags(){return {long:'Long bones',short:'Short bones',flat:'Flat bones',irregular:'Irregular bones',sesamoid:'Sesamoid bones'}}
 
@@ -3943,14 +3949,15 @@ function blCard(l){
   if(l.t&&l.t.length)h+='<ul class="bl-ul">'+l.t.map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul>';
   if(l.why)h+='<div class="bl-sec"><b>Why it is shaped this way</b><p>'+l.why+'</p></div>';
   if(l.c)h+='<div class="bl-sec"><b>Clinical</b><p>'+l.c+'</p></div>';
-  h+='<div class="bl-row" style="margin-top:10px"><button class="btn ghost small" data-bl="focus" data-id="'+l.id+'">Zoom to it</button></div></div>';
+  var drawn=blViews(blBone()).some(function(vw){return l[vw[0]]});
+  h+=drawn?'<div class="bl-row" style="margin-top:10px"><button class="btn ghost small" data-bl="focus" data-id="'+l.id+'">Zoom to it</button></div></div>':'<p class="sub" style="margin-top:10px">Not marked on these drawings.</p></div>';
   return h;
 }
 /* ---------- test mode ---------- */
 function blShuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 function blTestHTML(){
   var b=blBone(),Q=BL.q,h='';
-  var pool=blLeaves(b);
+  var pool=blQLeaves(b);
   if(!Q||Q.phase==='setup'){
     h+='<p class="eyebrow">Test</p><h2>'+blE(b.name)+' quiz</h2><p class="sub">'+pool.length+' structures. Choose the question types, then start.</p><div class="chips" style="margin:8px 0">';
     [['find','Find it'],['name','Name it'],['rel','Attachments &amp; joints'],['why','Why this shape']].forEach(function(m){h+='<button class="chip'+(BL.qm[m[0]]?' on':'')+'" data-bl="qm" data-k="'+m[0]+'">'+m[1]+'</button>'});
@@ -3982,7 +3989,7 @@ function blTestHTML(){
   return h;
 }
 function blQStart(){
-  var b=blBone(),pool=blLeaves(b),n=BL.len||10;n=Math.min(n,pool.length);
+  var b=blBone(),pool=blQLeaves(b),n=BL.len||10;n=Math.min(n,pool.length);
   var bag=blShuffle(pool);while(bag.length<n)bag=bag.concat(blShuffle(pool));bag=bag.slice(0,n);
   BL.q={phase:'run',len:BL.len,n:n,i:0,score:0,streak:0,missed:[],bag:bag,answered:false,picked:-1};
   blQNext(true);
@@ -4100,7 +4107,7 @@ function blStudyTap(l){
   BL.sd.sel=l.id;BL.sd.rev=false;BL.sd.hint=false;BL.sd.msg='';blPaint();blPanel();
 }
 function blStudyNext(){
-  var b=blBone(),m=blStudyMarks(),pool=blLeaves(b);
+  var b=blBone(),m=blStudyMarks(),pool=blQLeaves(b);
   if(BL.sd.only){var ms=pool.filter(function(l){return m[l.id]==='miss'});if(ms.length)pool=ms}
   else{var rest=pool.filter(function(l){return m[l.id]!=='got'});if(rest.length)pool=rest}
   if(pool.length>1&&BL.sd.sel)pool=pool.filter(function(l){return l.id!==BL.sd.sel});
@@ -4112,7 +4119,7 @@ function blStudyMark(v){
   BL.sd.sel=null;BL.sd.rev=false;BL.sd.hint=false;blPaint();blPanel();
 }
 function blStudyHTML(){
-  var b=blBone(),sd=BL.sd,m=blStudyMarks(),pool=blLeaves(b);
+  var b=blBone(),sd=BL.sd,m=blStudyMarks(),pool=blQLeaves(b);
   var got=pool.filter(function(l){return m[l.id]==='got'}).length,miss=pool.filter(function(l){return m[l.id]==='miss'});
   var h='<p class="eyebrow">Study</p><h2>'+blE(b.name)+'</h2>';
   h+='<p class="sub">'+got+' got it · '+miss.length+' missed · '+(pool.length-got-miss.length)+' not tried (of '+pool.length+'). Nothing here is scored.</p>';
@@ -9090,7 +9097,7 @@ window.__BT={BT:BT,BT_QA:BT_QA,BT_SEC:BT_SEC};
 
 /* ===== Recall first, persistence, backup, personal photos ===== */
 var RCKEY='anatomy-drill-rc',NOTEKEY='anatomy-drill-notes',STUDYKEY='anatomy-drill-study';
-function rcLoad(k,d){try{var s=localStorage.getItem(k);return s?JSON.parse(s):d}catch(e){return d}}
+function rcLoad(k,d){try{var s=localStorage.getItem(k);if(!s)return d;var v=JSON.parse(s);if(v===null||typeof v!==typeof d||Array.isArray(v)!==Array.isArray(d))return d;return v}catch(e){return d}}
 function rcSave(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var RC={on:!!(rcLoad(RCKEY,{}).on),rev:{},g:{}};
 var RCNOTES=rcLoad(NOTEKEY,{});
@@ -9149,7 +9156,7 @@ function blStudyItem(l){
 }
 
 /* ---- Backup and restore ---- */
-function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT,MNKEY,STKEY,FCKEY,EXKEY]}
+function bkKeys(){return [SRSKEY,LASTKEY,THEMEKEY,RCKEY,NOTEKEY,STUDYKEY,OSLOG,OSKEY,BZKEY,BZDRAFT,MNKEY,STKEY,FCKEY,EXKEY,KEY,'anatomy-drill-modes']}
 function bkCode(){
   var d={};bkKeys().forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)d[k]=v}catch(e){}});
   var s=JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d});
@@ -9160,6 +9167,7 @@ function bkRestore(code){
   if(!o||o.app!=='anatomy-drill'||!o.d)return 'That is not an Osteon backup.';
   var n=0;bkKeys().forEach(function(k){if(typeof o.d[k]==='string'){try{localStorage.setItem(k,o.d[k]);n++}catch(e){}}});
   SRS=srsLoad();BL.sd.marks=rcLoad(STUDYKEY,{});RCNOTES=rcLoad(NOTEKEY,{});MN=rcLoad(MNKEY,{});ST=stLoad();FCS=fcLoad();EXS=exLoad();RC.on=!!rcLoad(RCKEY,{}).on;
+  try{var lc=loadLocal();if(lc)applyData(lc);loadModes();render()}catch(e){}
   try{document.documentElement.setAttribute('data-theme',localStorage.getItem(THEMEKEY)||'dark')}catch(e){}
   return 'Restored '+n+' sets of progress. Your review queue now has '+srsList().length+' items.';
 }
@@ -9282,7 +9290,7 @@ window.mnOverlay=mnOverlay;
 
 /* ===== Streaks and badges: stored on this device only ===== */
 var STKEY='osteon-streak-v1';
-function stLoad(){try{var s=JSON.parse(localStorage.getItem(STKEY)||'null');if(s&&s.d)return s}catch(e){}return {d:[],n:0,c:0,bz:0,b:{}}}
+function stLoad(){try{var s=JSON.parse(localStorage.getItem(STKEY)||'null');if(s&&typeof s==='object'&&Array.isArray(s.d)){if(!s.b||typeof s.b!=='object')s.b={};s.n=+s.n||0;s.c=+s.c||0;s.bz=+s.bz||0;return s}}catch(e){}return {d:[],n:0,c:0,bz:0,b:{}}}
 var ST=stLoad();
 function stSave(){try{localStorage.setItem(STKEY,JSON.stringify(ST))}catch(e){}}
 function stToday(){var n=new Date();return Math.floor((n.getTime()-n.getTimezoneOffset()*6e4)/864e5)}
@@ -9495,10 +9503,10 @@ setInterval(osGuard,4000);
 try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600 13px system-ui;color:#4FC3CB')}catch(e){}
 
 /* ---- usage log (powers the progress map later). Stays on this device. ---- */
-function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
+function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V71';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V72';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
@@ -9884,7 +9892,7 @@ function bmReg(q,a){
 }
 var BM_SEL=null;
 function bmStats(){
-  var L=[];try{L=JSON.parse(localStorage.getItem('osteon-log')||'[]')}catch(e){}
+  var L=[];try{L=JSON.parse(localStorage.getItem('osteon-log')||'[]')}catch(e){}if(!Array.isArray(L))L=[];L=L.filter(function(x){return x&&typeof x==='object'});
   var now=Date.now(),t=hubDay(),R={},A={},other=0,total=0;
   BM_REG.forEach(function(r){R[r[0]]={k:r[0],n:0,ok:0,wn:0,wok:0,last:0,d7:0,miss:{},mt:{},due:0,srs:0}});
   Object.keys(SRS).forEach(function(k){A[SRS[k].q]=SRS[k].a});
@@ -9996,7 +10004,7 @@ var FCKEY='anatomy-drill-cards',FCINT=[0,1,3,7,14,30];
 function fcLoad(){
   try{var s=JSON.parse(localStorage.getItem(FCKEY)||'null');
     if(s&&Array.isArray(s.decks)){
-      s.decks=s.decks.filter(function(d){return d&&d.id&&Array.isArray(d.cards)});
+      s.decks=s.decks.filter(function(d){return d&&typeof d==='object'&&d.id&&Array.isArray(d.cards)});s.decks.forEach(function(d){d.id=String(d.id);d.n=String(d.n==null?'Deck':d.n);d.cards=d.cards.filter(function(c){return c&&typeof c==='object'&&c.id&&c.f!=null&&c.b!=null}).map(function(c){c.id=String(c.id);c.f=String(c.f);c.b=String(c.b);c.t=String(c.t||'');return c})});
       return {decks:s.decks,prog:(s.prog&&typeof s.prog==='object')?s.prog:{}};
     }}catch(e){}
   return {decks:[],prog:{}};
@@ -10154,11 +10162,11 @@ function fcFiles(file){
   var rd=new FileReader();
   rd.onload=function(){
     var txt=String(rd.result||''),name=file.name.replace(/\.[^.]+$/,'')||'Imported deck',cards=null,dn=name;
-    try{var o=JSON.parse(txt);if(o&&o.app==='osteon-deck'&&Array.isArray(o.cards)){dn=o.n||name;cards=o.cards.filter(function(c){return c&&c.f&&c.b}).map(function(c){return {id:fcId('c'),f:String(c.f),b:String(c.b),t:String(c.t||'')}})}}catch(e){}
+    try{var o=JSON.parse(txt);if(o&&o.app==='osteon-deck'&&Array.isArray(o.cards)){dn=String(o.n||name);cards=o.cards.filter(function(c){return c&&c.f&&c.b}).map(function(c){return {id:fcId('c'),f:String(c.f),b:String(c.b),t:String(c.t||'')}})}}catch(e){}
     if(!cards)cards=fcParse(txt);
     if(!cards.length){FC.msg='I could not find any cards in that file. Use one card per line: front, then back, separated by a tab or " | ".';fcRender();return}
     FCS.decks.push({id:fcId('d'),n:dn.slice(0,60),cards:cards});fcSave();
-    FC.msg='Imported '+cards.length+' cards into "'+dn+'".';FC.v='decks';fcRender();
+    FC.msg='Imported '+cards.length+' card'+(cards.length===1?'':'s')+' into "'+dn+'".';FC.v='decks';fcRender();
   };
   rd.readAsText(file);
 }
@@ -10189,7 +10197,7 @@ document.addEventListener('click',function(e){
   else if(a==='delcard'&&d&&!r.pre){if(confirm('Delete this card?')){d.cards=d.cards.filter(function(x){return x.id!==t.dataset.id});delete FCS.prog[t.dataset.id];fcSave();fcRender()}}
   else if(a==='rename'){var s3=!FC.renaming;reset();FC.renaming=s3;fcRender();if(s3)fcAfter('fcdn')}
   else if(a==='dorename'&&d&&!r.pre){var nn=val('fcdn');if(!nn)return;d.n=nn.slice(0,60);fcSave();reset();fcRender()}
-  else if(a==='deldeck'&&d&&!r.pre){if(confirm('Delete "'+d.n+'" and its '+d.cards.length+' cards? This cannot be undone.')){d.cards.forEach(function(c){delete FCS.prog[c.id]});FCS.decks=FCS.decks.filter(function(x){return x.id!==d.id});fcSave();reset();FC.deck=null;FC.v='decks';fcRender()}}
+  else if(a==='deldeck'&&d&&!r.pre){if(confirm('Delete "'+d.n+'" and its '+d.cards.length+' card'+(d.cards.length===1?'':'s')+'? This cannot be undone.')){d.cards.forEach(function(c){delete FCS.prog[c.id]});FCS.decks=FCS.decks.filter(function(x){return x.id!==d.id});fcSave();reset();FC.deck=null;FC.v='decks';fcRender()}}
   else if(a==='dobulk'&&d&&!r.pre){var cs=fcParse(document.getElementById('fcbulk').value);if(!cs.length){FC.msg='No cards found. Put one card on each line: front | back.';fcRender();return}cs.forEach(function(c){d.cards.push(c)});fcSave();reset();FC.msg='Added '+cs.length+' cards.';fcRender()}
   else if(a==='copy'&&d&&r.pre){var nd2={id:fcId('d'),n:d.n,cards:d.cards.map(function(c){return {id:fcId('c'),f:c.f,b:c.b,t:c.t||''}})};FCS.decks.push(nd2);fcSave();reset();FC.deck=nd2.id;FC.msg='Copied. This one is yours to edit.';fcRender()}
   else if(a==='study')fcStart(t.dataset.all==='1');
@@ -10200,7 +10208,7 @@ document.addEventListener('click',function(e){
   else if(a==='share'&&d)fcSend(JSON.stringify({app:'osteon-deck',v:1,n:d.n,cards:d.cards.map(function(c){return {f:c.f,b:c.b,t:c.t||''}})}),'osteon-'+fcSlug(d.n)+'.json','application/json','Saved. Anyone can load this with Import a file in Osteon Flashcards.');
   else if(a==='copytxt'&&d){var tx=d.cards.map(function(c){return c.f.replace(/\n/g,' ')+' | '+c.b.replace(/\n/g,' ')}).join('\n');
     var ok=function(m){FC.msg=m;fcRender()};
-    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(tx).then(function(){ok('Copied '+d.cards.length+' cards as text.')},function(){ok('Copy was blocked by the browser. Use Save deck file instead.')});
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(tx).then(function(){ok('Copied '+d.cards.length+' card'+(d.cards.length===1?'':'s')+' as text.')},function(){ok('Copy was blocked by the browser. Use Save deck file instead.')});
     else ok('Copy is not available here. Use Save deck file instead.')}
 });
 document.addEventListener('keydown',function(e){
@@ -10307,10 +10315,14 @@ var EX_RAW=[
 
 /* ===== Exam practice: single-best-answer papers, with image questions from the bone lab ===== */
 var EXKEY='anatomy-drill-exam';
-function exLoad(){try{var s=JSON.parse(localStorage.getItem(EXKEY)||'null');if(s&&Array.isArray(s.h))return s}catch(e){}return {h:[]}}
+function exLoad(){try{var s=JSON.parse(localStorage.getItem(EXKEY)||'null');if(s&&Array.isArray(s.h)){s.h=s.h.filter(function(x){return x&&typeof x==='object'&&typeof x.n==='number'&&typeof x.c==='number'});return s}}catch(e){}return {h:[]}}
 var EXS=exLoad();
 function exSave(){try{localStorage.setItem(EXKEY,JSON.stringify(EXS))}catch(e){}}
 var EX={v:'home',topics:{},n:20,mode:'exam',timed:false,p:null,nav:false,rf:'all',msg:'',iv:null};
+/* an unfinished paper survives the app being closed or reloaded */
+var EXLIVE='osteon-exam-live';
+function exLiveSave(){try{if(EX.p&&!EX.p.fin)localStorage.setItem(EXLIVE,JSON.stringify({p:EX.p,m:EX.mode}));else localStorage.removeItem(EXLIVE)}catch(e){}}
+(function(){try{var s=JSON.parse(localStorage.getItem(EXLIVE)||'null');if(s&&s.p&&Array.isArray(s.p.qs)&&s.p.qs.length&&!s.p.fin&&s.p.qs.every(function(q){return q&&Array.isArray(q.o)&&typeof q.a==='number'})){EX.p=s.p;EX.mode=s.m==='prac'?'prac':'exam'}}catch(e){}})();
 EX_TOPICS.forEach(function(t){EX.topics[t[0]]=true});
 function exTopicName(k){var t=EX_TOPICS.filter(function(x){return x[0]===k})[0];return t?t[1]:k}
 function exCl(s){if(s==null)return '';if(Array.isArray(s))s=s.join(' ');var ent={'&amp;':'&','&nbsp;':' ','&rsquo;':'’','&middot;':'·','&rarr;':'→','&lt;':'<','&gt;':'>','&quot;':'"'};return String(s).replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/&[a-z#0-9]+;/gi,function(m){return ent[m.toLowerCase()]||m}).replace(/\s+/g,' ').trim()}
@@ -10362,7 +10374,7 @@ function exGenImg(){
     if(wr.length<4)continue;
     var c=exCl(l.n),opts=fcShuf([c].concat(wr));
     return {t:'img',s:'In this image of the '+exLc(b.name)+' ('+vw[1].toLowerCase()+' view), which structure is highlighted?',o:opts,a:opts.indexOf(c),c:c,w:wr,
-      e:'It is the '+c.toLowerCase()+'. '+exDot(l.t[0])+(l.why?' '+exDot(l.why):''),img:{b:id,v:v,l:l.id},go:['bl',id,l.id]};
+      e:'It is the '+exLc(c)+'. '+exDot(l.t[0])+(l.why?' '+exDot(l.why):''),img:{b:id,v:v,l:l.id},go:['bl',id,l.id]};
   }
   return null;
 }
@@ -10428,7 +10440,7 @@ function exBuild(){
 function exStart(){
   var qs=exBuild();if(!qs){EX.msg='Choose at least one topic.';exRender();return}
   EX.p={qs:qs,i:0,t0:Date.now(),secs:EX.timed?Math.round(qs.length*90):0,fin:false,asked:EX.n};
-  EX.v='q';EX.nav=false;EX.rf='all';EX.msg='';
+  EX.v='q';EX.nav=false;EX.rf='all';EX.msg=qs.length<EX.n?'Only '+qs.length+' questions are available for the topics you chose, so this paper is shorter. Add more topics for a longer paper.':'';
   if(EX.p.secs)exTimer();
   exRender();exOverlay().scrollTop=0;
 }
@@ -10479,6 +10491,7 @@ function exHomeHTML(){
 function exQHTML(){
   var p=EX.p,q=p.qs[p.i],prac=EX.mode==='prac',shown=prac&&q.pick>=0,L='ABCDE';
   var h='<div class="ex-wrap"><div class="ex-bar"><span>Question '+(p.i+1)+' of '+p.qs.length+(prac?' &middot; '+blE(exTopicName(q.t)):'')+'</span>'+(p.secs?'<span id="extm" class="ex-tm">'+exFmt(exLeft())+'</span>':'')+'<button class="chip" data-ex="nav">'+(EX.nav?'Hide list':'Question list')+'</button></div>';
+  if(EX.msg&&p.i===0)h+='<p class="ex-note">'+blE(EX.msg)+'</p>';
   h+='<div class="ex-prog"><i style="width:'+Math.round(p.qs.filter(function(x){return x.pick>=0}).length/p.qs.length*100)+'%"></i></div>';
   if(EX.nav){h+='<div class="ex-nav">'+p.qs.map(function(x,i){return '<button data-ex="goto" data-i="'+i+'" class="'+(x.pick>=0?'ans ':'')+(x.flag?'flag ':'')+(i===p.i?'cur':'')+'">'+(i+1)+'</button>'}).join('')+'</div>'}
   h+='<p class="ex-stem">'+blE(q.s)+'</p>';
@@ -10517,6 +10530,7 @@ function exRevHTML(){
   return h+'</div>';
 }
 function exRender(){
+  exLiveSave();
   var b=document.getElementById('exbody'),t=document.getElementById('extitle');if(!b)return;
   if(EX.v==='home'){t.textContent='Exam practice';b.innerHTML=exHomeHTML()}
   else if(EX.v==='q'){t.textContent=EX.mode==='prac'?'Practice':'Paper';b.innerHTML=exQHTML()}
@@ -10659,8 +10673,8 @@ function skTick(now){
   if(!h||h.hidden||document.hidden){SK.run=false;return}
   var dt=Math.min(.05,(now-SK.last)/1000);SK.last=now;
   var rc=skHeroRect();
-  if(!rc){requestAnimationFrame(skTick);SK.cv.style.visibility='hidden';return}
-  SK.cv.style.visibility='visible';
+  if(!rc){requestAnimationFrame(skTick);if(SK.vis!==false){SK.vis=false;SK.cv.style.visibility='hidden'}return}
+  if(SK.vis!==true){SK.vis=true;SK.cv.style.visibility='visible'}
   var U=SK.U,lt=document.documentElement.getAttribute('data-theme')==='light';
   if(lt!==SK.lt){SK.lt=lt;U.uLight.value=lt?1:0;
     U.uAcc.value.set(lt?0x0B7A82:0x22E5F2);U.uBone.value.set(lt?0x9C8F6E:0xE9E1CF);
@@ -10717,7 +10731,7 @@ var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-dr
 var HUB={q:'',view:'home',rv:null,idx:null,open:false,res:[]};
 var SRSINT=[0,1,3,7,14,30];
 function hubDay(){return Math.floor(Date.now()/864e5)}
-function srsLoad(){try{var s=localStorage.getItem(SRSKEY);return s?JSON.parse(s):{}}catch(e){return {}}}
+function srsLoad(){try{var s=localStorage.getItem(SRSKEY),o=s?JSON.parse(s):{};if(!o||typeof o!=='object'||Array.isArray(o))return {};var r={};Object.keys(o).forEach(function(k){var x=o[k];if(x&&typeof x==='object'&&typeof x.d==='number'&&typeof x.b==='number')r[k]=x});return r}catch(e){return {}}}
 var SRS=srsLoad();
 function srsSave(){try{localStorage.setItem(SRSKEY,JSON.stringify(SRS))}catch(e){}}
 function srsGrade(src,x,ok){
@@ -10953,6 +10967,9 @@ document.addEventListener('input',function(e){
   mlClose=function(){hubSaveLast();var r=om.apply(this,arguments);if(HUB.open)hubRender();return r};
   miClose=function(){hubSaveLast();var r=omi.apply(this,arguments);if(HUB.open)hubRender();return r};
   clClose=function(){hubSaveLast();var r=oc.apply(this,arguments);if(HUB.open)hubRender();return r};
+  var ofc=fcClose,oex=exClose;
+  fcClose=function(){var r=ofc.apply(this,arguments);if(HUB.open){hubRender();document.body.style.overflow='hidden'}return r};
+  exClose=function(){var r=oex.apply(this,arguments);if(HUB.open){hubRender();document.body.style.overflow='hidden'}return r};
 })();
 window.addEventListener('pagehide',hubSaveLast);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')hubSaveLast()});
@@ -10961,11 +10978,30 @@ if(!window.__NOHUB)hubOpen();
 
 loadModes();
 initStore();
+window.__OSBOOT=1;
 })();
+</script>
+<script>
+/* safety net: if the app failed to start (for example because saved data is damaged), offer a way out */
+window.addEventListener('load',function(){setTimeout(function(){
+  if(window.__OSBOOT)return;
+  var keys=[];try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^(anatomy-drill|osteon)/.test(k))keys.push(k)}}catch(e){}
+  function code(){var d={};keys.forEach(function(k){try{d[k]=localStorage.getItem(k)}catch(e){}});try{return btoa(unescape(encodeURIComponent(JSON.stringify({app:'anatomy-drill',v:1,t:Date.now(),d:d}))))}catch(e){return ''}}
+  var o=document.createElement('div');o.setAttribute('role','alertdialog');
+  o.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#05070A;color:#F3EFE6;font:15px/1.5 system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto';
+  o.innerHTML='<div style="max-width:440px"><h2 style="margin:0 0 8px;font:600 22px system-ui">Osteon could not start</h2><p style="color:#8F98A5;margin:0 0 14px">This can happen if the progress saved on this device has been damaged. Your progress is not lost yet. First copy a backup code and keep it somewhere safe, then try again or reset.</p>'+
+  '<textarea id="osrc" readonly rows="3" style="width:100%;box-sizing:border-box;background:#0D1116;color:#F3EFE6;border:1px solid rgba(225,232,240,.15);border-radius:10px;padding:8px;font:12px monospace"></textarea>'+
+  '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><button data-r="copy" style="padding:10px 14px;border-radius:10px;border:0;background:#22E5F2;color:#021A1C;font-weight:600">Copy backup code</button><button data-r="retry" style="padding:10px 14px;border-radius:10px;border:1px solid rgba(225,232,240,.2);background:transparent;color:#F3EFE6">Try again</button><button data-r="reset" style="padding:10px 14px;border-radius:10px;border:1px solid #FF6B7A;background:transparent;color:#FF6B7A">Reset saved data</button></div><p id="osrm" style="color:#8F98A5;font-size:13px"></p></div>';
+  document.body.appendChild(o);var ta=o.querySelector('#osrc');ta.value=code();
+  o.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-r]');if(!b)return;var a=b.getAttribute('data-r'),m=o.querySelector('#osrm');
+    if(a==='copy'){ta.select();try{(navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(ta.value):Promise.reject()).then(function(){m.textContent='Copied. Paste it into Notes. You can restore it later from Back up or restore progress.'},function(){document.execCommand('copy');m.textContent='Copied (or select the code above and copy it).'})}catch(x){m.textContent='Select the code above and copy it.'}}
+    else if(a==='retry')location.reload();
+    else if(a==='reset'){if(!confirm('This removes all Osteon progress saved on this device. Have you copied your backup code?'))return;keys.forEach(function(k){try{localStorage.removeItem(k)}catch(x){}});location.reload()}});
+},1500)});
 </script>
 
 <style>#pwaUpd[hidden]{display:none!important}#pwaUpd:not([hidden]){display:flex}</style>
-<div id="pwaUpd" hidden style="position:fixed;left:50%;transform:translateX(-50%);top:max(10px,env(safe-area-inset-top,0px));z-index:99;background:#131B2B;color:#fff;border-radius:999px;padding:6px 6px 6px 16px;gap:10px;align-items:center;font:600 14px system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:nowrap"><span>Update ready</span><button id="pwaReload" style="border:0;border-radius:999px;background:#4FC3CB;color:#06282B;font:700 14px system-ui,sans-serif;padding:8px 14px;min-height:36px">Reload</button><button id="pwaLater" aria-label="Dismiss" style="border:0;background:transparent;color:#9fb0c3;font:600 14px system-ui,sans-serif;padding:8px 10px;min-height:36px">Later</button></div>
+<div id="pwaUpd" hidden style="position:fixed;left:50%;transform:translateX(-50%);top:max(10px,env(safe-area-inset-top,0px));z-index:99;background:#0D1116;color:#F3EFE6;border:1px solid rgba(225,232,240,.14);border-radius:999px;padding:6px 6px 6px 16px;gap:10px;align-items:center;font:600 14px system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:nowrap"><span>Update ready</span><button id="pwaReload" style="border:0;border-radius:999px;background:#22E5F2;color:#021A1C;font:700 14px system-ui,sans-serif;padding:8px 14px;min-height:36px">Reload</button><button id="pwaLater" aria-label="Dismiss" style="border:0;background:transparent;color:#9fb0c3;font:600 14px system-ui,sans-serif;padding:8px 10px;min-height:36px">Later</button></div>
 <script>
 (function(){
   if(!('serviceWorker' in navigator)||location.protocol==='file:')return;
