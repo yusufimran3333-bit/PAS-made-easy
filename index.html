@@ -845,6 +845,7 @@ h1,h2{letter-spacing:-.015em}
 body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
 /* batch 1: touch targets, overlap and focus polish */
 .hub{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+.bl{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible,.check:focus-within{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 @media(pointer:coarse){
 .btn.small,.chip,.seg button,.mn-b,.v3fb button,.ly-lnk{min-height:44px}
@@ -852,6 +853,12 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 .check,.bz-fab{min-height:44px}.bz-fab{height:44px}
 }
 @media(max-width:560px){body:has(#v3:not([hidden])) .bz-fab{display:none}}
+/* batch 3: right/wrong shown by icon as well as colour */
+.bl-opt.ok,.bl-opt.bad{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bl-opt.ok::after{content:"\2713";font-weight:800;color:var(--ok)}
+.bl-opt.bad::after{content:"\2717";font-weight:800;color:var(--bad)}
+.opt.right,.opt.wrong{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.opt.right::after{content:"\2713";font-weight:800}.opt.wrong::after{content:"\2717";font-weight:800}
 /* batch 2: readable label sizes (diagram SVG labels left alone) */
 .tag,.ly-note,.lb-h,.ly-tier span,.st-b span,.cl-cxt,.ml-tg,.bm-nums span,.hub-rt{font-size:12px}
 </style>
@@ -7798,7 +7805,7 @@ function jlQuizHTML(){
   c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
     h3+='<button class="'+cls+'" data-jl="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+jlE(o)+'</button>'});
   h3+='</div>';
-  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'It is '+jlE(c.a)+'. ')+jlE(c.why)+'</div><button class="btn" data-jl="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'Answer: '+jlE(c.a)+'. ')+jlE(c.why)+'</div><button class="btn" data-jl="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
   h3+='<div class="bl-row" style="margin-top:10px"><button class="btn small ghost" data-jl="qend">End round</button></div></div></div>';
   return h3;
 }
@@ -8192,7 +8199,7 @@ function clQuizHTML(){
   c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
     h3+='<button class="'+cls+'" data-cl="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+clE(o)+'</button>'});
   h3+='</div>';
-  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'It is '+clE(c.a)+'. ')+clE(c.why)+'</div><button class="btn" data-cl="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'Answer: '+clE(c.a)+'. ')+clE(c.why)+'</div><button class="btn" data-cl="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
   h3+='<div class="bl-row" style="margin-top:10px"><button class="btn small ghost" data-cl="qend">End round</button></div></div></div>';
   return h3;
 }
@@ -8574,7 +8581,7 @@ function mlQuizHTML(){
   c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
     h3+='<button class="'+cls+'" data-ml="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+mlE(o)+'</button>'});
   h3+='</div>';
-  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'It is '+mlE(c.a)+'. ')+mlE(c.why)+'</div><button class="btn" data-ml="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  if(Q.ans!==null){h3+='<div class="jl-fb"><b>'+(c.opts[Q.ans]===c.a?'Correct.':'Not quite.')+'</b> '+(c.opts[Q.ans]===c.a?'':'Answer: '+mlE(c.a)+'. ')+mlE(c.why)+'</div><button class="btn" data-ml="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
   h3+='<div class="bl-row" style="margin-top:10px"><button class="btn small ghost" data-ml="qend">End round</button></div></div></div>';
   return h3;
 }
@@ -8892,7 +8899,7 @@ function miQHTML(){
   var c=Q.cur,h='<section class="card mi-card"><div class="bl-score"><span>Question '+(Q.i+1)+' of '+Q.n+'</span><span>Score '+Q.score+'</span></div><p class="bl-q">'+miE2(c.q)+'</p><div class="bl-opts">';
   c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}h+='<button class="'+cls+'" data-mi="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+miE2(o)+'</button>'});
   h+='</div>';
-  if(Q.ans!==null){var ok=c.opts[Q.ans]===c.a;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'It is '+miE2(c.a)+'. ')+miE2(c.why)+'</div><button class="btn" data-mi="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  if(Q.ans!==null){var ok=c.opts[Q.ans]===c.a;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'Answer: '+miE2(c.a)+'. ')+miE2(c.why)+'</div><button class="btn" data-mi="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
   return h+'<div style="margin-top:10px"><button class="btn small ghost" data-mi="qend">End round</button></div></section>';
 }
 var MIVK={blood:'Blood cells',epi:'Epithelia',mu:'Muscle'};
@@ -8909,7 +8916,7 @@ function miVHTML(){
   var c=V.cur;h+='<section class="card mi-card"><div class="bl-score"><span>Picture '+(V.i+1)+' of '+V.n+'</span><span>Score '+V.score+'</span></div><div class="mi-big" style="margin:8px 0">'+c.item.svg()+'</div><p class="bl-q">What is this?</p><div class="bl-opts">';
   c.opts.forEach(function(o,i){var cls='bl-opt';if(V.ans!==null){if(o.id===c.item.id)cls+=' ok';else if(i===V.ans)cls+=' bad'}h+='<button class="'+cls+'" data-mi="vpick" data-i="'+i+'"'+(V.ans!==null?' disabled':'')+'>'+miE2(o.n)+'</button>'});
   h+='</div>';
-  if(V.ans!==null){var ok=c.opts[V.ans].id===c.item.id;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'It is '+miE2(c.item.n)+'. ')+miE2(c.item.why)+'</div><button class="btn" data-mi="vnext">'+(V.i+1>=V.n?'See results':'Next')+'</button>'}
+  if(V.ans!==null){var ok=c.opts[V.ans].id===c.item.id;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'Answer: '+miE2(c.item.n)+'. ')+miE2(c.item.why)+'</div><button class="btn" data-mi="vnext">'+(V.i+1>=V.n?'See results':'Next')+'</button>'}
   return h+'<div style="margin-top:10px"><button class="btn small ghost" data-mi="vend">End round</button></div></section>';
 }
 function miQuizHTML(){
@@ -9082,7 +9089,7 @@ function btQHTML(){
   c.opts.forEach(function(o,i){var cls='bl-opt';if(Q.ans!==null){if(o===c.a)cls+=' ok';else if(i===Q.ans)cls+=' bad'}
     h+='<button class="'+cls+'" data-bt="qpick" data-i="'+i+'"'+(Q.ans!==null?' disabled':'')+'>'+blE(o)+'</button>'});
   h+='</div>';
-  if(Q.ans!==null){var ok=c.opts[Q.ans]===c.a;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'It is '+blE(c.a)+'. ')+blE(c.why)+'</div><button class="btn" data-bt="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
+  if(Q.ans!==null){var ok=c.opts[Q.ans]===c.a;h+='<div class="jl-fb"><b>'+(ok?'Correct.':'Not quite.')+'</b> '+(ok?'':'Answer: '+blE(c.a)+'. ')+blE(c.why)+'</div><button class="btn" data-bt="qnext">'+(Q.i+1>=Q.n?'See results':'Next')+'</button>'}
   h+='<div style="margin-top:10px"><button class="btn small ghost" data-bt="qend">End round</button></div></section>';
   return h;
 }
