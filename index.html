@@ -892,6 +892,14 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 @media(hover:hover){.hub-tile:hover,.hub-cont:hover{transform:translateY(-3px)}}
 .hub-tile:active{transform:scale(.97)}
 @media(prefers-reduced-motion:reduce){.hub-tile,.hub-cont{transition:none}.hub-tile:hover,.hub-cont:hover{transform:none}}
+/* batch 6: labs and quizzes share the bento finish */
+.bl-top h2{font:400 var(--fs-2xl)/1 var(--f-display);letter-spacing:-.02em}
+.card,.grp,.bl-card,.fc-deck{border-radius:var(--r-lg)}
+.seg{border-radius:var(--r-md)}.seg button{border-radius:var(--r-sm)}
+.btn,.bl-opt,.opt{border-radius:var(--r-md)}
+.chip.on{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent)}
+.bl-q{font-size:var(--fs-xl);line-height:1.22;letter-spacing:-.005em}
+.bl-score{font-size:var(--fs-sm);letter-spacing:.04em}
 /* batch 2: readable label sizes (diagram SVG labels left alone) */
 .tag,.ly-note,.lb-h,.ly-tier span,.st-b span,.cl-cxt,.ml-tg,.bm-nums span,.hub-rt{font-size:12px}
 </style>
