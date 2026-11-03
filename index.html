@@ -843,6 +843,14 @@ h1,h2{letter-spacing:-.015em}
 /* leave room under the floating Blurt button and the credit line, so the last item can always scroll clear */
 .bl,.hub{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
 body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+/* batch 1: touch targets, overlap and focus polish */
+.hub{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focus-visible,.check:focus-within{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media(pointer:coarse){
+.btn.small,.chip,.seg button,.mn-b,.v3fb button,.ly-lnk{min-height:44px}
+.hub summary,.bl summary{min-height:44px}
+.check,.bz-fab{min-height:44px}.bz-fab{height:44px}
+}
 </style>
 
 <div class="app">
@@ -10910,7 +10918,7 @@ function hubHome(){
   var s=srsStats(),last=hubLast(),ll=hubLastLabel(last),th=document.documentElement.getAttribute('data-theme')||'dark';
   var o='<div class="hub-top"><span class="hub-pill">Osteon</span><button class="chip" data-hub="theme" aria-label="Switch theme">'+(th==='dark'?'Light mode':'Dark mode')+'</button></div>';
   o+='<div class="hub-hero"><div class="hub-ht"><p class="eyebrow">'+g+'</p><h1>Osteon</h1><p class="hub-sub">Anatomy and microanatomy. Revise, recall, repeat.</p><div class="hub-tags"><span class="hub-mk" aria-hidden="true">'+osLogo('hh')+'</span><span>3D skeleton</span><span>Bone lab</span><span>Joints</span><span>Blurt</span></div></div><div class="hub-hb" aria-hidden="true"><img src="'+OS_BUST+'" alt=""></div></div>';
-  o+='<div class="hub-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="hubq" type="search" placeholder="Search bones, landmarks, joints, ligaments, muscles" value="'+blE(HUB.q)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search everything"></div>';
+  o+='<div class="hub-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="hubq" type="search" placeholder="Search bones, joints, muscles" value="'+blE(HUB.q)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Search everything"></div>';
   o+='<div id="hubres" class="hub-res">'+hubResultsHTML()+'</div>';
   {
     o+='<div id="hubmain"'+(HUB.q.trim()?' hidden':'')+'><div class="hub-two">';
