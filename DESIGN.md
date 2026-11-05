@@ -25,7 +25,7 @@
 ### Semantic
 | Role | Dark | Light |
 |---|---|---|
-| ok (correct) | #3FD08E | #1E8A4F |
+| ok (correct) | #3FD08E | #1A7743 |
 | bad (wrong) | #FF6B7A | #C23030 |
 | highlight (hl) | #FF7A4D | #E8542B |
 
@@ -105,3 +105,9 @@ Phone-first. 560px breakpoint reflows the hero (smaller skeleton, fewer tags) an
 - Keep the single cyan accent; do not introduce a second brand colour.
 - Any new interactive element: 44px min height on coarse pointers, visible `:focus-visible`, icon-or-text alongside colour.
 - Do not alter anatomy facts; wording changes apply to UI copy only.
+
+## Home hero turntable (Nov 2026)
+Home shows 36 frames (`hub3d/s00.webp`–`s35.webp`, 10° apart, transparent background) of the real skeleton from `models/skel.bin`, captured from the 3D viewer. It keeps the earlier WebGL hero's behaviour: scan reveal when Home opens, a slow upward pulse, idle spin, drag to turn with inertia, tap to open the 3D viewer, theme accent colours, reduced motion (no spin or scan). Floor ring and glow use `--accent`. The WebGL hero code is still in `index.html`; set `window.__OC_TT=false` to switch back. If the frames fail to load, Home falls back to the static bust image.
+
+## Bone lab quiz magnifier (Nov 2026)
+In Bone lab tests, "Name it", "Attachments & joints" and "Why this shape" questions show a round, zoomed copy of the plate (`.bl-loupe`) beside the question, centred on the highlighted structure, so it stays in view on phones where the plate scrolls away. IDs inside the copy get a `-lp` suffix.
