@@ -915,25 +915,6 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 :root[data-theme="light"] .bz-seg button.on,:root[data-theme="light"] .bz-fmt button:active{color:#fff}
 .hub-search input{border-color:color-mix(in srgb,var(--muted) 80%,var(--surface))}
 
-/* Home hero turntable (Nov 2026): 36 frames of the real skeleton (models/skel.bin) captured from the 3D viewer.
-   Replaces the WebGL hero; that code is kept and switched off by window.__OC_TT. */
-.oc-tt{position:fixed;left:0;top:0;width:0;height:0;z-index:2;pointer-events:none;visibility:hidden;container-type:size}
-.oc-tt.on{visibility:visible}
-.oc-tt__cv{position:absolute;left:50%;top:1%;height:88%;width:auto;aspect-ratio:480/1178;translate:-50% 0;z-index:2;opacity:0;transition:opacity .9s var(--ease)}
-.oc-tt.ready .oc-tt__cv{opacity:1}
-:root[data-theme="light"] .oc-tt__cv{filter:drop-shadow(0 6px 14px rgba(60,40,20,.16))}
-.oc-tt__glow{position:absolute;left:50%;top:14%;width:min(86cqw,64cqh);aspect-ratio:1;translate:-50% 0;border-radius:50%;z-index:0;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent) 6%,transparent) 55%,transparent);filter:blur(8px);animation:ocTtBreathe 6s ease-in-out infinite}
-:root[data-theme="light"] .oc-tt__glow{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 16%,transparent),color-mix(in srgb,var(--accent) 4%,transparent) 55%,transparent)}
-.oc-tt__floor{position:absolute;left:50%;bottom:0;width:min(86cqw,54cqh);aspect-ratio:1;translate:-50% 35%;perspective:800px;z-index:1}
-.oc-tt__disc{width:100%;height:100%;color:var(--accent);transform:rotateX(76deg) rotateZ(var(--oc-tt-az,0deg))}
-.oc-tt__disc svg{width:100%;height:100%;overflow:visible}
-.oc-tt__disc circle{stroke-width:1}
-.oc-tt__disc circle:first-child{stroke-width:1.6;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 70%,transparent))}
-.oc-tt__disc line{stroke:currentColor;stroke-width:1;opacity:.5}
-.oc-tt__disc line.big{stroke-width:2;opacity:.9}
-.oc-tt__disc::after{content:"";position:absolute;inset:26%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 28%,transparent),transparent);filter:blur(10px)}
-@keyframes ocTtBreathe{50%{opacity:.75;scale:1.05}}
-@media(prefers-reduced-motion:reduce){.oc-tt__glow{animation:none}.oc-tt__cv{transition:none}}
 
 /* quiz magnifier (Nov 2026) */
 .bl-qrow{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:var(--sp-3)}
@@ -945,6 +926,11 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 :root[data-theme="light"] .bl-loupe{box-shadow:0 0 0 1px var(--line),0 0 0 6px color-mix(in srgb,var(--bone) 30%,transparent),0 14px 30px -18px rgba(60,40,20,.45)}
 :root[data-theme="light"] .bl-loupe::after{box-shadow:inset 0 0 16px rgba(60,40,20,.22)}
 @media(max-width:560px){.bl-loupe{width:88px;height:88px}}
+
+/* Nov 2026: hero skeleton drawn above the card (crisp, not tinted by it) with a soft glow behind */
+.hub-sk{z-index:2}
+.hub.sk-on .hub-hb::before{content:"";position:absolute;left:50%;top:8%;width:min(78%,62vh);aspect-ratio:1;translate:-50% 0;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 18%,transparent),color-mix(in srgb,var(--accent) 5%,transparent) 55%,transparent);filter:blur(8px);pointer-events:none}
+:root[data-theme="light"] .hub.sk-on .hub-hb::before{background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 12%,transparent),transparent)}
 </style>
 
 <div class="app">
@@ -3979,7 +3965,7 @@ function blTap(e){
   var l=blHit(e);
   if(BL.mode==='learn'){BL.sel=l?l.id:null;blPaint();blPanel()}
   else if(BL.mode==='study')blStudyTap(l);
-  else blFindAnswer(l);
+  else blFindAnswer(l,e);
 }
 /* quiz magnifier (Nov 2026): a round, zoomed copy of the plate centred on the highlighted structure, beside the
    question, so it stays in view on phones where the plate scrolls away. IDs in the copy are renamed (-lp). */
@@ -4134,7 +4120,13 @@ function blQNext(first){
   blRender();
 }
 function blFinish(right,l){var Q=BL.q;Q.answered=true;Q.right=right;if(right){Q.score++;Q.streak++}else{Q.streak=0;if(Q.missed.indexOf(l.id)<0)Q.missed.push(l.id)}Q.cur.hl=l.id;blPaint();blPanel()}
-function blFindAnswer(hit){var Q=BL.q;if(!Q||Q.phase!=='run'||Q.answered||Q.cur.type!=='find')return;blFinish(!!hit&&hit.id===Q.cur.l.id,Q.cur.l)}
+/* "Find it" is right when the tap lands on the target's own shape, even where a smaller structure overlaps it
+   (blHit picks the smallest shape under the finger, which marked correct taps wrong for 110 of 903 landmark views). */
+function blOn(l,ev){var b=blBone(),v=BL.view,r=blReg(l,v);if(!r||!ev)return false;var fl=blFlip(b,v),t=blToFrame(ev),sc=1/t[2],x=fl?b.w-t[0]:t[0],y=t[1],pad=8*sc;
+  if(r.line)return blLineDist(r.d,x,y)<=r.w/2+pad;
+  if(r.poly)return blInPoly(r.poly,x,y)||Math.hypot(r.m[0]-x,r.m[1]-y)<10*sc;
+  return blInEll(r.e,x,y,pad)}
+function blFindAnswer(hit,ev){var Q=BL.q;if(!Q||Q.phase!=='run'||Q.answered||Q.cur.type!=='find')return;var t=Q.cur.l;blFinish((!!hit&&hit.id===t.id)||blOn(t,ev),t)}
 
 /* ---------- bone types ---------- */
 var BLT=[
@@ -10711,7 +10703,6 @@ var SK={cv:null,r:null,sc:null,cam:null,mesh:null,ring:null,halo:null,U:null,rea
 var SKKEY='osteon-hero-v1';
 function skReduced(){try{return window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}}
 function skOK(){
-  if(window.__OC_TT)return false;
   if(window.__NORM||window.__NOHUB||!RM.site||location.protocol==='file:'||!window.fetch)return false;
   try{var c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}
 }
@@ -10737,9 +10728,34 @@ function skBuild(){
   g.translate(-cx,-bb.min.y,-cz);g.computeBoundingBox();
   SK.H0=g.boundingBox.max.y;
   SK.U={uYR:{value:new T.Vector2(0,SK.H0)},uScan:{value:-1},uPulse:{value:-1},uLight:{value:0},uAcc:{value:new T.Color(0x22E5F2)},uBone:{value:new T.Color(0xE9E1CF)}};
-  var mat=new T.ShaderMaterial({uniforms:SK.U,vertexShader:SK_VS,fragmentShader:SK_FS,side:T.DoubleSide});
+  /* Nov 2026: the 3D viewer's own bone look (matte cream bone, bluish costal cartilage, same lights), with the
+     scan reveal and pulse added into the standard material */
+  var cB=new T.Color(V3C.bone),cC=new T.Color(V3C.c),cT=new T.Color(V3C.t),vo=0,cols=new Float32Array(g.attributes.position.count*3);
+  H.nodes.forEach(function(n){var c=n.g==='costal'?cC:n.g==='teeth'?cT:cB;for(var i=0;i<n.nv;i++){cols[(vo+i)*3]=c.r;cols[(vo+i)*3+1]=c.g;cols[(vo+i)*3+2]=c.b}vo+=n.nv});
+  g.setAttribute('color',new T.BufferAttribute(cols,3));
+  var mat=new T.MeshStandardMaterial({color:0xffffff,vertexColors:true,roughness:.82,metalness:0,side:T.DoubleSide});
+  mat.onBeforeCompile=function(sh){
+    sh.uniforms.uYR=SK.U.uYR;sh.uniforms.uScan=SK.U.uScan;sh.uniforms.uPulse=SK.U.uPulse;sh.uniforms.uAcc=SK.U.uAcc;
+    sh.vertexShader='uniform vec2 uYR;varying float vY;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvY=(position.y-uYR.x)/(uYR.y-uYR.x);');
+    sh.fragmentShader='uniform float uScan;uniform float uPulse;uniform vec3 uAcc;varying float vY;\n'+sh.fragmentShader
+      .replace('void main() {','void main() {\n if(vY<uScan)discard;')
+      .replace('#include <dithering_fragment>','#include <dithering_fragment>\n float cool=uScan<-0.01?1.0:smoothstep(0.0,.22,vY-uScan);\n gl_FragColor.rgb=mix(uAcc*.85+gl_FragColor.rgb*.25,gl_FragColor.rgb,cool);\n float band=uScan<-0.01?0.0:1.0-smoothstep(0.0,.028,abs(vY-uScan));gl_FragColor.rgb+=uAcc*band*1.6;\n float pb=uPulse<-0.01?0.0:1.0-smoothstep(0.0,.07,abs(vY-uPulse));gl_FragColor.rgb+=uAcc*pb*.4;');
+  };
   SK.mesh=new T.Mesh(g,mat);
   SK.pivot=new T.Group();SK.pivot.add(SK.mesh);SK.sc.add(SK.pivot);
+  SK.sc.add(new T.HemisphereLight(0xffffff,0x6b6455,.55));
+  var key=new T.DirectionalLight(0xffffff,.75);key.position.set(.6,.9,1);SK.sc.add(key);
+  var fill=new T.DirectionalLight(0xbfd4ff,.25);fill.position.set(-1,.2,.6);SK.sc.add(fill);
+  /* floor: concentric rings, tick marks and a soft glow at foot level, turning with the skeleton */
+  var R=SK.H0*.24,fl=new T.Group();fl.position.y=-SK.H0*.004;SK.floorMats=[];
+  [[1,.985,.95],[.82,.81,.55],[.64,.632,.4],[.46,.454,.28]].forEach(function(q){var m=new T.MeshBasicMaterial({color:0x22E5F2,transparent:true,opacity:q[2],side:T.DoubleSide,depthWrite:false});m.userData.o=q[2];SK.floorMats.push(m);var r=new T.Mesh(new T.RingGeometry(R*q[1],R*q[0],128),m);r.rotation.x=-Math.PI/2;fl.add(r)});
+  var tp=[];for(var i=0;i<72;i++){var a2=i/72*Math.PI*2,big=i%9===0,r2=R*(big?.9:.95);tp.push(Math.cos(a2)*R*.985,0,Math.sin(a2)*R*.985,Math.cos(a2)*r2,0,Math.sin(a2)*r2)}
+  var tg=new T.BufferGeometry();tg.setAttribute('position',new T.Float32BufferAttribute(tp,3));
+  var tm=new T.LineBasicMaterial({color:0x22E5F2,transparent:true,opacity:.7,depthWrite:false});tm.userData.o=.7;SK.floorMats.push(tm);fl.add(new T.LineSegments(tg,tm));
+  var gc=document.createElement('canvas');gc.width=gc.height=128;var gx=gc.getContext('2d'),gr=gx.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,255,255,.9)');gr.addColorStop(.55,'rgba(255,255,255,.25)');gr.addColorStop(1,'rgba(255,255,255,0)');gx.fillStyle=gr;gx.fillRect(0,0,128,128);
+  var gm=new T.MeshBasicMaterial({color:0x22E5F2,map:new T.CanvasTexture(gc),transparent:true,opacity:.32,depthWrite:false});gm.userData.o=.32;SK.floorMats.push(gm);
+  var glow=new T.Mesh(new T.PlaneGeometry(R*1.5,R*1.5),gm);glow.rotation.x=-Math.PI/2;glow.position.y=-SK.H0*.002;fl.add(glow);
+  SK.pivot.add(fl);
   // scanner ring + soft halo
   var rr=SK.H0*.2;
   SK.ringMat=new T.MeshBasicMaterial({color:0x22E5F2,transparent:true,opacity:.95,side:T.DoubleSide,depthWrite:false,blending:T.AdditiveBlending});
@@ -10799,7 +10815,7 @@ function skTick(now){
   var U=SK.U,lt=document.documentElement.getAttribute('data-theme')==='light';
   if(lt!==SK.lt){SK.lt=lt;U.uLight.value=lt?1:0;
     U.uAcc.value.set(lt?0x0B7A82:0x22E5F2);U.uBone.value.set(lt?0x9C8F6E:0xE9E1CF);
-    SK.ringMat.blending=lt?THREE.NormalBlending:THREE.AdditiveBlending;SK.haloMat.blending=SK.ringMat.blending;SK.ringMat.color.set(lt?0x0B7A82:0x22E5F2);SK.haloMat.color.copy(SK.ringMat.color);SK.ringMat.needsUpdate=true;SK.haloMat.needsUpdate=true}
+    (SK.floorMats||[]).forEach(function(m){m.color.set(lt?0x0B7A82:0x22E5F2);m.blending=lt?THREE.NormalBlending:THREE.AdditiveBlending;m.opacity=m.userData.o*(lt?.8:1);m.needsUpdate=true});SK.ringMat.blending=lt?THREE.NormalBlending:THREE.AdditiveBlending;SK.haloMat.blending=SK.ringMat.blending;SK.ringMat.color.set(lt?0x0B7A82:0x22E5F2);SK.haloMat.color.copy(SK.ringMat.color);SK.ringMat.needsUpdate=true;SK.haloMat.needsUpdate=true}
   // scan sweep (top to bottom)
   if(SK.scan>=-0.01&&!SK.rm){
     SK.scanT+=dt;var p=Math.min(1,SK.scanT/SK.scanDur),e=1-Math.pow(1-p,1.6);
@@ -10821,9 +10837,11 @@ function skTick(now){
   SK.pivot.rotation.y=SK.rot;
   if(!SK.rm){var tt=(SK.sy||0)+(SK.my||0);SK.tx=(SK.tx||0)+(tt-(SK.tx||0))*Math.min(1,dt*4);SK.pivot.rotation.x=SK.tx}
   // framing: fit skeleton to the hero box, centred on it
-  var W=innerWidth,Hh=innerHeight,fov=SK.cam.fov*Math.PI/180,k=1.0;
+  var W=innerWidth,Hh=innerHeight,fov=SK.cam.fov*Math.PI/180,k=.82,yc=SK.H0*.45,el=.15;
   var dist=SK.H0/(k*rc.height/Hh)/(2*Math.tan(fov/2));
-  SK.cam.position.set(0,SK.H0*.5,dist);SK.cam.lookAt(0,SK.H0*.5,0);
+  SK.cam.position.set(0,yc+dist*Math.sin(el),dist*Math.cos(el));SK.cam.lookAt(0,yc,0);
+  /* keep the whole skeleton inside the draw distance at any screen shape (short hero boxes push the camera back) */
+  var far=dist+SK.H0*3;if(Math.abs(SK.cam.far-far)>far*.05||SK.cam.near!==Math.max(1,dist*.05)){SK.cam.far=far;SK.cam.near=Math.max(1,dist*.05)}
   SK.cam.setViewOffset(W,Hh,W/2-(rc.left+rc.width/2),Hh/2-(rc.top+rc.height/2),W,Hh);
   SK.r.render(SK.sc,SK.cam);
   requestAnimationFrame(skTick);
@@ -10849,99 +10867,6 @@ function skBoot(){
 }
 setTimeout(skBoot,0);
 
-/* ===== Home hero turntable (Nov 2026) =====
-   36 frames, 10 degrees apart, of the real skeleton (models/skel.bin) captured from the 3D viewer with a transparent
-   background. Keeps the WebGL hero's behaviour: scan reveal when Home opens, a slow upward pulse, idle spin,
-   drag to turn with inertia, tap to open the 3D viewer, theme colours, reduced motion. Set window.__OC_TT=false
-   before this line to go back to the WebGL hero. */
-if(window.__OC_TT===undefined)window.__OC_TT=!window.__NOHUB;
-var TT={N:36,fr:[],n:0,el:null,cv:null,cx:null,ang:12,vel:0,drag:null,dn:null,idle:9,run:false,last:0,
-  scan:-1,scanT:0,scanDur:1.5,pulseT:4,pulseP:-1,acc:'#22E5F2',rm:false,ok:false,failed:false,started:false};
-function ttRM(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}}
-function ttAcc(){try{TT.acc=getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||TT.acc}catch(e){}}
-function ttImg(i){var im=new Image();im.decoding='async';im.onload=function(){TT.n++;if(i===0){TT.ok=true;ttReady()}};im.onerror=function(){if(i===0)ttFail()};im.src='hub3d/s'+(i<10?'0':'')+i+'.webp?v=1';TT.fr[i]=im}
-function ttFail(){TT.failed=true;TT.run=false;var h=document.getElementById('hub');if(h)h.classList.remove('sk-on');if(TT.el&&TT.el.parentNode)TT.el.parentNode.removeChild(TT.el)}
-function ttBuild(){
-  var h=document.getElementById('hub');
-  var d=document.createElement('div');d.className='oc-tt';d.setAttribute('aria-hidden','true');
-  var t='';for(var i=0;i<72;i++){var a=i/72*Math.PI*2,b=i%9===0,r2=b?176:186;t+='<line'+(b?' class="big"':'')+' x1="'+(200+Math.cos(a)*196).toFixed(1)+'" y1="'+(200+Math.sin(a)*196).toFixed(1)+'" x2="'+(200+Math.cos(a)*r2).toFixed(1)+'" y2="'+(200+Math.sin(a)*r2).toFixed(1)+'"/>'}
-  d.innerHTML='<div class="oc-tt__glow"></div><div class="oc-tt__floor"><div class="oc-tt__disc"><svg viewBox="0 0 400 400"><g fill="none" stroke="currentColor"><circle cx="200" cy="200" r="196"/><circle cx="200" cy="200" r="160" opacity=".7"/><circle cx="200" cy="200" r="124" opacity=".5"/><circle cx="200" cy="200" r="88" opacity=".35"/></g><g>'+t+'</g></svg></div></div><canvas class="oc-tt__cv" width="480" height="1178"></canvas>';
-  h.insertBefore(d,h.querySelector('.hub-in'));
-  TT.el=d;TT.cv=d.querySelector('canvas');TT.cx=TT.cv.getContext('2d');
-}
-function ttReady(){
-  var h=document.getElementById('hub');if(!h||TT.failed)return;
-  h.classList.add('sk-on');TT.el.classList.add('ready');
-  var first=false;try{first=!localStorage.getItem(SKKEY);localStorage.setItem(SKKEY,'1')}catch(e){}
-  ttScan(first?2.6:1.5);ttWake();
-  var rest=function(){for(var i=1;i<TT.N;i++)ttImg(i)};
-  if(document.readyState==='complete')setTimeout(rest,0);else addEventListener('load',function(){setTimeout(rest,0)},{once:true});
-}
-function ttScan(dur){if(!TT.ok||TT.rm){TT.scan=-1;return}TT.scan=0;TT.scanT=0;TT.scanDur=dur;TT.pulseT=dur+3.5}
-function ttWake(){if(TT.run||!TT.ok||TT.failed)return;var h=document.getElementById('hub');if(!h||h.hidden||document.hidden)return;TT.run=true;TT.last=performance.now();requestAnimationFrame(ttTick)}
-function ttRect(){var h=document.getElementById('hub');if(!h||h.hidden)return null;var e=h.querySelector('.hub-hb');if(!e)return null;var r=e.getBoundingClientRect();if(r.height<20||r.bottom<-80||r.top>innerHeight+80)return null;return r}
-function ttOk(im){return im&&im.complete&&im.naturalWidth>0}
-function ttDraw(){
-  var c=TT.cx,w=TT.cv.width,hh=TT.cv.height,N=TT.N,a=((TT.ang%360)+360)%360/(360/N),i=Math.floor(a),f=a-i;
-  var A=TT.fr[i],B=TT.fr[(i+1)%N];
-  if(!ttOk(A)){A=TT.fr[0];f=0}
-  c.globalCompositeOperation='source-over';c.globalAlpha=1;c.clearRect(0,0,w,hh);
-  if(ttOk(A))c.drawImage(A,0,0,w,hh);
-  if(f>.02&&ttOk(B)){c.globalAlpha=f;c.drawImage(B,0,0,w,hh);c.globalAlpha=1}
-  var y,g;
-  if(TT.scan>=0){ // reveal from the top down, with an accent band at the edge
-    y=TT.scan*hh;c.clearRect(0,y,w,hh-y);
-    c.globalCompositeOperation='source-atop';
-    g=c.createLinearGradient(0,y-hh*.2,0,y);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,TT.acc);
-    c.globalAlpha=.75;c.fillStyle=g;c.fillRect(0,y-hh*.2,w,hh*.2);c.globalAlpha=1;
-    c.globalCompositeOperation='source-over';
-    c.strokeStyle=TT.acc;c.lineWidth=3;c.globalAlpha=Math.min(1,(1-TT.scan)*3);
-    c.beginPath();c.ellipse(w/2,y,w*.34,w*.045,0,0,Math.PI*2);c.stroke();c.globalAlpha=1;
-  }else if(TT.pulseP>=0){ // slow pulse travelling up the body
-    y=(1-TT.pulseP)*hh;c.globalCompositeOperation='source-atop';
-    g=c.createLinearGradient(0,y-hh*.06,0,y+hh*.06);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,TT.acc);g.addColorStop(1,'rgba(0,0,0,0)');
-    c.globalAlpha=.55;c.fillStyle=g;c.fillRect(0,y-hh*.06,w,hh*.12);c.globalAlpha=1;c.globalCompositeOperation='source-over';
-  }
-}
-function ttTick(now){
-  if(!TT.run)return;
-  var h=document.getElementById('hub');
-  if(!h||h.hidden||document.hidden){TT.run=false;TT.el.classList.remove('on');return}
-  var dt=Math.min(.05,(now-TT.last)/1000);TT.last=now;
-  var rc=ttRect();
-  if(!rc){TT.el.classList.remove('on');requestAnimationFrame(ttTick);return}
-  var s=TT.el.style;s.left=rc.left+'px';s.top=rc.top+'px';s.width=rc.width+'px';s.height=rc.height+'px';TT.el.classList.add('on');
-  if(TT.scan>=0){TT.scanT+=dt;var p=Math.min(1,TT.scanT/TT.scanDur);TT.scan=1-Math.pow(1-p,1.6);if(p>=1)TT.scan=-1}
-  else if(!TT.rm){TT.pulseT-=dt;if(TT.pulseT<=0){if(TT.pulseP<0)TT.pulseP=0;TT.pulseP+=dt/2.4;if(TT.pulseP>=1){TT.pulseP=-1;TT.pulseT=8}}}
-  if(!TT.rm){
-    if(TT.drag)TT.idle=0;
-    else{TT.idle+=dt;TT.ang+=TT.vel*dt;TT.vel*=Math.pow(.04,dt);if(TT.idle>1.2)TT.ang+=17*dt*Math.min(1,(TT.idle-1.2)/1.5)}
-  }
-  TT.el.style.setProperty('--oc-tt-az',(-TT.ang).toFixed(2)+'deg');
-  ttDraw();
-  requestAnimationFrame(ttTick);
-}
-function ttWire(){
-  var h=document.getElementById('hub');
-  h.addEventListener('pointerdown',function(e){if(!TT.ok||!e.target.closest||!e.target.closest('.hub-hb'))return;TT.dn={x:e.clientX,y:e.clientY,t:performance.now(),mv:0};if(TT.rm)return;TT.drag={x:e.clientX,id:e.pointerId,t:performance.now()};TT.vel=0;try{e.target.setPointerCapture(e.pointerId)}catch(x){}});
-  h.addEventListener('pointermove',function(e){if(TT.dn)TT.dn.mv=Math.max(TT.dn.mv,Math.abs(e.clientX-TT.dn.x)+Math.abs(e.clientY-TT.dn.y));if(!TT.drag||e.pointerId!==TT.drag.id)return;var now=performance.now(),dx=e.clientX-TT.drag.x;TT.drag.x=e.clientX;TT.ang+=dx*.63;TT.vel=Math.max(-240,Math.min(240,dx*.63/Math.max(.008,(now-TT.drag.t)/1000)*.5));TT.drag.t=now;ttWake()});
-  var up=function(e){if(TT.drag&&e.pointerId===TT.drag.id){if(performance.now()-TT.drag.t>90)TT.vel=0;TT.drag=null}
-    var d=TT.dn;TT.dn=null;if(d&&e.type==='pointerup'&&d.mv<9&&performance.now()-d.t<600&&typeof v3Open==='function')v3Open()};
-  h.addEventListener('pointerup',up);h.addEventListener('pointercancel',up);
-}
-function ttBoot(){
-  if(!window.__OC_TT)return;
-  var h=document.getElementById('hub');if(!h)return;
-  TT.rm=ttRM();ttAcc();ttBuild();ttWire();
-  new MutationObserver(ttAcc).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  var go=function(){if(TT.started)return;TT.started=true;ttImg(0)};
-  new MutationObserver(function(){if(!h.hidden){if(TT.ok){ttScan(1.3);ttWake()}else go()}}).observe(h,{attributes:true,attributeFilter:['hidden']});
-  document.addEventListener('visibilitychange',ttWake);
-  addEventListener('resize',ttWake);
-  h.addEventListener('scroll',ttWake,{passive:true});
-  if(!h.hidden)go();
-}
-setTimeout(ttBoot,0);
 
 /* ===== Home hub: search, continue, spaced-repetition review queue ===== */
 var SRSKEY='anatomy-drill-srs',LASTKEY='anatomy-drill-last',THEMEKEY='anatomy-drill-theme';

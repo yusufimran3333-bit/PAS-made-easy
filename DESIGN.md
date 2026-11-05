@@ -106,8 +106,8 @@ Phone-first. 560px breakpoint reflows the hero (smaller skeleton, fewer tags) an
 - Any new interactive element: 44px min height on coarse pointers, visible `:focus-visible`, icon-or-text alongside colour.
 - Do not alter anatomy facts; wording changes apply to UI copy only.
 
-## Home hero turntable (Nov 2026)
-Home shows 36 frames (`hub3d/s00.webp`–`s35.webp`, 10° apart, transparent background) of the real skeleton from `models/skel.bin`, captured from the 3D viewer. It keeps the earlier WebGL hero's behaviour: scan reveal when Home opens, a slow upward pulse, idle spin, drag to turn with inertia, tap to open the 3D viewer, theme accent colours, reduced motion (no spin or scan). Floor ring and glow use `--accent`. The WebGL hero code is still in `index.html`; set `window.__OC_TT=false` to switch back. If the frames fail to load, Home falls back to the static bust image.
+## Home hero (Nov 2026)
+Home draws the real skeleton (`models/skel.bin`) live in WebGL, with the 3D viewer's look: `MeshStandardMaterial`, viewer bone/cartilage colours (`V3C`), the same hemisphere and two directional lights. It keeps the scan reveal, slow upward pulse, idle spin, drag with inertia, tap to open the 3D viewer, theme colours and reduced motion. A floor of concentric rings, 72 tick marks and a soft glow sits at foot level inside the 3D scene and turns with the skeleton. The canvas is drawn above the hero card (`.hub-sk{z-index:2}`); the camera's draw distance follows its distance so short hero boxes (iPad portrait) never clip it.
 
 ## Bone lab quiz magnifier (Nov 2026)
 In Bone lab tests, "Name it", "Attachments & joints" and "Why this shape" questions show a round, zoomed copy of the plate (`.bl-loupe`) beside the question, centred on the highlighted structure, so it stays in view on phones where the plate scrolls away. IDs inside the copy get a `-lp` suffix.
