@@ -119,3 +119,10 @@ Home now follows the concept-v2 visual language throughout, scoped under `#hub`:
 - **Bento tiles**: `Skeleton and muscles` is a 2x2 feature tile carrying a cutout figure (`img/hub-tile-skeleton.webp`); Microanatomy gets a concentric-rings mark; Flashcards gets a small card-stack doodle (`.oh-deck`).
 - **Scroll story** (`ohStory()`/`.oh-story`): below the tiles, a sticky section turns the same skeleton through 4 quarter-turns (front/side/behind/other-side) while labelling 2 landmarks per chapter (anchors computed from node bounding boxes in `skBuild`, projected each frame in `ohPins()`). Falls back to a static 2-column list when WebGL is unavailable (`#hub:not(.sk-on)`).
 - Still true to the pre-batch-9 rules: single cyan accent, `var(--f-display)` for headings, reduced-motion snaps the story instead of animating it, nothing overlaps the Blurt button.
+
+## Labs and quizzes redesign (batch 10, Nov 2026)
+All seven lab/quiz screens (Bone, Joint, Muscle, Cartilage, Microanatomy, Exam practice, Flashcards) share one dialog shell (`.bl`), so this batch is a single CSS pass scoped to that shell — no markup or behaviour changed, confirmed by a computed-style diff against main showing zero pixel difference on Home and the 3D viewer:
+- `.eyebrow` inside `.bl` is now accent-coloured with wider letter-spacing, matching the concept's small caps labels.
+- `.bl-stage` (the figure/plate panel shared by every lab) gets a "specimen" treatment: a soft accent-tinted radial glow behind the figure plus four corner crop-marks drawn in pure CSS (`.bl-stage::after`, multi-layer `background-image`), no new markup.
+- `.btn` and `.chip` inside `.bl` are pill radius (`var(--r-pill)`), with a small lift-on-hover for buttons, consistent with Home's CTAs.
+- `.bl-opt` (quiz answer options) keep their existing ok/bad colours and icons; only the corner radius and hover border changed.
