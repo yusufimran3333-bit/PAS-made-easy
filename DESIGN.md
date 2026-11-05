@@ -114,7 +114,7 @@ In Bone lab tests, "Name it", "Attachments & joints" and "Why this shape" questi
 
 ## Home redesign (batch 9, Nov 2026)
 Home now follows the concept-v2 visual language throughout, scoped under `#hub`:
-- **Top bar** (`.oh-top`): wordmark + theme toggle icon + a single pill CTA ("Start revising" or "Review N due"). The greeting moved out of the header.
+- **Top bar** (`.oh-top`): wordmark + theme toggle icon (the top CTA was removed in batch 12 as redundant: the skeleton opens the viewer and the Review queue card has its own button). The greeting moved out of the header.
 - **Hero** (`.oh-hero`): the live WebGL skeleton is centred full-width over a large outlined "Osteon" wordmark (`.oh-word`), with a drag-to-rotate azimuth readout (`.oh-az`/`#ohazv`, driven live from `SK.pivot.rotation.y` in `skTick`) bottom-right of the stage. The headline and subtext sit below the stage, right-aligned subtext balancing the left-aligned `<h1>`.
 - **Bento tiles**: `Skeleton and muscles` is a 2x2 feature tile carrying a cutout figure (`img/hub-tile-skeleton.webp`); Microanatomy gets a concentric-rings mark; Flashcards gets a small card-stack doodle (`.oh-deck`).
 - **Scroll story** (`ohStory()`/`.oh-story`): below the tiles, a sticky section turns the same skeleton through 4 quarter-turns (front/side/behind/other-side) while labelling 2 landmarks per chapter (anchors computed from node bounding boxes in `skBuild`, projected each frame in `ohPins()`). Falls back to a static 2-column list when WebGL is unavailable (`#hub:not(.sk-on)`).
@@ -134,3 +134,8 @@ The two small overlays opened from the Home menu — "About" (`abOpen`) and "My 
 - `.btn` inside `.rmcr` is pill radius with the same lift-on-hover as Home/labs.
 - Confirmed zero pixel/style difference against main on Home, 3D viewer, and all seven lab/quiz screens — the change is fully scoped to `.rmcr`.
 - `.bl-opt` (quiz answer options) keep their existing ok/bad colours and icons; only the corner radius and hover border changed.
+
+## Hero fixes (batch 12, Nov 2026)
+- Removed the top-bar "Start revising" pill (`.oh-cta-top`): redundant with tapping the skeleton and the Review queue card.
+- `.oh-h1` gets `padding-bottom:.14em` so the italic "by heart." descenders aren't clipped by `.oh-hero{overflow:hidden}` (seen on iPad with the real Instrument Serif).
+- The fixed Blurt button no longer covers hero text: above 700px `.oh-sub` keeps a right margin clearing the button; at 700px and below the hero's min-height ends 80px above the screen bottom.
