@@ -106,8 +106,16 @@ Phone-first. 560px breakpoint reflows the hero (smaller skeleton, fewer tags) an
 - Any new interactive element: 44px min height on coarse pointers, visible `:focus-visible`, icon-or-text alongside colour.
 - Do not alter anatomy facts; wording changes apply to UI copy only.
 
-## Home hero turntable (Nov 2026)
-Home shows 36 frames (`hub3d/s00.webp`–`s35.webp`, 10° apart, transparent background) of the real skeleton from `models/skel.bin`, captured from the 3D viewer. It keeps the earlier WebGL hero's behaviour: scan reveal when Home opens, a slow upward pulse, idle spin, drag to turn with inertia, tap to open the 3D viewer, theme accent colours, reduced motion (no spin or scan). Floor ring and glow use `--accent`. The WebGL hero code is still in `index.html`; set `window.__OC_TT=false` to switch back. If the frames fail to load, Home falls back to the static bust image.
+## Home hero (Nov 2026)
+Home draws the real skeleton (`models/skel.bin`) live in WebGL, with the 3D viewer's look: `MeshStandardMaterial`, viewer bone/cartilage colours (`V3C`), the same hemisphere and two directional lights. It keeps the scan reveal, slow upward pulse, idle spin, drag with inertia, tap to open the 3D viewer, theme colours and reduced motion. A floor of concentric rings, 72 tick marks and a soft glow sits at foot level inside the 3D scene and turns with the skeleton. The canvas is drawn above the hero card (`.hub-sk{z-index:2}`); the camera's draw distance follows its distance so short hero boxes (iPad portrait) never clip it.
 
 ## Bone lab quiz magnifier (Nov 2026)
 In Bone lab tests, "Name it", "Attachments & joints" and "Why this shape" questions show a round, zoomed copy of the plate (`.bl-loupe`) beside the question, centred on the highlighted structure, so it stays in view on phones where the plate scrolls away. IDs inside the copy get a `-lp` suffix.
+
+## Home redesign (batch 9, Nov 2026)
+Home now follows the concept-v2 visual language throughout, scoped under `#hub`:
+- **Top bar** (`.oh-top`): wordmark + theme toggle icon + a single pill CTA ("Start revising" or "Review N due"). The greeting moved out of the header.
+- **Hero** (`.oh-hero`): the live WebGL skeleton is centred full-width over a large outlined "Osteon" wordmark (`.oh-word`), with a drag-to-rotate azimuth readout (`.oh-az`/`#ohazv`, driven live from `SK.pivot.rotation.y` in `skTick`) bottom-right of the stage. The headline and subtext sit below the stage, right-aligned subtext balancing the left-aligned `<h1>`.
+- **Bento tiles**: `Skeleton and muscles` is a 2x2 feature tile carrying a cutout figure (`img/hub-tile-skeleton.webp`); Microanatomy gets a concentric-rings mark; Flashcards gets a small card-stack doodle (`.oh-deck`).
+- **Scroll story** (`ohStory()`/`.oh-story`): below the tiles, a sticky section turns the same skeleton through 4 quarter-turns (front/side/behind/other-side) while labelling 2 landmarks per chapter (anchors computed from node bounding boxes in `skBuild`, projected each frame in `ohPins()`). Falls back to a static 2-column list when WebGL is unavailable (`#hub:not(.sk-on)`).
+- Still true to the pre-batch-9 rules: single cyan accent, `var(--f-display)` for headings, reduced-motion snaps the story instead of animating it, nothing overlaps the Blurt button.
