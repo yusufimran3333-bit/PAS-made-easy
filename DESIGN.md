@@ -125,4 +125,12 @@ All seven lab/quiz screens (Bone, Joint, Muscle, Cartilage, Microanatomy, Exam p
 - `.eyebrow` inside `.bl` is now accent-coloured with wider letter-spacing, matching the concept's small caps labels.
 - `.bl-stage` (the figure/plate panel shared by every lab) gets a "specimen" treatment: a soft accent-tinted radial glow behind the figure plus four corner crop-marks drawn in pure CSS (`.bl-stage::after`, multi-layer `background-image`), no new markup.
 - `.btn` and `.chip` inside `.bl` are pill radius (`var(--r-pill)`), with a small lift-on-hover for buttons, consistent with Home's CTAs.
+
+## 3D viewer and small overlays (batch 11, Nov 2026)
+Checked the 3D viewer (`.v3`) screen by screen — Layers panel, label cards, camera controls — against the concept language. It already carried it from earlier batches: pill glass buttons (`.v3b`), accent-cyan "on" state, serif title, dark radial-gradient stage. No changes made there.
+
+The two small overlays opened from the Home menu — "About" (`abOpen`) and "My mnemonics" (`mnOverlay`) — had been left behind: plain uppercase section labels and squared-off buttons. Both share one shell (`.rmcr`), always dark regardless of app theme (like `.v3`), so this batch's CSS hardcodes the dark-mode accent (`#22E5F2`) rather than `var(--accent)`, which would resolve to the dimmer light-theme teal and look muddy against the fixed-dark card:
+- `.mn-h`, `.mn-h2`, `.ab-h`, `.cr-h` (section eyebrows) are now accent-coloured.
+- `.btn` inside `.rmcr` is pill radius with the same lift-on-hover as Home/labs.
+- Confirmed zero pixel/style difference against main on Home, 3D viewer, and all seven lab/quiz screens — the change is fully scoped to `.rmcr`.
 - `.bl-opt` (quiz answer options) keep their existing ok/bad colours and icons; only the corner radius and hover border changed.

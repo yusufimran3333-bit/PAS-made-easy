@@ -1069,6 +1069,14 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 .bl-opt:not([disabled]):hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
 .bl-card .bl-tag,.bl-ill{border-radius:var(--r-md)}
 @media(prefers-reduced-motion:reduce){.bl .btn{transition:none}}
+
+/* ===== Small overlays (My mnemonics, About) in the concept style (Batch 11). Scoped to .rmcr; always-dark like .v3, so the accent is hardcoded to match. ===== */
+.rmcr .mn-h,.rmcr .mn-h2,.rmcr .ab-h,.rmcr .cr-h{color:#22E5F2;opacity:.9}
+.rmcr .btn{border-radius:999px;transition:transform .15s,filter .2s}
+.rmcr .btn:not([disabled]):hover{transform:translateY(-1px);filter:brightness(1.08)}
+.rmcr .btn:active{transform:translateY(0) scale(.98)}
+.rmcr .mn-b:hover{border-color:color-mix(in srgb,#22E5F2 45%,rgba(255,255,255,.14))}
+@media(prefers-reduced-motion:reduce){.rmcr .btn{transition:none}}
 </style>
 
 <div class="app">
