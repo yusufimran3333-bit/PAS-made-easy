@@ -1079,6 +1079,21 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 #hub .oh-h1{padding-bottom:.14em}
 @media(min-width:701px){#hub .oh-sub{margin-right:calc(max(14px,env(safe-area-inset-right,0px)) + 112px)}}
 @media(max-width:700px){#hub .oh-hero{min-height:min(calc(100svh - 92px - 80px - env(safe-area-inset-bottom,0px)),760px)}}
+/* bone search in the bone lab */
+.bl-pick{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 12px}
+.bl-pick-f{position:relative;flex:1 1 300px;max-width:520px}
+.bl-pick-f svg{position:absolute;left:14px;top:50%;width:17px;height:17px;transform:translateY(-50%);fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;pointer-events:none}
+.bl-pick-f input{width:100%;box-sizing:border-box;min-height:46px;padding:10px 14px 10px 40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:16px;outline:none;-webkit-appearance:none;appearance:none}
+.bl-pick-f input::placeholder{color:var(--muted)}
+.bl-pick-f input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.bl-pick-cur{font-size:13px;color:var(--muted)}.bl-pick-cur b{color:var(--ink);font-weight:600}
+.bl-pick-res{position:absolute;left:0;top:52px;z-index:30;width:min(520px,100%);max-height:min(360px,55vh);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.35);padding:6px}
+.bl-pick-res[hidden]{display:none}
+.bl-pick-o{display:flex;width:100%;align-items:baseline;justify-content:space-between;gap:12px;text-align:left;min-height:44px;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
+.bl-pick-o small{color:var(--muted);font-size:12px;white-space:nowrap}
+.bl-pick-o:hover,.bl-pick-o:focus-visible,.bl-pick-o.first{background:var(--accent-soft);outline:none}
+.bl-pick-o.on span{color:var(--accent);font-weight:600}
+.bl-pick-none{margin:8px 12px;color:var(--muted);font-size:14px}
 </style>
 
 <div class="app">
@@ -3881,6 +3896,14 @@ function rmAttLoad(cb){rmLoad('ins',function(ok){
   if(!ok){cb(false);return}
   if(!RM.attIdx){
     RM.attIdx={};
+    /* The source model tags some attachment patches the wrong way round (origin shown as insertion).
+       These are corrected here, checked patch by patch against the written origins and insertions
+       (Nov 2026): whole muscle for serratus anterior, pectoralis minor, subclavius, trapezius, the scalenes,
+       longus capitis, thyrohyoid, rectus abdominis and the suboccipital muscles; single patches for the
+       obliques, pectoralis major (sternum), biceps femoris (short head), adductor pollicis, digastric,
+       adductor hallucis (transverse head) and latissimus dorsi (inferior angle). Keys are patch offsets in ins.bin. */
+    var FIX={};[19312,19576,20840,21032,21704,21956,22208,22672,40852,42580,90644,91252,91852,93360,149612,150544,151476,153412,156676,159940,162516,165096,171208,172840,228524,228632,240944,241264,254856,256152,257436,258384,259332,260112,260880,263276,275988,276432,276876,279192,281516,281756,281996,282092,282764,283108,283452,283680,283908,284120,284332,284680,285028,285232,308024,308236,308448,308576,308704,308980,309256,309876,310496,310796,311096,311512,311928,312656,313384,313792,328808,329812,331144,332476,334596,336716,337592,338480,339512,340544,341984,343420,344344,345256,345964,346872,347780,350072,362616,371692,374040,376388,377560,378732,381884,387660,388028,444492,445092,445692,446036,462788,462940,463092,463748,464404,464748,465092,465176,465260,466732].forEach(function(o){FIX[o]=1});
+    RM.H.ins.nodes.forEach(function(n){if(FIX[n.o]&&!n.fx){n.k=n.k==='o'?'e':'o';n.fx=1}});
     RM.H.ins.nodes.forEach(function(n){
       var tg=RMAL[n.gk]||[n.gk];
       tg.forEach(function(t){(RM.attIdx[t]=RM.attIdx[t]||[]).push(n)});
@@ -4158,6 +4181,56 @@ function blLeaves(b){return b.lm.filter(function(l){return !l.grp})}
 /* leaves that can actually be shown on a drawing (quiz and study pools) */
 function blQLeaves(b){var vs=blViews(b).map(function(v){return v[0]});var all=blLeaves(b);if(!vs.length)return all;return all.filter(function(l){return vs.some(function(v){return l[v]})})}
 function blGo(){return document.getElementById('blbody')}
+/* ----- bone search (replaces the long row of bone chips) ----- */
+var BLALIAS={longgen:'parts of a long bone diaphysis epiphysis metaphysis',humerus:'arm upper limb',ulna:'forearm',radius:'forearm',scapula:'shoulder blade',clavicle:'collarbone collar bone',
+ femur:'thigh',tibia:'shin leg',fibula:'leg',patella:'kneecap knee cap',hip:'pelvis pelvic ilium ischium pubis innominate os coxae',
+ scaphoid:'carpal wrist',lunate:'carpal wrist',triquetrum:'carpal wrist',pisiform:'carpal wrist',trapezium:'carpal wrist',trapezoid:'carpal wrist',capitate:'carpal wrist',hamate:'carpal wrist hook',
+ talus:'tarsal ankle foot',calcaneus:'tarsal heel foot',navicular:'tarsal foot',cuboid:'tarsal foot',medcun:'tarsal foot',intcun:'tarsal foot',latcun:'tarsal foot',
+ lumbar:'vertebra vertebrae spine back',sacrum:'sacral vertebra vertebrae spine',coccyx:'tailbone tail bone vertebra vertebrae spine',
+ atlas:'vertebra vertebrae spine neck first cervical',axis:'vertebra vertebrae spine neck second cervical dens odontoid',
+ cervical:'vertebra vertebrae spine neck',thoracic:'vertebra vertebrae spine back',
+ sternum:'breastbone breast bone manubrium xiphoid chest',rib:'ribs chest thorax',rib1:'ribs chest',rib2:'ribs chest',rib1112:'ribs floating chest',
+ skull:'cranium head',frontal:'skull cranium forehead',parietal:'skull cranium',occipital:'skull cranium',temporal:'skull cranium mastoid',sphenoid:'skull cranium',ethmoid:'skull cranium',
+ maxilla:'skull face upper jaw',mandible:'skull face jaw lower jaw jawbone',zygomatic:'skull face cheek',nasal:'skull face nose',lacrimal:'skull face orbit',concha:'skull face nose turbinate',vomer:'skull face nose septum',palatine:'skull face palate',
+ hyoid:'neck',malleus:'ear ossicle ossicles',incus:'ear ossicle ossicles',stapes:'ear ossicle ossicles',
+ metacarpal:'hand',metacarpal1:'hand thumb',phalanx:'finger hand phalanges',dphalanx:'finger hand phalanges',metatarsal:'foot',metatarsal1:'foot big toe',metatarsal5:'foot',toephalanx:'toe foot phalanges'};
+function blNorm(t){return String(t).toLowerCase().replace(/[()\[\],.]/g,' ').replace(/\s+/g,' ').trim()}
+function blBoneSearch(q){
+  q=blNorm(q);if(!q)return BLORDER.slice();
+  /* vertebra and rib numbers: "t5", "c7", "l3", "rib 12" */
+  var m=q.match(/^([ctl])\s?(\d{1,2})$/),pin=null;
+  if(m){var n=+m[2];if(m[1]==='c')pin=n===1?'atlas':n===2?'axis':n<=7?'cervical':null;else if(m[1]==='t')pin=n>=1&&n<=12?'thoracic':null;else pin=n>=1&&n<=5?'lumbar':null}
+  m=q.match(/^ribs?\s?(\d{1,2})$/);if(m){var r=+m[1];pin=r===1?'rib1':r===2?'rib2':r===11||r===12?'rib1112':r>=3&&r<=10?'rib':null}
+  if(pin)return [pin];
+  var toks=q.split(' '),out=[];
+  BLORDER.forEach(function(id){var nm=blNorm(BLB[id].name),al=blNorm(BLALIAS[id]||''),words=(nm+' '+al+' '+id).split(' ');
+    if(!toks.every(function(t){return words.some(function(w){return w.indexOf(t)===0})}))return;
+    var sc=nm.indexOf(q)===0?1:(' '+nm).indexOf(' '+q)>=0?2:nm.indexOf(q)>=0?3:4;out.push([sc,id])});
+  out.sort(function(a,b){return a[0]-b[0]||BLORDER.indexOf(a[1])-BLORDER.indexOf(b[1])});
+  return out.map(function(x){return x[1]});
+}
+function blPickShow(){
+  var inp=document.getElementById('blbq'),res=document.getElementById('blbres');if(!inp||!res)return;
+  var ids=blBoneSearch(inp.value),tg=blTags(),h='',typed=!!inp.value.trim();
+  if(!ids.length)h='<p class="bl-pick-none">No bone matches “'+blE(inp.value.trim().slice(0,40))+'”. Try a shorter word, like “vert” or “carpal”.</p>';
+  ids.forEach(function(id,i){var x=BLB[id];h+='<button type="button" role="option" class="bl-pick-o'+(id===BL.bone?' on':'')+(i===0&&typed?' first':'')+'" data-bl="bone" data-id="'+id+'"><span>'+blE(x.name)+'</span><small>'+blE((tg[x.tag||x.type]||'').replace(/ bones$/,'').replace(/s$/,''))+'</small></button>'});
+  res.innerHTML=h;res.hidden=false;inp.setAttribute('aria-expanded','true');
+}
+function blPickHide(){var res=document.getElementById('blbres'),inp=document.getElementById('blbq');if(res)res.hidden=true;if(inp)inp.setAttribute('aria-expanded','false')}
+document.addEventListener('input',function(e){if(e.target&&e.target.id==='blbq')blPickShow()});
+document.addEventListener('focusin',function(e){if(e.target&&e.target.id==='blbq')blPickShow()});
+window.addEventListener('keydown',function(e){var t=e.target;if(!t)return;
+  if(e.key==='Escape'&&(t.id==='blbq'||(t.classList&&t.classList.contains('bl-pick-o')))){e.stopPropagation()}
+  if(t.id==='blbq'){
+    if(e.key==='Enter'){e.preventDefault();var f=document.querySelector('#blbres .bl-pick-o');if(f&&t.value.trim())f.click()}
+    else if(e.key==='Escape'){t.value='';blPickHide();t.blur()}
+    else if(e.key==='ArrowDown'){var o=document.querySelector('#blbres .bl-pick-o');if(o){e.preventDefault();o.focus()}}
+  }else if(t.classList&&t.classList.contains('bl-pick-o')){
+    if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();var nx=e.key==='ArrowDown'?t.nextElementSibling:t.previousElementSibling;if(nx)nx.focus();else if(e.key==='ArrowUp'){var i=document.getElementById('blbq');if(i)i.focus()}}
+    else if(e.key==='Escape'){blPickHide();var i2=document.getElementById('blbq');if(i2)i2.focus()}
+  }},true);
+document.addEventListener('pointerdown',function(e){if(!document.getElementById('blpick'))return;var t=e.target;if(!(t&&t.closest&&t.closest('.bl-pick-f,#blbres')))blPickHide()});
+document.addEventListener('focusout',function(e){var p=document.getElementById('blpick');if(!p||!p.contains(e.target))return;setTimeout(function(){var a=document.activeElement;if(a&&a!==document.body&&!p.contains(a))blPickHide()},150)});
 function blTags(){return {long:'Long bones',short:'Short bones',flat:'Flat bones',irregular:'Irregular bones',sesamoid:'Sesamoid bones'}}
 
 function blRender(){
@@ -4167,10 +4240,8 @@ function blRender(){
   if(BL.tab==='tissue'){body.innerHTML=btHTML();return}
   var b=blBone(),views=blViews(b);
   if(!blItems(b,BL.view).length)BL.view=views[0][0];
-  var h='<div class="bl-wrap"><div class="bl-row scroll" id="blbones">';
-  var tg=blTags(),last='';
-  BLORDER.forEach(function(id){var x=BLB[id];h+='<button class="chip'+(id===BL.bone?' on':'')+'" data-bl="bone" data-id="'+id+'">'+blE(x.name)+'</button>'});
-  h+='</div><div class="bl-row"><div class="seg">';
+  var h='<div class="bl-wrap"><div class="bl-pick" id="blpick"><div class="bl-pick-f"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="blbq" type="search" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="Search bones, e.g. atlas, T5, scaphoid" aria-label="Search bones" aria-controls="blbres" aria-expanded="false"></div><div class="bl-pick-cur">Showing <b>'+blE(b.name)+'</b></div><div class="bl-pick-res" id="blbres" role="listbox" hidden></div></div>';
+  h+='<div class="bl-row"><div class="seg">';
   views.forEach(function(v){h+='<button data-bl="view" data-v="'+v[0]+'" class="'+(BL.view===v[0]?'on':'')+'">'+v[1]+'</button>'});
   h+='</div><div class="seg"><button data-bl="mode" data-m="learn" class="'+(BL.mode==='learn'?'on':'')+'">Learn</button><button data-bl="mode" data-m="study" class="'+(BL.mode==='study'?'on':'')+'">Study</button><button data-bl="mode" data-m="test" class="'+(BL.mode==='test'?'on':'')+'">Test</button></div>';
   if(BL.mode==='learn')h+='<button class="chip'+(BL.names?' on':'')+'" data-bl="names">Show names</button><button class="chip'+(BL.shade?' on':'')+'" data-bl="shade">Shade areas</button>';
@@ -9766,7 +9837,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V73';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V74';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
