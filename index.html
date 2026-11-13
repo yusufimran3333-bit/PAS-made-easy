@@ -1094,6 +1094,75 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 .bl-pick-o:hover,.bl-pick-o:focus-visible,.bl-pick-o.first{background:var(--accent-soft);outline:none}
 .bl-pick-o.on span{color:var(--accent);font-weight:600}
 .bl-pick-none{margin:8px 12px;color:var(--muted);font-size:14px}
+/* 3D viewer: hide, isolate, action */
+.v3mu-b{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+.v3mu-b .btn{min-height:36px}
+.v3hidp{position:absolute;z-index:40;left:12px;top:calc(max(12px,env(safe-area-inset-top,0px)) + 136px);width:min(320px,calc(100% - 24px));max-height:min(320px,60%);overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.4);padding:10px 12px 12px}
+.v3hidp[hidden]{display:none}
+.v3hidp-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.v3hidp-h .v3x{position:static}
+.v3hidp ul{list-style:none;margin:0 0 10px;padding:0}
+.v3hidp li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.v3pins{position:absolute;inset:0;pointer-events:none;z-index:6}
+.v3pin{position:absolute;transform:translate(-50%,calc(-100% - 8px));display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font:600 12px/1.2 system-ui,-apple-system,sans-serif;color:#0b0f14;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.v3pin i{position:absolute;left:50%;bottom:-8px;width:2px;height:8px;margin-left:-1px}
+.v3pin.o{background:#2fbf71}.v3pin.o i{background:#2fbf71}
+.v3pin.e{background:#ff9a2e}.v3pin.e i{background:#ff9a2e}
+.v3act{position:absolute;z-index:45;right:12px;bottom:12px;width:min(380px,calc(100% - 24px));max-height:calc(100% - 24px);overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:14px 14px 10px}
+.v3act[hidden]{display:none}
+.v3act-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.v3act-h h3{margin:2px 0 4px}.v3act-h .v3x{position:static}
+.v3act-a{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.v3act-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.v3act-btns .jl-btn.on{outline:2px solid var(--accent);outline-offset:1px}
+.v3act-demo svg{width:100%;height:auto;max-height:42vh}
+@media(max-width:560px){.v3act{left:8px;right:8px;width:auto;bottom:8px}.v3act-demo svg{max-height:32vh}}
+.v3mub{position:absolute;z-index:4;top:calc(max(12px,env(safe-area-inset-top,0px)) + 92px);left:max(16px,env(safe-area-inset-left,0px));display:flex;gap:6px}
+.v3mub .v3b[hidden]{display:none}
+.v3.clean .v3mub{display:none!important}
+.v3card{z-index:5}
+.v3pins{z-index:3}
+/* the muscle action panel reuses the Joint lab schematic, so it mirrors its styles */
+#v3act svg .jl-fixed{fill:var(--bone);stroke:var(--bone-line);stroke-width:2}
+#v3act svg .jl-move{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.4}
+#v3act svg .jl-rodo{stroke:var(--accent);stroke-width:30;stroke-linecap:round}
+#v3act svg .jl-rod{stroke:var(--accent-soft);stroke-width:25;stroke-linecap:round}
+#v3act svg .jl-ghost{stroke:var(--accent);stroke-width:26;stroke-linecap:round;opacity:.12}
+#v3act svg .jl-head{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.4}
+#v3act svg .jl-axis{fill:var(--hl)}
+#v3act svg .jl-socket,#v3act svg .jl-ring{fill:none;stroke:var(--bone-line);stroke-width:5;stroke-linecap:round}
+#v3act svg .jl-surf{stroke:var(--hl);stroke-width:2.4;stroke-dasharray:5 4}
+#v3act svg .jl-pad{stroke:var(--hl);stroke-width:5;stroke-linecap:round}
+#v3act svg .jl-padd{fill:var(--hl)}
+#v3act svg .jl-trail{fill:none;stroke:var(--hl);stroke-width:2.4;stroke-dasharray:4 4}
+#v3act svg .jl-cone{stroke:var(--hl);stroke-width:1;opacity:.35}
+#v3act svg .jl-lab{font:600 11px var(--f-body);fill:var(--muted);text-anchor:middle}
+#v3act svg .jl-lab.w{fill:var(--ink)}
+#v3act svg.nope{animation:jlnope .5s}
+#v3act svg.nope{animation:none}
+#v3act svg .jd-bone{fill:var(--bone);stroke:var(--bone-line);stroke-width:2;stroke-linejoin:round}
+#v3act svg .jd-cart{fill:rgba(110,170,225,.72);stroke:rgba(40,100,170,.9);stroke-width:1.6}
+#v3act svg .jd-ring{fill:none;stroke:rgba(70,140,215,.95);stroke-width:5}
+#v3act svg .jd-cap{fill:rgba(240,200,120,.16);stroke:var(--jline);stroke-width:2;stroke-dasharray:6 5;pointer-events:stroke}
+#v3act svg .jd-lig{fill:rgba(232,84,43,.72);stroke:var(--hl-line);stroke-linejoin:round}
+#v3act svg .jd-lig:not(.jd-ln){stroke-width:1.5}
+#v3act svg .jd-ln{fill:none;stroke:var(--hl);stroke-linecap:round}
+#v3act svg .jd-hit{stroke:transparent;stroke-linecap:round;fill:none;pointer-events:stroke}
+#v3act svg .jd-g{cursor:pointer}
+#v3act svg .jd-g.sel .jd-bone{stroke:var(--hl);stroke-width:4}
+#v3act svg .jd-g.sel .jd-cart,#v3act svg .jd-g.sel .jd-ring{stroke:var(--hl);stroke-width:4}
+#v3act svg .jd-g.sel .jd-lig{stroke:#fff;stroke-width:3}
+#v3act svg .jd-g.sel .jd-ln{stroke:var(--hl-line);filter:drop-shadow(0 0 3px var(--hl))}
+#v3act svg .jd-g.sel .jd-cap{stroke:var(--hl);stroke-width:3.5}
+#v3act svg .jd-pin{cursor:pointer}
+#v3act svg .jd-pin circle{fill:var(--accent);stroke:#fff;stroke-width:1.6}
+#v3act svg .jd-pin text{font:700 11px var(--f-body);fill:var(--accent-ink);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+/* the 3D card is always dark, so its outline buttons stay light in both themes */
+.v3card .btn.ghost{color:#F3EFE6;border-color:rgba(243,239,230,.28);background:transparent}
+.v3card .btn.ghost:hover{background:rgba(243,239,230,.08)}
+.v3act{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 64px);max-height:calc(100% - 170px)}
+@media(max-width:560px){.v3act{bottom:calc(max(8px,env(safe-area-inset-bottom,0px)) + 52px);max-height:calc(100% - 150px)}}
+.v3act .v3x,.v3hidp .v3x{color:var(--ink);opacity:.8}
 </style>
 
 <div class="app">
@@ -1157,6 +1226,10 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
     <button class="v3b" data-v3="cov">Only covered</button>
     <button class="v3b on" id="v3names" data-v3="names">Show names</button>
     <button class="v3b" id="v3lblbtn" data-v3="lbl">Labels</button>
+  </div>
+  <div class="v3mub">
+    <button class="v3b" id="v3hidbtn" data-v3="hidlist" hidden></button>
+    <button class="v3b on" id="v3isobtn" data-v3="muisox" hidden>Exit isolate</button>
   </div>
   <div class="v3bar">
     <button class="v3b" data-v3="front">Front</button>
@@ -3126,7 +3199,9 @@ function v3Paint(){
   var qf=V3Q.on&&V3Q.ans===null;
   Object.keys(V3.groups).forEach(function(id){
     var grp=V3.groups[id],ly=grp.userData.layer||'bone',sel=V3.sel===id,lx=ly!=='bone'&&ly!=='joint',cov=!lx&&st.covered.has(id);
-    var on=!!V3.layers[ly];if(on&&grp.userData.dp!=null&&!RM.tiers[grp.userData.dp])on=false;grp.visible=on;if(!on)return;
+    var on=!!V3.layers[ly];if(on&&grp.userData.dp!=null&&!RM.tiers[grp.userData.dp])on=false;
+    if(V3.iso)on=id===V3.iso||ly==='bone';else if(on&&V3.hid&&V3.hid[id])on=false;
+    grp.visible=on;if(!on)return;
     var lop=V3.op[ly]!=null?V3.op[ly]:1;
     V3.mats[id].forEach(function(m){
       var k=m.userData.kind,base=lx?LC[k][0]:(k==='joint'?V3C.joint:k==='b'?V3C.bone:V3C[k]);
@@ -3196,7 +3271,7 @@ function v3Loop(){
     if(!V3.open)return;
     v3Step(now);
     if(V3L.on)v3LblTick(now);
-    if(V3.need){v3Cam();V3.r.render(V3.scene,V3.cam);if(V3L.on||V3L.lastH)v3LblFrame();V3.need=false}
+    if(V3.need){v3Cam();V3.r.render(V3.scene,V3.cam);if(V3L.on||V3L.lastH)v3LblFrame();if(V3.iso||V3.isoPins)v3IsoPins();V3.need=false}
     V3.raf=requestAnimationFrame(tick);
   };
   V3.raf=requestAnimationFrame(tick);
@@ -3322,6 +3397,7 @@ function v3Open(){
   },40);
 }
 function v3Close(){
+  V3.hid={};V3.iso=null;V3.isoPins=null;v3ActClose();v3HidList(false);var vp=document.getElementById('v3pins');if(vp)vp.innerHTML='';
   V3.open=false;$('#v3').hidden=true;document.body.style.overflow='';
   try{var d=document;if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d)}catch(x){}
   render();
@@ -3373,6 +3449,7 @@ function v3Sync(){
   }
   ['bone','joint'].forEach(function(k){var b=document.querySelector('.v3chips [data-v3="'+k+'"]');if(b)b.classList.toggle('on',!!V3.layers[k])});
   if(typeof V3L!=='undefined'&&V3L.open)v3LblPanel();
+  v3MuSync();
 }
 function v3AnyOn(){return V3LAYS.some(function(l){return V3.layers[l[0]]})}
 function v3NeedsLayers(map){return Object.keys(map).some(function(k){return k!=='bone'&&k!=='joint'&&map[k]})}
@@ -3411,7 +3488,185 @@ function v3LayAct(a,b){
     case 'qzpick':v3QPick(parseInt(b.dataset.i,10));break;
     case 'qznext':v3QNext();break;
     case 'qzstop':v3QStop();break;
+    case 'muhide':v3MuHide(V3.sel);break;
+    case 'muunhide':v3MuShow(b.dataset.id);break;
+    case 'muunhideall':v3MuShowAll();break;
+    case 'hidlist':{var hp=document.getElementById('v3hidp');v3HidList(!hp||hp.hidden);break}
+    case 'hidclose':v3HidList(false);break;
+    case 'muiso':v3IsoOn(V3.sel);break;
+    case 'muisox':v3IsoOff();break;
+    case 'muact':v3ActOpen();break;
+    case 'actplay':v3ActPlay(parseInt(b.dataset.i,10));break;
+    case 'actclose':v3ActClose();break;
   }
+}
+/* ---------- 3D viewer: hide single muscles, isolate one, watch its action (Nov 2026) ---------- */
+function v3MuE(){return V3.sel&&LXB[V3.sel]&&LXB[V3.sel].sys==='mu'?LXB[V3.sel]:null}
+function v3MuName(e){return e.n+(e.side?' ('+e.side+')':'')}
+function v3MuHide(id){
+  if(!id||!LXB[id])return;V3.hid=V3.hid||{};V3.hid[id]=1;
+  if(V3.iso===id)V3.iso=null;
+  if(V3.sel===id){V3.sel=null;v3Card()}
+  v3ActClose();v3Paint();v3HidList(false);
+}
+function v3MuShow(id){if(V3.hid){delete V3.hid[id]}v3Paint();v3HidList(document.getElementById('v3hidp')&&!document.getElementById('v3hidp').hidden)}
+function v3MuShowAll(){V3.hid={};v3Paint();v3HidList(false)}
+function v3HidN(){return V3.hid?Object.keys(V3.hid).length:0}
+function v3HidList(open){
+  var p=document.getElementById('v3hidp');
+  if(!p){p=document.createElement('div');p.id='v3hidp';p.className='v3hidp';p.hidden=true;p.setAttribute('role','dialog');p.setAttribute('aria-label','Hidden muscles');document.getElementById('v3').appendChild(p)}
+  var ids=V3.hid?Object.keys(V3.hid):[];
+  if(!open||!ids.length){p.hidden=true;return}
+  var h='<div class="v3hidp-h"><b>Hidden muscles</b><button class="v3x" data-v3="hidclose" aria-label="Close">&times;</button></div><ul>';
+  ids.forEach(function(id){var e=LXB[id];if(!e)return;h+='<li><span>'+blE(v3MuName(e))+'</span><button class="btn small ghost" data-v3="muunhide" data-id="'+blE(id)+'">Show</button></li>'});
+  h+='</ul><button class="btn small" data-v3="muunhideall">Show all muscles</button>';
+  p.innerHTML=h;p.hidden=false;
+}
+function v3MuSync(){
+  var n=v3HidN(),b=document.getElementById('v3hidbtn'),x=document.getElementById('v3isobtn');
+  if(b){b.hidden=!n||!!V3.iso;b.textContent=n+' hidden · Show';b.setAttribute('aria-label',n+' hidden muscles. Show the list')}
+  if(x)x.hidden=!V3.iso;
+  if(!n){var p=document.getElementById('v3hidp');if(p)p.hidden=true}
+}
+/* ----- isolate: just the bones and one muscle, origin and insertion marked ----- */
+function v3IsoOn(id){
+  var e=LXB[id];if(!e||e.sys!=='mu')return;
+  if(V3Q&&V3Q.on)return;
+  V3.iso=id;V3.sel=id;if(V3.hid)delete V3.hid[id];
+  var done=function(){v3Paint();v3Card();v3IsoFrame(id);V3.need=true;v3Loop()};
+  if(RM.on&&e.gk)rmAttLoad(function(){done()});else done();
+}
+function v3IsoOff(){V3.iso=null;var h=document.getElementById('v3pins');if(h)h.innerHTML='';v3Paint();v3Card()}
+function v3IsoFrame(id){
+  var g=V3.groups[id];if(!g)return;
+  var bx=new THREE.Box3().setFromObject(g);if(bx.isEmpty())return;
+  var c=bx.getCenter(new THREE.Vector3()),sz=bx.getSize(new THREE.Vector3()),r=Math.max(sz.x,sz.y,sz.z);
+  V3.auto=false;var ab=document.querySelector('[data-v3="auto"]');if(ab)ab.setAttribute('aria-pressed','false');
+  v3Tween({dist:Math.max(260,Math.min(V3.fitDist||1150,r*2.6)),tx:c.x,ty:c.y,tz:c.z},550);
+}
+/* pins: one per separate origin or insertion patch (patches closer than ~4 cm share a pin) */
+function v3IsoPinData(e){
+  if(!RM.on||!RM.attIdx||!e.gk)return [];
+  var sd=e.side==='left'?'l':e.side==='right'?'r':'',out=[];
+  rmAttMeshes(e.gk,sd,e.part?e.rbb:null).forEach(function(m){
+    var pos=m.geometry.getAttribute('position');if(!pos)return;
+    var ns=m.userData.nodes||[],off=0,pts=[];
+    ns.forEach(function(n){var cx=0,cy=0,cz=0,k;for(k=0;k<n.nv;k++){cx+=pos.getX(off+k);cy+=pos.getY(off+k);cz+=pos.getZ(off+k)}off+=n.nv;if(n.nv)pts.push([cx/n.nv,cy/n.nv,cz/n.nv])});
+    if(!pts.length&&pos.count){var b=new THREE.Box3().setFromBufferAttribute(pos),c=b.getCenter(new THREE.Vector3());pts.push([c.x,c.y,c.z])}
+    var cl=[];pts.forEach(function(p){var hit=cl.filter(function(q){return Math.hypot(q.p[0]/q.n-p[0],q.p[1]/q.n-p[1],q.p[2]/q.n-p[2])<40})[0];if(hit){hit.p[0]+=p[0];hit.p[1]+=p[1];hit.p[2]+=p[2];hit.n++}else cl.push({p:p.slice(),n:1})});
+    cl.slice(0,3).forEach(function(q){out.push({k:m.userData.k,m:m,p:[q.p[0]/q.n,q.p[1]/q.n,q.p[2]/q.n]})});
+  });
+  return out;
+}
+function v3IsoPins(){
+  var host=document.getElementById('v3pins'),lb=document.getElementById('v3lb');
+  if(!V3.iso){if(host)host.innerHTML='';return}
+  if(!host){host=document.createElement('div');host.id='v3pins';host.className='v3pins';host.setAttribute('aria-hidden','true');lb.parentNode.insertBefore(host,lb.nextSibling)}
+  var e=LXB[V3.iso];if(!e)return;
+  if(!V3.isoPins||V3.isoPins.id!==V3.iso){V3.isoPins={id:V3.iso,d:v3IsoPinData(e)}}
+  var cv=document.getElementById('v3c').getBoundingClientRect(),pr=host.parentNode.getBoundingClientRect(),h='',v=new THREE.Vector3();
+  V3.isoPins.d.forEach(function(d){
+    v.set(d.p[0],d.p[1],d.p[2]);d.m.localToWorld(v);v.project(V3.cam);if(v.z>1)return;
+    var x=(v.x+1)/2*cv.width+cv.left-pr.left,y=(1-v.y)/2*cv.height+cv.top-pr.top;
+    if(x<0||y<0||x>pr.width||y>pr.height)return;
+    h+='<span class="v3pin '+(d.k==='o'?'o':'e')+'" style="left:'+x.toFixed(1)+'px;top:'+y.toFixed(1)+'px"><i></i>'+(d.k==='o'?'Origin':'Insertion')+'</span>';
+  });
+  host.innerHTML=h;
+}
+/* ----- watch the action: reuses the joint lab schematic ----- */
+var V3ACT_JOINT={elbow:['hinge','Elbow'],arm:['ball','Shoulder'],shoulder:['ball','Shoulder'],forearm:['pivot','Forearm'],thigh:['ball','Hip'],hip:['ball','Hip'],knee:['hinge','Knee'],leg:['hinge','Knee'],wrist:['cond','Wrist'],hand:['cond','Wrist'],ankle:['hinge','Ankle'],foot:['hinge','Ankle']};
+var V3ACT_VERB=[['dorsiflex','Dorsiflexion'],['plantarflex','Plantarflexion'],['flex','Flexion'],['extend','Extension'],['abduct','Abduction'],['adduct','Adduction'],['medially rotat','Medial rotation'],['laterally rotat','Lateral rotation'],['supinat','Supination'],['pronat','Pronation']];
+function v3MuActs(ml){
+  if(!ml||!ml.a)return [];
+  var out=[],seen={},prevObj=null;
+  String(ml.a).split(/\.\s*/).forEach(function(sen){
+    var s=' '+sen.toLowerCase()+' ',objs=[],whos=[],wre=/\bthe ([a-z]+ (head|fibres|part|belly))\b/g,wm,found=[];
+    while((wm=wre.exec(s)))whos.push({at:wm.index,w:wm[1].charAt(0).toUpperCase()+wm[1].slice(1)});
+    Object.keys(V3ACT_JOINT).forEach(function(o){var re=new RegExp('\\b(the )?'+o+'s?\\b','g'),m;while((m=re.exec(s)))objs.push({o:o,at:m.index})});
+    objs.sort(function(a,b){return a.at-b.at});
+    V3ACT_VERB.forEach(function(vb){
+      var re=new RegExp('\\b'+vb[0]+'[a-z]*','g'),m;
+      while((m=re.exec(s))){
+        if(vb[0]==='flex'&&/dorsiflex|plantarflex/.test(s.slice(Math.max(0,m.index-6),m.index+10)))continue;
+        var o=objs.filter(function(x){return x.at>m.index})[0],obj=o?o.o:prevObj;
+        if(!obj)continue;
+        /* only "from ... to" style qualifiers are kept in the caption, not used here */
+        var j=V3ACT_JOINT[obj];
+        if(obj==='forearm'&&(vb[1]==='Flexion'||vb[1]==='Extension'))j=V3ACT_JOINT.elbow;
+        if((vb[1]==='Supination'||vb[1]==='Pronation')&&j[0]!=='pivot')j=V3ACT_JOINT.forearm;
+        if((vb[1]==='Dorsiflexion'||vb[1]==='Plantarflexion')&&obj!=='foot'&&obj!=='ankle')continue;
+        if(obj==='foot'&&vb[1]!=='Dorsiflexion'&&vb[1]!=='Plantarflexion')continue;
+        if(j[0]==='hinge'&&!/Flexion|Extension|flexion/.test(vb[1]))continue;
+        if(j[0]==='pivot'&&!/Supination|Pronation/.test(vb[1]))continue;
+        if(j[0]==='cond'&&/rotation/.test(vb[1]))continue;
+        var lab=j[1]+' '+vb[1].toLowerCase();
+        if(j[1]==='Forearm')lab=vb[1]+' of the forearm';
+        var wh=whos.filter(function(x){return x.at<m.index}).pop(),who=wh?wh.w:'';
+        var key=lab+'|'+who;if(seen[key])continue;seen[key]=1;
+        found.push({at:m.index,lab:(who?who+': ':'')+lab,t:j[0],mv:vb[1]});
+      }
+    });
+    found.sort(function(a,b){return a.at-b.at}).forEach(function(x){out.push({lab:x.lab,t:x.t,mv:x.mv})});
+    if(objs.length)prevObj=objs[objs.length-1].o;
+  });
+  return out;
+}
+function v3ActPose(a){
+  var t=a.t,mv=a.mv;
+  if(t==='pivot')return {from:{rot:0},to:{rot:mv==='Supination'?80:-80}};
+  if(t==='hinge'){
+    if(mv==='Extension')return {from:{flex:70},to:{flex:0}};
+    if(mv==='Dorsiflexion')return {from:{flex:0},to:{flex:-35}};
+    if(mv==='Plantarflexion')return {from:{flex:0},to:{flex:45}};
+    return {from:{flex:0},to:{flex:70}};
+  }
+  var ty=JL_TYPES.filter(function(x){return x.id===t})[0],b=ty&&ty.btn.filter(function(x){return x[0]===mv})[0];
+  return {from:{flex:0,abd:0,rot:0},to:b&&typeof b[1]==='object'?b[1]:{}};
+}
+var V3ACT={st:{flex:0,abd:0,rot:0,sx:0,sz:0},raf:0,run:0,t:'hinge',list:[],ml:null};
+function v3ActDraw(){var sj=JLD,st=JLTRAIL;JLD=V3ACT.st;JLTRAIL=[];try{jlDraw(V3ACT.t,'v3actg')}finally{JLD=sj;JLTRAIL=st}}
+function v3ActPlay(i){
+  var a=V3ACT.list[i];if(!a)return;
+  V3ACT.t=a.t;var P=v3ActPose(a),run=++V3ACT.run;cancelAnimationFrame(V3ACT.raf);
+  document.querySelectorAll('#v3act [data-v3="actplay"]').forEach(function(b){b.classList.toggle('on',+b.dataset.i===i);b.setAttribute('aria-pressed',+b.dataset.i===i)});
+  var m=document.getElementById('v3actmsg');if(m)m.textContent=a.lab+'. Tan is the fixed bone, teal is the moving bone.';
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  V3ACT.st={flex:0,abd:0,rot:0,sx:0,sz:0};Object.keys(P.from).forEach(function(k){V3ACT.st[k]=P.from[k]});
+  if(reduce){Object.keys(P.to).forEach(function(k){V3ACT.st[k]=P.to[k]});v3ActDraw();return}
+  var legs=[[P.from,P.to,900],[P.to,P.to,700],[P.to,P.from,700]],li=0,t0=null;
+  function step(ts){
+    if(run!==V3ACT.run||!document.getElementById('v3actg'))return;
+    if(t0===null)t0=ts;var L=legs[li],k=Math.min(1,(ts-t0)/L[2]),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    Object.keys(P.to).forEach(function(key){var a0=L[0][key]!=null?L[0][key]:0,a1=L[1][key]!=null?L[1][key]:0;V3ACT.st[key]=a0+(a1-a0)*e});
+    v3ActDraw();
+    if(k>=1){li++;t0=null;if(li>=legs.length)return}
+    V3ACT.raf=requestAnimationFrame(step);
+  }
+  V3ACT.raf=requestAnimationFrame(step);
+}
+function v3ActOpen(){
+  var e=v3MuE();if(!e)return;
+  var ml=e.ml&&typeof ML_M!=='undefined'?ML_M.filter(function(m){return m.n===e.ml})[0]:null,list=v3MuActs(ml);if(!list.length)return;
+  V3ACT.list=list;V3ACT.ml=ml;
+  var p=document.getElementById('v3act');
+  if(!p){p=document.createElement('div');p.id='v3act';p.className='v3act';p.setAttribute('role','dialog');p.setAttribute('aria-label','Muscle action');document.getElementById('v3').appendChild(p)}
+  var h='<div class="v3act-h"><div><p class="eyebrow">What it does</p><h3>'+blE(ml.n)+'</h3></div><button class="v3x" data-v3="actclose" aria-label="Close">&times;</button></div>'+
+    '<p class="v3act-a">'+blE(ml.a)+'.</p>'+
+    '<div class="v3act-btns">'+list.map(function(a,i){return '<button class="jl-btn" data-v3="actplay" data-i="'+i+'" aria-pressed="false">'+blE(a.lab)+'</button>'}).join('')+'</div>'+
+    '<div class="jl-demo v3act-demo"><svg viewBox="0 0 320 240" role="img" aria-label="Schematic of the movement"><g id="v3actg"></g></svg></div>'+
+    '<p class="jl-msg" id="v3actmsg" aria-live="polite"></p>'+
+    '<p class="bl-hint">A schematic, like the one in the Joint lab: the angles are exaggerated and the drawing is not to scale. Tap a movement to play it again.</p>';
+  p.innerHTML=h;p.hidden=false;
+  v3ActPlay(0);
+}
+function v3ActClose(){V3ACT.run++;cancelAnimationFrame(V3ACT.raf);var p=document.getElementById('v3act');if(p)p.hidden=true}
+function v3MuButtons(e,ml){
+  if(!e||e.sys!=='mu'||V3Q.on)return '';
+  var iso=V3.iso===e.id,acts=v3MuActs(ml);
+  return '<div class="v3mu-b">'+
+    (iso?'<button class="btn small" data-v3="muisox">Exit isolate</button>':'<button class="btn small ghost" data-v3="muiso" title="Show only this muscle and the bones">Isolate</button><button class="btn small ghost" data-v3="muhide" title="Hide this muscle to see what is underneath">Hide</button>')+
+    (acts.length?'<button class="btn small ghost" data-v3="muact">Watch action</button>':'')+'</div>'+
+    (iso?'<p class="v3att"><span><i class="o"></i>origin</span><span><i class="e"></i>insertion</span><span>approximate, from the 3D model</span></p>':'');
 }
 /* ----- structure card for the new layers ----- */
 function v3LxCard(e){
@@ -3422,10 +3677,11 @@ function v3LxCard(e){
   else{
     var ml=e.ml&&typeof ML_M!=='undefined'?ML_M.filter(function(m){return m.n===e.ml})[0]:null;
     if(ml){
-      body='<p><b>Origin:</b> '+blE(ml.o)+'</p><p><b>Insertion:</b> '+blE(ml.i)+'</p><p><b>Nerve:</b> '+blE(ml.nv)+'</p><p><b>Action:</b> '+blE(ml.a)+'</p>'+
+      body=(e.part&&ml.n!==e.n?'<p class="muted">Part of '+blE(ml.n)+'. The details below are for the whole group.</p>':'')+'<p><b>Origin:</b> '+blE(ml.o)+'</p><p><b>Insertion:</b> '+blE(ml.i)+'</p><p><b>Nerve:</b> '+blE(ml.nv)+'</p><p><b>Action:</b> '+blE(ml.a)+'</p>'+
         '<button class="btn small ghost" data-v3="mlab">Open the Muscle lab</button>';
     }else body=e.note?'<p>'+blE(e.note)+'</p>':'<p class="muted">'+(e.sys==='mu'?'No origin and insertion card for this one yet.':'Name only for now.')+'</p>';
-    if(RM.on&&e.sys==='mu'&&e.gk&&(RM.attIdx?rmAttHas(e.gk):true))body+='<button class="btn small ghost" data-v3="att">'+(RM.att.on?'Hide attachments':'Show attachments')+'</button>'+(RM.att.on?'<p class="v3att"><span><i class="o"></i>origin</span><span><i class="e"></i>insertion</span><span>approximate, from the 3D model</span></p>':'');
+    if(e.sys==='mu')body+=v3MuButtons(e,ml);
+    if(RM.on&&e.sys==='mu'&&e.gk&&!V3.iso&&(RM.attIdx?rmAttHas(e.gk):true))body+='<button class="btn small ghost" data-v3="att">'+(RM.att.on?'Hide attachments':'Show attachments')+'</button>'+(RM.att.on?'<p class="v3att"><span><i class="o"></i>origin</span><span><i class="e"></i>insertion</span><span>approximate, from the 3D model</span></p>':'');
     if(e.sys==='mu'&&ml)body+=mlHook(ml.n);
     if(e.sys==='mu')body+=mnBlock(ml?ml.n:(e.gk||e.n));
     body+='<p class="v3sch">'+(RM.on?'Drawn from a real model (adult male). Bodies vary.':'Schematic drawing, not to scale.')+'</p>';
@@ -3447,8 +3703,9 @@ function v3QItem(e){
   v3QShuf(LX).forEach(function(x){if(same.length<3&&!sn[x.n]){sn[x.n]=1;same.push(x.n)}});
   return {q:e.cl?'Name the structure: '+e.cl+'.':'Name the highlighted structure.',a:e.n,w:same,why:e.note?e.n+': '+e.note:e.n+'.'};
 }
-function v3QVis(e){return V3.layers[e.sys]&&(e.dp==null||!RM.on||RM.tiers[e.dp])}
+function v3QVis(e){return V3.layers[e.sys]&&(e.dp==null||!RM.on||RM.tiers[e.dp])&&!(V3.hid&&V3.hid[e.id])}
 function v3QStart(){
+  if(V3.iso)v3IsoOff();v3ActClose();v3HidList(false);
   var pool=LX.filter(v3QVis);
   var m=document.getElementById('v3msg');
   if(!pool.length){m.hidden=false;m.textContent='Turn on a muscle, vessel or organ layer first, then start the quiz.';setTimeout(function(){m.hidden=true},2200);return}
@@ -3851,10 +4108,11 @@ function rmBuildPack(pk,cb){
     var sn={};(RM.structs||[]).forEach(function(s){sn[s.id]=s});
     H.nodes.forEach(function(n){
       var key,layer,gid,ent;
-      if(pk==='muscles'){layer='mu';gid='mu:'+rmSlug(n.gk);key=gid+'|'+n.s}
+      var gkx=pk==='muscles'&&(n.gk==='Erector spinae'||/digiti minimi/i.test(n.gk))?n.nm:n.gk;
+      if(pk==='muscles'){layer='mu';gid='mu:'+rmSlug(gkx);key=gid+'|'+n.s}
       else if(pk==='ligs'){layer='lig';gid='lig:'+rmSlug(n.nm);key=gid+'|'+n.s}
       else{layer=n.sy;gid=n.g;key=gid+'|'+n.s}
-      if(!groups[key]){groups[key]={gid:gid,layer:layer,s:n.s,nodes:[],nm:pk==='muscles'?n.gk:pk==='ligs'?n.nm:(sn[gid]||{}).n||n.nm,ml:null,dp:9,g:n.g};order.push(key)}
+      if(!groups[key]){groups[key]={gid:gid,layer:layer,s:n.s,nodes:[],nm:pk==='muscles'?gkx:pk==='ligs'?n.nm:(sn[gid]||{}).n||n.nm,ml:null,dp:9,g:n.g,part:pk==='muscles'&&gkx!==n.gk};order.push(key)}
       var G=groups[key];G.nodes.push(n);if(n.ml&&!G.ml)G.ml=n.ml;if(n.dp!=null&&n.dp<G.dp)G.dp=n.dp;
     });
     order.forEach(function(key){
@@ -3873,7 +4131,7 @@ function rmBuildPack(pk,cb){
       }
       var grp=rmAddGroup(id,G.layer,kind,rmMerge(G.nodes,colFn),vc,{dp:G.dp===9?null:G.dp,an:rmAnchors(G.nodes)});
       var st0=sn[G.g]||{};
-      var e={id:id,base:G.gid,sys:G.layer,n:G.nm,side:rmSideName(G.s),ml:G.ml,note:pk==='muscles'||pk==='ligs'?'':(st0.note||''),cl:pk==='muscles'||pk==='ligs'?'':(st0.cl||''),reg:'',dp:G.dp===9?null:G.dp,gk:pk==='muscles'?G.nodes[0].gk:null};
+      var e={id:id,base:G.gid,sys:G.layer,n:G.nm,side:rmSideName(G.s),ml:G.ml,note:pk==='muscles'||pk==='ligs'?'':(st0.note||''),cl:pk==='muscles'||pk==='ligs'?'':(st0.cl||''),reg:'',dp:G.dp===9?null:G.dp,gk:pk==='muscles'?G.nodes[0].gk:null,part:!!G.part,rbb:G.part?G.nodes.reduce(function(b,n){return [Math.min(b[0],n.bb[0]),Math.min(b[1],n.bb[1]),Math.min(b[2],n.bb[2]),Math.max(b[3],n.bb[3]),Math.max(b[4],n.bb[4]),Math.max(b[5],n.bb[5])]},[1e9,1e9,1e9,-1e9,-1e9,-1e9]):null};
       LX.push(e);LXB[id]=e;
     });
     RM.built[pk]=true;cb(true);
@@ -3912,15 +4170,15 @@ function rmAttLoad(cb){rmLoad('ins',function(ok){
   }
   cb(true);
 })}
-function rmAttMeshes(gk,sd){
-  var A=RM.att.groups,key=gk+'|'+(sd||'');
+function rmAttMeshes(gk,sd,bb){
+  var A=RM.att.groups,key=gk+'|'+(sd||'')+(bb?'|'+bb.join(','):'');
   if(A[key])return A[key];
-  var ns=(RM.attIdx[gk]||[]).filter(function(n){return !sd||n.s===sd||n.s==='m'}),T=THREE,out=[];
+  var pad=.02,ns=(RM.attIdx[gk]||[]).filter(function(n){if(sd&&n.s!==sd&&n.s!=='m')return false;if(!bb)return true;var c=[(n.bb[0]+n.bb[3])/2,(n.bb[1]+n.bb[4])/2,(n.bb[2]+n.bb[5])/2];return c[0]>bb[0]-pad&&c[0]<bb[3]+pad&&c[1]>bb[1]-pad&&c[1]<bb[4]+pad&&c[2]>bb[2]-pad&&c[2]<bb[5]+pad}),T=THREE,out=[];
   [['o',0x2fbf71],['e',0xff9a2e]].forEach(function(t){
     var list=ns.filter(function(n){return n.k===t[0]});if(!list.length)return;
     var geo=rmMerge(list);
     var mat=new T.MeshStandardMaterial({color:t[1],emissive:t[1],emissiveIntensity:.5,roughness:.5,side:T.DoubleSide,polygonOffset:true,polygonOffsetFactor:-4,polygonOffsetUnits:-4,transparent:true,opacity:.92,depthWrite:false});
-    var m=new T.Mesh(geo,mat);m.renderOrder=6;m.visible=false;m.userData.k=t[0];RM.attGrp.add(m);out.push(m);
+    var m=new T.Mesh(geo,mat);m.renderOrder=6;m.visible=false;m.userData.k=t[0];m.userData.nodes=list;RM.attGrp.add(m);out.push(m);
   });
   A[key]=out;return out;
 }
@@ -3928,9 +4186,10 @@ function rmAttSync(){
   if(!RM.on||!RM.attGrp)return;
   var sel=V3.sel&&LXB[V3.sel],gk=sel&&sel.sys==='mu'?sel.gk:null,g;
   for(g in RM.att.groups)RM.att.groups[g].forEach(function(m){m.visible=false});
-  if(RM.att.on&&gk){rmAttMeshes(gk,sel.side==='left'?'l':sel.side==='right'?'r':'').forEach(function(m){m.visible=true})}
+  if(V3.iso&&LXB[V3.iso]&&RM.attIdx){var ie=LXB[V3.iso];rmAttMeshes(ie.gk,ie.side==='left'?'l':ie.side==='right'?'r':'',ie.part?ie.rbb:null).forEach(function(m){m.visible=true});V3.need=true;return}
+  if(RM.att.on&&gk){rmAttMeshes(gk,sel.side==='left'?'l':sel.side==='right'?'r':'',sel.part?sel.rbb:null).forEach(function(m){m.visible=true})}
   if(RM.att.all){
-    LX.forEach(function(e){if(e.sys==='mu'&&V3.layers.mu&&(e.dp==null||RM.tiers[e.dp]))rmAttMeshes(e.gk,e.side==='left'?'l':e.side==='right'?'r':'').forEach(function(m){m.visible=true})});
+    LX.forEach(function(e){if(e.sys==='mu'&&V3.layers.mu&&(e.dp==null||RM.tiers[e.dp])&&!(V3.hid&&V3.hid[e.id]))rmAttMeshes(e.gk,e.side==='left'?'l':e.side==='right'?'r':'',e.part?e.rbb:null).forEach(function(m){m.visible=true})});
   }
   V3.need=true;
 }
@@ -7951,8 +8210,8 @@ function jlAxes(){
   return {a:R([0,1,0]),u:R([1,0,0])};
 }
 function jlP(v){return [160+v[0]-0.5*v[2],100+v[1]+0.35*v[2]]}
-function jlDraw(tid){
-  var g=document.getElementById('jlg');if(!g)return;
+function jlDraw(tid,gid){
+  var g=document.getElementById(gid||'jlg');if(!g)return;
   var h='';
   if(tid==='plane'){
     var ox=JLD.sx-0.5*JLD.sz,oy=0.35*JLD.sz;
@@ -9837,7 +10096,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V74';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V75';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
