@@ -4223,7 +4223,7 @@ function rmCredits(){
   if(document.getElementById('rmcr'))return;
   var d=document.createElement('div');d.id='rmcr';d.className='rmcr';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Credits and sources');
   var h='<div class="rmcr-card"><button class="rmcr-x" aria-label="Close">&times;</button><h2>Credits and sources</h2>';
-  h+='<h3 class="cr-h">Thanks</h3><p>Big thanks to <b>Jassem A.</b> of the 2030 cohort for reviewing the information and for his suggestions for improving Osteon.</p>';
+  h+='<h3 class="cr-h">Thanks</h3><p>Big thanks to <b>Jassem Almutawa</b> of the 2030 cohort for reviewing the information and for his suggestions for improving Osteon.</p>';
   h+='<h3 class="cr-h">Bone drawings</h3><p>The bone lab drawings are plates from three public-domain atlases. They were cleaned up for this app (the original labels removed) and the highlighted landmarks were added on top. Digitised copies are from the Internet Archive.</p>'+
   '<ul><li><b>Henry Gray</b>, <i>Anatomy of the Human Body</i>, 20th edition, edited by Warren H. Lewis (Lea &amp; Febiger, 1918).</li>'+
   '<li><b>Carl Toldt</b>, <i>An Atlas of Human Anatomy for Students and Physicians</i>, osteology section, translated by M. Eden Paul (Rebman Company, New York).</li>'+
@@ -10096,7 +10096,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V75';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V76';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
