@@ -1163,6 +1163,62 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 .v3act{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 64px);max-height:calc(100% - 170px)}
 @media(max-width:560px){.v3act{bottom:calc(max(8px,env(safe-area-inset-bottom,0px)) + 52px);max-height:calc(100% - 150px)}}
 .v3act .v3x,.v3hidp .v3x{color:var(--ink);opacity:.8}
+/* ===== How to use Osteon ===== */
+.tut-ov{position:fixed;inset:0;z-index:92;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px));background:rgba(3,6,10,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.tut-ov[hidden]{display:none}
+.tut-card{width:min(440px,100%);max-height:100%;overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:18px 20px 18px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.tut-card h2{font-size:26px;line-height:1.15;margin:6px 0 8px}
+.tut-card p{margin:0 0 10px;line-height:1.5}
+.tut-n{color:var(--muted);font-size:14px}
+.tut-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.tut-dots{display:flex;gap:6px}.tut-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.tut-dots i.on{background:var(--accent);width:20px;border-radius:4px}
+.tut-skip,.tut-lnk{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;padding:8px 6px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.tut-ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);margin:4px 0 6px}
+.tut-ic svg,.tut-pi svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tut-ul{margin:0 0 4px;padding:0;list-style:none}
+.tut-ul li{position:relative;padding:0 0 10px 18px;line-height:1.45}
+.tut-ul li:before{content:'';position:absolute;left:2px;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.tut-picks{display:grid;gap:8px;margin:6px 0 2px}
+.tut-pick{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;min-height:60px;border-radius:14px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.tut-pick:hover,.tut-pick:focus-visible{border-color:var(--accent);background:var(--accent-soft);outline:none}
+.tut-pick b{display:block;font-size:15.5px}.tut-pick small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.tut-pi{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft)}
+.tut-bt{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+.tut-bt .btn{min-height:44px;padding-left:20px;padding-right:20px}
+/* tips */
+.tut-tip{position:fixed;z-index:91;background:var(--surface);color:var(--ink);border:1px solid var(--accent);border-radius:16px;padding:12px 14px 8px;box-shadow:0 16px 40px rgba(0,0,0,.42);animation:tutIn .22s ease-out}
+.tut-tip[hidden],.tut-ring[hidden],.tut-arr[hidden]{display:none}
+.tut-tip b{display:block;font-size:15px;margin-bottom:3px}
+.tut-tip p{margin:0 0 6px;font-size:14px;line-height:1.45;color:var(--ink)}
+.tut-tb{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px}
+.tut-tb .btn{min-height:36px}
+.tut-arr{position:absolute;width:14px;height:14px;background:var(--surface);border:1px solid var(--accent);transform:translateX(-50%) rotate(45deg)}
+.tut-arr.up{top:-8px;border-right:0;border-bottom:0}
+.tut-arr.down{bottom:-8px;border-left:0;border-top:0}
+.tut-ring{position:fixed;z-index:90;pointer-events:none;border:2px solid var(--accent);border-radius:14px;box-shadow:0 0 0 4px var(--accent-soft);animation:tutPulse 1.8s ease-in-out 2}
+.tut-tip.rm,.tut-ring.rm{animation:none}
+@keyframes tutIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes tutPulse{50%{box-shadow:0 0 0 9px var(--accent-soft)}}
+@media(prefers-reduced-motion:reduce){.tut-tip,.tut-ring{animation:none}}
+/* guide */
+.tut-gov{align-items:stretch}
+.tut-gcard{width:min(640px,100%);margin:0 auto;display:flex;flex-direction:column;max-height:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.45);overflow:hidden}
+.tut-ghd{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 18px 6px}
+.tut-ghd h2{margin:2px 0 0;font-size:26px}
+.tut-gx{position:static!important}
+.tut-gs{padding:6px 18px 10px;border-bottom:1px solid var(--line)}
+.tut-gs input{width:100%;box-sizing:border-box;min-height:44px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:16px;outline:none}
+.tut-gs input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.tut-gbody{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:4px 18px 18px}
+.tut-sec h3{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:16px 0 4px}
+.tut-it{border-bottom:1px solid var(--line)}
+.tut-ih{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:10px 2px;background:none;border:0;color:var(--ink);font:inherit;font-size:16px;font-weight:600;text-align:left;cursor:pointer}
+.tut-ih i{flex:none;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .15s}
+.tut-it.open .tut-ih i{transform:rotate(225deg) translate(-2px,-1px)}
+.tut-ib{padding:0 2px 12px}.tut-ib p{margin:0 0 8px;line-height:1.5;color:var(--muted)}
+.tut-none{color:var(--muted);margin:18px 0}
+@media(max-width:560px){.tut-gov{padding:0}.tut-gcard{border-radius:0;border:0;width:100%;padding-top:env(safe-area-inset-top,0px)}.tut-card h2,.tut-ghd h2{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.tut-ih i{transition:none}}
 </style>
 
 <div class="app">
@@ -10073,10 +10129,246 @@ document.addEventListener('click',function(e){
   if(a==='next'){if(OSI>=OSSL.length-1){osDone()}else{OSI++;osIntro()}}
   else if(a==='prev'){OSI=Math.max(0,OSI-1);osIntro()}
   else if(a==='skip')osDone();
-  else if(a==='open'){OSI=0;osIntro()}
+  else if(a==='open'){tutGuide(true)}
 });
 function osDone(){try{localStorage.setItem(OSKEY,'1')}catch(e){}osIntro(false)}
-if(!window.__NOHUB)setTimeout(osIntroMaybe,350);
+/* ===== How to use Osteon: welcome (3 steps), one tip per screen, and a guide (Nov 2026) ===== */
+var TUTKEY='osteon-intro-v2',TIPKEY='osteon-tips-v1';
+function tutRM(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}}
+function tutGet(k,d){try{var v=JSON.parse(localStorage.getItem(k)||'null');return v&&typeof v==='object'?v:d}catch(e){return d}}
+function tutSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function tutStandalone(){try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}}
+function tutIOS(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)}
+var TUTI={home:'<svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4zM6 21v-2a6 6 0 0 1 12 0v2"/></svg>',
+ cube:'<svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>',
+ bone:'<svg viewBox="0 0 24 24"><path d="M7 3a3 3 0 0 0-2 5L16 19a3 3 0 1 0 4-1 3 3 0 1 0-1-4L8 3a3 3 0 0 0-1 0z"/></svg>',
+ check:'<svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>',
+ help:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg>',
+ save:'<svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>'};
+
+/* ---------- 1. welcome ---------- */
+var TUTW={i:0};
+function tutWelcomeHTML(){
+  var i=TUTW.i,h='<div class="tut-card" role="dialog" aria-modal="true" aria-labelledby="tutwh"><div class="tut-top"><span class="tut-dots" aria-label="Step '+(i+1)+' of 3">'+[0,1,2].map(function(k){return '<i class="'+(k===i?'on':'')+'"></i>'}).join('')+'</span><button class="tut-skip" data-tut="wskip">Skip</button></div>';
+  if(i===0)h+='<div class="tut-ic">'+TUTI.home+'</div><h2 id="tutwh">Welcome to Osteon</h2><p>Free anatomy revision for KCL 2031, made by a student. No account and no sign-up: your progress stays on this device.</p><p class="tut-n">Osteon is unofficial, so always check it against your lecture notes.</p>';
+  else if(i===1)h+='<div class="tut-ic">'+TUTI.help+'</div><h2 id="tutwh">Help when you need it</h2><ul class="tut-ul"><li><b>One tip per screen.</b> The first time you open each part of Osteon, a short tip points out the one thing to try.</li><li><b>Questions you get wrong come back</b> in your review queue on Home, at the right time.</li><li><b>Stuck?</b> “How to use Osteon” at the bottom of Home explains every feature.</li></ul>';
+  else{h+='<div class="tut-ic">'+TUTI.check+'</div><h2 id="tutwh">Where do you want to start?</h2><div class="tut-picks">'+
+    '<button class="tut-pick" data-tut="go" data-k="v3"><span class="tut-pi">'+TUTI.cube+'</span><span><b>Explore the 3D skeleton</b><small>Turn it, tap a bone or muscle</small></span></button>'+
+    '<button class="tut-pick" data-tut="go" data-k="bl"><span class="tut-pi">'+TUTI.bone+'</span><span><b>Learn a bone’s landmarks</b><small>Bone lab, starting with the humerus</small></span></button>'+
+    '<button class="tut-pick" data-tut="go" data-k="ex"><span class="tut-pi">'+TUTI.check+'</span><span><b>Test myself</b><small>A short exam-style paper</small></span></button></div>';}
+  h+='<div class="tut-bt">'+(i>0?'<button class="btn ghost" data-tut="wprev">Back</button>':'<span></span>')+(i<2?'<button class="btn" data-tut="wnext">Next</button>':'<button class="btn ghost" data-tut="wdone">Just look around</button>')+'</div></div>';
+  return h;
+}
+function tutWelcome(open){
+  var el=document.getElementById('tutw');
+  if(open===false){if(el){el.hidden=true;el.innerHTML=''}return}
+  if(!el){el=document.createElement('div');el.id='tutw';el.className='tut-ov';document.body.appendChild(el)}
+  tutTipClose();el.hidden=false;el.innerHTML=tutWelcomeHTML();
+  var f=el.querySelector('[data-tut="wnext"],[data-tut="go"]');if(f)try{f.focus({preventScroll:true})}catch(e){}
+}
+function tutWelcomeDone(next){
+  try{localStorage.setItem(TUTKEY,'1');localStorage.setItem('osteon-intro-v1','1')}catch(e){}
+  tutWelcome(false);
+  if(next)next();else setTimeout(function(){tutTipFor('hub')},400);
+}
+function tutWelcomeMaybe(){
+  var seen=false;try{seen=!!localStorage.getItem(TUTKEY)}catch(e){}
+  if(!seen){TUTW.i=0;tutWelcome()}else setTimeout(function(){tutTipFor(tutScreen())},300);
+}
+
+/* ---------- 2. one tip per screen, shown once ---------- */
+var TUTTIPS={
+  hub:{t:'#hubq',h:'Search anything',p:'Type a bone, landmark, muscle, joint or cell and tap a result to jump straight to it. Tap the skeleton above to explore it in 3D.',g:'find'},
+  main:{t:'#figwrap',h:'Tap any structure',p:'Tap a bone or joint to learn about it. Switch to Muscles at the top, or press “3D view” to turn the body around.',g:'figure'},
+  v3:{t:'[data-v3="laytoggle"]',h:'Turn it, then tap it',p:'Drag to turn and pinch to zoom. Tap a structure for its card. Layers adds muscles, nerves and organs.',g:'v3'},
+  bl:{t:'#blbq',h:'Pick a bone, then a mode',p:'Search for a bone. Learn shows every landmark, Study hides the names so you recall them, and Test quizzes you.',g:'bl'},
+  jl:{t:'[data-jl="tab"][data-t="moves"]',h:'Start at the top',p:'Work left to right: classes, synovial types, real joints. Movements animates each one, and Quiz tests you.',g:'jl'},
+  ml:{t:'#mlf',h:'Find a muscle fast',p:'Filter by name, nerve or attachment. Turn on “Cover the answers” to test yourself before you look.',g:'ml'},
+  cl:{t:'[data-cl="tab"][data-t="where"]',h:'Three types, then where',p:'Learn hyaline, elastic and fibrocartilage, then see where each one is in the body. Quiz is the last tab.',g:'cl'},
+  mi:{t:'[data-mi="bmode"][data-m="cmp"]',h:'Compare side by side',p:'Pick a tissue along the top. “Compare all” puts the blood cells next to each other, which is how you will see them in exams.',g:'mi'},
+  fc:{t:'[data-fc="open"]',h:'Ready-made or your own',p:'Open a ready-made deck or make your own. Cards you find hard come back sooner. You can also send a deck to Anki.',g:'fc'},
+  ex:{t:'[data-ex="start"]',h:'Choose, then start',p:'Pick topics and a length. Exam mode marks you at the end; Practice explains each answer straight away. Missed questions join your review queue.',g:'ex'},
+  bz:{t:'#bzsel',h:'Write first, then check',p:'Pick a topic and write everything you remember without looking. Osteon then shows what you missed.',g:'bz'}
+};
+var TUTTIP={cur:null,raf:0};
+function tutTipsOn(){return !tutGet(TIPKEY,{}).off}
+function tutTipSeen(k){return !!(tutGet(TIPKEY,{seen:{}}).seen||{})[k]}
+function tutTipMark(k){var s=tutGet(TIPKEY,{});s.seen=s.seen||{};s.seen[k]=1;tutSet(TIPKEY,s)}
+function tutVisible(el){if(!el)return false;var r=el.getBoundingClientRect();if(r.width<2||r.height<2)return false;var st=getComputedStyle(el);return st.visibility!=='hidden'&&st.display!=='none'}
+function tutTipFor(k){
+  if(!k||!TUTTIPS[k]||!tutTipsOn()||tutTipSeen(k))return;
+  var w=document.getElementById('tutw');if(w&&!w.hidden)return;
+  if(TUTTIP.cur)return;
+  var d=TUTTIPS[k],tg=document.querySelector(d.t);
+  if(!tutVisible(tg))tg=null;
+  var el=document.getElementById('tutt');
+  if(!el){el=document.createElement('div');el.id='tutt';el.className='tut-tip';el.setAttribute('role','status');el.setAttribute('aria-live','polite');document.body.appendChild(el)}
+  var ring=document.getElementById('tutr');
+  if(!ring){ring=document.createElement('div');ring.id='tutr';ring.className='tut-ring';ring.setAttribute('aria-hidden','true');document.body.appendChild(ring)}
+  el.innerHTML='<i class="tut-arr"></i><b>'+blE(d.h)+'</b><p>'+blE(d.p)+'</p><div class="tut-tb"><button class="btn small" data-tut="tok">Got it</button><button class="tut-lnk" data-tut="tmore" data-g="'+d.g+'">More help</button><button class="tut-lnk" data-tut="toff">Turn off tips</button></div>';
+  el.hidden=false;ring.hidden=!tg;el.classList.toggle('rm',tutRM());ring.classList.toggle('rm',tutRM());
+  TUTTIP.cur={k:k,tg:tg};tutTipMark(k);tutTipPlace();
+}
+function tutTipPlace(){
+  var c=TUTTIP.cur,el=document.getElementById('tutt'),ring=document.getElementById('tutr');if(!c||!el)return;
+  var W=innerWidth,H=innerHeight,bw=Math.min(340,W-24);el.style.width=bw+'px';
+  var bh=el.offsetHeight,tg=c.tg,arr=el.querySelector('.tut-arr');
+  if(tg&&!document.body.contains(tg))tg=c.tg=null;
+  var r=tg?tg.getBoundingClientRect():null;
+  if(!r||r.bottom<0||r.top>H){el.style.left=Math.round((W-bw)/2)+'px';el.style.top=Math.round(H-bh-Math.max(84,H*.12))+'px';arr.hidden=true;if(ring)ring.hidden=true;return}
+  var below=r.bottom+12+bh<H-60,top=below?r.bottom+12:Math.max(12,r.top-12-bh);
+  var cx=r.left+r.width/2,left=Math.max(12,Math.min(W-bw-12,cx-bw/2));
+  el.style.left=Math.round(left)+'px';el.style.top=Math.round(top)+'px';
+  arr.hidden=false;arr.className='tut-arr '+(below?'up':'down');arr.style.left=Math.round(Math.max(18,Math.min(bw-18,cx-left)))+'px';
+  if(ring){ring.hidden=false;var pad=6;ring.style.left=Math.round(r.left-pad)+'px';ring.style.top=Math.round(r.top-pad)+'px';ring.style.width=Math.round(r.width+pad*2)+'px';ring.style.height=Math.round(r.height+pad*2)+'px'}
+}
+function tutTipClose(){TUTTIP.cur=null;var el=document.getElementById('tutt'),ring=document.getElementById('tutr');if(el)el.hidden=true;if(ring)ring.hidden=true}
+function tutTipsOff(){var s=tutGet(TIPKEY,{});s.off=true;tutSet(TIPKEY,s);tutTipClose()}
+function tutTipsReset(){tutSet(TIPKEY,{seen:{},off:false})}
+window.addEventListener('resize',function(){if(TUTTIP.cur)tutTipPlace()});
+document.addEventListener('scroll',function(){if(TUTTIP.cur){cancelAnimationFrame(TUTTIP.raf);TUTTIP.raf=requestAnimationFrame(tutTipPlace)}},true);
+/* tapping the thing the tip points at counts as "got it" */
+document.addEventListener('click',function(e){var c=TUTTIP.cur;if(c&&c.tg&&c.tg.contains(e.target))tutTipClose()},true);
+document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;var w=document.getElementById('tutw');if(w&&!w.hidden){e.stopPropagation();tutWelcomeDone();return}if(TUTTIP.cur)tutTipClose()},true);
+function tutScreen(){
+  var vis=function(id){var e=document.getElementById(id);return e&&!e.hidden&&tutVisible(e)};
+  var o=[['v3','v3'],['bz','bz'],['ex','ex'],['fc','fc'],['bl','bl'],['jl','jl'],['ml','ml'],['cl','cl'],['mi','mi']];
+  for(var i=0;i<o.length;i++)if(vis(o[i][0]))return o[i][1];
+  if(vis('hub'))return 'hub';
+  return 'main';
+}
+/* show a screen's tip a moment after it opens */
+function tutOnOpen(k){setTimeout(function(){if(tutScreen()===k)tutTipFor(k)},650)}
+(function(){
+  var wrap=function(name,k){try{var f=eval(name);if(typeof f!=='function')return;var g=function(){tutTipClose();var r=f.apply(this,arguments);tutOnOpen(k);return r};eval(name+'=g')}catch(e){}};
+  wrap('blOpen','bl');wrap('jlOpen','jl');wrap('mlOpen','ml');wrap('clOpen','cl');wrap('miOpen','mi');wrap('fcOpen','fc');wrap('exOpen','ex');wrap('v3Open','v3');wrap('bzOpen','bz');
+  wrap('hubClose','main');wrap('hubOpen','hub');
+})();
+
+/* ---------- 3. the guide ---------- */
+var TUTG=[
+ ['start','Start here',[
+  ['find','Search anything','The search bar on Home finds bones, landmarks, joints, muscles and cells. Tap a result to go straight there.','find'],
+  ['continue','Pick up where you left off','“Continue where you left off” on Home takes you back to the last thing you studied.','home'],
+  ['review','Do your review queue','Questions you get wrong come back after a short gap; ones you get right come back later and later. A few minutes a day works better than one long session.','review']]],
+ ['learn','Learn',[
+  ['v3','3D skeleton','Tap the skeleton on Home to open it. Drag to turn, pinch to zoom, tap a structure for its card. Layers adds muscles, ligaments, vessels, nerves and organs.','v3'],
+  ['v3mu','Muscles in 3D','Tap a muscle, then: Show attachments (green origin, orange insertion), Hide it to see what is underneath, Isolate it on its own, or Watch action to see the movement it makes.','v3'],
+  ['figure','Skeleton and muscles figure','A flat, front, back and side figure. Tap a bone, joint or muscle to learn it, then try the Quiz tab.','figure'],
+  ['bl','Bone lab','Search for a bone. Learn shows every landmark on real atlas drawings, Study hides the names so you recall them, and Test quizzes you.','bl'],
+  ['jl','Joint lab','Joint classes, the six synovial types, real joints with their ligaments, and every movement animated.','jl'],
+  ['ml','Muscle lab','Origin, insertion, nerve and action for every muscle, plus muscles by nerve and nerve injuries. Add your own mnemonic to any muscle.','ml'],
+  ['cl','Cartilage lab','The three types of cartilage, where each is found, its zones and the clinical links.','cl'],
+  ['mi','Microanatomy lab','Blood cells, epithelia, connective tissue, muscle tissue and stains. Add your own photos from practicals.','mi']]],
+ ['test','Test yourself',[
+  ['ex','Exam practice','Single-best-answer papers in the style of your exams. Exam mode marks you at the end; Practice explains each answer straight away. Missed questions go into your review queue.','ex'],
+  ['fc','Flashcards','Ready-made decks or your own. Cards you find hard come back sooner. Export any deck to Anki.','fc'],
+  ['recall','Recall first and Cover the answers','Turn these on in the labs to hide the answer until you have tried to remember it. Trying first, even when you get it wrong, is what makes it stick.','ml'],
+  ['bz','Blurt','The Blurt button (bottom right) lets you write everything you remember about a topic, then shows what you missed.','bz'],
+  ['quiz','Quizzes in every lab','Each lab has a Quiz tab, and the 3D skeleton has its own quiz too.','jl']]],
+ ['track','Track your progress',[
+  ['streak','Daily streak','Answer at least one question a day to keep your streak. Tap it on Home for your week and badges.','streak'],
+  ['bodymap','Body map','Shows which regions are going well and which need work, based on your answers.','bodymap'],
+  ['mn','My mnemonics','Every mnemonic you write is saved in one list, on Home and in the Muscle lab.','mn']]],
+ ['data','Your device and your data',[
+  ['save','Where your progress is saved','On this device only, with no account. Clearing your browser’s website data deletes it, so back up now and then.','backup'],
+  ['backup','Back up or move to another device','“Back up or restore progress” at the bottom of Home gives you a code. Paste it on your other device to carry everything over.','backup'],
+  ['install','Add Osteon to your Home Screen','IOSTXT','none'],
+  ['offline','Use it offline','Once Osteon has loaded, it works without signal, including the bone drawings. The 3D models work offline once you have opened them.','none']]],
+ ['help','Help and feedback',[
+  ['fb','Report a mistake','“Send feedback or report an error” opens an email with your screen and device filled in. Every report helps.','fb'],
+  ['tour','See the welcome again','Replays the three welcome steps from the start.','tour'],
+  ['tips','Show the tips again','Brings back the one-line tip on each screen.','tips']]]
+];
+var TUTKW={find:'look up lookup',review:'spaced repetition revise revision due wrong mistakes',v3:'3d three model rotate zoom layers organs nerves vessels',v3mu:'3d hide isolate attachments origin insertion action animation movement',figure:'2d diagram',bl:'bones landmarks atlas drawings study test',jl:'joints ligaments synovial movements animation',ml:'muscles nerves origin insertion action innervation',cl:'cartilage hyaline elastic fibrocartilage',mi:'histology micro cells blood epithelium tissue photos slides',ex:'exam paper sba mcq questions timed mock',fc:'flashcards cards anki decks',recall:'active recall hide answers cover test yourself',bz:'blurt write recall',quiz:'quiz test',streak:'streak badges days',bodymap:'progress regions weak',mn:'mnemonics memory',save:'data storage saved delete lost account login',backup:'backup restore transfer move phone ipad sync device',install:'install app home screen pwa icon',offline:'offline no signal internet wifi tube',fb:'feedback bug error report contact email',tour:'welcome intro tutorial start',tips:'tips hints'};
+var TUTGS={q:'',open:{}};
+function tutInstallText(){
+  if(tutStandalone())return 'Osteon is already on your Home Screen. It opens full screen like an app.';
+  if(tutIOS())return 'In Safari, tap the Share button, then “Add to Home Screen”. Osteon then opens full screen like an app.';
+  return 'In your browser’s menu, choose “Install app” or “Add to Home Screen”. Osteon then opens like an app.';
+}
+function tutGuideHTML(){
+  var q=TUTGS.q.trim().toLowerCase(),h='<div class="tut-gcard" role="dialog" aria-modal="true" aria-labelledby="tutgh"><div class="tut-ghd"><div><p class="eyebrow">Help</p><h2 id="tutgh">How to use Osteon</h2></div><button class="rmcr-x tut-gx" data-tut="gclose" aria-label="Close">&times;</button></div>'+
+    '<div class="tut-gs"><input id="tutgq" type="search" placeholder="Search help, e.g. backup, quiz, 3D" autocomplete="off" aria-label="Search help" value="'+blE(TUTGS.q)+'"></div><div class="tut-gbody" id="tutgb">';
+  var any=false;
+  TUTG.forEach(function(sec){
+    var items=sec[2].filter(function(it){var tx=(it[1]+' '+(it[2]==='IOSTXT'?tutInstallText():it[2])+' '+(TUTKW[it[0]]||'')).toLowerCase(),tn=tx.replace(/[^a-z0-9]+/g,'');return !q||q.split(/\s+/).every(function(w){return tx.indexOf(w)>=0||tn.indexOf(w.replace(/[^a-z0-9]+/g,''))>=0})});
+    if(!items.length)return;any=true;
+    h+='<section class="tut-sec"><h3>'+blE(sec[1])+'</h3>';
+    items.forEach(function(it){
+      var txt=it[2]==='IOSTXT'?tutInstallText():it[2],op=!!q||!!TUTGS.open[it[0]];
+      h+='<div class="tut-it'+(op?' open':'')+'"><button class="tut-ih" data-tut="gtog" data-id="'+it[0]+'" aria-expanded="'+op+'"><span>'+blE(it[1])+'</span><i aria-hidden="true"></i></button>'+
+        '<div class="tut-ib"'+(op?'':' hidden')+'><p>'+blE(txt)+'</p>'+(it[3]!=='none'?'<button class="btn small ghost" data-tut="try" data-a="'+it[3]+'">'+(it[3]==='tour'?'Show the welcome':it[3]==='tips'?'Turn tips back on':it[3]==='fb'?'Send feedback':'Show me')+'</button>':'')+'</div></div>';
+    });
+    h+='</section>';
+  });
+  if(!any)h+='<p class="tut-none">Nothing matches “'+blE(TUTGS.q.slice(0,40))+'”. Try a shorter word, or tap “Send feedback” to ask.</p>';
+  h+='</div></div>';return h;
+}
+function tutGuide(open,focusId){
+  var el=document.getElementById('tutg');
+  if(open===false){if(el)el.hidden=true;return}
+  if(!el){el=document.createElement('div');el.id='tutg';el.className='tut-ov tut-gov';document.body.appendChild(el)}
+  tutTipClose();TUTGS.q='';TUTGS.open={};if(focusId)TUTGS.open[focusId]=1;
+  el.hidden=false;el.innerHTML=tutGuideHTML();
+  if(focusId){var it=el.querySelector('[data-id="'+focusId+'"]');if(it)setTimeout(function(){it.scrollIntoView({block:'center'})},30)}
+  var x=el.querySelector('.tut-gx');if(x)try{x.focus({preventScroll:true})}catch(e){}
+}
+function tutGuideRefresh(){var b=document.getElementById('tutgb');if(!b)return;var tmp=document.createElement('div');tmp.innerHTML=tutGuideHTML();var nb=tmp.querySelector('#tutgb');b.innerHTML=nb.innerHTML}
+document.addEventListener('input',function(e){if(e.target&&e.target.id==='tutgq'){TUTGS.q=e.target.value;tutGuideRefresh()}});
+function tutCloseAll(){
+  ['bl','jl','ml','cl','mi'].forEach(function(k){var e=document.getElementById(k);if(e&&!e.hidden&&tutVisible(e))try{eval(k+'Close()')}catch(x){}});
+  try{if(document.getElementById('fc')&&!document.getElementById('fc').hidden)fcClose()}catch(x){}
+  try{exClose()}catch(x){}
+  try{if(V3.open)v3Close()}catch(x){}
+  try{if(BZ.open)bzClose()}catch(x){}
+}
+function tutGo(a){
+  tutGuide(false);
+  var home=function(){tutCloseAll();if(!HUB.open)hubOpen();else{HUB.view='home';hubRender()}};
+  var clickHub=function(sel){home();setTimeout(function(){var b=document.querySelector('#hub '+sel);if(b)b.click()},60)};
+  switch(a){
+    case 'find':home();setTimeout(function(){var q=document.getElementById('hubq');if(q){q.scrollIntoView({block:'center'});try{q.focus()}catch(e){}}},80);break;
+    case 'home':home();break;
+    case 'review':home();setTimeout(function(){var st=srsStats();if(st.due)hubStartReview();else stToastSafe('Nothing is due yet. Questions you answer in the labs will start to appear here.')},60);break;
+    case 'v3':tutCloseAll();v3Open();break;
+    case 'figure':tutCloseAll();hubClose();break;
+    case 'bl':tutCloseAll();BL.tab='lm';blOpen();break;
+    case 'jl':tutCloseAll();jlOpen();break;
+    case 'ml':tutCloseAll();mlOpen();break;
+    case 'cl':tutCloseAll();clOpen();break;
+    case 'mi':tutCloseAll();miOpen();break;
+    case 'ex':tutCloseAll();exOpen();break;
+    case 'fc':tutCloseAll();fcOpen();break;
+    case 'bz':bzOpen();break;
+    case 'streak':clickHub('[data-st="open"]');break;
+    case 'bodymap':clickHub('[data-bm="open"]');break;
+    case 'mn':home();try{mnOverlay()}catch(e){};break;
+    case 'backup':clickHub('[data-hub="backup"]');break;
+    case 'fb':osFeedback();break;
+    case 'tour':TUTW.i=0;tutWelcome();break;
+    case 'tips':tutTipsReset();stToastSafe('Tips are back on. You will see one on each screen again.');break;
+  }
+}
+function stToastSafe(m){try{stToast(m)}catch(e){}}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-tut]');
+  if(!t){var g=document.getElementById('tutg');if(g&&!g.hidden&&e.target===g)tutGuide(false);return}
+  var a=t.dataset.tut;
+  if(a==='wnext'){TUTW.i=Math.min(2,TUTW.i+1);tutWelcome()}
+  else if(a==='wprev'){TUTW.i=Math.max(0,TUTW.i-1);tutWelcome()}
+  else if(a==='wskip'||a==='wdone')tutWelcomeDone();
+  else if(a==='go'){var k=t.dataset.k;tutWelcomeDone(function(){tutGo(k)})}
+  else if(a==='tok')tutTipClose();
+  else if(a==='toff')tutTipsOff();
+  else if(a==='tmore'){var gk=t.dataset.g;tutTipClose();tutGuide(true,gk)}
+  else if(a==='gclose')tutGuide(false);
+  else if(a==='gtog'){var id=t.dataset.id;TUTGS.open[id]=!TUTGS.open[id];var it=t.parentNode,b=it.querySelector('.tut-ib');it.classList.toggle('open',!!TUTGS.open[id]);b.hidden=!TUTGS.open[id];t.setAttribute('aria-expanded',!!TUTGS.open[id])}
+  else if(a==='try')tutGo(t.dataset.a);
+});
+document.addEventListener('keydown',function(e){var g=document.getElementById('tutg');if(e.key==='Escape'&&g&&!g.hidden){e.stopPropagation();tutGuide(false)}},true);
+
+if(!window.__NOHUB)setTimeout(tutWelcomeMaybe,900);
 
 /* ---- credit guard: the name stays on every screen, and comes back if it is removed ---- */
 var OSBS='position:fixed;left:0;right:0;bottom:max(3px,env(safe-area-inset-bottom,0px));text-align:center;font:600 10.5px/1 system-ui,sans-serif;letter-spacing:.04em;opacity:.5;color:#8fa3b3;pointer-events:none;z-index:95;display:block;visibility:visible;';
@@ -10096,7 +10388,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V76';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V77';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
