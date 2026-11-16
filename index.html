@@ -4139,7 +4139,7 @@ LC.rm=[0xffffff,1];LC.lig=[0xe3dcc4,1];LC.lym=[0x6fbf9a,1];LC.nerve=[0xf0d86a,1]
 var RMK={'hrt-la':'hrt','hrt-lv':'hrt','hrt-valves':'hrt2','hrt-papillary':'hrt','hrt-ra':'hrtb','hrt-rv':'hrtb','hrt-cardiacveins':'hrtb','hv-pulmtrunk':'hrtb','hv-pulmartery':'hrtb','hv-pulmvein':'hrt2',
  'rsp-trachea':'bron','rsp-bronchi':'bron','rsp-llung':'lung','rsp-rlung':'lung','rsp-epiglottis':'lar',
  'dig-liver':'liv','dig-gallbladder':'gb','dig-stomach':'sto','dig-spleen':'spl','dig-pancreas':'pan','dig-oesophagus':'oes','dig-duodenum':'si','dig-smallint':'si','dig-tongue':'oes','dig-salivary':'pan',
- 'dig-caecum':'li','dig-ascending':'li','dig-transverse':'li','dig-descending':'li','dig-sigmoid':'li',
+ 'dig-caecum':'li','dig-appendix':'li','dig-rectum':'li','dig-anal':'li','dig-jejunum':'si','dig-ileum':'si','dig-ascending':'li','dig-transverse':'li','dig-descending':'li','dig-sigmoid':'li',
  'uri-kidney':'kid','uri-pelvis':'blad','uri-ureter':'blad','uri-bladder':'blad','uri-urethra':'blad','uri-adrenal':'adr','end-thyroid':'thy','end-parathyroid':'thy','end-pituitary':'brn','end-pineal':'brn',
  'lym-thymus':'lym','lym-tonsil':'lym','ner-cord':'cord',
  'ner-eye':'eye','dig-nasopharynx':'oes','dig-oropharynx':'oes','dig-laryngopharynx':'oes','rsp-cricoid':'lar','rsp-arytenoid':'lar',
@@ -10479,7 +10479,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V78';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V79';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
