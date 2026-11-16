@@ -1099,6 +1099,15 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 .v3mu-b .btn{min-height:36px}
 .v3hidp{position:absolute;z-index:40;left:12px;top:calc(max(12px,env(safe-area-inset-top,0px)) + 136px);width:min(320px,calc(100% - 24px));max-height:min(320px,60%);overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.4);padding:10px 12px 12px}
 .v3hidp[hidden]{display:none}
+.v3find{position:absolute;z-index:41;right:max(12px,env(safe-area-inset-right,0px));top:calc(max(12px,env(safe-area-inset-top,0px)) + 54px);width:min(340px,calc(100% - 24px));max-height:min(440px,calc(100% - 140px));display:flex;flex-direction:column;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.4);padding:10px 12px 12px}
+.v3find[hidden]{display:none}
+.v3find .v3x{position:static}
+.v3find input{width:100%;box-sizing:border-box;margin:6px 0 8px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:16px}
+.v3fr{overflow:auto;min-height:0}
+.v3fr button{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:10px;text-align:left;background:none;border:0;border-radius:10px;padding:9px 8px;color:var(--ink);font:inherit;font-size:14.5px;cursor:pointer;min-height:40px}
+.v3fr button:hover,.v3fr button:focus-visible,.v3fr button.on{background:var(--line)}
+.v3fr small{color:var(--muted);font-size:12px;white-space:nowrap}
+.v3fr p{margin:6px 4px;color:var(--muted);font-size:13.5px}
 .v3hidp-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
 .v3hidp-h .v3x{position:static}
 .v3hidp ul{list-style:none;margin:0 0 10px;padding:0}
@@ -1271,6 +1280,7 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
     <button class="v3b" data-v3="close">&larr; Back</button>
     <span class="v3title">3D skeleton</span>
     <span class="v3sp"></span>
+    <button class="v3b" id="v3findbtn" data-v3="findtoggle" aria-expanded="false" aria-controls="v3find">Find</button>
     <button class="v3b" id="v3laybtn" data-v3="laytoggle">Layers</button>
     <button class="v3b" data-v3="auto" aria-pressed="false">Auto-spin</button>
     <button class="v3b" data-v3="reset">Reset</button>
@@ -1282,6 +1292,11 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
     <button class="v3b" data-v3="cov">Only covered</button>
     <button class="v3b on" id="v3names" data-v3="names">Show names</button>
     <button class="v3b" id="v3lblbtn" data-v3="lbl">Labels</button>
+  </div>
+  <div id="v3find" class="v3find" hidden>
+    <div class="v3hidp-h"><strong>Find a structure</strong><button class="v3x" data-v3="findclose" aria-label="Close">×</button></div>
+    <input id="v3fq" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. diaphragm, femur, vagus" aria-label="Find a structure in 3D">
+    <div id="v3fr" class="v3fr"></div>
   </div>
   <div class="v3mub">
     <button class="v3b" id="v3hidbtn" data-v3="hidlist" hidden></button>
@@ -2536,7 +2551,7 @@ var LC={mu:[0xb8473c,.78],te:[0xd8cdb2,.7],ar:[0xd8263a,.55],ve:[0x3a63b5,.55],h
   lung:[0xe3a3a6,.85],bron:[0xdfe6ea,.7],liv:[0x8a3d2c,.8],gb:[0x5f8a3a,.6],sto:[0xe0a38c,.8],spl:[0x6b3a58,.8],pan:[0xe4c58b,.8],
   kid:[0x92403a,.75],adr:[0xe2b650,.8],blad:[0xe6bb9c,.75],si:[0xe9a99d,.75],li:[0xcb966d,.8],oes:[0xcc8a82,.8],dia:[0xa85a4a,.8],
   brn:[0xe8c8c3,.85],cord:[0xf2e8c4,.7],thy:[0xc9805f,.8],lar:[0xb8c6cd,.75]};
-LC.cbl=[0xd9aea6,.85];
+LC.cbl=[0xd9aea6,.85];LC.eye=[0xeceee9,1];LC.rep=[0xc98f8f,.85];
 function lxNoise(x,y,z){return G3.noise(x,y,z)}
 var LXT=(function(){
   var T=THREE,PI=Math.PI,V=G3.V;
@@ -3554,7 +3569,80 @@ function v3LayAct(a,b){
     case 'muact':v3ActOpen();break;
     case 'actplay':v3ActPlay(parseInt(b.dataset.i,10));break;
     case 'actclose':v3ActClose();break;
+    case 'findtoggle':v3Find(document.getElementById('v3find').hidden);break;
+    case 'findclose':v3Find(false);break;
+    case 'findgo':v3FindGo(b.dataset.id,b.dataset.ly);break;
   }
+}
+/* ---------- 3D viewer: Find a structure (Nov 2026) ----------
+   models/find.json lists every structure in the layer packs as [id, name, layer], so
+   a buried part (diaphragm, deep muscles, nerves) can be found before its pack loads. */
+var V3F={idx:null,loading:false,hit:[],cur:0};
+function v3FE(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function v3FindIdx(cb){
+  if(V3F.idx){cb();return}
+  var bones=[];
+  ITEMS.forEach(function(it){var g=V3.groups[it.id];if(g&&g.userData&&(g.userData.layer==='bone'||g.userData.layer==='joint'))bones.push([it.id,it.n,g.userData.layer])});
+  var fin=function(rest){V3F.idx=bones.concat(rest||[]);V3F.idx.forEach(function(r){r[3]=v3FNorm(r[1])});cb()};
+  if(!RM.on){v3EnsureLayers(function(){fin(LX.map(function(e){return [e.base||e.id,e.n,e.sys]}).filter(function(r,i,a){return a.findIndex(function(x){return x[0]===r[0]})===i}))});return}
+  if(V3F.loading)return;V3F.loading=true;
+  fetch(RM.base+'find.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+    .then(function(j){V3F.loading=false;fin(j)}).catch(function(){V3F.loading=false;fin([])});
+}
+function v3FNorm(t){return String(t).toLowerCase().replace(/\([^)]*\)/g,function(m){return ' '+m.slice(1,-1)+' '}).replace(/[^a-z0-9]+/g,' ').trim()}
+function v3FLayName(ly){var l=V3LAYS.filter(function(x){return x[0]===ly})[0];return l?l[1]:ly==='bone'?'Bones':ly==='joint'?'Joints':''}
+function v3Find(open){
+  var p=document.getElementById('v3find'),bt=document.getElementById('v3findbtn');if(!p)return;
+  p.hidden=!open;bt.classList.toggle('on',open);bt.setAttribute('aria-expanded',open?'true':'false');
+  if(!open)return;
+  if(typeof v3HidList==='function')v3HidList(false);
+  var lp=document.getElementById('v3lay');if(lp&&!lp.hidden){lp.hidden=true;document.getElementById('v3laybtn').classList.remove('on')}
+  var q=document.getElementById('v3fq');
+  if(!q.dataset.w){q.dataset.w=1;
+    q.addEventListener('input',v3FindList);
+    q.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){e.preventDefault();e.stopPropagation();v3Find(false);return}
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(V3F.hit.length){V3F.cur=(V3F.cur+(e.key==='ArrowDown'?1:-1)+V3F.hit.length)%V3F.hit.length;v3FindList(true)}}
+      if(e.key==='Enter'){e.preventDefault();var h=V3F.hit[V3F.cur];if(h)v3FindGo(h[0],h[2])}
+    },true);
+  }
+  document.getElementById('v3fr').innerHTML='<p>Loading the list…</p>';
+  v3FindIdx(function(){v3FindList()});
+  setTimeout(function(){try{q.focus();q.select()}catch(x){}},30);
+}
+function v3FindList(keep){
+  var q=v3FNorm(document.getElementById('v3fq').value),el=document.getElementById('v3fr');if(!V3F.idx){return}
+  if(keep!==true)V3F.cur=0;
+  if(!q){V3F.hit=[];el.innerHTML='<p>Type the name of a bone, muscle, organ, vessel or nerve. Osteon turns on its layer and flies the camera to it.</p>';return}
+  var ws=q.split(' '),sc=[];
+  V3F.idx.forEach(function(r){
+    var t=r[3],tc=t.replace(/ /g,'');
+    if(!ws.every(function(w){return t.indexOf(w)>=0})&&tc.indexOf(q.replace(/ /g,''))<0)return;
+    var s=t===q?0:t.indexOf(q)===0?1:(' '+t).indexOf(' '+q)>=0?2:3;sc.push([s,t.length,r]);
+  });
+  sc.sort(function(a,b){return a[0]-b[0]||a[1]-b[1]});
+  V3F.hit=sc.slice(0,14).map(function(x){return x[2]});
+  if(!V3F.hit.length){el.innerHTML='<p>Nothing called “'+v3FE(document.getElementById('v3fq').value)+'” in the 3D model. Try another spelling or a shorter word.</p>';return}
+  el.innerHTML=V3F.hit.map(function(r,i){return '<button data-v3="findgo" data-id="'+v3FE(r[0])+'" data-ly="'+v3FE(r[2])+'"'+(i===V3F.cur?' class="on"':'')+'><span>'+v3FE(r[1])+'</span><small>'+v3FE(v3FLayName(r[2]))+'</small></button>'}).join('');
+}
+function v3FindGo(id,ly){
+  if(V3Q&&V3Q.on)return;
+  v3Find(false);
+  var go=function(){
+    var pick=LXB[id]?id:LXB[id+'.r']?id+'.r':LXB[id+'.l']?id+'.l':V3.groups[id]?id:null;
+    if(!pick){var m=document.getElementById('v3msg');m.hidden=false;m.textContent='That part could not be loaded on this device.';setTimeout(function(){m.hidden=true},2600);return}
+    if(V3.iso&&V3.iso!==pick)v3IsoOff();
+    V3.layers[ly]=true;var e=LXB[pick];
+    if(e&&e.dp!=null&&RM.tiers&&!RM.tiers[e.dp])RM.tiers[e.dp]=1;
+    if(V3.hid&&V3.hid[pick])v3MuShow(pick);
+    v3Sync();
+    /* bones are never hidden, so just select them; anything else may sit behind muscle, so show it on its own (Exit isolate brings the rest back) */
+    if(ly==='bone'||ly==='joint'){v3Select(pick);v3IsoFrame(pick)}
+    else if(e&&e.sys==='mu')v3IsoOn(pick);
+    else{V3.iso=pick;V3.sel=pick;v3Paint();v3Card();v3MuSync();v3IsoFrame(pick)}
+    V3.need=true;if(typeof v3Loop==='function')v3Loop();
+  };
+  if(ly==='bone'||ly==='joint')go();else v3EnsureLayers(go,[ly]);
 }
 /* ---------- 3D viewer: hide single muscles, isolate one, watch its action (Nov 2026) ---------- */
 function v3MuE(){return V3.sel&&LXB[V3.sel]&&LXB[V3.sel].sys==='mu'?LXB[V3.sel]:null}
@@ -3810,7 +3898,7 @@ window.__V3={sel:function(id){v3Select(id)},RM:RM,V3:V3,open:function(){v3Open()
 /* ---------- 3D labels: names set beside the figure, by region and system ---------- */
 var V3L={more:false,on:false,mode:'names',reg:{},sys:{bone:1,mu:1,joint:1,lig:1,vas:1,ner:1,org:1},rev:{},open:false,clean:false,occ:{},list:[],num:{},H:0,key:'',pend:null,capped:false,occT:0,mvT:0,ptr:null};
 var V3LREG=[['head','Head and neck'],['thorax','Thorax'],['abd','Abdomen and pelvis'],['arm','Arms'],['leg','Legs']];
-var V3LSYS=[['bone','Bones',['bone']],['mu','Muscles',['mu']],['joint','Joints',['joint']],['lig','Ligaments',['lig']],['vas','Vessels',['ar','ve','hrt']],['ner','Nerves',['ner']],['org','Organs',['resp','dig','uri','end','lym']]];
+var V3LSYS=[['bone','Bones',['bone']],['mu','Muscles',['mu']],['joint','Joints',['joint']],['lig','Ligaments',['lig']],['vas','Vessels',['ar','ve','hrt']],['ner','Nerves',['ner']],['org','Organs',['resp','dig','uri','end','lym']],['rep','Reproductive',['rep']]];
 function v3LblSysOf(layer){for(var i=0;i<V3LSYS.length;i++)if(V3LSYS[i][2].indexOf(layer)>=0)return V3LSYS[i][0];return null}
 /* anchors for a set of model nodes: one per side, in world units */
 function rmAnchors(nodes){
@@ -4046,14 +4134,16 @@ window.__LBL={L:V3L,cands:v3LblCands,reg:v3LblReg,H:v3LblH};
 /* ---------- real anatomy models: loader, builders, attachments, credits ---------- */
 RM.base='models/';RM.on=false;RM.probed=false;RM.built={};RM.loading={};RM.att={on:false,all:false,groups:{}};
 RM.tiers=[1,1,1];
-RM.PACKOF={mu:'muscles',lig:'ligs',ar:'vasc',ve:'vasc',hrt:'vasc',resp:'org',dig:'org',uri:'org',end:'org',lym:'org',ner:'nerv'};
+RM.PACKOF={mu:'muscles',lig:'ligs',ar:'vasc',ve:'vasc',hrt:'vasc',resp:'org',dig:'org',uri:'org',end:'org',lym:'org',rep:'org',ner:'nerv'};
 LC.rm=[0xffffff,1];LC.lig=[0xe3dcc4,1];LC.lym=[0x6fbf9a,1];LC.nerve=[0xf0d86a,1];LC.cart=[0xcfe0e6,1];
 var RMK={'hrt-la':'hrt','hrt-lv':'hrt','hrt-valves':'hrt2','hrt-papillary':'hrt','hrt-ra':'hrtb','hrt-rv':'hrtb','hrt-cardiacveins':'hrtb','hv-pulmtrunk':'hrtb','hv-pulmartery':'hrtb','hv-pulmvein':'hrt2',
  'rsp-trachea':'bron','rsp-bronchi':'bron','rsp-llung':'lung','rsp-rlung':'lung','rsp-epiglottis':'lar',
  'dig-liver':'liv','dig-gallbladder':'gb','dig-stomach':'sto','dig-spleen':'spl','dig-pancreas':'pan','dig-oesophagus':'oes','dig-duodenum':'si','dig-smallint':'si','dig-tongue':'oes','dig-salivary':'pan',
  'dig-caecum':'li','dig-ascending':'li','dig-transverse':'li','dig-descending':'li','dig-sigmoid':'li',
  'uri-kidney':'kid','uri-pelvis':'blad','uri-ureter':'blad','uri-bladder':'blad','uri-urethra':'blad','uri-adrenal':'adr','end-thyroid':'thy','end-parathyroid':'thy','end-pituitary':'brn','end-pineal':'brn',
- 'lym-thymus':'lym','lym-tonsil':'lym','ner-cord':'cord'};
+ 'lym-thymus':'lym','lym-tonsil':'lym','ner-cord':'cord',
+ 'ner-eye':'eye','dig-nasopharynx':'oes','dig-oropharynx':'oes','dig-laryngopharynx':'oes','rsp-cricoid':'lar','rsp-arytenoid':'lar',
+ 'rep-testis':'rep','rep-prostate':'rep','rep-seminal':'rep','rep-penis':'rep'};
 function rmKind(g,sys){
   if(RMK[g])return RMK[g];
   if(sys==='ar'||sys==='ve')return sys;
@@ -4267,8 +4357,8 @@ function rmProbe(cb){
   fetch(RM.base+'structs.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('x');return r.json()}).then(function(j){
     j.forEach(function(s){if(s.note)s.note=osWM(s.note)});
     RM.structs=j;RM.on=true;
-    V3LAYS.splice(2,0,['lig','Ligaments','#c9d3a6']);V3LAYS.splice(V3LAYS.length-1,0,['lym','Lymphatic','#6fbf9a']);
-    V3SYSN.lig='Ligaments and cartilage';V3SYSN.lym='Lymphatic system';V3SYSN.bone='Skeleton';
+    V3LAYS.splice(2,0,['lig','Ligaments','#c9d3a6']);V3LAYS.splice(V3LAYS.length-1,0,['lym','Lymphatic','#6fbf9a'],['rep','Reproductive','#c98f8f']);
+    V3SYSN.lig='Ligaments and cartilage';V3SYSN.lym='Lymphatic system';V3SYSN.rep='Reproductive system (male)';V3SYSN.bone='Skeleton';
     V3PRE.splice(1,0,['Bones + ligaments',{bone:1,joint:1,lig:1}]);
     LX.length=0;Object.keys(LXB).forEach(function(k){delete LXB[k]});
     cb();
@@ -10180,7 +10270,7 @@ function tutWelcomeMaybe(){
 var TUTTIPS={
   hub:{t:'#hubq',h:'Search anything',p:'Type a bone, landmark, muscle, joint or cell and tap a result to jump straight to it. Tap the skeleton above to explore it in 3D.',g:'find'},
   main:{t:'#figwrap',h:'Tap any structure',p:'Tap a bone or joint to learn about it. Switch to Muscles at the top, or press “3D view” to turn the body around.',g:'figure'},
-  v3:{t:'[data-v3="laytoggle"]',h:'Turn it, then tap it',p:'Drag to turn and pinch to zoom. Tap a structure for its card. Layers adds muscles, nerves and organs.',g:'v3'},
+  v3:{t:'[data-v3="laytoggle"]',h:'Turn it, then tap it',p:'Drag to turn and pinch to zoom. Tap a structure for its card. Layers adds muscles, nerves and organs. Find jumps straight to any part.',g:'v3'},
   bl:{t:'#blbq',h:'Pick a bone, then a mode',p:'Search for a bone. Learn shows every landmark, Study hides the names so you recall them, and Test quizzes you.',g:'bl'},
   jl:{t:'[data-jl="tab"][data-t="moves"]',h:'Start at the top',p:'Work left to right: classes, synovial types, real joints. Movements animates each one, and Quiz tests you.',g:'jl'},
   ml:{t:'#mlf',h:'Find a muscle fast',p:'Filter by name, nerve or attachment. Turn on “Cover the answers” to test yourself before you look.',g:'ml'},
@@ -10253,6 +10343,7 @@ var TUTG=[
   ['review','Do your review queue','Questions you get wrong come back after a short gap; ones you get right come back later and later. A few minutes a day works better than one long session.','review']]],
  ['learn','Learn',[
   ['v3','3D skeleton','Tap the skeleton on Home to open it. Drag to turn, pinch to zoom, tap a structure for its card. Layers adds muscles, ligaments, vessels, nerves and organs.','v3'],
+  ['v3find','Find a part in 3D','Tap Find at the top and type a name, like diaphragm or vagus. Osteon turns on the right layer, flies to it and, if something covers it, shows it on its own. Tap Exit isolate to see everything again.','v3'],
   ['v3mu','Muscles in 3D','Tap a muscle, then: Show attachments (green origin, orange insertion), Hide it to see what is underneath, Isolate it on its own, or Watch action to see the movement it makes.','v3'],
   ['figure','Skeleton and muscles figure','A flat, front, back and side figure. Tap a bone, joint or muscle to learn it, then try the Quiz tab.','figure'],
   ['bl','Bone lab','Search for a bone. Learn shows every landmark on real atlas drawings, Study hides the names so you recall them, and Test quizzes you.','bl'],
@@ -10280,7 +10371,7 @@ var TUTG=[
   ['tour','See the welcome again','Replays the three welcome steps from the start.','tour'],
   ['tips','Show the tips again','Brings back the one-line tip on each screen.','tips']]]
 ];
-var TUTKW={find:'look up lookup',review:'spaced repetition revise revision due wrong mistakes',v3:'3d three model rotate zoom layers organs nerves vessels',v3mu:'3d hide isolate attachments origin insertion action animation movement',figure:'2d diagram',bl:'bones landmarks atlas drawings study test',jl:'joints ligaments synovial movements animation',ml:'muscles nerves origin insertion action innervation',cl:'cartilage hyaline elastic fibrocartilage',mi:'histology micro cells blood epithelium tissue photos slides',ex:'exam paper sba mcq questions timed mock',fc:'flashcards cards anki decks',recall:'active recall hide answers cover test yourself',bz:'blurt write recall',quiz:'quiz test',streak:'streak badges days',bodymap:'progress regions weak',mn:'mnemonics memory',save:'data storage saved delete lost account login',backup:'backup restore transfer move phone ipad sync device',install:'install app home screen pwa icon',offline:'offline no signal internet wifi tube',fb:'feedback bug error report contact email',tour:'welcome intro tutorial start',tips:'tips hints'};
+var TUTKW={find:'look up lookup',review:'spaced repetition revise revision due wrong mistakes',v3:'3d three model rotate zoom layers organs nerves vessels',v3find:'3d search find locate where is missing hidden buried deep organ',v3mu:'3d hide isolate attachments origin insertion action animation movement',figure:'2d diagram',bl:'bones landmarks atlas drawings study test',jl:'joints ligaments synovial movements animation',ml:'muscles nerves origin insertion action innervation',cl:'cartilage hyaline elastic fibrocartilage',mi:'histology micro cells blood epithelium tissue photos slides',ex:'exam paper sba mcq questions timed mock',fc:'flashcards cards anki decks',recall:'active recall hide answers cover test yourself',bz:'blurt write recall',quiz:'quiz test',streak:'streak badges days',bodymap:'progress regions weak',mn:'mnemonics memory',save:'data storage saved delete lost account login',backup:'backup restore transfer move phone ipad sync device',install:'install app home screen pwa icon',offline:'offline no signal internet wifi tube',fb:'feedback bug error report contact email',tour:'welcome intro tutorial start',tips:'tips hints'};
 var TUTGS={q:'',open:{}};
 function tutInstallText(){
   if(tutStandalone())return 'Osteon is already on your Home Screen. It opens full screen like an app.';
@@ -10388,7 +10479,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V77';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V78';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
