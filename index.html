@@ -192,6 +192,8 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .v3b.sq{width:44px;padding:0;font-size:20px}
 .v3card{position:absolute;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 56px);width:min(360px,calc(100% - 32px));background:rgba(18,25,34,.9);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:12px 14px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .v3card[hidden]{display:none}
+.v3card{max-height:calc(100% - 210px);overflow:auto;overscroll-behavior:contain}
+@media(max-width:560px){.v3card{max-height:min(44vh,calc(100% - 190px))}}
 .v3card h3{font:400 24px/1.1 var(--f-display);margin:0 24px 2px 0}
 .v3card p{margin:0 0 6px;color:#C5CEDB;font-size:13.5px}
 .v3card .eyebrow{color:#93A0B3}
@@ -199,7 +201,7 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .v3x{position:absolute;top:6px;right:8px;border:0;background:transparent;color:#C5CEDB;font-size:24px;line-height:1;padding:6px 10px;min-height:40px}
 .v3hint{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 62px);margin:0;max-width:260px;text-align:right;font-size:12px;color:#7F8DA1;pointer-events:none}
 @media(max-width:700px){.v3hint{display:none}.v3title{font-size:20px}.v3b{padding:7px 11px;font-size:13px}}
-@media(max-width:560px){.v3title{display:none}.v3top,.v3chips,.v3bar{flex-wrap:nowrap;gap:6px}.v3b{padding:6px 9px;font-size:12.5px;min-height:38px}.v3b.sq{width:38px;font-size:18px}.v3chips{top:calc(max(12px,env(safe-area-inset-top,0px)) + 48px)}.v3bar{width:calc(100% - 24px)}}
+@media(max-width:560px){.v3srch{width:auto;flex:1;min-width:120px;padding:0 10px}.v3title{display:none}.v3top,.v3chips,.v3bar{flex-wrap:nowrap;gap:6px}.v3b{padding:6px 9px;font-size:12.5px;min-height:38px}.v3b.sq{width:38px;font-size:18px}.v3chips{top:calc(max(12px,env(safe-area-inset-top,0px)) + 48px)}.v3bar{width:calc(100% - 24px)}}
 .v3lay{position:absolute;top:calc(max(12px,env(safe-area-inset-top,0px)) + 54px);right:max(12px,env(safe-area-inset-right,0px));width:238px;max-height:calc(100% - 150px);overflow:auto;background:rgba(16,23,32,.93);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:10px 10px 12px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:3;touch-action:pan-y}
 .v3lay[hidden]{display:none}
 .ly-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font:400 22px/1 var(--f-display)}
@@ -226,7 +228,7 @@ svg#fig{display:block;margin:0 auto;width:100%;height:auto;max-height:68vh;touch
 .v3qa{display:flex;gap:8px;margin-top:10px}
 .v3side{font-size:15px;color:#93A0B3}
 .v3sch{font-size:11.5px;color:#7F8DA1;margin:6px 0 0}
-@media(max-width:700px){.v3lay{width:min(260px,calc(100% - 24px))}.v3opts{grid-template-columns:1fr}}
+@media(max-width:700px){.v3lay{width:min(260px,calc(100% - 24px));z-index:7}.v3opts{grid-template-columns:1fr}}
 
 .v3ll,.v3lb{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
 .v3lb button.lb{position:absolute;left:0;top:0;pointer-events:auto;display:flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:7px;border:1px solid rgba(34,229,242,.55);background:rgba(11,17,24,.84);color:#E9F0F8;font:600 12px/1 system-ui,-apple-system,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -1099,15 +1101,19 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
 .v3mu-b .btn{min-height:36px}
 .v3hidp{position:absolute;z-index:40;left:12px;top:calc(max(12px,env(safe-area-inset-top,0px)) + 136px);width:min(320px,calc(100% - 24px));max-height:min(320px,60%);overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.4);padding:10px 12px 12px}
 .v3hidp[hidden]{display:none}
-.v3find{position:absolute;z-index:41;right:max(12px,env(safe-area-inset-right,0px));top:calc(max(12px,env(safe-area-inset-top,0px)) + 54px);width:min(340px,calc(100% - 24px));max-height:min(440px,calc(100% - 140px));display:flex;flex-direction:column;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.4);padding:10px 12px 12px}
+.v3find{position:absolute;z-index:41;left:max(12px,env(safe-area-inset-left,0px));top:calc(max(12px,env(safe-area-inset-top,0px)) + 104px);width:min(340px,calc(100% - 24px));max-height:min(440px,calc(100% - 170px));display:flex;flex-direction:column;background:rgba(16,23,32,.97);color:#E6EBF2;border:1px solid rgba(255,255,255,.2);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.45);padding:6px}
+.v3srch{display:flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.2);background:rgba(20,28,38,.72);color:#AEB8C6;border-radius:999px;padding:0 12px;min-height:40px;width:240px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:text}
+.v3srch:focus-within{border-color:#22E5F2;color:#E6EBF2}
+.v3srch svg{flex:none}
+.v3srch input{flex:1;min-width:0;border:0;background:none;color:#E6EBF2;font:inherit;font-size:16px;padding:6px 0;outline:none}
+.v3srch input::placeholder{color:#93A0B2}
+.v3srch input::-webkit-search-cancel-button{filter:invert(1);opacity:.6}
 .v3find[hidden]{display:none}
-.v3find .v3x{position:static}
-.v3find input{width:100%;box-sizing:border-box;margin:6px 0 8px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:16px}
 .v3fr{overflow:auto;min-height:0}
-.v3fr button{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:10px;text-align:left;background:none;border:0;border-radius:10px;padding:9px 8px;color:var(--ink);font:inherit;font-size:14.5px;cursor:pointer;min-height:40px}
-.v3fr button:hover,.v3fr button:focus-visible,.v3fr button.on{background:var(--line)}
-.v3fr small{color:var(--muted);font-size:12px;white-space:nowrap}
-.v3fr p{margin:6px 4px;color:var(--muted);font-size:13.5px}
+.v3fr button{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:10px;text-align:left;background:none;border:0;border-radius:10px;padding:9px 10px;color:#E6EBF2;font:inherit;font-size:14.5px;cursor:pointer;min-height:40px}
+.v3fr button:hover,.v3fr button:focus-visible,.v3fr button.on{background:rgba(34,229,242,.18)}
+.v3fr small{color:#93A0B2;font-size:12px;white-space:nowrap}
+.v3fr p{margin:8px 10px;color:#AEB8C6;font-size:13.5px}
 .v3hidp-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
 .v3hidp-h .v3x{position:static}
 .v3hidp ul{list-style:none;margin:0 0 10px;padding:0}
@@ -1280,23 +1286,18 @@ a:focus-visible,select:focus-visible,[role=button]:focus-visible,[tabindex]:focu
     <button class="v3b" data-v3="close">&larr; Back</button>
     <span class="v3title">3D skeleton</span>
     <span class="v3sp"></span>
-    <button class="v3b" id="v3findbtn" data-v3="findtoggle" aria-expanded="false" aria-controls="v3find">Find</button>
     <button class="v3b" id="v3laybtn" data-v3="laytoggle">Layers</button>
     <button class="v3b" data-v3="auto" aria-pressed="false">Auto-spin</button>
     <button class="v3b" data-v3="reset">Reset</button>
     <button class="v3b" data-v3="full">Full screen</button>
   </div>
   <div class="v3chips">
-    <button class="v3b on" data-v3="bone">Bones</button>
-    <button class="v3b on" data-v3="joint">Joints</button>
-    <button class="v3b" data-v3="cov">Only covered</button>
-    <button class="v3b on" id="v3names" data-v3="names">Show names</button>
-    <button class="v3b" id="v3lblbtn" data-v3="lbl">Labels</button>
+    <label class="v3srch"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><input id="v3fq" type="search" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="Search, e.g. diaphragm" aria-label="Search the 3D model" aria-controls="v3find" aria-expanded="false"></label>
+    <button class="v3b" id="v3lblbtn" data-v3="lbl" aria-pressed="false">Labels</button>
+    <button class="v3b" id="v3names" data-v3="names" aria-pressed="false">Test me</button>
   </div>
   <div id="v3find" class="v3find" hidden>
-    <div class="v3hidp-h"><strong>Find a structure</strong><button class="v3x" data-v3="findclose" aria-label="Close">×</button></div>
-    <input id="v3fq" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. diaphragm, femur, vagus" aria-label="Find a structure in 3D">
-    <div id="v3fr" class="v3fr"></div>
+    <div id="v3fr" class="v3fr" role="listbox" aria-label="Search results"></div>
   </div>
   <div class="v3mub">
     <button class="v3b" id="v3hidbtn" data-v3="hidlist" hidden></button>
@@ -3300,9 +3301,9 @@ function v3Card(){
   if(!it){el.hidden=true;return}
   el.hidden=false;
   var cov=st.covered.has(it.id),f=it.f||{};
-  var head=V3.names?'<h3>'+it.n+'</h3><p class="eyebrow">'+CAT[it.cat]+' · '+it.reg+'</p>':'<h3>Which structure is this?</h3><p class="eyebrow">Name it yourself, then reveal</p>';
-  var body=V3.names?'<p>'+it.note+'</p>':'<button class="btn small" data-v3="reveal">Reveal</button>';
-  el.innerHTML='<button class="v3x" data-v3="clear" aria-label="Dismiss">×</button>'+head+body+(V3.names?'<label class="check"><input type="checkbox" data-v3cov="'+it.id+'"'+(cov?' checked':'')+'><span>Covered in class</span></label>':'');
+  var head=v3ShowNm()?'<h3>'+it.n+'</h3><p class="eyebrow">'+CAT[it.cat]+' · '+it.reg+'</p>':'<h3>Which structure is this?</h3><p class="eyebrow">Name it yourself, then reveal</p>';
+  var body=v3ShowNm()?'<p>'+it.note+'</p>':'<button class="btn small" data-v3="reveal">Reveal</button>';
+  el.innerHTML='<button class="v3x" data-v3="clear" aria-label="Dismiss">×</button>'+head+body+(v3ShowNm()?'<label class="check"><input type="checkbox" data-v3cov="'+it.id+'"'+(cov?' checked':'')+'><span>Covered in class</span></label>':'');
 }
 function v3Select(id){V3.sel=id;v3Paint();v3Card()}
 function v3Pick(cx,cy){
@@ -3418,9 +3419,9 @@ function v3Wire(){
       case 'auto':V3.auto=!V3.auto;b.classList.toggle('on',V3.auto);b.setAttribute('aria-pressed',V3.auto);V3.last=performance.now();break;
       case 'bone':case 'joint':
         V3.layers[a]=!V3.layers[a];if(!v3AnyOn())V3.layers[a]=true;v3Paint();break;
-      case 'cov':V3.onlyCov=!V3.onlyCov;b.classList.toggle('on',V3.onlyCov);v3Paint();break;
-      case 'names':V3.names=!V3.names;b.classList.toggle('on',V3.names);v3Card();break;
-      case 'reveal':V3.names=true;$('#v3names').classList.add('on');v3Card();break;
+      case 'cov':V3.onlyCov=!V3.onlyCov;b.classList.toggle('on',V3.onlyCov);b.setAttribute('aria-pressed',V3.onlyCov);v3Paint();break;
+      case 'names':V3.names=!V3.names;V3.rev1=null;b.classList.toggle('on',!V3.names);b.setAttribute('aria-pressed',!V3.names);if(typeof V3L!=='undefined'){V3L.mode=V3.names?'names':'quiz';V3L.rev={};V3L.lastH='';if(V3L.open)v3LblPanel()}v3Card();break;
+      case 'reveal':V3.rev1=V3.sel;v3Card();break;
       case 'clear':v3Select(null);break;
       case 'full':v3Full();break;
       default:if(!v3LblAct(a,b))v3LayAct(a,b);
@@ -3502,7 +3503,7 @@ function v3LayHTML(){
     h+='<div class="ly-tier"><span>Muscle depth</span><button class="v3b" data-v3="tier" data-i="0" aria-pressed="true">Surface</button><button class="v3b" data-v3="tier" data-i="1" aria-pressed="true">Middle</button><button class="v3b" data-v3="tier" data-i="2" aria-pressed="true">Deep</button></div>'+
       '<div class="ly-tier"><span>Attachments</span><button class="v3b" data-v3="attall" aria-pressed="false">Show on all muscles</button></div>';
   }
-  h+='<div class="ly-act"><button class="v3b" data-v3="quiz">Quiz me on visible layers</button></div>';
+  h+='<div class="ly-act"><button class="v3b'+(V3.onlyCov?' on':'')+'" data-v3="cov" aria-pressed="'+!!V3.onlyCov+'">Only bones covered in class</button><button class="v3b" data-v3="quiz">Quiz me on visible layers</button></div>';
   h+=RM.on?'<p class="ly-note">Real open anatomy models (adult male). Positions are true to the model, but bodies vary. <button class="ly-lnk" data-v3="credits">Model credits</button></p>':'<p class="ly-note">Schematic drawings made for revision: positions and sizes are approximate, not a scan or a licensed model.</p>';
   return h;
 }
@@ -3522,6 +3523,7 @@ function v3Sync(){
   if(typeof V3L!=='undefined'&&V3L.open)v3LblPanel();
   v3MuSync();
 }
+function v3ShowNm(){return V3.names||(V3.rev1!=null&&V3.rev1===V3.sel)}
 function v3AnyOn(){return V3LAYS.some(function(l){return V3.layers[l[0]]})}
 function v3NeedsLayers(map){return Object.keys(map).some(function(k){return k!=='bone'&&k!=='joint'&&map[k]})}
 function v3EnsureLayers(then,keys){
@@ -3569,7 +3571,6 @@ function v3LayAct(a,b){
     case 'muact':v3ActOpen();break;
     case 'actplay':v3ActPlay(parseInt(b.dataset.i,10));break;
     case 'actclose':v3ActClose();break;
-    case 'findtoggle':v3Find(document.getElementById('v3find').hidden);break;
     case 'findclose':v3Find(false);break;
     case 'findgo':v3FindGo(b.dataset.id,b.dataset.ly);break;
   }
@@ -3592,28 +3593,34 @@ function v3FindIdx(cb){
 function v3FNorm(t){return String(t).toLowerCase().replace(/\([^)]*\)/g,function(m){return ' '+m.slice(1,-1)+' '}).replace(/[^a-z0-9]+/g,' ').trim()}
 function v3FLayName(ly){var l=V3LAYS.filter(function(x){return x[0]===ly})[0];return l?l[1]:ly==='bone'?'Bones':ly==='joint'?'Joints':''}
 function v3Find(open){
-  var p=document.getElementById('v3find'),bt=document.getElementById('v3findbtn');if(!p)return;
-  p.hidden=!open;bt.classList.toggle('on',open);bt.setAttribute('aria-expanded',open?'true':'false');
+  var p=document.getElementById('v3find'),q=document.getElementById('v3fq');if(!p||!q)return;
+  if(p.hidden===!open)return;
+  p.hidden=!open;q.setAttribute('aria-expanded',open?'true':'false');
   if(!open)return;
   if(typeof v3HidList==='function')v3HidList(false);
-  var lp=document.getElementById('v3lay');if(lp&&!lp.hidden){lp.hidden=true;document.getElementById('v3laybtn').classList.remove('on')}
-  var q=document.getElementById('v3fq');
-  if(!q.dataset.w){q.dataset.w=1;
-    q.addEventListener('input',v3FindList);
-    q.addEventListener('keydown',function(e){
-      if(e.key==='Escape'){e.preventDefault();e.stopPropagation();v3Find(false);return}
-      if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(V3F.hit.length){V3F.cur=(V3F.cur+(e.key==='ArrowDown'?1:-1)+V3F.hit.length)%V3F.hit.length;v3FindList(true)}}
-      if(e.key==='Enter'){e.preventDefault();var h=V3F.hit[V3F.cur];if(h)v3FindGo(h[0],h[2])}
-    },true);
-  }
-  document.getElementById('v3fr').innerHTML='<p>Loading the list…</p>';
+  var lp=document.getElementById('v3lay');if(lp&&!lp.hidden&&window.innerWidth<700){lp.hidden=true;document.getElementById('v3laybtn').classList.remove('on')}
+  if(!V3F.idx)document.getElementById('v3fr').innerHTML='<p>Loading the list…</p>';
   v3FindIdx(function(){v3FindList()});
-  setTimeout(function(){try{q.focus();q.select()}catch(x){}},30);
 }
+(function(){
+  var q=document.getElementById('v3fq');if(!q)return;
+  q.addEventListener('focus',function(){v3Find(true)});
+  q.addEventListener('input',function(){v3Find(true);v3FindList()});
+  q.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){e.preventDefault();e.stopPropagation();if(q.value){q.value='';v3FindList()}else{v3Find(false);q.blur()}return}
+    if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();v3Find(true);if(V3F.hit.length){V3F.cur=(V3F.cur+(e.key==='ArrowDown'?1:-1)+V3F.hit.length)%V3F.hit.length;v3FindList(true)}}
+    if(e.key==='Enter'){e.preventDefault();var h=V3F.hit[V3F.cur];if(h)v3FindGo(h[0],h[2])}
+  },true);
+  document.addEventListener('pointerdown',function(e){
+    var p=document.getElementById('v3find');if(!p||p.hidden)return;
+    if(e.target.closest&&(e.target.closest('.v3srch')||e.target.closest('#v3find')))return;
+    v3Find(false);
+  },true);
+})();
 function v3FindList(keep){
   var q=v3FNorm(document.getElementById('v3fq').value),el=document.getElementById('v3fr');if(!V3F.idx){return}
   if(keep!==true)V3F.cur=0;
-  if(!q){V3F.hit=[];el.innerHTML='<p>Type the name of a bone, muscle, organ, vessel or nerve. Osteon turns on its layer and flies the camera to it.</p>';return}
+  if(!q){V3F.hit=[];el.innerHTML='<p>Type a bone, muscle, organ, vessel or nerve. Osteon turns on its layer, flies to it and shows it on its own if something covers it.</p>';return}
   var ws=q.split(' '),sc=[];
   V3F.idx.forEach(function(r){
     var t=r[3],tc=t.replace(/ /g,'');
@@ -3627,7 +3634,7 @@ function v3FindList(keep){
 }
 function v3FindGo(id,ly){
   if(V3Q&&V3Q.on)return;
-  v3Find(false);
+  v3Find(false);var fq=document.getElementById('v3fq');if(fq){fq.value='';fq.blur()}
   var go=function(){
     var pick=LXB[id]?id:LXB[id+'.r']?id+'.r':LXB[id+'.l']?id+'.l':V3.groups[id]?id:null;
     if(!pick){var m=document.getElementById('v3msg');m.hidden=false;m.textContent='That part could not be loaded on this device.';setTimeout(function(){m.hidden=true},2600);return}
@@ -3686,7 +3693,10 @@ function v3IsoFrame(id){
   var bx=new THREE.Box3().setFromObject(g);if(bx.isEmpty())return;
   var c=bx.getCenter(new THREE.Vector3()),sz=bx.getSize(new THREE.Vector3()),r=Math.max(sz.x,sz.y,sz.z);
   V3.auto=false;var ab=document.querySelector('[data-v3="auto"]');if(ab)ab.setAttribute('aria-pressed','false');
-  v3Tween({dist:Math.max(260,Math.min(V3.fitDist||1150,r*2.6)),tx:c.x,ty:c.y,tz:c.z},550);
+  var d=Math.max(260,Math.min(V3.fitDist||1150,r*2.6)),ty=c.y;
+  /* on a phone the card covers the bottom of the screen, so aim below the part to lift it into the clear area */
+  if(window.innerWidth<700&&window.innerHeight>window.innerWidth){var fv=(V3.cam&&V3.cam.fov||32)*Math.PI/360;ty=c.y-2*d*Math.tan(fv)*0.2}
+  v3Tween({dist:d,tx:c.x,ty:ty,tz:c.z},550);
 }
 /* pins: one per separate origin or insertion patch (patches closer than ~4 cm share a pin) */
 function v3IsoPinData(e){
@@ -3815,9 +3825,9 @@ function v3MuButtons(e,ml){
 /* ----- structure card for the new layers ----- */
 function v3LxCard(e){
   var el=document.getElementById('v3card');el.hidden=false;
-  var head=V3.names?'<h3>'+blE(e.n)+(e.side?' <span class="v3side">('+e.side+')</span>':'')+'</h3><p class="eyebrow">'+V3SYSN[e.sys]+'</p>':'<h3>What is this structure?</h3><p class="eyebrow">Name it yourself, then reveal</p>';
+  var head=v3ShowNm()?'<h3>'+blE(e.n)+(e.side?' <span class="v3side">('+e.side+')</span>':'')+'</h3><p class="eyebrow">'+V3SYSN[e.sys]+'</p>':'<h3>What is this structure?</h3><p class="eyebrow">Name it yourself, then reveal</p>';
   var body='';
-  if(!V3.names){body='<button class="btn small" data-v3="reveal">Reveal</button>'}
+  if(!v3ShowNm()){body='<button class="btn small" data-v3="reveal">Reveal</button>'}
   else{
     var ml=e.ml&&typeof ML_M!=='undefined'?ML_M.filter(function(m){return m.n===e.ml})[0]:null;
     if(ml){
@@ -4089,7 +4099,7 @@ function v3LblCam(){
 /* ---------- panel ---------- */
 function v3LblPanel(){
   var el=document.getElementById('v3lbp');if(!el)return;
-  var q=V3L.mode==='quiz'&&V3L.on,h='<div class="lbs-r"><div class="lb-seg"><button class="v3b'+(V3L.on&&V3L.mode==='names'?' on':'')+'" data-v3="lbmode" data-m="names">Names</button><button class="v3b'+(V3L.on&&V3L.mode==='quiz'?' on':'')+'" data-v3="lbmode" data-m="quiz">Test me</button><button class="v3b'+(!V3L.on?' on':'')+'" data-v3="lbmode" data-m="off">Off</button></div><span class="lbs-g">';
+  var q=V3L.mode==='quiz'&&V3L.on,h='<div class="lbs-r"><span class="lb-h">'+(q?'Test me: tap a tag to reveal it':'Name tags in')+'</span><span class="lbs-g">';
   V3LREG.forEach(function(r){h+='<button class="v3b'+(V3L.reg[r[0]]?' on':'')+'" data-v3="lbreg" data-k="'+r[0]+'">'+r[1]+'</button>'});
   h+='<button class="v3b'+(V3L.more?' on':'')+'" data-v3="lbmore">More</button><button class="v3b sq" data-v3="lbp" aria-label="Close labels">&times;</button></span></div>';
   if(V3L.more){
@@ -4107,7 +4117,7 @@ function v3LblPanel(){
 function v3LblOff(){V3L.on=false;V3L.lastH='';v3LblFrame();V3.need=true;var c=document.getElementById('v3lblbtn');if(c)c.classList.remove('on')}
 function v3LblAct(a,b){
   switch(a){
-    case 'lbl':{V3L.open=!V3L.open;if(!V3L.open){document.getElementById('v3lbp').hidden=true;v3LblOff();break}if(V3L.open&&!document.getElementById('v3lbp').innerHTML)v3LblPanel();
+    case 'lbl':{V3L.mode=V3.names?'names':'quiz';V3L.open=!V3L.open;if(!V3L.open){document.getElementById('v3lbp').hidden=true;v3LblOff();break}if(V3L.open&&!document.getElementById('v3lbp').innerHTML)v3LblPanel();
       if(V3L.open){V3L.on=true;v3LblPanel();var ly=document.getElementById('v3lay');if(ly&&!ly.hidden&&window.innerWidth<700){ly.hidden=true;document.getElementById('v3laybtn').classList.remove('on')}}
       document.getElementById('v3lbp').hidden=!V3L.open;b.classList.toggle('on',V3L.on);break}
     case 'lbmore':V3L.more=!V3L.more;v3LblPanel();break;
@@ -10270,7 +10280,7 @@ function tutWelcomeMaybe(){
 var TUTTIPS={
   hub:{t:'#hubq',h:'Search anything',p:'Type a bone, landmark, muscle, joint or cell and tap a result to jump straight to it. Tap the skeleton above to explore it in 3D.',g:'find'},
   main:{t:'#figwrap',h:'Tap any structure',p:'Tap a bone or joint to learn about it. Switch to Muscles at the top, or press “3D view” to turn the body around.',g:'figure'},
-  v3:{t:'[data-v3="laytoggle"]',h:'Turn it, then tap it',p:'Drag to turn and pinch to zoom. Tap a structure for its card. Layers adds muscles, nerves and organs. Find jumps straight to any part.',g:'v3'},
+  v3:{t:'[data-v3="laytoggle"]',h:'Turn it, then tap it',p:'Drag to turn and pinch to zoom. Tap a structure for its card. Search jumps straight to any part. Test me hides the names.',g:'v3'},
   bl:{t:'#blbq',h:'Pick a bone, then a mode',p:'Search for a bone. Learn shows every landmark, Study hides the names so you recall them, and Test quizzes you.',g:'bl'},
   jl:{t:'[data-jl="tab"][data-t="moves"]',h:'Start at the top',p:'Work left to right: classes, synovial types, real joints. Movements animates each one, and Quiz tests you.',g:'jl'},
   ml:{t:'#mlf',h:'Find a muscle fast',p:'Filter by name, nerve or attachment. Turn on “Cover the answers” to test yourself before you look.',g:'ml'},
@@ -10342,8 +10352,9 @@ var TUTG=[
   ['continue','Pick up where you left off','“Continue where you left off” on Home takes you back to the last thing you studied.','home'],
   ['review','Do your review queue','Questions you get wrong come back after a short gap; ones you get right come back later and later. A few minutes a day works better than one long session.','review']]],
  ['learn','Learn',[
-  ['v3','3D skeleton','Tap the skeleton on Home to open it. Drag to turn, pinch to zoom, tap a structure for its card. Layers adds muscles, ligaments, vessels, nerves and organs.','v3'],
-  ['v3find','Find a part in 3D','Tap Find at the top and type a name, like diaphragm or vagus. Osteon turns on the right layer, flies to it and, if something covers it, shows it on its own. Tap Exit isolate to see everything again.','v3'],
+  ['v3','3D skeleton','Tap the skeleton on Home to open it. Drag to turn, pinch to zoom, tap a structure for its card. Layers adds muscles, ligaments, vessels, nerves and organs. Labels puts name tags on the model.','v3'],
+  ['v3test','Test yourself in 3D','Turn on Test me. Cards ask "Which structure is this?" instead of naming it, and name tags stay hidden until you tap them. Turn it off to see names again.','v3'],
+  ['v3find','Find a part in 3D','Type a name in the search box at the top, like diaphragm or vagus. Osteon turns on the right layer, flies to it and, if something covers it, shows it on its own. Tap Exit isolate to see everything again.','v3'],
   ['v3mu','Muscles in 3D','Tap a muscle, then: Show attachments (green origin, orange insertion), Hide it to see what is underneath, Isolate it on its own, or Watch action to see the movement it makes.','v3'],
   ['figure','Skeleton and muscles figure','A flat, front, back and side figure. Tap a bone, joint or muscle to learn it, then try the Quiz tab.','figure'],
   ['bl','Bone lab','Search for a bone. Learn shows every landmark on real atlas drawings, Study hides the names so you recall them, and Test quizzes you.','bl'],
@@ -10371,7 +10382,7 @@ var TUTG=[
   ['tour','See the welcome again','Replays the three welcome steps from the start.','tour'],
   ['tips','Show the tips again','Brings back the one-line tip on each screen.','tips']]]
 ];
-var TUTKW={find:'look up lookup',review:'spaced repetition revise revision due wrong mistakes',v3:'3d three model rotate zoom layers organs nerves vessels',v3find:'3d search find locate where is missing hidden buried deep organ',v3mu:'3d hide isolate attachments origin insertion action animation movement',figure:'2d diagram',bl:'bones landmarks atlas drawings study test',jl:'joints ligaments synovial movements animation',ml:'muscles nerves origin insertion action innervation',cl:'cartilage hyaline elastic fibrocartilage',mi:'histology micro cells blood epithelium tissue photos slides',ex:'exam paper sba mcq questions timed mock',fc:'flashcards cards anki decks',recall:'active recall hide answers cover test yourself',bz:'blurt write recall',quiz:'quiz test',streak:'streak badges days',bodymap:'progress regions weak',mn:'mnemonics memory',save:'data storage saved delete lost account login',backup:'backup restore transfer move phone ipad sync device',install:'install app home screen pwa icon',offline:'offline no signal internet wifi tube',fb:'feedback bug error report contact email',tour:'welcome intro tutorial start',tips:'tips hints'};
+var TUTKW={find:'look up lookup',review:'spaced repetition revise revision due wrong mistakes',v3:'3d three model rotate zoom layers organs nerves vessels',v3test:'3d test me quiz hide names labels self test reveal show names',v3find:'3d search find locate where is missing hidden buried deep organ',v3mu:'3d hide isolate attachments origin insertion action animation movement',figure:'2d diagram',bl:'bones landmarks atlas drawings study test',jl:'joints ligaments synovial movements animation',ml:'muscles nerves origin insertion action innervation',cl:'cartilage hyaline elastic fibrocartilage',mi:'histology micro cells blood epithelium tissue photos slides',ex:'exam paper sba mcq questions timed mock',fc:'flashcards cards anki decks',recall:'active recall hide answers cover test yourself',bz:'blurt write recall',quiz:'quiz test',streak:'streak badges days',bodymap:'progress regions weak',mn:'mnemonics memory',save:'data storage saved delete lost account login',backup:'backup restore transfer move phone ipad sync device',install:'install app home screen pwa icon',offline:'offline no signal internet wifi tube',fb:'feedback bug error report contact email',tour:'welcome intro tutorial start',tips:'tips hints'};
 var TUTGS={q:'',open:{}};
 function tutInstallText(){
   if(tutStandalone())return 'Osteon is already on your Home Screen. It opens full screen like an app.';
@@ -10479,7 +10490,7 @@ try{console.log('%cOsteon · © 2026 Yusuf Butt. All rights reserved.','font:600
 function osLog(src,q,ok){try{stRecord(ok)}catch(e){}try{var L=JSON.parse(localStorage.getItem(OSLOG)||'[]');if(!Array.isArray(L))L=[];L.push({s:src,q:q,ok:ok?1:0,t:Date.now()});if(L.length>4000)L=L.slice(L.length-4000);localStorage.setItem(OSLOG,JSON.stringify(L))}catch(e){}}
 
 /* ---- feedback: opens a pre-filled email with screen and device info ---- */
-var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V79';
+var OSMAIL='automations.by.yusuf@gmail.com',OSVER='Osteon V80';
 function osScreen(){
   var m={bl:'Bone lab',jl:'Joint lab',cl:'Cartilage lab',ml:'Muscle lab',mi:'Microanatomy lab',fc:'Flashcards',ex:'Exam practice',hub:'Home'},w='Home';
   ['bl','jl','cl','ml','mi','fc','ex'].forEach(function(id){var e=document.getElementById(id);if(e&&!e.hidden&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0)w=m[id]});
